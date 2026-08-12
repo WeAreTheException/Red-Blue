@@ -175,6 +175,7 @@ collision_mask = 0
 metadata/_edit_lock_ = true
 
 [node name="Polygon2D" type="Polygon2D" parent="Environemnt/Starting" unique_id=1944099913]
+visible = false
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
 polygon = PackedVector2Array(-96, 7, -152, 7, -152, 39, -96, 39, -40, 39, -40, 31, -96, 31)
 metadata/_edit_lock_ = true
@@ -191,6 +192,7 @@ collision_mask = 0
 metadata/_edit_lock_ = true
 
 [node name="Polygon2D" type="Polygon2D" parent="Environemnt/Ceiling" unique_id=1934848830]
+visible = false
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
 polygon = PackedVector2Array(-72, 8, -116, 8.000004, -116, 32.000004, -72, 32)
 metadata/_edit_lock_ = true
@@ -199,23 +201,12 @@ metadata/_edit_lock_ = true
 polygon = PackedVector2Array(-116, 8.000004, -116, 32.000004, -72, 32, -72, 8)
 metadata/_edit_lock_ = true
 
-[node name="Hill" type="StaticBody2D" parent="Environemnt" unique_id=1789605754]
-position = Vector2(20, 112)
-rotation = 1.5707964
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("8_agwlh")
-affiliation = 0
-metadata/_edit_lock_ = true
-
-[node name="Polygon2D" type="Polygon2D" parent="Environemnt/Hill" unique_id=2020604429]
-color = Color(0.25565878, 0.25565878, 0.25565878, 1)
-polygon = PackedVector2Array(-32, 8.000002, -100, 8.000004, -100, 32.000004, -64, 32.000004, -64, 60, -32, 60)
-metadata/_edit_lock_ = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environemnt/Hill" unique_id=1048950190]
-polygon = PackedVector2Array(-100, 8.000004, -100, 32.000004, -64, 32.000004, -64, 60, -32, 60, -32, 8.000002)
-metadata/_edit_lock_ = true
+[node name="Polygon2D2" type="Polygon2D" parent="Environemnt/Ceiling" unique_id=1919532431]
+visible = false
+position = Vector2(-36, 32)
+rotation = -1.5707964
+color = Color(0.2159017, 0.21590173, 0.2159017, 1)
+polygon = PackedVector2Array(-152, -40, -136, -40, -136, -56, -120, -56, -120, -72, -8, -72, -8.004562, -64.53364, 0, -64, 0, -72, 0, -80, -152, -80)
 
 [node name="SpikeBlk" type="StaticBody2D" parent="Environemnt" unique_id=1245400944]
 position = Vector2(-48, 80)
@@ -224,28 +215,13 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Polygon2D" type="Polygon2D" parent="Environemnt/SpikeBlk" unique_id=575602988]
+visible = false
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
 polygon = PackedVector2Array(-82, 8.000004, -100, 8.000004, -100, 32.000004, -82, 32.000004)
 metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environemnt/SpikeBlk" unique_id=653926482]
 polygon = PackedVector2Array(-100, 8.000004, -100, 32.000004, -82, 32.000004, -82, 8.000004)
-metadata/_edit_lock_ = true
-
-[node name="Ending" type="StaticBody2D" parent="Environemnt" unique_id=1413787997]
-position = Vector2(252, -52)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("8_agwlh")
-affiliation = 1
-
-[node name="Polygon2D" type="Polygon2D" parent="Environemnt/Ending" unique_id=2131213646]
-color = Color(0.25565878, 0.25565878, 0.25565878, 1)
-polygon = PackedVector2Array(-100, 8, -152, 8, -152, 32, -100, 32)
-metadata/_edit_lock_ = true
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environemnt/Ending" unique_id=1221892209]
-polygon = PackedVector2Array(-152, 8, -152, 32, -100, 32, -100, 8)
 metadata/_edit_lock_ = true
 
 [node name="Blue" type="StaticBody2D" parent="Environemnt" unique_id=1880961341]
@@ -264,12 +240,24 @@ metadata/_edit_lock_ = true
 polygon = PackedVector2Array(-152, 8, -152, 32, -100, 32, -100, 8)
 metadata/_edit_lock_ = true
 
+[node name="Polygon2D2" type="Polygon2D" parent="Environemnt/Blue" unique_id=2131213646]
+position = Vector2(88, -88)
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+polygon = PackedVector2Array(-100, 8, -152, 8, -152, 32, -100, 32)
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Environemnt/Blue" unique_id=1221892209]
+position = Vector2(88, -88)
+polygon = PackedVector2Array(-152, 8, -152, 32, -100, 32, -100, 8)
+metadata/_edit_lock_ = true
+
 [node name="RightSide" type="StaticBody2D" parent="Environemnt" unique_id=41269882]
 position = Vector2(252, -40)
 collision_layer = 2
 collision_mask = 0
 
 [node name="Polygon2D" type="Polygon2D" parent="Environemnt/RightSide" unique_id=1478918475]
+visible = false
 position = Vector2(1.5258789e-05, 20)
 scale = Vector2(1, 0.8333333)
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
@@ -278,14 +266,28 @@ polygon = PackedVector2Array(-100.000015, 105.600006, -240.00002, 105.600006, -2
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environemnt/RightSide" unique_id=1645320793]
 polygon = PackedVector2Array(-240, 108, -240, 120, -100, 120, -100, 108)
 
-[node name="Polygon2D" type="Polygon2D" parent="Environemnt" unique_id=1919532431]
-color = Color(0.2159017, 0.21590173, 0.2159017, 1)
-polygon = PackedVector2Array(-152, -40, -136, -40, -136, -56, -120, -56, -120, -72, -8, -72, -8.004562, -64.53364, 0, -64, 0, -72, 0, -80, -152, -80)
-
 [node name="Polygon2D2" type="Polygon2D" parent="Environemnt" unique_id=1401268965]
 position = Vector2(108, 60)
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
 polygon = PackedVector2Array(32, 8, 44, 8, 44, -56, 44, -80, 32, -80, 32, -68)
+
+[node name="Red" type="StaticBody2D" parent="Environemnt" unique_id=1789605754]
+position = Vector2(20, 112)
+rotation = 1.5707964
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("8_agwlh")
+affiliation = 0
+metadata/_edit_lock_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="Environemnt/Red" unique_id=2020604429]
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+polygon = PackedVector2Array(-32, 8.000002, -100, 8.000004, -100, 32.000004, -64, 32.000004, -64, 60, -32, 60)
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environemnt/Red" unique_id=1048950190]
+polygon = PackedVector2Array(-100, 8.000004, -100, 32.000004, -64, 32.000004, -64, 60, -32, 60, -32, 8.000002)
+metadata/_edit_lock_ = true
 
 [node name="Spike" type="StaticBody2D" parent="." unique_id=1831043350]
 script = ExtResource("8_agwlh")
