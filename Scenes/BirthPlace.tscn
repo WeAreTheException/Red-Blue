@@ -4,12 +4,14 @@
 [ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="2_l37n1"]
 [ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="3_xv7f0"]
 [ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="4_4htjr"]
-[ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Music/GameSoundTiimi.wav" id="5_6g11n"]
+[ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Sound/Music/TimMusic1.wav" id="5_6g11n"]
 [ext_resource type="Script" uid="uid://bc8ga5yqpyjpy" path="res://ColorChange/ColorReactive.gd" id="6_k3vep"]
 [ext_resource type="Script" uid="uid://dtkl3wqummjce" path="res://ColorChange/ColorSystemRoot.gd" id="7_8tuvi"]
+[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="7_arsq6"]
 [ext_resource type="Script" uid="uid://crllsr20fv40p" path="res://ColorChange/ColorState.gd" id="7_tc4kj"]
 [ext_resource type="Script" uid="uid://bi0lyeuxnc8dh" path="res://ColorChange/ColorEjectionResolver.gd" id="8_ipy5m"]
 [ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://ColorChange/PlayerColorController.gd" id="9_nkd7i"]
+[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="10_arsq6"]
 [ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://ColorChange/PlayerColorEjectionBridge.gd" id="10_erifg"]
 [ext_resource type="Script" uid="uid://c7i4l0nrk4ryw" path="res://ColorChange/HitstopController.gd" id="12_5tbh7"]
 [ext_resource type="Script" uid="uid://brgsaiua8sfhw" path="res://Player/PlayerMovement/PlayerStateDebugLabel.gd" id="13_x5dqp"]
@@ -115,6 +117,15 @@ metadata/_custom_type_script = "uid://bla5jhlpbksb4"
 [node name="PlayerColorEjectionBridge" type="Node" parent="Player/Color" unique_id=1628955122]
 script = ExtResource("10_erifg")
 metadata/_custom_type_script = "uid://c0xmcdujgwai2"
+
+[node name="SFX" type="Node" parent="Player" unique_id=1904351981 node_paths=PackedStringArray("dash_sfx")]
+script = ExtResource("7_arsq6")
+dash_sfx = NodePath("Dash")
+
+[node name="Dash" type="AudioStreamPlayer" parent="Player/SFX" unique_id=2123002089]
+stream = ExtResource("10_arsq6")
+volume_db = -5.0
+pitch_scale = 1.1
 
 [node name="Environment" type="Node2D" parent="." unique_id=1526362816]
 
@@ -399,6 +410,7 @@ metadata/_custom_type_script = "uid://bc8ga5yqpyjpy"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=828042478]
 stream = ExtResource("5_6g11n")
+volume_db = -20.558
 autoplay = true
 
 [node name="ColorStuff" type="Node" parent="." unique_id=206227053]

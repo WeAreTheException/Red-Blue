@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://m8m7wny643w4"
-path="res://.godot/imported/GameSoundTiimi.wav-d9db96a984cad8e776b32292ab7d9dd5.sample"
+path="res://.godot/imported/TimMusic1.wav-0a33dd712d7c78de791cfeff6bc73df4.sample"
 
 [deps]
 
-source_file="res://Music/GameSoundTiimi.wav"
-dest_files=["res://.godot/imported/GameSoundTiimi.wav-d9db96a984cad8e776b32292ab7d9dd5.sample"]
+source_file="res://Sound/Music/TimMusic1.wav"
+dest_files=["res://.godot/imported/TimMusic1.wav-0a33dd712d7c78de791cfeff6bc73df4.sample"]
 
 [params]
 
