@@ -11,6 +11,7 @@
 [ext_resource type="Shader" uid="uid://d3c2dgk2l2g8h" path="res://Shaders/Subpixilizer.gdshader" id="10_g1c7i"]
 [ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="11_qmbnc"]
 [ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="12_6idcn"]
+[ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Music/GameSoundTiimi.wav" id="13_07l0d"]
 [ext_resource type="Texture2D" uid="uid://bfjbvpnwn2w3b" path="res://Levels/Level1/Level1.png" id="13_jcn68"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7bnq"]
@@ -89,6 +90,10 @@ metadata/_custom_type_script = "uid://bla5jhlpbksb4"
 [node name="PlayerColorEjectionBridge" type="Node" parent="Player/Color" unique_id=2071144529]
 script = ExtResource("7_1ls4d")
 metadata/_custom_type_script = "uid://c0xmcdujgwai2"
+
+[node name="Spawn" type="Node2D" parent="." unique_id=50164995]
+position = Vector2(-140, 48)
+metadata/_edit_lock_ = true
 
 [node name="Environemnt" type="Node2D" parent="." unique_id=1267867367]
 
@@ -289,85 +294,81 @@ metadata/_edit_lock_ = true
 polygon = PackedVector2Array(-100, 8.000004, -100, 32.000004, -64, 32.000004, -64, 60, -32, 60, -32, 8.000002)
 metadata/_edit_lock_ = true
 
-[node name="Spike" type="StaticBody2D" parent="." unique_id=1831043350]
+[node name="Spike" type="StaticBody2D" parent="Environemnt" unique_id=1831043350]
 script = ExtResource("8_agwlh")
 hostile = true
 hostile_contact_margin = 0.1
 metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
 
-[node name="NeutralSpike" type="Sprite2D" parent="Spike" unique_id=1753104948]
+[node name="NeutralSpike" type="Sprite2D" parent="Environemnt/Spike" unique_id=1753104948]
 position = Vector2(-76, -24)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_lpd4p")
 metadata/_edit_lock_ = true
 
-[node name="NeutralSpike2" type="Sprite2D" parent="Spike" unique_id=28583273]
+[node name="NeutralSpike2" type="Sprite2D" parent="Environemnt/Spike" unique_id=28583273]
 position = Vector2(-68, -24)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_lpd4p")
 metadata/_edit_lock_ = true
 
-[node name="NeutralSpike3" type="Sprite2D" parent="Spike" unique_id=192174496]
+[node name="NeutralSpike3" type="Sprite2D" parent="Environemnt/Spike" unique_id=192174496]
 position = Vector2(-60, -24)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_lpd4p")
 metadata/_edit_lock_ = true
 
-[node name="NeutralSpike4" type="Sprite2D" parent="Spike" unique_id=948477659]
+[node name="NeutralSpike4" type="Sprite2D" parent="Environemnt/Spike" unique_id=948477659]
 position = Vector2(-60, 68)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_lpd4p")
 metadata/_edit_lock_ = true
 
-[node name="NeutralSpike5" type="Sprite2D" parent="Spike" unique_id=2068296133]
+[node name="NeutralSpike5" type="Sprite2D" parent="Environemnt/Spike" unique_id=2068296133]
 position = Vector2(-52, 68)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_lpd4p")
 metadata/_edit_lock_ = true
 
-[node name="NeutralSpike6" type="Sprite2D" parent="Spike" unique_id=627928483]
+[node name="NeutralSpike6" type="Sprite2D" parent="Environemnt/Spike" unique_id=627928483]
 position = Vector2(-44, 68)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_lpd4p")
 metadata/_edit_lock_ = true
 
-[node name="NeutralSpike7" type="Sprite2D" parent="Spike" unique_id=143309252]
+[node name="NeutralSpike7" type="Sprite2D" parent="Environemnt/Spike" unique_id=143309252]
 position = Vector2(-92, 68)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_lpd4p")
 metadata/_edit_lock_ = true
 
-[node name="NeutralSpike8" type="Sprite2D" parent="Spike" unique_id=1846681321]
+[node name="NeutralSpike8" type="Sprite2D" parent="Environemnt/Spike" unique_id=1846681321]
 position = Vector2(-84, 68)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_lpd4p")
 metadata/_edit_lock_ = true
 
-[node name="NeutralSpike9" type="Sprite2D" parent="Spike" unique_id=1065649881]
+[node name="NeutralSpike9" type="Sprite2D" parent="Environemnt/Spike" unique_id=1065649881]
 position = Vector2(-76, 68)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_lpd4p")
 metadata/_edit_lock_ = true
 
-[node name="NeutralSpike10" type="Sprite2D" parent="Spike" unique_id=453997125]
+[node name="NeutralSpike10" type="Sprite2D" parent="Environemnt/Spike" unique_id=453997125]
 position = Vector2(-68, 68)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("9_lpd4p")
 metadata/_edit_lock_ = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Spike" unique_id=1519867603]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environemnt/Spike" unique_id=1519867603]
 polygon = PackedVector2Array(-76, -24, -76, -20, -60, -20, -60, -24)
 metadata/_edit_lock_ = true
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Spike" unique_id=1806803469]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Environemnt/Spike" unique_id=1806803469]
 position = Vector2(-20, 92)
 polygon = PackedVector2Array(-72, -24, -72, -20, -24, -20, -24, -24)
 
-[node name="Spawn" type="Node2D" parent="." unique_id=50164995]
-position = Vector2(-140, 48)
-metadata/_edit_lock_ = true
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=685844128]
+[node name="SubPixilizer" type="ColorRect" parent="." unique_id=685844128]
 show_behind_parent = true
 light_mask = 3
 material = SubResource("ShaderMaterial_c1kre")
@@ -392,6 +393,26 @@ texture = ExtResource("12_6idcn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Turnip" unique_id=129638906]
 shape = SubResource("CircleShape2D_wpk6a")
 
-[node name="Level1" type="Sprite2D" parent="." unique_id=585989061]
+[node name="Turnip2" type="Area2D" parent="." unique_id=782318305 node_paths=PackedStringArray("sprite")]
+position = Vector2(128, -60)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("11_qmbnc")
+sprite = NodePath("Turnip")
+
+[node name="Turnip" type="Sprite2D" parent="Turnip2" unique_id=1402558740]
+position = Vector2(-7.6293945e-06, -3.8146973e-06)
+scale = Vector2(0.100000024, 0.100000024)
+texture = ExtResource("12_6idcn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Turnip2" unique_id=527169619]
+shape = SubResource("CircleShape2D_wpk6a")
+
+[node name="Art" type="Sprite2D" parent="." unique_id=585989061]
 position = Vector2(0.99999994, 0)
 texture = ExtResource("13_jcn68")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=789018519]
+stream = ExtResource("13_07l0d")
+volume_db = -15.0
+autoplay = true
