@@ -1,0 +1,163 @@
+extends CharacterBody2D
+class_name PlayerRoot
+
+
+#region State IDs
+
+const StNormal: int = 0
+const StDash: int = 2
+
+#endregion
+
+
+#region References
+
+@export_group("References")
+
+@export var player_visual: ColorRect
+@export var respawn_point: Node2D
+
+#endregion
+
+
+
+
+#region Run
+
+@export_group("Run")
+
+@export var MaxRun: float = 90.0
+@export var RunAccel: float = 1000.0
+@export var RunReduce: float = 400.0
+@export var AirMult: float = 0.65
+
+#endregion
+
+
+#region Fall
+
+@export_group("Fall")
+
+@export var MaxFall: float = 160.0
+@export var Gravity: float = 900.0
+@export var HalfGravThreshold: float = 40.0
+
+@export var FastMaxFall: float = 240.0
+@export var FastMaxAccel: float = 300.0
+
+#endregion
+
+
+#region Jump
+
+@export_group("Jump")
+
+@export var JumpGraceTime: float = 0.1
+@export var JumpSpeed: float = -105.0
+@export var JumpHBoost: float = 40.0
+@export var VarJumpTime: float = 0.2
+@export var CeilingVarJumpGrace: float = 0.05
+@export var UpwardCornerCorrection: int = 4
+
+#endregion
+
+
+#region Super Jump
+
+@export_group("Super Jump")
+
+@export var SuperJumpH: float = 260.0
+@export var DuckSuperJumpXMult: float = 1.25
+@export var DuckSuperJumpYMult: float = 0.5
+
+#endregion
+
+
+#region Wall Jump
+
+@export_group("Wall Jump")
+
+@export var WallJumpCheckDist: int = 3
+@export var WallJumpForceTime: float = 0.16
+@export var WallJumpHSpeed: float = 130.0
+@export var WallSpeedRetentionTime: float = 0.06
+
+
+@export_subgroup("Wall Slide")
+
+@export var WallSlideStartMax: float = 20.0
+@export var WallSlideTime: float = 1.2
+
+
+@export_subgroup("Super Wall Jump")
+
+@export var SuperWallJumpSpeed: float = -160.0
+@export var SuperWallJumpVarTime: float = 0.25
+@export var SuperWallJumpForceTime: float = 0.2
+@export var SuperWallJumpH: float = 170.0
+
+#endregion
+
+
+#region Dash
+
+@export_group("Dash")
+
+@export var MaxDashes: int = 1
+@export var DashSpeed: float = 240.0
+@export var EndDashSpeed: float = 160.0
+@export var EndDashUpMult: float = 0.75
+@export var DashTime: float = 0.15
+@export var DashCooldown: float = 0.2
+@export var DashRefillCooldown: float = 0.1
+@export var DashCornerCorrection: int = 4
+@export var DashVFloorSnapDist: int = 3
+@export var DashAttackTime: float = 0.3
+@export var DodgeSlideSpeedMult: float = 1.2
+
+#endregion
+
+
+#region Launch
+
+@export_group("Launch")
+
+@export var LaunchedBoostCheckSpeedSq: float = 100.0 * 100.0
+@export var LaunchedJumpCheckSpeedSq: float = 220.0 * 220.0
+
+#endregion
+
+
+#region Environment
+
+@export_group("Environment")
+
+@export var SpacePhysicsMult: float = 0.6
+@export var SwimDashSpeedMult: float = 0.75
+
+@export var InSpace: bool = false
+@export var InCold: bool = false
+@export var InWater: bool = false
+
+#endregion
+
+
+#region Runtime
+
+var movement: PlayerMovement = PlayerMovement.new()
+
+#endregion
+
+
+func _ready() -> void:
+	movement.setup(
+		self
+	)
+
+
+func _physics_process(
+	delta: float
+) -> void:
+	movement.update(
+		delta
+	)

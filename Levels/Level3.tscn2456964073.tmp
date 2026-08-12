@@ -1,0 +1,274 @@
+[gd_scene format=3 uid="uid://iem34oi0ei7"]
+
+[ext_resource type="Texture2D" uid="uid://bn451am1lshil" path="res://Levels/Level3Ref.png" id="1_rhq3p"]
+[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="2_4cgce"]
+[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="3_twi1l"]
+[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="4_q5lgr"]
+[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="5_hy5j1"]
+[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://ColorChange/PlayerColorController.gd" id="6_xxxi4"]
+[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://ColorChange/PlayerColorEjectionBridge.gd" id="7_4c4gq"]
+[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://EnvironmentBody.gd" id="8_twi1l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_twi1l"]
+size = Vector2(8, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q5lgr"]
+size = Vector2(320, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hy5j1"]
+size = Vector2(304, 1.5258789e-05)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xxxi4"]
+size = Vector2(160, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4c4gq"]
+size = Vector2(160, 8)
+
+[node name="Level3" type="Node2D" unique_id=1816822957]
+
+[node name="Level3Ref" type="Sprite2D" parent="." unique_id=860286298]
+position = Vector2(160, 90)
+texture = ExtResource("1_rhq3p")
+
+[node name="LevelBase" type="StaticBody2D" parent="." unique_id=1388310154]
+collision_layer = 3
+collision_mask = 0
+script = ExtResource("8_twi1l")
+affiliation = null
+hostile = null
+inactive_opacity = null
+
+[node name="Colliders" type="Node2D" parent="LevelBase" unique_id=1979999320]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelBase" unique_id=1595898321]
+polygon = PackedVector2Array(0, 104, 24, 104, 24, 88, 32, 88, 32, 24, 48, 24, 48, 16, 96, 16, 96, 8, 192, 8, 192, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="LevelBase" unique_id=630941877]
+position = Vector2(0, 144)
+polygon = PackedVector2Array(0, 40, 88, 40, 88, -16, 0, -16)
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="LevelBase" unique_id=1941204841]
+position = Vector2(72, 48)
+polygon = PackedVector2Array(0, 40, 8, 40, 8, 0, 24, 0, 24, -8, 8, -8, 0, -8)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="LevelBase" unique_id=1833803191]
+position = Vector2(224, 128)
+polygon = PackedVector2Array(0, 56, 96, 56, 96, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="LevelBase" unique_id=2005596449]
+position = Vector2(224, 0)
+polygon = PackedVector2Array(0, 96, 96, 96, 96, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="LevelBase" unique_id=232628612]
+position = Vector2(144, 144)
+polygon = PackedVector2Array(-8, 40, 48, 40, 48, -96, 40, -96, 40, -80, 0, -80, 0, -96, -8, -96)
+metadata/_edit_lock_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="LevelBase" unique_id=16886586]
+polygon = PackedVector2Array(0, 104, 24, 104, 24, 88, 32, 88, 32, 24, 48, 24, 48, 16, 96, 16, 96, 8, 192, 8, 192, 0, 0, 0)
+
+[node name="Polygon2D2" type="Polygon2D" parent="LevelBase" unique_id=48218183]
+position = Vector2(0, 144)
+polygon = PackedVector2Array(0, 40, 88, 40, 88, -16, 0, -16)
+
+[node name="Polygon2D8" type="Polygon2D" parent="LevelBase" unique_id=1623372002]
+position = Vector2(64, 40)
+scale = Vector2(1, 1.2)
+polygon = PackedVector2Array(7, 40, 16, 40, 16, 6.666668, 32, 6.666668, 32, 0, 16, 0, 7, 0, 7, 24)
+
+[node name="Polygon2D4" type="Polygon2D" parent="LevelBase" unique_id=426157023]
+position = Vector2(224, 144)
+polygon = PackedVector2Array(0, 40, 96, 40, 96, -16, 0, -16)
+
+[node name="Polygon2D5" type="Polygon2D" parent="LevelBase" unique_id=1433892727]
+position = Vector2(224, 16)
+polygon = PackedVector2Array(0, 80, 96, 80, 96, -16, 0, -16)
+
+[node name="Polygon2D3" type="Polygon2D" parent="LevelBase" unique_id=192787874]
+position = Vector2(136, 144)
+polygon = PackedVector2Array(0, 40, 56, 40, 56, -96, 48, -96, 48, -80, 8, -80, 8, -96, 0, -96)
+
+[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="LevelBase" unique_id=356017977]
+polygon = PackedVector2Array(136, 88, 120, 88, 120, 128, 136, 128)
+
+[node name="Polygon2D6" type="Polygon2D" parent="LevelBase" unique_id=1092630053]
+position = Vector2(120, 88)
+polygon = PackedVector2Array(0, 40, 16, 40, 16, 0, 0, 0)
+
+[node name="Blue" type="StaticBody2D" parent="." unique_id=188290566]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("8_twi1l")
+affiliation = 1
+hostile = null
+inactive_opacity = null
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Blue" unique_id=1258983666]
+position = Vector2(-40, -40)
+polygon = PackedVector2Array(136, 88, 120, 88, 120, 128, 136, 128)
+
+[node name="Polygon2D" type="Polygon2D" parent="Blue" unique_id=1614099925]
+polygon = PackedVector2Array(80, 48, 80, 88, 96, 88, 96, 48)
+
+[node name="RespawnPoint" type="Node2D" parent="." unique_id=1059088838]
+position = Vector2(8, 128)
+
+[node name="Hazards" type="StaticBody2D" parent="." unique_id=1260808343]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("8_twi1l")
+affiliation = null
+hostile = true
+inactive_opacity = null
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hazards" unique_id=292209422]
+polygon = PackedVector2Array(88, 144, 136, 144, 136, 152, 88, 152)
+
+[node name="Polygon2D" type="Polygon2D" parent="Hazards" unique_id=1133865311]
+position = Vector2(0, -8)
+polygon = PackedVector2Array(88, 152, 136, 152, 136, 160, 88, 160)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Hazards" unique_id=1661547304]
+position = Vector2(-57.6, -65.600006)
+polygon = PackedVector2Array(89.6, 89.600006, 97.6, 89.600006, 97.6, 153.6, 89.6, 153.6)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Hazards" unique_id=1262273902]
+position = Vector2(-57.6, -73.600006)
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+polygon = PackedVector2Array(89.6, 161.6, 89.6, 97.600006, 97.6, 97.600006, 97.6, 161.6)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Hazards" unique_id=408946038]
+position = Vector2(-17.599998, -115.600006)
+polygon = PackedVector2Array(81.6, 147.6, 113.6, 147.6, 113.6, 155.6, 89.6, 155.6, 89.6, 203.6, 81.6, 203.6, 81.6, 155.6)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Hazards" unique_id=1174262441]
+position = Vector2(-17.599998, -123.600006)
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+polygon = PackedVector2Array(81.6, 155.6, 113.6, 155.6, 113.6, 163.6, 89.6, 163.6, 89.6, 211.6, 81.6, 211.6)
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=118502476 node_paths=PackedStringArray("player_visual", "respawn_point")]
+position = Vector2(-36, 72)
+collision_mask = 2
+script = ExtResource("2_4cgce")
+player_visual = NodePath("CharacterRect")
+respawn_point = NodePath("../RespawnPoint")
+JumpSpeed = -110.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1114801688]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_twi1l")
+metadata/_edit_lock_ = true
+
+[node name="CharacterRect" type="ColorRect" parent="Player" unique_id=1374432247]
+offset_left = -4.0
+offset_top = -11.0
+offset_right = 4.0
+color = Color(0.8039216, 0.24313726, 0.07058824, 1)
+metadata/_edit_lock_ = true
+
+[node name="Respawn" type="Node" parent="Player" unique_id=145264231]
+script = ExtResource("5_hy5j1")
+
+[node name="Death" type="Node" parent="Player" unique_id=1653118976]
+script = ExtResource("3_twi1l")
+
+[node name="DeathFeedback" type="Node" parent="Player/Death" unique_id=153692977]
+script = ExtResource("4_q5lgr")
+
+[node name="States" type="Node" parent="Player" unique_id=551713304]
+
+[node name="Color" type="Node" parent="Player" unique_id=911405647]
+
+[node name="PlayerColorController" type="Node" parent="Player/Color" unique_id=459033604 node_paths=PackedStringArray("player_visual")]
+script = ExtResource("6_xxxi4")
+player_visual = NodePath("../../CharacterRect")
+metadata/_custom_type_script = "uid://bla5jhlpbksb4"
+
+[node name="PlayerColorController2" type="Node" parent="Player/Color" unique_id=1495005113 node_paths=PackedStringArray("player_visual")]
+script = ExtResource("6_xxxi4")
+player_visual = NodePath("../../CharacterRect")
+metadata/_custom_type_script = "uid://bla5jhlpbksb4"
+
+[node name="PlayerColorEjectionBridge" type="Node" parent="Player/Color" unique_id=67927495]
+script = ExtResource("7_4c4gq")
+metadata/_custom_type_script = "uid://c0xmcdujgwai2"
+
+[node name="Frame" type="Node2D" parent="." unique_id=252646001]
+position = Vector2(160, 96)
+
+[node name="Floor" type="StaticBody2D" parent="Frame" unique_id=1581148734]
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Frame/Floor" unique_id=704432672]
+position = Vector2(0, 84)
+shape = SubResource("RectangleShape2D_q5lgr")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Frame/Floor" unique_id=1805219806]
+offset_left = -168.0
+offset_top = 80.0
+offset_right = 168.0
+offset_bottom = 96.0
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+metadata/_edit_lock_ = true
+
+[node name="Ceiling" type="StaticBody2D" parent="Frame" unique_id=757529229]
+rotation = 3.1415927
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Frame/Ceiling" unique_id=948455460]
+position = Vector2(1.08085205e-05, 80.00001)
+shape = SubResource("RectangleShape2D_hy5j1")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Frame/Ceiling" unique_id=503146879]
+offset_left = -168.0
+offset_top = 80.0
+offset_right = 168.0
+offset_bottom = 96.0
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+metadata/_edit_lock_ = true
+
+[node name="LeftWall" type="StaticBody2D" parent="Frame" unique_id=347419398]
+rotation = 1.5707964
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Frame/LeftWall" unique_id=2100264460]
+position = Vector2(6.8189765e-06, 156)
+shape = SubResource("RectangleShape2D_xxxi4")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Frame/LeftWall" unique_id=1516580669]
+offset_left = -79.956924
+offset_top = 152.01389
+offset_right = 81.05266
+offset_bottom = 160.65355
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+metadata/_edit_lock_ = true
+
+[node name="RightWall" type="StaticBody2D" parent="Frame" unique_id=1017925778]
+rotation = 4.712389
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Frame/RightWall" unique_id=368585464]
+position = Vector2(6.8189765e-06, 156)
+shape = SubResource("RectangleShape2D_4c4gq")
+
+[node name="ColorRect" type="ColorRect" parent="Frame/RightWall" unique_id=979557746]
+offset_left = -79.956924
+offset_top = 152.01389
+offset_right = 81.05266
+offset_bottom = 160.65355
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)

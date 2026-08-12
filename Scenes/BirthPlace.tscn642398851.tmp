@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://bturem0eegs73"]
+
+[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="1_l37n1"]
+[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="2_l37n1"]
+[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="3_xv7f0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rtxo0"]
+size = Vector2(8, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xhnrm"]
+size = Vector2(320, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s65o1"]
+size = Vector2(304, 1.5258789e-05)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lybv2"]
+size = Vector2(160, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75r8i"]
+size = Vector2(160, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2a6k"]
+size = Vector2(32, 16)
+
+[node name="BirthPlace" type="Node2D" unique_id=513358353]
+
+[node name="Camera" type="Node2D" parent="." unique_id=875490865]
+
+[node name="Camera2D" type="Camera2D" parent="Camera" unique_id=1223180826]
+metadata/_edit_lock_ = true
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1471819122 node_paths=PackedStringArray("player_visual", "respawn_point")]
+collision_mask = 2
+script = ExtResource("1_l37n1")
+player_visual = NodePath("CharacterRect")
+respawn_point = NodePath("../Environment/SpawnPoint")
+
+[node name="CharacterRect" type="ColorRect" parent="Player" unique_id=1262950450]
+offset_left = -4.0
+offset_top = -11.0
+offset_right = 4.0
+color = Color(0.8039216, 0.24313726, 0.07058824, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=886732985]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_rtxo0")
+
+[node name="Death" type="Node" parent="Player" unique_id=1004093653]
+script = ExtResource("2_l37n1")
+
+[node name="DeathFeedback" type="Node" parent="Player/Death" unique_id=996169188]
+script = ExtResource("3_xv7f0")
+
+[node name="Respawn" type="Node" parent="Player" unique_id=991375424]
+
+[node name="Environment" type="Node2D" parent="." unique_id=1526362816]
+
+[node name="Frame" type="Node2D" parent="Environment" unique_id=129743393]
+
+[node name="Floor" type="StaticBody2D" parent="Environment/Frame" unique_id=1620907195]
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Frame/Floor" unique_id=335125510]
+position = Vector2(0, 84)
+shape = SubResource("RectangleShape2D_xhnrm")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Environment/Frame/Floor" unique_id=2131449320]
+offset_left = -168.0
+offset_top = 80.0
+offset_right = 168.0
+offset_bottom = 96.0
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+metadata/_edit_lock_ = true
+
+[node name="Ceiling" type="StaticBody2D" parent="Environment/Frame" unique_id=865881217]
+rotation = 3.1415927
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Frame/Ceiling" unique_id=1269092116]
+position = Vector2(1.08085205e-05, 80.00001)
+shape = SubResource("RectangleShape2D_s65o1")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Environment/Frame/Ceiling" unique_id=1746026315]
+offset_left = -168.0
+offset_top = 80.0
+offset_right = 168.0
+offset_bottom = 96.0
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+metadata/_edit_lock_ = true
+
+[node name="LeftWall" type="StaticBody2D" parent="Environment/Frame" unique_id=159183318]
+rotation = 1.5707964
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Frame/LeftWall" unique_id=1848749007]
+position = Vector2(6.8189765e-06, 156)
+shape = SubResource("RectangleShape2D_lybv2")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Environment/Frame/LeftWall" unique_id=1422093451]
+offset_left = -79.956924
+offset_top = 152.01389
+offset_right = 81.05266
+offset_bottom = 160.65355
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+metadata/_edit_lock_ = true
+
+[node name="RightWall" type="StaticBody2D" parent="Environment/Frame" unique_id=1429123421]
+rotation = 4.712389
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Frame/RightWall" unique_id=1879051009]
+position = Vector2(6.8189765e-06, 156)
+shape = SubResource("RectangleShape2D_75r8i")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/Frame/RightWall" unique_id=648334648]
+offset_left = -79.956924
+offset_top = 152.01389
+offset_right = 81.05266
+offset_bottom = 160.65355
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+
+[node name="Red" type="Node2D" parent="Environment" unique_id=1170659750]
+
+[node name="RedFloor1" type="StaticBody2D" parent="Environment/Red" unique_id=851607752]
+position = Vector2(112, 32)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Red/RedFloor1" unique_id=1030374815]
+position = Vector2(-16, -8)
+shape = SubResource("RectangleShape2D_y2a6k")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Environment/Red/RedFloor1" unique_id=1339147923]
+offset_left = -32.0
+offset_top = -16.0
+color = Color(0.47021645, 0.124712415, 0.019922713, 1)
+metadata/_edit_lock_ = true
+
+[node name="RedFloor2" type="StaticBody2D" parent="Environment/Red" unique_id=265678657]
+position = Vector2(152, 80)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Red/RedFloor2" unique_id=729407158]
+position = Vector2(-16, -8)
+shape = SubResource("RectangleShape2D_y2a6k")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Environment/Red/RedFloor2" unique_id=1202330913]
+offset_left = -32.0
+offset_top = -16.0
+color = Color(0.47021645, 0.124712415, 0.019922713, 1)
+metadata/_edit_lock_ = true
+
+[node name="SpawnPoint" type="Node2D" parent="Environment" unique_id=2054137764]
+position = Vector2(0, 80)
