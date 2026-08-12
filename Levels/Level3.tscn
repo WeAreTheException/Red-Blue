@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://iem34oi0ei7"]
 
-[ext_resource type="Texture2D" uid="uid://bn451am1lshil" path="res://Levels/Level3Ref.png" id="1_rhq3p"]
 [ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="2_4cgce"]
 [ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="3_twi1l"]
 [ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="4_q5lgr"]
 [ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="5_hy5j1"]
 [ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://ColorChange/PlayerColorController.gd" id="6_xxxi4"]
 [ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://ColorChange/PlayerColorEjectionBridge.gd" id="7_4c4gq"]
-[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://EnvironmentBody.gd" id="8_twi1l"]
+[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="8_twi1l"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4cgce"]
+load_path = "res://.godot/imported/Level3Ref.png-adb27f7355675e6ed2bbdd3096ea9e7b.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q5lgr"]
 size = Vector2(320, 8)
@@ -29,7 +31,7 @@ position = Vector2(-160, -96)
 
 [node name="Level3Ref" type="Sprite2D" parent="." unique_id=860286298]
 position = Vector2(160, 90)
-texture = ExtResource("1_rhq3p")
+texture = SubResource("CompressedTexture2D_4cgce")
 metadata/_edit_lock_ = true
 
 [node name="LevelBase" type="StaticBody2D" parent="." unique_id=1388310154]

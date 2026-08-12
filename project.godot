@@ -90,3 +90,4 @@ GRAB={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+environment/defaults/default_clear_color=Color(0.09803922, 0.17254902, 0.25490198, 1)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0olo5qvcevk2"
-path="res://.godot/imported/Level2Red.png-c5e828e2fd015fd2f148cfb9fbb1f30f.ctex"
+uid="uid://01243rfljw18"
+path="res://.godot/imported/Turnip.png-6c815fee1b8b8142b6cde6b375aca480.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Levels/Level2Red.png"
-dest_files=["res://.godot/imported/Level2Red.png-c5e828e2fd015fd2f148cfb9fbb1f30f.ctex"]
+source_file="res://Turnip/Turnip.png"
+dest_files=["res://.godot/imported/Turnip.png-6c815fee1b8b8142b6cde6b375aca480.ctex"]
 
 [params]
 

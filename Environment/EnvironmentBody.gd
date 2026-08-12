@@ -41,6 +41,13 @@ var hostile_contact_margin: float = 1.0
 )
 var inactive_opacity: float = 0.25
 
+@export_range(
+	0.1,
+	8.0,
+	0.1
+)
+var border_size: float = 1.0
+
 
 @export_group("Debug")
 
@@ -48,16 +55,30 @@ var inactive_opacity: float = 0.25
 
 
 const RED_COLOR: Color = Color8(
-	173,
-	50,
-	12,
+	213,
+	32,
+	32,
 	255
 )
 
 const BLUE_COLOR: Color = Color8(
-	43,
-	60,
-	154,
+	67,
+	110,
+	177,
+	255
+)
+
+const RED_BORDER_COLOR: Color = Color8(
+	232,
+	102,
+	102,
+	255
+)
+
+const BLUE_BORDER_COLOR: Color = Color8(
+	175,
+	187,
+	228,
 	255
 )
 
@@ -79,6 +100,8 @@ const NEUTRAL_HOSTILE_COLOR: Color = Color8(
 var color_system_root: ColorSystemRoot = null
 
 var polygons: Array[Polygon2D] = []
+var fill_polygons: Array[Polygon2D] = []
+
 var collision_polygons: Array[CollisionPolygon2D] = []
 
 var is_active: bool = true
@@ -89,6 +112,8 @@ var _hazard_collision_polygons: Array[CollisionPolygon2D] = []
 
 func _ready() -> void:
 	_find_children()
+
+	_create_fill_polygons()
 
 	_apply_visual(
 		true
@@ -111,6 +136,7 @@ func _exit_tree() -> void:
 
 func _find_children() -> void:
 	polygons.clear()
+	fill_polygons.clear()
 	collision_polygons.clear()
 
 	for child in get_children():
@@ -133,6 +159,54 @@ func _find_children() -> void:
 		push_warning(
 			"EnvironmentBody has no direct child CollisionPolygon2D."
 		)
+
+
+func _create_fill_polygons() -> void:
+	fill_polygons.clear()
+
+	for source_polygon in polygons:
+		if source_polygon == null:
+			continue
+
+		if source_polygon.polygon.size() < 3:
+			continue
+
+		var inset_parts: Array[PackedVector2Array] = (
+			Geometry2D.offset_polygon(
+				source_polygon.polygon,
+				-border_size
+			)
+		)
+
+		for inset_polygon in inset_parts:
+			if inset_polygon.size() < 3:
+				continue
+
+			var fill_polygon := Polygon2D.new()
+
+			fill_polygon.name = (
+				"EnvironmentFill"
+			)
+
+			fill_polygon.polygon = (
+				inset_polygon
+			)
+
+			fill_polygon.transform = (
+				source_polygon.transform
+			)
+
+			fill_polygon.z_index = (
+				source_polygon.z_index + 1
+			)
+
+			add_child(
+				fill_polygon
+			)
+
+			fill_polygons.append(
+				fill_polygon
+			)
 
 
 func _register_with_color_system() -> void:
@@ -294,12 +368,16 @@ func _apply_visual(
 		_get_affiliation_color()
 	)
 
+	var border_color: Color = (
+		_get_border_color()
+	)
+
 	for polygon in polygons:
 		if polygon == null:
 			continue
 
 		polygon.color = (
-			environment_color
+			border_color
 		)
 
 		if active:
@@ -307,6 +385,22 @@ func _apply_visual(
 
 		else:
 			polygon.modulate.a = (
+				inactive_opacity
+			)
+
+	for fill_polygon in fill_polygons:
+		if fill_polygon == null:
+			continue
+
+		fill_polygon.color = (
+			environment_color
+		)
+
+		if active:
+			fill_polygon.modulate.a = 1.0
+
+		else:
+			fill_polygon.modulate.a = (
 				inactive_opacity
 			)
 
@@ -331,6 +425,24 @@ func _get_affiliation_color() -> Color:
 
 		ColorState.Affiliation.BLUE:
 			return BLUE_COLOR
+
+		ColorState.Affiliation.NEUTRAL:
+			if hostile:
+				return NEUTRAL_HOSTILE_COLOR
+
+			return NEUTRAL_COLOR
+
+		_:
+			return NEUTRAL_COLOR
+
+
+func _get_border_color() -> Color:
+	match affiliation:
+		ColorState.Affiliation.RED:
+			return RED_BORDER_COLOR
+
+		ColorState.Affiliation.BLUE:
+			return BLUE_BORDER_COLOR
 
 		ColorState.Affiliation.NEUTRAL:
 			if hostile:

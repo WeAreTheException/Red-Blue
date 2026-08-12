@@ -6,10 +6,11 @@
 [ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="4_hofu3"]
 [ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://ColorChange/PlayerColorController.gd" id="5_23710"]
 [ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://ColorChange/PlayerColorEjectionBridge.gd" id="6_nmwl1"]
-[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://EnvironmentBody.gd" id="7_uqtfo"]
+[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="7_uqtfo"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Platform/NeutralSpike.png" id="8_6rttb"]
-[ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Sprites/Turnip.png" id="9_2hgpn"]
-[ext_resource type="Shader" uid="uid://d3c2dgk2l2g8h" path="res://Levels/Subpixilizer.gdshader" id="10_wpk6a"]
+[ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="9_2hgpn"]
+[ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="10_c1kre"]
+[ext_resource type="Shader" uid="uid://d3c2dgk2l2g8h" path="res://Shaders/Subpixilizer.gdshader" id="10_wpk6a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p7bnq"]
 size = Vector2(8, 11)
@@ -30,6 +31,9 @@ size = Vector2(160, 8)
 shader = ExtResource("10_wpk6a")
 shader_parameter/PIXEL_SIZE = 3.0
 shader_parameter/OPACITY = 0.0210000009975
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wpk6a"]
+radius = 8.0
 
 [node name="Level1" type="Node2D" unique_id=1785950857]
 
@@ -366,11 +370,6 @@ metadata/_edit_lock_ = true
 position = Vector2(-20, 92)
 polygon = PackedVector2Array(-72, -24, -72, -20, -24, -20, -24, -24)
 
-[node name="Turnip" type="Sprite2D" parent="Spike" unique_id=1696647394]
-position = Vector2(-68, -40)
-scale = Vector2(0.100000024, 0.100000024)
-texture = ExtResource("9_2hgpn")
-
 [node name="Spawn" type="Node2D" parent="." unique_id=50164995]
 position = Vector2(-140, 48)
 
@@ -382,3 +381,18 @@ offset_left = -152.0
 offset_top = -80.0
 offset_right = 152.0
 offset_bottom = 80.0
+
+[node name="Turnip" type="Area2D" parent="." unique_id=1963133387 node_paths=PackedStringArray("sprite")]
+position = Vector2(-68, -40)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("10_c1kre")
+sprite = NodePath("Turnip")
+
+[node name="Turnip" type="Sprite2D" parent="Turnip" unique_id=1696647394]
+position = Vector2(-7.6293945e-06, -3.8146973e-06)
+scale = Vector2(0.100000024, 0.100000024)
+texture = ExtResource("9_2hgpn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Turnip" unique_id=129638906]
+shape = SubResource("CircleShape2D_wpk6a")
