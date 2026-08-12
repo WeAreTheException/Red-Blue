@@ -65,7 +65,6 @@ func _connect_to_color_system() -> void:
 		push_error(
 			"PlayerColorController could not find ColorSystemRoot."
 		)
-
 		return
 
 	color_state = (
@@ -76,12 +75,7 @@ func _connect_to_color_system() -> void:
 		push_error(
 			"ColorSystemRoot has no ColorState assigned."
 		)
-
 		return
-
-	color_state.color_change_requested.connect(
-		_on_color_change_requested
-	)
 
 	color_state.color_changed.connect(
 		_on_color_changed
@@ -89,10 +83,6 @@ func _connect_to_color_system() -> void:
 
 	color_state.initial_color_set.connect(
 		_on_initial_color_set
-	)
-
-	color_state.color_change_cancelled.connect(
-		_on_color_change_cancelled
 	)
 
 	if not color_state.has_initial_color:
@@ -104,15 +94,6 @@ func _connect_to_color_system() -> void:
 		_apply_player_color(
 			color_state.current_color
 		)
-
-
-func _on_color_change_requested(
-	_previous_color: int,
-	new_color: int
-) -> void:
-	_apply_player_color(
-		new_color
-	)
 
 
 func _on_color_changed(
@@ -129,14 +110,6 @@ func _on_initial_color_set(
 ) -> void:
 	_apply_player_color(
 		new_color
-	)
-
-
-func _on_color_change_cancelled(
-	current_color: int
-) -> void:
-	_apply_player_color(
-		current_color
 	)
 
 
