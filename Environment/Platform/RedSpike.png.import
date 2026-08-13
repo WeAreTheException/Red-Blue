@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bbmfwdcgt3qkr"
-path="res://.godot/imported/RedSpike.png-04891887a8e55922f1460b5a400a4682.ctex"
+path="res://.godot/imported/RedSpike.png-16df4beb52b902facfcb71bfda814ef7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Platform/RedSpike.png"
-dest_files=["res://.godot/imported/RedSpike.png-04891887a8e55922f1460b5a400a4682.ctex"]
+source_file="res://Environment/Platform/RedSpike.png"
+dest_files=["res://.godot/imported/RedSpike.png-16df4beb52b902facfcb71bfda814ef7.ctex"]
 
 [params]
 

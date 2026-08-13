@@ -4,13 +4,33 @@ class_name Turnip
 
 @export var sprite: Sprite2D
 
+
+@export_group("Float")
+
+@export var float_height: float = 2.0
+@export var float_speed: float = 2.5
+@export var sway_degrees: float = 2.0
+
+
 var collected: bool = false
+
 var original_scale: Vector2
+var original_position: Vector2
+var original_rotation: float
+
+var float_time: float = 0.0
 
 
 func _ready() -> void:
 	if sprite != null:
 		original_scale = sprite.scale
+		original_position = sprite.position
+		original_rotation = sprite.rotation
+
+		float_time = randf_range(
+			0.0,
+			TAU
+		)
 
 	body_entered.connect(
 		_on_body_entered
@@ -18,6 +38,33 @@ func _ready() -> void:
 
 	PlayerEvents.player_died.connect(
 		_on_player_died
+	)
+
+
+func _process(
+	delta: float
+) -> void:
+	if sprite == null:
+		return
+
+	if collected:
+		return
+
+	float_time += (
+		delta
+		* float_speed
+	)
+
+	sprite.position.y = (
+		original_position.y
+		+ sin(float_time)
+		* float_height
+	)
+
+	sprite.rotation = (
+		original_rotation
+		+ deg_to_rad(sway_degrees)
+		* sin(float_time * 0.5)
 	)
 
 
@@ -60,6 +107,9 @@ func _on_player_died(
 
 	collected = false
 	monitoring = true
+
+	sprite.position = original_position
+	sprite.rotation = original_rotation
 
 	sprite.scale = Vector2.ZERO
 	sprite.modulate.a = 0.0

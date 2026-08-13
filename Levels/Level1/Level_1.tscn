@@ -9,7 +9,8 @@
 [ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="7_bkgxh"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="8_agwlh"]
 [ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="8_xrekx"]
-[ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Platform/NeutralSpike.png" id="9_lpd4p"]
+[ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="9_lpd4p"]
+[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="9_xrekx"]
 [ext_resource type="Shader" uid="uid://d3c2dgk2l2g8h" path="res://Shaders/Subpixilizer.gdshader" id="10_g1c7i"]
 [ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="11_qmbnc"]
 [ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="12_6idcn"]
@@ -50,6 +51,18 @@ script = ExtResource("1_07l0d")
 player_visual = NodePath("CharacterRect")
 respawn_point = NodePath("../Spawn")
 JumpSpeed = -110.0
+
+[node name="Node2D" type="Node2D" parent="Player" unique_id=1505466943 node_paths=PackedStringArray("trail_template")]
+script = ExtResource("9_xrekx")
+trail_template = NodePath("../Line2D")
+trail_lifetime = 1.0
+max_points = 4
+minimum_point_distance = 12.0
+trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
+
+[node name="Line2D" type="Line2D" parent="Player" unique_id=1151948381]
+z_index = -1
+position = Vector2(0, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1121636402]
 position = Vector2(0, -5.5)
@@ -99,7 +112,7 @@ dash_sfx = NodePath("Dash")
 
 [node name="Dash" type="AudioStreamPlayer" parent="Player/SFX" unique_id=132473159]
 stream = ExtResource("8_xrekx")
-volume_db = -5.0
+volume_db = -4.0
 pitch_scale = 1.1
 
 [node name="Spawn" type="Node2D" parent="." unique_id=50164995]
@@ -395,6 +408,7 @@ collision_layer = 3
 collision_mask = 3
 script = ExtResource("11_qmbnc")
 sprite = NodePath("Turnip")
+float_height = 1.0
 
 [node name="Turnip" type="Sprite2D" parent="Turnip" unique_id=1696647394]
 position = Vector2(-7.6293945e-06, -3.8146973e-06)
