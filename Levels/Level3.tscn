@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="8_twi1l"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4cgce"]
-load_path = "res://.godot/imported/Level3Ref.png-adb27f7355675e6ed2bbdd3096ea9e7b.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q5lgr"]
 size = Vector2(320, 8)

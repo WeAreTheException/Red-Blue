@@ -1,3 +1,8 @@
 [gd_scene format=3 uid="uid://cp7h8mwtch3aa"]
 
+[ext_resource type="Script" uid="uid://q5pi4nl4r1vb" path="res://Camera/CameraShake.gd" id="1_npc1t"]
+
 [node name="Camera" type="Camera2D" unique_id=2143111211]
+script = ExtResource("1_npc1t")
+landing_strength_px = 0.2
+landing_time = 0.1

@@ -129,6 +129,11 @@ func DashUpdate(delta: float) -> int:
 
 		state.DashDir = dir
 
+		PlayerEvents.broadcast_dash_direction(
+			player,
+			dir
+		)
+
 		if state.DashDir.x != 0.0:
 			state.Facing = int(
 				sign(state.DashDir.x)
