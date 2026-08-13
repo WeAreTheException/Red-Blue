@@ -293,7 +293,7 @@ color = Color(0.25565878, 0.25565878, 0.25565878, 1)
 polygon = PackedVector2Array(-100.000015, 105.600006, -240.00002, 105.600006, -240.00002, 120, -100, 120)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environemnt/RightSide" unique_id=1645320793]
-polygon = PackedVector2Array(-240, 108, -240, 120, -100, 120, -100, 108)
+polygon = PackedVector2Array(-240, 108, -240, 120, -100, 120, -100, 108, -112, 20, -112, 108)
 
 [node name="Polygon2D2" type="Polygon2D" parent="Environemnt" unique_id=1401268965]
 position = Vector2(108, 60)
