@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="13_t7mo4"]
 [ext_resource type="Texture2D" uid="uid://bbmfwdcgt3qkr" path="res://Environment/Platform/RedSpike.png" id="14_ljid0"]
 [ext_resource type="Texture2D" uid="uid://dh18beb4g6i63" path="res://Levels/Level2/Level2.png" id="15_45cas"]
+[ext_resource type="Texture2D" uid="uid://gx3mh77xru4x" path="res://Levels/Level2/Pixel.png" id="16_qioq6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3msdb"]
 size = Vector2(320, 8)
@@ -167,13 +168,16 @@ player_visual = NodePath("CharacterRect")
 respawn_point = NodePath("../Spawn")
 JumpSpeed = -110.0
 
-[node name="Node2D" type="Node2D" parent="Player" unique_id=472193136 node_paths=PackedStringArray("trail_template")]
+[node name="DashTrail" type="Node2D" parent="Player" unique_id=472193136 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
 script = ExtResource("2_uv1r4")
 trail_template = NodePath("../Line2D")
 trail_lifetime = 1.0
 max_points = 4
 minimum_point_distance = 12.0
 trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
+pixel_template = NodePath("../../Sprite2D")
+pixels_per_dash = 4
+afterimage_template = NodePath("../CharacterRect")
 
 [node name="Line2D" type="Line2D" parent="Player" unique_id=141313676]
 z_index = -1
@@ -190,7 +194,6 @@ offset_left = -4.0
 offset_top = -11.0
 offset_right = 4.0
 color = Color(0.8039216, 0.24313726, 0.07058824, 1)
-metadata/_edit_lock_ = true
 
 [node name="Respawn" type="Node" parent="Player" unique_id=113912151]
 script = ExtResource("3_otm3y")
@@ -608,3 +611,6 @@ polygon = PackedVector2Array(12, 8, 8, 8, 8, -20, 12, -20)
 [node name="Level2" type="Sprite2D" parent="." unique_id=810379538]
 position = Vector2(0, 2)
 texture = ExtResource("15_45cas")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=260828917]
+texture = ExtResource("16_qioq6")

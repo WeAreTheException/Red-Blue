@@ -13,6 +13,37 @@ class_name PlayerTrail
 @export var trail_color: Color = Color.WHITE
 
 
+@export_group("Dash Pixels")
+
+@export var pixel_template: Sprite2D
+
+@export_range(
+	1,
+	20,
+	1
+)
+var pixels_per_dash: int = 5
+
+@export var pixel_lifetime: float = 0.25
+
+@export var pixel_position_randomness: Vector2 = Vector2(
+	3.0,
+	3.0
+)
+
+
+@export_group("Afterimage")
+
+@export var afterimage_template: ColorRect
+
+@export_range(
+	1,
+	20,
+	1
+)
+var images_per_dash: int = 4
+
+
 var player: PlayerRoot = null
 
 var _emission_offset: Vector2 = Vector2.ZERO
@@ -25,6 +56,20 @@ var _active_line: Line2D = null
 
 var _trail_lines: Array[Line2D] = []
 var _trail_ages: Array[Array] = []
+
+
+var _dash_pixels: Array[Sprite2D] = []
+var _dash_pixel_ages: Array[float] = []
+
+var _pixels_emitted_this_dash: int = 0
+var _pixel_emit_timer: float = 0.0
+
+
+var _afterimages: Array[ColorRect] = []
+var _afterimage_ages: Array[float] = []
+
+var _images_emitted_this_dash: int = 0
+var _afterimage_emit_timer: float = 0.0
 
 
 func _ready() -> void:
@@ -45,6 +90,9 @@ func _ready() -> void:
 	_emission_offset = position
 
 	trail_template.visible = false
+
+	if pixel_template != null:
+		pixel_template.visible = false
 
 	set_as_top_level(
 		true
@@ -86,8 +134,24 @@ func _physics_process(
 		delta
 	)
 
+	_age_dash_pixels(
+		delta
+	)
+
+	_age_afterimages(
+		delta
+	)
+
 	if _dash_trail_active:
 		_add_active_point()
+
+		_update_dash_pixel_emission(
+			delta
+		)
+
+		_update_afterimage_emission(
+			delta
+		)
 
 		_dash_trail_timer -= delta
 
@@ -95,6 +159,9 @@ func _physics_process(
 			_end_active_dash()
 
 	_remove_expired_points()
+	_remove_expired_dash_pixels()
+	_remove_expired_afterimages()
+
 	_update_gradients()
 	_remove_empty_trails()
 
@@ -130,6 +197,15 @@ func _on_dashed(
 	ages.append(
 		0.0
 	)
+
+	_pixels_emitted_this_dash = 0
+	_pixel_emit_timer = 0.0
+
+	_images_emitted_this_dash = 0
+	_afterimage_emit_timer = 0.0
+
+	_emit_dash_pixel()
+	_emit_afterimage()
 
 
 func _create_dash_trail() -> void:
@@ -180,6 +256,9 @@ func _end_active_dash() -> void:
 	_dash_trail_active = false
 	_dash_trail_timer = 0.0
 	_active_line = null
+
+	_pixel_emit_timer = 0.0
+	_afterimage_emit_timer = 0.0
 
 
 func _add_active_point() -> void:
@@ -234,6 +313,284 @@ func _add_active_point() -> void:
 
 		ages.remove_at(
 			0
+		)
+
+
+func _update_dash_pixel_emission(
+	delta: float
+) -> void:
+	if pixel_template == null:
+		return
+
+	if pixels_per_dash <= 1:
+		return
+
+	if _pixels_emitted_this_dash >= pixels_per_dash:
+		return
+
+	if player.DashTime <= 0.0:
+		return
+
+	var emit_interval: float = (
+		player.DashTime
+		/ float(
+			pixels_per_dash - 1
+		)
+	)
+
+	_pixel_emit_timer += delta
+
+	while (
+		_pixel_emit_timer >= emit_interval
+		and _pixels_emitted_this_dash < pixels_per_dash
+	):
+		_pixel_emit_timer -= emit_interval
+
+		_emit_dash_pixel()
+
+
+func _emit_dash_pixel() -> void:
+	if pixel_template == null:
+		return
+
+	if _pixels_emitted_this_dash >= pixels_per_dash:
+		return
+
+	var new_pixel := (
+		pixel_template.duplicate()
+		as Sprite2D
+	)
+
+	if new_pixel == null:
+		return
+
+	new_pixel.visible = true
+
+	add_child(
+		new_pixel
+	)
+
+	var random_offset := Vector2(
+		roundf(
+			randf_range(
+				-pixel_position_randomness.x,
+				pixel_position_randomness.x
+			)
+		),
+		roundf(
+			randf_range(
+				-pixel_position_randomness.y,
+				pixel_position_randomness.y
+			)
+		)
+	)
+
+	new_pixel.position = (
+		player.global_transform
+		* _emission_offset
+	) + random_offset
+
+	_dash_pixels.append(
+		new_pixel
+	)
+
+	_dash_pixel_ages.append(
+		0.0
+	)
+
+	_pixels_emitted_this_dash += 1
+
+
+func _update_afterimage_emission(
+	delta: float
+) -> void:
+	if afterimage_template == null:
+		return
+
+	if images_per_dash <= 1:
+		return
+
+	if _images_emitted_this_dash >= images_per_dash:
+		return
+
+	if player.DashTime <= 0.0:
+		return
+
+	var emit_interval: float = (
+		player.DashTime
+		/ float(
+			images_per_dash - 1
+		)
+	)
+
+	_afterimage_emit_timer += delta
+
+	while (
+		_afterimage_emit_timer >= emit_interval
+		and _images_emitted_this_dash < images_per_dash
+	):
+		_afterimage_emit_timer -= emit_interval
+
+		_emit_afterimage()
+
+
+func _emit_afterimage() -> void:
+	if afterimage_template == null:
+		return
+
+	if _images_emitted_this_dash >= images_per_dash:
+		return
+
+	var new_afterimage := (
+		afterimage_template.duplicate()
+		as ColorRect
+	)
+
+	if new_afterimage == null:
+		return
+
+	new_afterimage.visible = true
+
+	add_child(
+		new_afterimage
+	)
+
+	new_afterimage.position = (
+		afterimage_template.global_position
+	)
+
+	new_afterimage.rotation = (
+		afterimage_template.global_rotation
+	)
+
+	new_afterimage.scale = (
+		afterimage_template.global_scale
+	)
+
+	_afterimages.append(
+		new_afterimage
+	)
+
+	_afterimage_ages.append(
+		0.0
+	)
+
+	_images_emitted_this_dash += 1
+
+
+func _age_dash_pixels(
+	delta: float
+) -> void:
+	for i in range(
+		_dash_pixel_ages.size()
+	):
+		_dash_pixel_ages[i] += delta
+
+		var pixel: Sprite2D = (
+			_dash_pixels[i]
+		)
+
+		if pixel == null:
+			continue
+
+		if pixel_lifetime <= 0.0:
+			pixel.modulate.a = 0.0
+			continue
+
+		pixel.modulate.a = (
+			1.0
+			- clampf(
+				_dash_pixel_ages[i]
+				/ pixel_lifetime,
+				0.0,
+				1.0
+			)
+		)
+
+
+func _age_afterimages(
+	delta: float
+) -> void:
+	for i in range(
+		_afterimage_ages.size()
+	):
+		_afterimage_ages[i] += delta
+
+		var afterimage: ColorRect = (
+			_afterimages[i]
+		)
+
+		if afterimage == null:
+			continue
+
+		if pixel_lifetime <= 0.0:
+			afterimage.modulate.a = 0.0
+			continue
+
+		afterimage.modulate.a = (
+			1.0
+			- clampf(
+				_afterimage_ages[i]
+				/ pixel_lifetime,
+				0.0,
+				1.0
+			)
+		)
+
+
+func _remove_expired_dash_pixels() -> void:
+	for i in range(
+		_dash_pixels.size() - 1,
+		-1,
+		-1
+	):
+		if (
+			_dash_pixel_ages[i]
+			< pixel_lifetime
+		):
+			continue
+
+		var pixel: Sprite2D = (
+			_dash_pixels[i]
+		)
+
+		if pixel != null:
+			pixel.queue_free()
+
+		_dash_pixels.remove_at(
+			i
+		)
+
+		_dash_pixel_ages.remove_at(
+			i
+		)
+
+
+func _remove_expired_afterimages() -> void:
+	for i in range(
+		_afterimages.size() - 1,
+		-1,
+		-1
+	):
+		if (
+			_afterimage_ages[i]
+			< pixel_lifetime
+		):
+			continue
+
+		var afterimage: ColorRect = (
+			_afterimages[i]
+		)
+
+		if afterimage != null:
+			afterimage.queue_free()
+
+		_afterimages.remove_at(
+			i
+		)
+
+		_afterimage_ages.remove_at(
+			i
 		)
 
 
@@ -522,9 +879,29 @@ func _clear_all_trails() -> void:
 	_dash_trail_timer = 0.0
 	_active_line = null
 
+	_pixels_emitted_this_dash = 0
+	_pixel_emit_timer = 0.0
+
+	_images_emitted_this_dash = 0
+	_afterimage_emit_timer = 0.0
+
 	for line in _trail_lines:
 		if line != null:
 			line.queue_free()
 
 	_trail_lines.clear()
 	_trail_ages.clear()
+
+	for pixel in _dash_pixels:
+		if pixel != null:
+			pixel.queue_free()
+
+	_dash_pixels.clear()
+	_dash_pixel_ages.clear()
+
+	for afterimage in _afterimages:
+		if afterimage != null:
+			afterimage.queue_free()
+
+	_afterimages.clear()
+	_afterimage_ages.clear()
