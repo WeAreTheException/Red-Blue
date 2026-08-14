@@ -244,12 +244,12 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Polygon2D" type="Polygon2D" parent="Environemnt/SpikeBlk" unique_id=575602988]
-visible = false
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
 polygon = PackedVector2Array(-82, 8.000004, -100, 8.000004, -100, 32.000004, -82, 32.000004)
 metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environemnt/SpikeBlk" unique_id=653926482]
+visible = false
 polygon = PackedVector2Array(-100, 8.000004, -100, 32.000004, -82, 32.000004, -82, 8.000004)
 metadata/_edit_lock_ = true
 

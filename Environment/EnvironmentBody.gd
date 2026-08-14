@@ -101,6 +101,7 @@ var color_system_root: ColorSystemRoot = null
 
 var polygons: Array[Polygon2D] = []
 var fill_polygons: Array[Polygon2D] = []
+var sprites: Array[Sprite2D] = []
 
 var collision_polygons: Array[CollisionPolygon2D] = []
 
@@ -137,12 +138,18 @@ func _exit_tree() -> void:
 func _find_children() -> void:
 	polygons.clear()
 	fill_polygons.clear()
+	sprites.clear()
 	collision_polygons.clear()
 
 	for child in get_children():
 		if child is Polygon2D:
 			polygons.append(
 				child as Polygon2D
+			)
+
+		elif child is Sprite2D:
+			sprites.append(
+				child as Sprite2D
 			)
 
 		elif child is CollisionPolygon2D:
@@ -401,6 +408,18 @@ func _apply_visual(
 
 		else:
 			fill_polygon.modulate.a = (
+				inactive_opacity
+			)
+
+	for sprite in sprites:
+		if sprite == null:
+			continue
+
+		if active:
+			sprite.modulate.a = 1.0
+
+		else:
+			sprite.modulate.a = (
 				inactive_opacity
 			)
 
