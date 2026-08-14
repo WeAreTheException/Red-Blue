@@ -178,6 +178,7 @@ trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
 pixel_template = NodePath("../../Sprite2D")
 pixels_per_dash = 4
 afterimage_template = NodePath("../CharacterRect")
+afterimage_lifetime = 0.2
 
 [node name="Line2D" type="Line2D" parent="Player" unique_id=141313676]
 z_index = -1

@@ -43,6 +43,8 @@ var pixels_per_dash: int = 5
 )
 var images_per_dash: int = 4
 
+@export var afterimage_lifetime: float = 0.25
+
 
 var player: PlayerRoot = null
 
@@ -460,11 +462,11 @@ func _emit_afterimage() -> void:
 	)
 
 	new_afterimage.rotation = (
-		afterimage_template.global_rotation
+		afterimage_template.rotation
 	)
 
 	new_afterimage.scale = (
-		afterimage_template.global_scale
+		afterimage_template.scale
 	)
 
 	_afterimages.append(
@@ -523,7 +525,7 @@ func _age_afterimages(
 		if afterimage == null:
 			continue
 
-		if pixel_lifetime <= 0.0:
+		if afterimage_lifetime <= 0.0:
 			afterimage.modulate.a = 0.0
 			continue
 
@@ -531,7 +533,7 @@ func _age_afterimages(
 			1.0
 			- clampf(
 				_afterimage_ages[i]
-				/ pixel_lifetime,
+				/ afterimage_lifetime,
 				0.0,
 				1.0
 			)
@@ -574,7 +576,7 @@ func _remove_expired_afterimages() -> void:
 	):
 		if (
 			_afterimage_ages[i]
-			< pixel_lifetime
+			< afterimage_lifetime
 		):
 			continue
 
