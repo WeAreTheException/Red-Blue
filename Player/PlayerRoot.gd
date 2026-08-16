@@ -5,6 +5,7 @@ class_name PlayerRoot
 #region State IDs
 
 const StNormal: int = 0
+const StClimb: int = 1
 const StDash: int = 2
 
 #endregion
@@ -18,8 +19,6 @@ const StDash: int = 2
 @export var respawn_point: Node2D
 
 #endregion
-
-
 
 
 #region Run
@@ -95,6 +94,34 @@ const StDash: int = 2
 @export var SuperWallJumpVarTime: float = 0.25
 @export var SuperWallJumpForceTime: float = 0.2
 @export var SuperWallJumpH: float = 170.0
+
+#endregion
+
+
+#region Climb
+
+@export_group("Climb")
+
+@export var ClimbMaxStamina: float = 110.0
+@export var ClimbTiredThreshold: float = 20.0
+
+@export var ClimbCheckDist: int = 2
+@export var ClimbNoMoveTime: float = 0.1
+
+@export var ClimbUpSpeed: float = -45.0
+@export var ClimbDownSpeed: float = 80.0
+@export var ClimbSlipSpeed: float = 30.0
+@export var ClimbAccel: float = 900.0
+
+@export var ClimbGrabYMult: float = 0.2
+
+@export var ClimbUpCost: float = (
+	100.0 / 2.2
+)
+
+@export var ClimbStillCost: float = (
+	100.0 / 10.0
+)
 
 #endregion
 

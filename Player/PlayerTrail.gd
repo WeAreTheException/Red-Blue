@@ -46,6 +46,13 @@ var images_per_dash: int = 4
 @export var afterimage_lifetime: float = 0.25
 
 
+@export_group("Dash End Animation")
+
+@export var dash_end_animation_template: AnimatedSprite2D
+
+@export var dash_end_animation_offset: Vector2 = Vector2.ZERO
+
+
 var player: PlayerRoot = null
 
 var _emission_offset: Vector2 = Vector2.ZERO
@@ -95,6 +102,9 @@ func _ready() -> void:
 
 	if pixel_template != null:
 		pixel_template.visible = false
+
+	if dash_end_animation_template != null:
+		dash_end_animation_template.visible = false
 
 	set_as_top_level(
 		true
@@ -176,6 +186,9 @@ func _on_dashed(
 
 	_end_active_dash()
 
+	if afterimage_template != null:
+		afterimage_template.visible = false
+
 	_create_dash_trail()
 
 	_dash_trail_active = true
@@ -255,12 +268,55 @@ func _on_movement_state_changed(
 
 
 func _end_active_dash() -> void:
+	var dash_was_active: bool = (
+		_dash_trail_active
+	)
+
 	_dash_trail_active = false
 	_dash_trail_timer = 0.0
 	_active_line = null
 
 	_pixel_emit_timer = 0.0
 	_afterimage_emit_timer = 0.0
+
+	if dash_was_active:
+		if afterimage_template != null:
+			afterimage_template.visible = true
+
+		_play_dash_end_animation()
+
+
+func _play_dash_end_animation() -> void:
+	if dash_end_animation_template == null:
+		return
+
+	var new_animation := (
+		dash_end_animation_template.duplicate()
+		as AnimatedSprite2D
+	)
+
+	if new_animation == null:
+		return
+
+	new_animation.visible = true
+
+	add_child(
+		new_animation
+	)
+
+	new_animation.position = (
+		player.global_transform
+		* _emission_offset
+	) + dash_end_animation_offset
+
+	new_animation.stop()
+
+	new_animation.animation_finished.connect(
+		new_animation.queue_free,
+		CONNECT_ONE_SHOT
+	)
+
+	new_animation.play()
 
 
 func _add_active_point() -> void:
@@ -869,6 +925,9 @@ func _on_player_respawned(
 		return
 
 	_clear_all_trails()
+
+	if afterimage_template != null:
+		afterimage_template.visible = true
 
 	_last_point = (
 		player.global_transform

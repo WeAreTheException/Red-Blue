@@ -11,9 +11,9 @@
 [ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="8_xrekx"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="9_lpd4p"]
 [ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="9_xrekx"]
-[ext_resource type="Shader" uid="uid://d3c2dgk2l2g8h" path="res://Shaders/Subpixilizer.gdshader" id="10_g1c7i"]
 [ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="11_qmbnc"]
 [ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="12_6idcn"]
+[ext_resource type="Shader" uid="uid://be88rh3573knf" path="res://Levels/Level3/PixelDither.gdshader" id="12_xrekx"]
 [ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Sound/Music/TimMusic1.wav" id="13_07l0d"]
 [ext_resource type="Texture2D" uid="uid://bfjbvpnwn2w3b" path="res://Levels/Level1/Level1.png" id="13_jcn68"]
 
@@ -35,9 +35,12 @@ size = Vector2(160, 8)
 size = Vector2(160, 8)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c1kre"]
-shader = ExtResource("10_g1c7i")
-shader_parameter/PIXEL_SIZE = 3.0
-shader_parameter/OPACITY = 0.0210000009975
+shader = ExtResource("12_xrekx")
+shader_parameter/dither_color = Color(0.3529412, 0.3529412, 0.3529412, 0.31764707)
+shader_parameter/dither_amount = 0.65
+shader_parameter/darkness_influence = 1.0
+shader_parameter/base_coverage = 0.0
+shader_parameter/pixel_size = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wpk6a"]
 radius = 8.0
@@ -400,6 +403,7 @@ offset_left = -152.0
 offset_top = -80.0
 offset_right = 152.0
 offset_bottom = 80.0
+color = Color(0.09803922, 0.17254902, 0.25490198, 1)
 metadata/_edit_lock_ = true
 
 [node name="Turnip" type="Area2D" parent="." unique_id=1963133387 node_paths=PackedStringArray("sprite")]
