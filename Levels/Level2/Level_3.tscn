@@ -203,11 +203,11 @@ affiliation = 0
 [node name="Polygon2D" type="Polygon2D" parent="Red2" unique_id=998279690]
 position = Vector2(72.799995, -5.5999985)
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
-polygon = PackedVector2Array(-104.799995, -10.400002, -128.79999, -10.400002, -128.79999, 29.599998, -104.799995, 29.599998)
+polygon = PackedVector2Array(-120.799995, -18.400002, -128.79999, -18.400002, -128.79999, 21.599998, -112.799995, 21.599998, -112.799995, 29.599998, -104.799995, 29.599998, -104.799995, 5.5999985, -120.799995, 5.5999985)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Red2" unique_id=103453834]
 position = Vector2(48.799995, -17.599998)
-polygon = PackedVector2Array(-104.799995, 1.5999985, -104.799995, 41.6, -80.799995, 41.6, -80.799995, 1.5999985)
+polygon = PackedVector2Array(-104.799995, -6.4000015, -104.799995, 33.6, -96.799995, 33.6, -88.799995, 33.6, -88.799995, 41.6, -80.799995, 41.6, -80.799995, 17.599998, -96.799995, 17.599998, -96.799995, -6.4000015)
 
 [node name="BlueSpikes" type="StaticBody2D" parent="." unique_id=1728024858]
 position = Vector2(-88, -32)
@@ -261,7 +261,7 @@ rotation = 1.5707964
 texture = ExtResource("14_8xq61")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RedSpikes2" unique_id=517220215]
-position = Vector2(4, 1.7484555e-07)
+position = Vector2(12, 1.0000005)
 polygon = PackedVector2Array(12, -4, 8, -4, 8, -20, 12, -20)
 
 [node name="Blue" type="StaticBody2D" parent="." unique_id=718916740]
@@ -278,7 +278,7 @@ polygon = PackedVector2Array(-105.6, -6.4000015, -129.6, -6.4000015, -129.6, 33.
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Blue" unique_id=546635580]
 position = Vector2(73.6, -21.599998)
-polygon = PackedVector2Array(-105.6, 5.5999985, -105.6, 45.6, -81.6, 45.6, -81.6, 5.5999985)
+polygon = PackedVector2Array(-105.6, 13.599998, -105.6, 29.599998, -89.6, 29.599998, -89.6, 45.6, -81.6, 45.6, -81.6, 29.599998, -81.6, 13.599998)
 
 [node name="Red3" type="StaticBody2D" parent="." unique_id=569952970]
 position = Vector2(208, 20)

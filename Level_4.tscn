@@ -28,10 +28,10 @@ size = Vector2(320, 8)
 size = Vector2(304, 1.5258789e-05)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fjop3"]
-size = Vector2(160, 8)
+size = Vector2(164, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dh6nl"]
-size = Vector2(160, 8)
+size = Vector2(176, 8)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_47yyk"]
 
@@ -50,15 +50,16 @@ script = ExtResource("1_02vam")
 player_visual = NodePath("CharacterRect")
 respawn_point = NodePath("../RespawnPoint")
 JumpSpeed = -110.0
+DashCooldown = 0.02
+DashRefillCooldown = 0.02
 
-[node name="DashTrail" type="Node2D" parent="Player" unique_id=461020021 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
+[node name="DashTrail" type="Node2D" parent="Player" unique_id=461020021 node_paths=PackedStringArray("trail_template", "afterimage_template")]
 script = ExtResource("2_hshm6")
 trail_template = NodePath("../Line2D")
 trail_lifetime = 1.0
 max_points = 15
 minimum_point_distance = 12.0
 trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
-pixel_template = NodePath("")
 pixels_per_dash = 4
 afterimage_template = NodePath("../CharacterRect")
 afterimage_lifetime = 0.2
@@ -107,8 +108,9 @@ script = ExtResource("6_85j6u")
 player_visual = NodePath("../../CharacterRect")
 metadata/_custom_type_script = "uid://bla5jhlpbksb4"
 
-[node name="PlayerColorEjectionBridge" type="Node" parent="Player/Color" unique_id=26019332]
+[node name="PlayerColorEjectionBridge" type="Node" parent="Player/Color" unique_id=26019332 node_paths=PackedStringArray("player_collision_shape")]
 script = ExtResource("7_8w5jw")
+player_collision_shape = NodePath("../../../Red/Turnip/CollisionShape2D")
 metadata/_custom_type_script = "uid://c0xmcdujgwai2"
 
 [node name="SFX" type="Node" parent="Player" unique_id=2142044109 node_paths=PackedStringArray("dash_sfx")]
@@ -138,27 +140,25 @@ offset_left = -168.0
 offset_top = 80.0
 offset_right = 168.0
 offset_bottom = 96.0
-color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
 metadata/_edit_lock_ = true
 
 [node name="Ceiling" type="StaticBody2D" parent="Frame" unique_id=163851092]
+position = Vector2(0, -4)
 rotation = 3.1415927
 collision_layer = 2
 collision_mask = 0
-metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Frame/Ceiling" unique_id=1015824075]
-position = Vector2(1.08085205e-05, 80.00001)
+position = Vector2(8.042895e-06, 92)
 shape = SubResource("RectangleShape2D_hshm6")
-metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Frame/Ceiling" unique_id=2040733445]
 offset_left = -168.0
-offset_top = 80.0
+offset_top = 92.000015
 offset_right = 168.0
-offset_bottom = 96.0
-color = Color(0.25565878, 0.25565878, 0.25565878, 1)
-metadata/_edit_lock_ = true
+offset_bottom = 108.000015
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
 
 [node name="LeftWall" type="StaticBody2D" parent="Frame" unique_id=603706420]
 rotation = 1.5707964
@@ -167,17 +167,16 @@ collision_mask = 0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Frame/LeftWall" unique_id=520262288]
-position = Vector2(6.8189765e-06, 156)
+position = Vector2(-1.9999932, 156)
 shape = SubResource("RectangleShape2D_fjop3")
 metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Frame/LeftWall" unique_id=1988711275]
-offset_left = -79.956924
+offset_left = -96.65213
 offset_top = 152.01389
 offset_right = 81.05266
 offset_bottom = 160.65355
-color = Color(0.25565878, 0.25565878, 0.25565878, 1)
-metadata/_edit_lock_ = true
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
 
 [node name="RightWall" type="StaticBody2D" parent="Frame" unique_id=167768815]
 rotation = 4.712389
@@ -186,15 +185,15 @@ collision_mask = 0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Frame/RightWall" unique_id=1722216269]
-position = Vector2(6.8189765e-06, 156)
+position = Vector2(8.000003, 156)
 shape = SubResource("RectangleShape2D_dh6nl")
 
 [node name="ColorRect" type="ColorRect" parent="Frame/RightWall" unique_id=399416773]
 offset_left = -79.956924
 offset_top = 152.01389
-offset_right = 81.05266
+offset_right = 96.028305
 offset_bottom = 160.65355
-color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
 
 [node name="Base" type="StaticBody2D" parent="." unique_id=1006933219]
 collision_layer = 2
@@ -210,12 +209,12 @@ polygon = PackedVector2Array(-144, 32, -152, 32, -152, 0, -112, 0, -112, 24, -12
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Base" unique_id=156835174]
 position = Vector2(0, -62.4)
-polygon = PackedVector2Array(-152, 30.400002, -112, 30.400002, -112, 22.400002, -136, 22.400002, -136, -17.599998, -152, -17.599998)
+polygon = PackedVector2Array(-152, 30.400002, -112, 30.400002, -112, 22.400002, -144, 22.400002, -144, -21.599998, -152, -21.599998)
 
 [node name="Polygon2D2" type="Polygon2D" parent="Base" unique_id=1335646292]
 position = Vector2(0, -62.4)
 color = Color(0.15294118, 0.2509804, 0.36078432, 1)
-polygon = PackedVector2Array(-152, 30.400002, -152, -17.599998, -136, -17.599998, -136, 22.400002, -112, 22.400002, -112, 30.400002)
+polygon = PackedVector2Array(-152, 30.400002, -152, -33.6, -144, -33.6, -144, 22.400002, -112, 22.400002, -112, 30.400002)
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Base" unique_id=1906263655]
 position = Vector2(0, 48)
@@ -448,7 +447,7 @@ texture = ExtResource("10_hshm6")
 
 [node name="RedSpikes" type="StaticBody2D" parent="." unique_id=327272683]
 position = Vector2(24, 24)
-rotation = 3.1415927
+rotation = -3.1415925
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("11_dh6nl")

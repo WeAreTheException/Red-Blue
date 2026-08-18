@@ -1,0 +1,207 @@
+[gd_scene format=3 uid="uid://dbrdf4rr7bbh1"]
+
+[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="1_qgc01"]
+[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="2_ab1xn"]
+[ext_resource type="Texture2D" uid="uid://gx3mh77xru4x" path="res://Levels/Level2/Pixel.png" id="3_ly836"]
+[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="4_egbc3"]
+[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="5_6d55j"]
+[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="6_fsk3n"]
+[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="7_hoqg1"]
+[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://ColorChange/PlayerColorController.gd" id="8_2bsmc"]
+[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://ColorChange/PlayerColorEjectionBridge.gd" id="9_ttw17"]
+[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="10_gpthi"]
+[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="11_lbt7t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l5nfy"]
+size = Vector2(320, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qgc01"]
+size = Vector2(304, 1.5258789e-05)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6ri4"]
+size = Vector2(164, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cwy4p"]
+size = Vector2(176, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q6ri4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5deq"]
+size = Vector2(8, 11)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ejnx0"]
+
+[node name="Node2D" type="Node2D" unique_id=518638182]
+
+[node name="Frame" type="Node2D" parent="." unique_id=1411475587]
+metadata/_edit_lock_ = true
+
+[node name="Floor" type="StaticBody2D" parent="Frame" unique_id=1377467818]
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Frame/Floor" unique_id=1599842585]
+position = Vector2(0, 84)
+shape = SubResource("RectangleShape2D_l5nfy")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Frame/Floor" unique_id=73118869]
+offset_left = -168.0
+offset_top = 80.0
+offset_right = 168.0
+offset_bottom = 96.0
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+metadata/_edit_lock_ = true
+
+[node name="Ceiling" type="StaticBody2D" parent="Frame" unique_id=803402802]
+position = Vector2(0, -4)
+rotation = 3.1415927
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Frame/Ceiling" unique_id=1402676567]
+position = Vector2(8.042895e-06, 92)
+shape = SubResource("RectangleShape2D_qgc01")
+
+[node name="ColorRect" type="ColorRect" parent="Frame/Ceiling" unique_id=637866837]
+offset_left = -168.0
+offset_top = 92.000015
+offset_right = 168.0
+offset_bottom = 108.000015
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+
+[node name="LeftWall" type="StaticBody2D" parent="Frame" unique_id=463035378]
+rotation = 1.5707964
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Frame/LeftWall" unique_id=1900501403]
+position = Vector2(-1.9999932, 156)
+shape = SubResource("RectangleShape2D_q6ri4")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Frame/LeftWall" unique_id=698229134]
+offset_left = -96.65213
+offset_top = 152.01389
+offset_right = 81.05266
+offset_bottom = 160.65355
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+
+[node name="RightWall" type="StaticBody2D" parent="Frame" unique_id=1067506237]
+rotation = 4.712389
+collision_layer = 2
+collision_mask = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Frame/RightWall" unique_id=1349099748]
+position = Vector2(8.000003, 156)
+shape = SubResource("RectangleShape2D_cwy4p")
+
+[node name="ColorRect" type="ColorRect" parent="Frame/RightWall" unique_id=1117504863]
+offset_left = -79.956924
+offset_top = 152.01389
+offset_right = 96.028305
+offset_bottom = 160.65355
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+
+[node name="Red2" type="StaticBody2D" parent="." unique_id=1443000631]
+position = Vector2(260, 36)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_qgc01")
+affiliation = 0
+
+[node name="Polygon2D" type="Polygon2D" parent="Red2" unique_id=2040330273]
+material = SubResource("ShaderMaterial_q6ri4")
+position = Vector2(-212, -12)
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+polygon = PackedVector2Array(-104, 8, -136, 8, -136, 56, -104, 56)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Red2" unique_id=140758400]
+position = Vector2(-236, -28)
+polygon = PackedVector2Array(-112, 24, -112, 72, -80, 72, -80, 24)
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1106630799 node_paths=PackedStringArray("player_visual", "respawn_point")]
+position = Vector2(-144, 80)
+collision_mask = 2
+script = ExtResource("2_ab1xn")
+player_visual = NodePath("CharacterRect")
+respawn_point = NodePath("")
+MaxFall = 140.0
+JumpSpeed = -110.0
+DashTime = 0.1
+
+[node name="DashPixel" type="Sprite2D" parent="Player" unique_id=1766133654]
+position = Vector2(-128, -56)
+texture = ExtResource("3_ly836")
+metadata/_edit_lock_ = true
+
+[node name="DashTrail" type="Node2D" parent="Player" unique_id=1647266965 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
+script = ExtResource("4_egbc3")
+trail_template = NodePath("../Line2D")
+trail_lifetime = 1.0
+max_points = 15
+minimum_point_distance = 12.0
+trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
+pixel_template = NodePath("../DashPixel")
+pixels_per_dash = 4
+afterimage_template = NodePath("../CharacterRect")
+afterimage_lifetime = 0.2
+metadata/_edit_lock_ = true
+
+[node name="Line2D" type="Line2D" parent="Player" unique_id=1622673452]
+z_index = -1
+position = Vector2(0, -6)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=2051139333]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_f5deq")
+metadata/_edit_lock_ = true
+
+[node name="CharacterRect" type="ColorRect" parent="Player" unique_id=1186133522]
+material = SubResource("ShaderMaterial_ejnx0")
+offset_left = -4.0
+offset_top = -11.0
+offset_right = 4.0
+color = Color(0.8039216, 0.24313726, 0.07058824, 1)
+metadata/_edit_lock_ = true
+
+[node name="Respawn" type="Node" parent="Player" unique_id=1883042995]
+script = ExtResource("5_6d55j")
+
+[node name="Death" type="Node" parent="Player" unique_id=173451523]
+script = ExtResource("6_fsk3n")
+
+[node name="DeathFeedback" type="Node" parent="Player/Death" unique_id=146470815]
+script = ExtResource("7_hoqg1")
+
+[node name="States" type="Node" parent="Player" unique_id=1874809129]
+
+[node name="Color" type="Node" parent="Player" unique_id=369847724]
+
+[node name="PlayerColorController" type="Node" parent="Player/Color" unique_id=1700832133 node_paths=PackedStringArray("player_visual")]
+script = ExtResource("8_2bsmc")
+player_visual = NodePath("../../CharacterRect")
+red_color = Color(0.8352941, 0.1254902, 0.1254902, 1)
+blue_color = Color(0.2627451, 0.43137255, 0.69411767, 1)
+metadata/_custom_type_script = "uid://bla5jhlpbksb4"
+
+[node name="PlayerColorEjectionBridge" type="Node" parent="Player/Color" unique_id=783370295 node_paths=PackedStringArray("player_collision_shape")]
+script = ExtResource("9_ttw17")
+player_collision_shape = NodePath("../../CollisionShape2D")
+travel_acceleration = 2000.0
+exit_speed = 100.0
+lift_boost_cap = 20.0
+metadata/_custom_type_script = "uid://c0xmcdujgwai2"
+
+[node name="SFX" type="Node" parent="Player" unique_id=767861913 node_paths=PackedStringArray("dash_sfx")]
+script = ExtResource("10_gpthi")
+dash_sfx = NodePath("Dash")
+
+[node name="Dash" type="AudioStreamPlayer" parent="Player/SFX" unique_id=1516506157]
+stream = ExtResource("11_lbt7t")
+volume_db = -4.0
+pitch_scale = 1.1

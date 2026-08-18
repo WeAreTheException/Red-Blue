@@ -5,14 +5,17 @@ class_name ColorEjectionResolver
 @export_group("Search")
 
 @export var max_eject_distance: int = 96
-@export var similar_route_distance: int = 4
 
 
-@export_group("Bias")
+@export_group("Side Correction")
 
-@export var minimum_velocity_for_bias: float = 10.0
-@export var velocity_bias_score: float = 3.0
-@export var input_bias_score: float = 1.0
+# If the player can escape sideways in LESS than
+# this many pixels, it is only a side correction.
+#
+# 2 means:
+# 1 px inside -> side correction
+# 2+ px inside -> eject UP
+@export var minimum_horizontal_overlap: int = 2
 
 
 func get_overlapping_reactives(
@@ -49,174 +52,137 @@ func resolve_escape(
 	bridge: PlayerColorEjectionBridge,
 	pending_reactives: Array[Node]
 ) -> Dictionary:
-	var result := {
+	var failed_result := {
 		"success": false,
+		"route": &"NONE",
 		"direction": Vector2.ZERO,
 		"distance": 0,
 		"offset": Vector2.ZERO,
-		"route": &"NONE",
 	}
 
 	if bridge == null:
-		return result
+		return failed_result
 
 	if not _overlaps_any_pending(
 		bridge,
 		pending_reactives,
 		Vector2.ZERO
 	):
-		return result
+		return failed_result
 
-	var routes: Array[Dictionary] = []
-
-	var directions: Array[Dictionary] = [
-		{
-			"direction": Vector2.LEFT,
-			"name": &"LEFT",
-		},
-		{
-			"direction": Vector2.RIGHT,
-			"name": &"RIGHT",
-		},
-		{
-			"direction": Vector2.UP,
-			"name": &"UP",
-		},
-		{
-			"direction": Vector2.DOWN,
-			"name": &"DOWN",
-		},
-	]
-
-	for route_data in directions:
-		var route_direction: Vector2 = (
-			route_data["direction"]
-		)
-
-		var route_name: StringName = (
-			route_data["name"]
-		)
-
-		var route: Dictionary = _find_route(
-			bridge,
-			pending_reactives,
-			route_direction,
-			route_name
-		)
-
-		if bool(
-			route["success"]
-		):
-			routes.append(
-				route
-			)
-
-	if routes.is_empty():
-		return result
-
-	var shortest_distance: int = 1000000
-
-	for route in routes:
-		var route_distance: int = int(
-			route["distance"]
-		)
-
-		shortest_distance = mini(
-			shortest_distance,
-			route_distance
-		)
-
-	var velocity: Vector2 = (
-		bridge.get_velocity_for_ejection_bias()
+	var side_result := _find_side_correction(
+		bridge,
+		pending_reactives
 	)
 
-	var directional_input: Vector2 = (
-		bridge.get_directional_input_for_ejection_bias()
+	if bool(
+		side_result.get(
+			"success",
+			false
+		)
+	):
+		return side_result
+
+	return _find_up_route(
+		bridge,
+		pending_reactives
 	)
 
-	var best_route: Dictionary = {}
-	var best_score: float = INF
 
-	for route in routes:
-		var distance: int = int(
-			route["distance"]
-		)
+func _find_side_correction(
+	bridge: PlayerColorEjectionBridge,
+	pending_reactives: Array[Node]
+) -> Dictionary:
+	var failed_result := {
+		"success": false,
+		"route": &"NONE",
+		"direction": Vector2.ZERO,
+		"distance": 0,
+		"offset": Vector2.ZERO,
+	}
 
-		if (
-			distance
-			> shortest_distance
-			+ similar_route_distance
+	if minimum_horizontal_overlap <= 1:
+		return failed_result
+
+	for reactive in pending_reactives:
+		if reactive == null:
+			continue
+
+		if not is_instance_valid(
+			reactive
 		):
 			continue
 
-		var direction: Vector2 = (
-			route["direction"]
-		)
-
-		var score: float = float(
-			distance
-		)
-
-		if (
-			velocity.length()
-			>= minimum_velocity_for_bias
+		if not _player_overlaps_reactive(
+			bridge,
+			reactive,
+			Vector2.ZERO
 		):
-			var velocity_alignment: float = maxf(
-				0.0,
-				velocity.normalized().dot(
-					direction
-				)
+			continue
+
+		var direction := _get_side_direction(
+			bridge,
+			reactive
+		)
+
+		if direction == Vector2.ZERO:
+			continue
+
+		# We only search BELOW the UP-ejection threshold.
+		#
+		# With threshold 2:
+		# only a 1 px correction is allowed.
+		for distance in range(
+			1,
+			minimum_horizontal_overlap
+		):
+			var offset := (
+				direction
+				* float(distance)
 			)
 
-			score -= (
-				velocity_alignment
-				* velocity_bias_score
-			)
+			if _overlaps_any_pending(
+				bridge,
+				pending_reactives,
+				offset
+			):
+				continue
 
-		if directional_input != Vector2.ZERO:
-			var input_alignment: float = maxf(
-				0.0,
-				directional_input.normalized().dot(
-					direction
-				)
-			)
+			if bridge.route_blocked_by_active_world(
+				offset
+			):
+				continue
 
-			score -= (
-				input_alignment
-				* input_bias_score
-			)
+			return {
+				"success": true,
+				"route": &"SIDE_CORRECTION",
+				"direction": direction,
+				"distance": distance,
+				"offset": offset,
+			}
 
-		if score < best_score:
-			best_score = score
-			best_route = route
-
-	if best_route.is_empty():
-		return result
-
-	return best_route
+	return failed_result
 
 
-func _find_route(
+func _find_up_route(
 	bridge: PlayerColorEjectionBridge,
-	pending_reactives: Array[Node],
-	direction: Vector2,
-	route_name: StringName
+	pending_reactives: Array[Node]
 ) -> Dictionary:
-	var result := {
+	var failed_result := {
 		"success": false,
-		"direction": direction,
+		"route": &"NONE",
+		"direction": Vector2.ZERO,
 		"distance": 0,
 		"offset": Vector2.ZERO,
-		"route": route_name,
 	}
 
 	for distance in range(
 		1,
 		max_eject_distance + 1
 	):
-		var offset: Vector2 = (
-			direction
-			* distance
+		var offset := (
+			Vector2.UP
+			* float(distance)
 		)
 
 		if _overlaps_any_pending(
@@ -231,13 +197,128 @@ func _find_route(
 		):
 			continue
 
-		result["success"] = true
-		result["distance"] = distance
-		result["offset"] = offset
+		return {
+			"success": true,
+			"route": &"UP",
+			"direction": Vector2.UP,
+			"distance": distance,
+			"offset": offset,
+		}
 
-		return result
+	return failed_result
 
-	return result
+
+func _get_side_direction(
+	bridge: PlayerColorEjectionBridge,
+	reactive: Node
+) -> Vector2:
+	var player_shape := (
+		bridge.get_player_collision_shape()
+	)
+
+	if player_shape == null:
+		return Vector2.ZERO
+
+	if player_shape.shape == null:
+		return Vector2.ZERO
+
+	var player_transform := (
+		player_shape.global_transform
+	)
+
+	var player_x := (
+		player_transform.origin.x
+	)
+
+	# Current EnvironmentBody.
+	if reactive.has_method(
+		"get_collision_polygons"
+	):
+		var polygon_result: Variant = (
+			reactive.call(
+				"get_collision_polygons"
+			)
+		)
+
+		if polygon_result is Array:
+			for value in polygon_result:
+				var collision_polygon := (
+					value as CollisionPolygon2D
+				)
+
+				if collision_polygon == null:
+					continue
+
+				if not _player_overlaps_polygon(
+					player_shape,
+					player_transform,
+					collision_polygon
+				):
+					continue
+
+				var bounds := (
+					_get_polygon_world_bounds(
+						collision_polygon
+					)
+				)
+
+				var center_x := (
+					bounds.position.x
+					+ bounds.size.x * 0.5
+				)
+
+				if player_x < center_x:
+					return Vector2.LEFT
+
+				return Vector2.RIGHT
+
+	# Compatibility with older ColorReactive scenes.
+	if reactive.has_method(
+		"get_collision_shapes"
+	):
+		var shape_result: Variant = (
+			reactive.call(
+				"get_collision_shapes"
+			)
+		)
+
+		if shape_result is Array:
+			for value in shape_result:
+				var collision_shape := (
+					value as CollisionShape2D
+				)
+
+				if collision_shape == null:
+					continue
+
+				if collision_shape.shape == null:
+					continue
+
+				if not collision_shape.shape.collide(
+					collision_shape.global_transform,
+					player_shape.shape,
+					player_transform
+				):
+					continue
+
+				var bounds := (
+					_get_shape_world_bounds(
+						collision_shape.shape,
+						collision_shape.global_transform
+					)
+				)
+
+				var center_x := (
+					bounds.position.x
+					+ bounds.size.x * 0.5
+				)
+
+				if player_x < center_x:
+					return Vector2.LEFT
+
+				return Vector2.RIGHT
+
+	return Vector2.ZERO
 
 
 func _overlaps_any_pending(
@@ -269,7 +350,7 @@ func _player_overlaps_reactive(
 	reactive: Node,
 	offset: Vector2
 ) -> bool:
-	var player_shape: CollisionShape2D = (
+	var player_shape := (
 		bridge.get_player_collision_shape()
 	)
 
@@ -279,13 +360,13 @@ func _player_overlaps_reactive(
 	if player_shape.shape == null:
 		return false
 
-	var player_transform: Transform2D = (
+	var player_transform := (
 		player_shape.global_transform
 	)
 
 	player_transform.origin += offset
 
-	# New EnvironmentBody objects.
+	# Current EnvironmentBody.
 	if reactive.has_method(
 		"get_collision_polygons"
 	):
@@ -297,7 +378,7 @@ func _player_overlaps_reactive(
 
 		if polygon_result is Array:
 			for value in polygon_result:
-				var collision_polygon: CollisionPolygon2D = (
+				var collision_polygon := (
 					value as CollisionPolygon2D
 				)
 
@@ -311,7 +392,7 @@ func _player_overlaps_reactive(
 				):
 					return true
 
-	# Old ColorReactive objects still work too.
+	# Older ColorReactive compatibility.
 	if reactive.has_method(
 		"get_collision_shapes"
 	):
@@ -323,7 +404,7 @@ func _player_overlaps_reactive(
 
 		if shape_result is Array:
 			for value in shape_result:
-				var collision_shape: CollisionShape2D = (
+				var collision_shape := (
 					value as CollisionShape2D
 				)
 
@@ -368,7 +449,7 @@ func _player_overlaps_polygon(
 		if convex_points.size() < 3:
 			continue
 
-		var polygon_shape: ConvexPolygonShape2D = (
+		var polygon_shape := (
 			ConvexPolygonShape2D.new()
 		)
 
@@ -384,3 +465,133 @@ func _player_overlaps_polygon(
 			return true
 
 	return false
+
+
+func _get_polygon_world_bounds(
+	collision_polygon: CollisionPolygon2D
+) -> Rect2:
+	var points := (
+		collision_polygon.polygon
+	)
+
+	var first_point := (
+		collision_polygon.global_transform
+		* points[0]
+	)
+
+	var min_x := first_point.x
+	var max_x := first_point.x
+	var min_y := first_point.y
+	var max_y := first_point.y
+
+	for i in range(
+		1,
+		points.size()
+	):
+		var point := (
+			collision_polygon.global_transform
+			* points[i]
+		)
+
+		min_x = minf(
+			min_x,
+			point.x
+		)
+
+		max_x = maxf(
+			max_x,
+			point.x
+		)
+
+		min_y = minf(
+			min_y,
+			point.y
+		)
+
+		max_y = maxf(
+			max_y,
+			point.y
+		)
+
+	return Rect2(
+		Vector2(
+			min_x,
+			min_y
+		),
+		Vector2(
+			max_x - min_x,
+			max_y - min_y
+		)
+	)
+
+
+func _get_shape_world_bounds(
+	shape: Shape2D,
+	transform: Transform2D
+) -> Rect2:
+	var local_rect := (
+		shape.get_rect()
+	)
+
+	var corners: Array[Vector2] = [
+		local_rect.position,
+		Vector2(
+			local_rect.end.x,
+			local_rect.position.y
+		),
+		local_rect.end,
+		Vector2(
+			local_rect.position.x,
+			local_rect.end.y
+		),
+	]
+
+	var first_point := (
+		transform
+		* corners[0]
+	)
+
+	var min_x := first_point.x
+	var max_x := first_point.x
+	var min_y := first_point.y
+	var max_y := first_point.y
+
+	for i in range(
+		1,
+		corners.size()
+	):
+		var point := (
+			transform
+			* corners[i]
+		)
+
+		min_x = minf(
+			min_x,
+			point.x
+		)
+
+		max_x = maxf(
+			max_x,
+			point.x
+		)
+
+		min_y = minf(
+			min_y,
+			point.y
+		)
+
+		max_y = maxf(
+			max_y,
+			point.y
+		)
+
+	return Rect2(
+		Vector2(
+			min_x,
+			min_y
+		),
+		Vector2(
+			max_x - min_x,
+			max_y - min_y
+		)
+	)

@@ -7,14 +7,10 @@
 
 [node name="Colorsystem" type="Node2D" unique_id=2061407221]
 
-[node name="ColorSystemRoot" type="Node" parent="." unique_id=648738573 node_paths=PackedStringArray("color_state", "ejection_resolver", "hitstop_controller", "player_ejection_bridge")]
+[node name="ColorSystemRoot" type="Node" parent="." unique_id=648738573 node_paths=PackedStringArray("color_state", "ejection_resolver")]
 script = ExtResource("1_4oipc")
 color_state = NodePath("ColorState")
 ejection_resolver = NodePath("ColorEjectionResolver")
-hitstop_controller = NodePath("HitstopController")
-player_ejection_bridge = NodePath("")
-normal_switch_hitstop = null
-eject_hitstop = null
 metadata/_custom_type_script = "uid://dtkl3wqummjce"
 
 [node name="ColorState" type="Node" parent="ColorSystemRoot" unique_id=1309250606]

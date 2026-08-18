@@ -132,6 +132,8 @@ func _run_color_transaction(
 ) -> void:
 	_transaction_active = true
 
+	_refresh_player_ejection_bridge()
+
 	color_transaction_started.emit(
 		previous_color,
 		new_color
@@ -204,9 +206,11 @@ func _run_color_transaction(
 			)
 		)
 
-	var had_ejection: bool = false
+	var had_overlap := (
+		not overlapping.is_empty()
+	)
 
-	if not overlapping.is_empty():
+	if had_overlap:
 		if (
 			ejection_resolver == null
 			or player_ejection_bridge == null
@@ -219,7 +223,7 @@ func _run_color_transaction(
 
 			return
 
-		var ejection_result: Dictionary = (
+		var ejection_result := (
 			ejection_resolver.resolve_escape(
 				player_ejection_bridge,
 				becoming_active
@@ -240,9 +244,7 @@ func _run_color_transaction(
 
 			return
 
-		had_ejection = true
-
-		player_ejection_bridge.apply_position_correction(
+		await player_ejection_bridge.apply_position_correction(
 			ejection_result
 		)
 
@@ -269,7 +271,7 @@ func _run_color_transaction(
 
 	if player_ejection_bridge != null:
 		player_ejection_bridge.finish_color_transaction(
-			had_ejection
+			had_overlap
 		)
 
 	_transaction_active = false
@@ -332,3 +334,49 @@ func _sync_all_reactives(
 			"set_active_immediate",
 			wants_active
 		)
+
+
+func _refresh_player_ejection_bridge() -> void:
+	if (
+		player_ejection_bridge != null
+		and is_instance_valid(
+			player_ejection_bridge
+		)
+	):
+		return
+
+	player_ejection_bridge = null
+
+	var current_scene := (
+		get_tree().current_scene
+	)
+
+	if current_scene == null:
+		return
+
+	player_ejection_bridge = (
+		_find_player_ejection_bridge(
+			current_scene
+		)
+	)
+
+
+func _find_player_ejection_bridge(
+	node: Node
+) -> PlayerColorEjectionBridge:
+	if node is PlayerColorEjectionBridge:
+		return (
+			node as PlayerColorEjectionBridge
+		)
+
+	for child in node.get_children():
+		var found := (
+			_find_player_ejection_bridge(
+				child
+			)
+		)
+
+		if found != null:
+			return found
+
+	return null

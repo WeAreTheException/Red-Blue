@@ -2,13 +2,6 @@ extends Node
 class_name PlayerColorEjectionBridge
 
 
-const ACTION_LEFT: StringName = &"LEFT"
-const ACTION_RIGHT: StringName = &"RIGHT"
-const ACTION_UP: StringName = &"UP"
-const ACTION_DOWN: StringName = &"DOWN"
-const ACTION_JUMP: StringName = &"JUMP"
-const ACTION_DASH: StringName = &"DASH"
-
 signal ejection_debug_changed(
 	is_ejecting: bool,
 	direction_name: StringName,
@@ -17,55 +10,90 @@ signal ejection_debug_changed(
 	color_boost_applied: bool
 )
 
+
 @export_group("Player")
+
 @export var player_collision_shape: CollisionShape2D
 @export var player_death: PlayerDeath
 
-@export_group("Ejection")
-@export var eject_speed: float = 60.0
 
-@export_group("Color Chain")
-@export var color_chain_horizontal_mult: float = 1.0
+@export_group("Up Ejection")
 
-var player: PlayerRoot
+@export var travel_acceleration: float = 4000.0
+@export var max_travel_speed: float = 300.0
+@export var exit_speed: float = 0.0
+
+
+@export_group("Ejection Jump Boost")
+
+@export var lift_boost_cap: float = 130.0
+
+
+var player: PlayerRoot = null
+
 var is_color_transaction_active: bool = false
+
 
 var _player_physics_was_enabled: bool = true
 
-var _buffered_jump: bool = false
-var _buffered_dash: bool = false
-var _buffered_direction: Vector2 = Vector2.ZERO
-
 var _pre_speed: Vector2 = Vector2.ZERO
 var _pre_state_machine_state: int = 0
-var _pre_dash_dir: Vector2 = Vector2.ZERO
-var _pre_dash_started_on_ground: bool = false
+var _pre_lift_boost: Vector2 = Vector2.ZERO
 
 var _last_ejection_result: Dictionary = {}
+var _last_travel_speed: float = 0.0
+
+var _ejection_lift_active: bool = false
+var _ejection_lift_timer: float = 0.0
+var _ejection_lift_value: Vector2 = Vector2.ZERO
+
 
 func _ready() -> void:
-	player = get_parent() as PlayerRoot
+	var parent_node := (
+		get_parent()
+	)
 
-func _input(event: InputEvent) -> void:
-	if not is_color_transaction_active:
-		return
+	player = (
+		parent_node as PlayerRoot
+	)
+
+	if (
+		player == null
+		and parent_node != null
+	):
+		player = (
+			parent_node.get_parent()
+			as PlayerRoot
+		)
 
 	if player == null:
+		push_error(
+			"PlayerColorEjectionBridge could not find PlayerRoot."
+		)
+
+	var player_events := (
+		get_node_or_null(
+			"/root/PlayerEvents"
+		)
+	)
+
+	if player_events != null:
+		player_events.movement_state_changed.connect(
+			_on_movement_state_changed
+		)
+
+
+func _process(
+	delta: float
+) -> void:
+	if not _ejection_lift_active:
 		return
 
-	if event.is_action_pressed(
-		ACTION_JUMP
-	):
-		_buffered_jump = true
+	_ejection_lift_timer -= delta
 
-	if event.is_action_pressed(
-		ACTION_DASH
-	):
-		_buffered_dash = true
+	if _ejection_lift_timer <= 0.0:
+		_clear_ejection_lift_boost()
 
-	_buffered_direction = (
-		_read_current_direction()
-	)
 
 func begin_color_transaction() -> void:
 	if player == null:
@@ -76,41 +104,64 @@ func begin_color_transaction() -> void:
 
 	is_color_transaction_active = true
 
-	var state := player.movement.movement_state
+	_last_ejection_result.clear()
+	_last_travel_speed = 0.0
 
-	_pre_speed = state.Speed
-	_pre_state_machine_state = state.StateMachineState
-	_pre_dash_dir = state.DashDir
-	_pre_dash_started_on_ground = state.dashStartedOnGround
-
-	_buffered_jump = (
-		state.jump_pressed
-		or (
-			Input.is_action_pressed(ACTION_JUMP)
-			and not state._jump_was_down
-		)
+	var state := (
+		player.movement.movement_state
 	)
 
-	_buffered_dash = (
-		state.dash_pressed
-		or (
-			Input.is_action_pressed(ACTION_DASH)
-			and not state._dash_was_down
-		)
+	_pre_speed = (
+		state.Speed
 	)
 
-	_buffered_direction = _read_current_direction()
+	_pre_state_machine_state = (
+		state.StateMachineState
+	)
 
-	_player_physics_was_enabled = player.is_physics_processing()
-	player.set_physics_process(false)
+	_pre_lift_boost = (
+		state.LiftBoost
+	)
+
+	state.Speed = (
+		Vector2.ZERO
+	)
+
+	_player_physics_was_enabled = (
+		player.is_physics_processing()
+	)
+
+	player.set_physics_process(
+		false
+	)
+
 
 func cancel_color_transaction() -> void:
 	if not is_color_transaction_active:
 		return
 
+	if player != null:
+		var state := (
+			player.movement.movement_state
+		)
+
+		state.Speed = (
+			_pre_speed
+		)
+
+		state.StateMachineState = (
+			_pre_state_machine_state
+		)
+
+		state.LiftBoost = (
+			_pre_lift_boost
+		)
+
 	_restore_player_physics()
+
 	is_color_transaction_active = false
-	_clear_buffers()
+
+	_last_ejection_result.clear()
 
 	ejection_debug_changed.emit(
 		false,
@@ -120,309 +171,371 @@ func cancel_color_transaction() -> void:
 		false
 	)
 
-func apply_position_correction(result: Dictionary) -> void:
+
+func apply_position_correction(
+	result: Dictionary
+) -> void:
 	if player == null:
 		return
 
-	if not result.get("success", false):
+	if not bool(
+		result.get(
+			"success",
+			false
+		)
+	):
 		return
 
-	var offset: Vector2 = result.get("offset", Vector2.ZERO)
-	player.global_position += offset
+	_last_ejection_result = (
+		result.duplicate(
+			true
+		)
+	)
 
-	_last_ejection_result = result.duplicate(true)
+	var route: StringName = (
+		result.get(
+			"route",
+			&"NONE"
+		)
+	)
 
-	var direction: Vector2 = result.get("direction", Vector2.ZERO)
+	# Side correction only.
+	# This is not an ejection or movement mechanic.
+	if route == &"SIDE_CORRECTION":
+		var offset: Vector2 = (
+			result.get(
+				"offset",
+				Vector2.ZERO
+			)
+		)
+
+		player.global_position += (
+			offset
+		)
+
+		ejection_debug_changed.emit(
+			false,
+			_direction_name(
+				result.get(
+					"direction",
+					Vector2.ZERO
+				)
+			),
+			&"SIDE_CORRECTION",
+			int(
+				result.get(
+					"distance",
+					0
+				)
+			),
+			false
+		)
+
+		await get_tree().process_frame
+
+		return
+
+	if route != &"UP":
+		return
+
+	var distance := float(
+		result.get(
+			"distance",
+			0
+		)
+	)
+
+	if distance <= 0.0:
+		await get_tree().process_frame
+		return
 
 	ejection_debug_changed.emit(
 		true,
-		_direction_name(direction),
-		result.get("route", &"NONE"),
-		int(result.get("distance", 0)),
+		&"UP",
+		&"UP",
+		int(distance),
 		false
 	)
 
-func finish_color_transaction(had_ejection: bool) -> void:
+	var start_x := (
+		player.global_position.x
+	)
+
+	var remaining := (
+		distance
+	)
+
+	var travel_speed := 0.0
+
+	while remaining > 0.0:
+		await get_tree().physics_frame
+
+		if player == null:
+			return
+
+		var delta := (
+			get_physics_process_delta_time()
+		)
+
+		travel_speed = minf(
+			travel_speed
+			+ (
+				travel_acceleration
+				* delta
+			),
+			max_travel_speed
+		)
+
+		var movement := minf(
+			travel_speed
+			* delta,
+			remaining
+		)
+
+		player.global_position = Vector2(
+			start_x,
+			player.global_position.y
+			- movement
+		)
+
+		remaining -= (
+			movement
+		)
+
+	_last_travel_speed = (
+		travel_speed
+	)
+
+
+func finish_color_transaction(
+	had_overlap: bool
+) -> void:
 	if player == null:
 		return
 
 	if not is_color_transaction_active:
 		return
 
-	if player_death != null and player_death.is_dead:
+	if (
+		player_death != null
+		and player_death.is_dead
+	):
 		_restore_player_physics()
+
 		is_color_transaction_active = false
-		_clear_buffers()
+
+		_last_ejection_result.clear()
+
 		return
 
-	var action_performed := false
-
-	if had_ejection:
-		action_performed = _finish_ejection_chain()
-	else:
-		action_performed = _process_buffered_action_without_ejection()
-
-	var boost_applied := false
-
-	if had_ejection and action_performed:
-		boost_applied = _apply_color_chain_boost()
-
-	var direction := Vector2.ZERO
-	var route_name: StringName = &"NONE"
-	var distance := 0
-
-	if not _last_ejection_result.is_empty():
-		direction = _last_ejection_result.get("direction", Vector2.ZERO)
-		route_name = _last_ejection_result.get("route", &"NONE")
-		distance = int(_last_ejection_result.get("distance", 0))
-
-	ejection_debug_changed.emit(
-		false,
-		_direction_name(direction),
-		route_name,
-		distance,
-		boost_applied
+	var state := (
+		player.movement.movement_state
 	)
 
-	_refresh_input_edge_memory()
+	var route: StringName = (
+		&"NONE"
+	)
+
+	if (
+		had_overlap
+		and not _last_ejection_result.is_empty()
+	):
+		route = (
+			_last_ejection_result.get(
+				"route",
+				&"NONE"
+			)
+		)
+
+	if route == &"UP":
+		state.StateMachineState = (
+			player.StNormal
+		)
+
+		state.Speed.x = 0.0
+
+		state.Speed.y = (
+			-maxf(
+				0.0,
+				exit_speed
+			)
+		)
+
+		state.DashDir = (
+			Vector2.ZERO
+		)
+
+		state.dashPending = false
+		state.StartedDashing = false
+		state.Ducking = false
+
+		state.jumpGraceTimer = (
+			player.JumpGraceTime
+		)
+
+		_arm_ejection_lift_boost(
+			_last_travel_speed
+		)
+
+	else:
+		# Normal color change or side correction.
+		# Movement remains exactly as it was.
+		state.Speed = (
+			_pre_speed
+		)
+
+		state.StateMachineState = (
+			_pre_state_machine_state
+		)
+
+		state.LiftBoost = (
+			_pre_lift_boost
+		)
+
 	_restore_player_physics()
 
 	is_color_transaction_active = false
-	_clear_buffers()
+
+	ejection_debug_changed.emit(
+		false,
+		&"UP" if route == &"UP" else &"NONE",
+		route,
+		int(
+			_last_ejection_result.get(
+				"distance",
+				0
+			)
+		),
+		false
+	)
+
+	_last_ejection_result.clear()
+
 
 func get_player_collision_shape() -> CollisionShape2D:
 	return player_collision_shape
 
-func get_velocity_for_ejection_bias() -> Vector2:
-	if is_color_transaction_active:
-		return _pre_speed
-	if player == null:
-		return Vector2.ZERO
-	return player.movement.movement_state.Speed
 
-func get_directional_input_for_ejection_bias() -> Vector2:
-	return _buffered_direction
-
-func route_blocked_by_active_world(offset: Vector2) -> bool:
+func route_blocked_by_active_world(
+	offset: Vector2
+) -> bool:
 	if player == null:
 		return true
-	return player.test_move(player.global_transform, offset)
 
-func _finish_ejection_chain() -> bool:
-	if _last_ejection_result.is_empty():
-		return false
-
-	var direction: Vector2 = _last_ejection_result.get("direction", Vector2.ZERO)
-	var state := player.movement.movement_state
-
-	state.Speed = _pre_speed
-
-	if direction == Vector2.UP:
-		_prepare_up_ejection()
-
-		if state.StateMachineState == player.StDash and _buffered_jump:
-			state.jump_pressed = true
-			player.movement.player_dash.DashUpdate(0.0)
-			return _is_jump_family_phase(state.movement_phase)
-
-		if state.StateMachineState == player.StNormal and _buffered_dash:
-			return _start_existing_dash()
-
-		if _buffered_jump:
-			state.jump_pressed = true
-			return player.movement.player_jump.update(0.0)
-
-		_apply_outward_eject_velocity(direction)
-		return false
-
-	if direction == Vector2.LEFT or direction == Vector2.RIGHT:
-		if _buffered_jump:
-			var wall_jump_dir := int(sign(direction.x))
-
-			if (
-				_pre_state_machine_state == player.StDash
-				and is_zero_approx(_pre_dash_dir.x)
-				and _pre_dash_dir.y < 0.0
-			):
-				player.movement.player_wall_jump.SuperWallJump(wall_jump_dir)
-			else:
-				player.movement.player_wall_jump.WallJump(wall_jump_dir)
-
-			state.StateMachineState = player.StNormal
-			return true
-
-		if state.StateMachineState == player.StNormal and _buffered_dash:
-			return _start_existing_dash()
-
-		_apply_outward_eject_velocity(direction)
-		return false
-
-	# DOWN is ceiling-like and never fabricates grounded status.
-	if state.StateMachineState == player.StNormal and _buffered_dash:
-		return _start_existing_dash()
-
-	_apply_outward_eject_velocity(direction)
-	return false
-
-func _prepare_up_ejection() -> void:
-	var state := player.movement.movement_state
-
-	state.onGround = true
-	state.jumpGraceTimer = player.JumpGraceTime
-
-	var valid_air_dash_landing := (
-		_pre_state_machine_state == player.StDash
-		and not _pre_dash_started_on_ground
-		and not is_zero_approx(_pre_dash_dir.x)
-		and _pre_dash_dir.y > 0.0
+	return player.test_move(
+		player.global_transform,
+		offset
 	)
 
-	if not valid_air_dash_landing:
-		return
 
-	state.DashDir.x = sign(_pre_dash_dir.x)
-	state.DashDir.y = 0.0
-
-	state.Speed.x = _pre_speed.x * player.DodgeSlideSpeedMult
-	state.Speed.y = 0.0
-
-	state.Ducking = true
-	state.dash_landed_from_air = true
-
-	if state.dashRefillCooldownTimer <= 0.0:
-		player.movement.player_dash.RefillDash()
-
-func _process_buffered_action_without_ejection() -> bool:
-	var state := player.movement.movement_state
-
-	if state.StateMachineState == player.StDash:
-		if _buffered_jump:
-			state.jump_pressed = true
-			player.movement.player_dash.DashUpdate(0.0)
-			return _is_jump_family_phase(state.movement_phase)
-		return false
-
-	if state.StateMachineState == player.StNormal and _buffered_dash:
-		return _start_existing_dash()
-
-	if state.StateMachineState == player.StNormal and _buffered_jump:
-		state.jump_pressed = true
-		return player.movement.player_jump.update(0.0)
-
-	return false
-
-func _start_existing_dash() -> bool:
-	var state := player.movement.movement_state
-	state.dash_pressed = true
-
-	if not player.movement.player_dash.CanDash():
-		return false
-
-	if _buffered_direction != Vector2.ZERO:
-		state.lastAim = _buffered_direction.normalized()
-
-	player.movement.player_dash.StartDash()
-	return true
-
-func _apply_outward_eject_velocity(direction: Vector2) -> void:
-	var state := player.movement.movement_state
-	var speed := _pre_speed
-
-	if direction.x != 0.0:
-		var outward_x := speed.x * direction.x
-		speed.x = direction.x * max(
-			eject_speed,
-			max(0.0, outward_x)
-		)
-	else:
-		var outward_y := speed.y * direction.y
-		speed.y = direction.y * max(
-			eject_speed,
-			max(0.0, outward_y)
-		)
-
-	state.Speed = speed
-
-func _apply_color_chain_boost() -> bool:
-	if is_equal_approx(color_chain_horizontal_mult, 1.0):
-		return false
-
-	var state := player.movement.movement_state
-
-	if not _is_jump_family_phase(state.movement_phase):
-		return false
-
-	state.Speed.x *= color_chain_horizontal_mult
-	return true
-
-func _is_jump_family_phase(phase: StringName) -> bool:
-	return (
-		phase == &"JUMP"
-		or phase == &"SUPER JUMP"
-		or phase == &"HYPER JUMP"
-		or phase == &"WAVEDASH"
-		or phase == &"WALL JUMP"
-		or phase == &"SUPER WALL JUMP"
-	)
-
-func _refresh_input_edge_memory() -> void:
+func _arm_ejection_lift_boost(
+	travel_speed: float
+) -> void:
 	if player == null:
 		return
 
-	var state := player.movement.movement_state
+	if _ejection_lift_active:
+		_clear_ejection_lift_boost()
 
-	state._jump_was_down = Input.is_action_pressed(ACTION_JUMP)
-	state._dash_was_down = Input.is_action_pressed(ACTION_DASH)
+	var state := (
+		player.movement.movement_state
+	)
 
-	state.jump_pressed = false
-	state.dash_pressed = false
+	var upward_lift := (
+		-absf(
+			travel_speed
+		)
+	)
+
+	upward_lift = maxf(
+		upward_lift,
+		-lift_boost_cap
+	)
+
+	_ejection_lift_value = Vector2(
+		0.0,
+		upward_lift
+	)
+
+	state.LiftBoost = (
+		_ejection_lift_value
+	)
+
+	_ejection_lift_timer = (
+		player.JumpGraceTime
+	)
+
+	_ejection_lift_active = true
+
+
+func _clear_ejection_lift_boost() -> void:
+	if not _ejection_lift_active:
+		return
+
+	if player != null:
+		var state := (
+			player.movement.movement_state
+		)
+
+		if (
+			state.LiftBoost
+			== _ejection_lift_value
+		):
+			state.LiftBoost = (
+				Vector2.ZERO
+			)
+
+	_ejection_lift_active = false
+
+	_ejection_lift_timer = 0.0
+
+	_ejection_lift_value = (
+		Vector2.ZERO
+	)
+
+
+func _on_movement_state_changed(
+	event_player: PlayerRoot,
+	state_name: StringName
+) -> void:
+	if event_player != player:
+		return
+
+	if not _ejection_lift_active:
+		return
+
+	if (
+		state_name == &"JUMP"
+		or state_name == &"SUPER JUMP"
+		or state_name == &"HYPER JUMP"
+		or state_name == &"WAVEDASH"
+		or state_name == &"WALL JUMP"
+		or state_name == &"SUPER WALL JUMP"
+	):
+		# Jump already used LiftBoost before
+		# the movement event was emitted.
+		_clear_ejection_lift_boost()
+
+
+func _direction_name(
+	direction: Vector2
+) -> StringName:
+	if direction == Vector2.LEFT:
+		return &"LEFT"
+
+	if direction == Vector2.RIGHT:
+		return &"RIGHT"
+
+	if direction == Vector2.UP:
+		return &"UP"
+
+	return &"NONE"
+
 
 func _restore_player_physics() -> void:
 	if player == null:
 		return
-	player.set_physics_process(_player_physics_was_enabled)
 
-func _clear_buffers() -> void:
-	_buffered_jump = false
-	_buffered_dash = false
-	_buffered_direction = Vector2.ZERO
-	_last_ejection_result.clear()
-
-func _read_current_direction() -> Vector2:
-	var horizontal_strength: float = Input.get_axis(
-		ACTION_LEFT,
-		ACTION_RIGHT
+	player.set_physics_process(
+		_player_physics_was_enabled
 	)
-
-	var vertical_strength: float = Input.get_axis(
-		ACTION_UP,
-		ACTION_DOWN
-	)
-
-	var direction := Vector2.ZERO
-
-	if horizontal_strength < 0.0:
-		direction.x = -1.0
-
-	elif horizontal_strength > 0.0:
-		direction.x = 1.0
-
-	if vertical_strength < 0.0:
-		direction.y = -1.0
-
-	elif vertical_strength > 0.0:
-		direction.y = 1.0
-
-	return direction
-
-
-func _direction_name(direction: Vector2) -> StringName:
-	if direction == Vector2.LEFT:
-		return &"LEFT"
-	if direction == Vector2.RIGHT:
-		return &"RIGHT"
-	if direction == Vector2.UP:
-		return &"UP"
-	if direction == Vector2.DOWN:
-		return &"DOWN"
-	return &"NONE"

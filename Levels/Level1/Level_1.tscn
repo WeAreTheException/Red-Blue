@@ -54,6 +54,7 @@ script = ExtResource("1_07l0d")
 player_visual = NodePath("CharacterRect")
 respawn_point = NodePath("../Spawn")
 JumpSpeed = -110.0
+DashCooldown = 0.1
 
 [node name="Node2D" type="Node2D" parent="Player" unique_id=1505466943 node_paths=PackedStringArray("trail_template")]
 script = ExtResource("9_xrekx")
