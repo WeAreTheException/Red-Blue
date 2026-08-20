@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs48l0s6gwxgr"
-path="res://.godot/imported/Level1.png-d30090ffb2e06e7aef78d417f44e4fda.ctex"
+uid="uid://cxy1bf1nfvuod"
+path="res://.godot/imported/Slash_color1_frame9.png-888326ae8be535721396bee5b713d1de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Levels/Level1/Level1.png"
-dest_files=["res://.godot/imported/Level1.png-d30090ffb2e06e7aef78d417f44e4fda.ctex"]
+source_file="res://Combat/Bullet/Frames/Slash_color1_frame9.png"
+dest_files=["res://.godot/imported/Slash_color1_frame9.png-888326ae8be535721396bee5b713d1de.ctex"]
 
 [params]
 

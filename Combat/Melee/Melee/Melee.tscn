@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://cbivv7jo3cbi8"]
+
+[ext_resource type="Texture2D" uid="uid://dkphu7hbt7ujh" path="res://Combat/Bullet/Frames/Slash_color1_frame1.png" id="2_uagip"]
+[ext_resource type="Texture2D" uid="uid://dwbwaoimck1gc" path="res://Combat/Bullet/Frames/Slash_color1_frame2.png" id="3_xo60v"]
+[ext_resource type="Texture2D" uid="uid://2ntjaitlghyy" path="res://Combat/Bullet/Frames/Slash_color1_frame3.png" id="4_261wm"]
+[ext_resource type="Texture2D" uid="uid://btj5sorkcxdyg" path="res://Combat/Bullet/Frames/Slash_color1_frame4.png" id="5_qy5h8"]
+[ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="7_xo60v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_raf71"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_uagip")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xo60v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_261wm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_qy5h8")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"melee",
+"speed": 12.0
+}]
+
+[node name="Node2D" type="Sprite2D" unique_id=1136153287]
+vframes = 2
+
+[node name="melee" type="AnimatedSprite2D" parent="." unique_id=44368737]
+sprite_frames = SubResource("SpriteFrames_raf71")
+animation = &"melee"
+script = ExtResource("7_xo60v")

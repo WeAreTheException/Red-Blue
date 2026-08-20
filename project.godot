@@ -18,6 +18,7 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 PlayerEvents="*uid://bw2cjq305fwwo"
 ColorSystem="*uid://dwqtmv5feey0b"
 Camera="*uid://cp7h8mwtch3aa"
+PlayerLocator="*uid://b42cu8chfgxa4"
 
 [display]
 
@@ -30,7 +31,7 @@ window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/aseprite_spritesheet_importer/plugin.cfg")
 
 [input]
 

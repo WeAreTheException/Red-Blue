@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dwqtmv5feey0b"]
 
-[ext_resource type="Script" uid="uid://dtkl3wqummjce" path="res://ColorChange/ColorSystemRoot.gd" id="1_4oipc"]
-[ext_resource type="Script" uid="uid://crllsr20fv40p" path="res://ColorChange/ColorState.gd" id="2_lql2g"]
-[ext_resource type="Script" uid="uid://bi0lyeuxnc8dh" path="res://ColorChange/ColorEjectionResolver.gd" id="3_cstok"]
-[ext_resource type="Script" uid="uid://c7i4l0nrk4ryw" path="res://ColorChange/HitstopController.gd" id="4_v1imj"]
+[ext_resource type="Script" uid="uid://dtkl3wqummjce" path="res://Color/ColorChange/ColorSystemRoot.gd" id="1_4oipc"]
+[ext_resource type="Script" uid="uid://crllsr20fv40p" path="res://Color/ColorChange/ColorState.gd" id="2_lql2g"]
+[ext_resource type="Script" uid="uid://bi0lyeuxnc8dh" path="res://Color/ColorChange/ColorEjectionResolver.gd" id="3_cstok"]
+[ext_resource type="Script" uid="uid://c7i4l0nrk4ryw" path="res://Color/ColorChange/HitstopController.gd" id="4_v1imj"]
 
 [node name="Colorsystem" type="Node2D" unique_id=2061407221]
 
