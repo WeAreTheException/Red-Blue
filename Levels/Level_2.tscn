@@ -1,15 +1,6 @@
 [gd_scene format=3 uid="uid://16boayvaeb3u"]
 
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="1_f8p00"]
-[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="2_lc8i2"]
-[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="3_x6a2d"]
-[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="4_l1o3i"]
-[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="5_1o7mx"]
-[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="6_sna0o"]
-[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://Color/ColorChange/PlayerColorController.gd" id="7_an8ag"]
-[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://Color/ColorChange/PlayerColorEjectionBridge.gd" id="8_lkt0j"]
-[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="9_4ehuj"]
-[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="10_d747o"]
 [ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="11_5acey"]
 [ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="12_dml1t"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="13_uxyht"]
@@ -29,14 +20,6 @@ size = Vector2(160, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xowgb"]
 size = Vector2(160, 8)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_872j5"]
-load_path = "res://.godot/imported/Pixel.png-25798637280bc4e7ad3d9e55ff6001ac.ctex"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvg1y"]
-size = Vector2(8, 11)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c4f5w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t7mo4"]
 radius = 8.0
@@ -324,84 +307,6 @@ offset_top = 152.01389
 offset_right = 79.96332
 offset_bottom = 159.91032
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
-
-[node name="Player" type="CharacterBody2D" parent="." unique_id=1796819119 node_paths=PackedStringArray("player_visual", "respawn_point")]
-position = Vector2(128, 56)
-collision_mask = 2
-script = ExtResource("2_lc8i2")
-player_visual = NodePath("CharacterRect")
-respawn_point = NodePath("../Spawn")
-JumpSpeed = -110.0
-
-[node name="DashPixel" type="Sprite2D" parent="Player" unique_id=260828917]
-position = Vector2(-128, -56)
-texture = SubResource("CompressedTexture2D_872j5")
-
-[node name="DashTrail" type="Node2D" parent="Player" unique_id=472193136 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
-script = ExtResource("3_x6a2d")
-trail_template = NodePath("../Line2D")
-trail_lifetime = 1.0
-max_points = 15
-minimum_point_distance = 12.0
-trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
-pixel_template = NodePath("../DashPixel")
-pixels_per_dash = 4
-afterimage_template = NodePath("../CharacterRect")
-afterimage_lifetime = 0.2
-
-[node name="Line2D" type="Line2D" parent="Player" unique_id=141313676]
-z_index = -1
-position = Vector2(0, -6)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=535977827]
-position = Vector2(0, -5.5)
-shape = SubResource("RectangleShape2D_hvg1y")
-metadata/_edit_lock_ = true
-
-[node name="CharacterRect" type="ColorRect" parent="Player" unique_id=143581634]
-material = SubResource("ShaderMaterial_c4f5w")
-offset_left = -4.0
-offset_top = -11.0
-offset_right = 4.0
-color = Color(0.8039216, 0.24313726, 0.07058824, 1)
-
-[node name="Respawn" type="Node" parent="Player" unique_id=113912151]
-script = ExtResource("4_l1o3i")
-
-[node name="Death" type="Node" parent="Player" unique_id=1436814670]
-script = ExtResource("5_1o7mx")
-
-[node name="DeathFeedback" type="Node" parent="Player/Death" unique_id=436333881]
-script = ExtResource("6_sna0o")
-
-[node name="States" type="Node" parent="Player" unique_id=1480273807]
-
-[node name="Color" type="Node" parent="Player" unique_id=1534701217]
-
-[node name="PlayerColorController" type="Node" parent="Player/Color" unique_id=1600827659 node_paths=PackedStringArray("player_visual")]
-script = ExtResource("7_an8ag")
-player_visual = NodePath("../../CharacterRect")
-red_color = Color(0.8352941, 0.1254902, 0.1254902, 1)
-blue_color = Color(0.2627451, 0.43137255, 0.69411767, 1)
-metadata/_custom_type_script = "uid://bla5jhlpbksb4"
-
-[node name="PlayerColorController2" type="Node" parent="Player/Color" unique_id=319321185 node_paths=PackedStringArray("player_visual")]
-script = ExtResource("7_an8ag")
-player_visual = NodePath("../../CharacterRect")
-metadata/_custom_type_script = "uid://bla5jhlpbksb4"
-
-[node name="PlayerColorEjectionBridge" type="Node" parent="Player/Color" unique_id=267752735]
-script = ExtResource("8_lkt0j")
-metadata/_custom_type_script = "uid://c0xmcdujgwai2"
-
-[node name="SFX" type="Node" parent="Player" unique_id=1880286139 node_paths=PackedStringArray("dash_sfx")]
-script = ExtResource("9_4ehuj")
-dash_sfx = NodePath("Dash")
-
-[node name="Dash" type="AudioStreamPlayer" parent="Player/SFX" unique_id=1035482528]
-stream = ExtResource("10_d747o")
-volume_db = -4.0
-pitch_scale = 1.1
 
 [node name="Turnip" type="Area2D" parent="." unique_id=871199182 node_paths=PackedStringArray("sprite")]
 position = Vector2(104, -48)

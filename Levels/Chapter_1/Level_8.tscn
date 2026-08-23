@@ -1,0 +1,431 @@
+[gd_scene format=3 uid="uid://bvdo4ot8px4cc"]
+
+[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="1_8s26t"]
+[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="2_q5r26"]
+[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="3_gky2q"]
+[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="4_u2484"]
+[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="5_gw65r"]
+[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://Color/ColorChange/PlayerColorController.gd" id="6_6myqt"]
+[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://Color/ColorChange/PlayerColorEjectionBridge.gd" id="7_vwerk"]
+[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="8_f7ooj"]
+[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="9_a2otr"]
+[ext_resource type="Texture2D" uid="uid://dkphu7hbt7ujh" path="res://Combat/Bullet/Frames/Slash_color1_frame1.png" id="10_u2f7v"]
+[ext_resource type="Texture2D" uid="uid://dwbwaoimck1gc" path="res://Combat/Bullet/Frames/Slash_color1_frame2.png" id="11_dh4bk"]
+[ext_resource type="Texture2D" uid="uid://2ntjaitlghyy" path="res://Combat/Bullet/Frames/Slash_color1_frame3.png" id="12_cy8an"]
+[ext_resource type="Texture2D" uid="uid://btj5sorkcxdyg" path="res://Combat/Bullet/Frames/Slash_color1_frame4.png" id="13_u1jla"]
+[ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="14_y5b2m"]
+[ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="15_2itju"]
+[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="16_mdug0"]
+[ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="17_lgcyr"]
+[ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="18_ggv0g"]
+[ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="19_udg6q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s6e1r"]
+size = Vector2(8, 11)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e0x48"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s8ugk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_u2f7v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_dh4bk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_cy8an")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_u1jla")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"melee",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i0rsr"]
+radius = 8.0
+
+[node name="Level_8" type="Node2D" unique_id=1497379900]
+
+[node name="Spawn" type="Node2D" parent="." unique_id=1651532691]
+position = Vector2(-144, 64)
+
+[node name="Player2" type="CharacterBody2D" parent="." unique_id=1514377004 node_paths=PackedStringArray("player_visual", "respawn_point")]
+position = Vector2(-144, 64)
+collision_mask = 2
+script = ExtResource("1_8s26t")
+player_visual = NodePath("CharacterRect")
+respawn_point = NodePath("../Spawn")
+MaxFall = 140.0
+JumpSpeed = -110.0
+DashTime = 0.1
+
+[node name="DashPixel" type="Sprite2D" parent="Player2" unique_id=1216538577]
+position = Vector2(-128, -56)
+metadata/_edit_lock_ = true
+
+[node name="DashTrail" type="Node2D" parent="Player2" unique_id=556555281 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
+script = ExtResource("2_q5r26")
+trail_template = NodePath("../Line2D")
+trail_lifetime = 1.0
+max_points = 15
+minimum_point_distance = 12.0
+trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
+pixel_template = NodePath("../DashPixel")
+pixels_per_dash = 4
+afterimage_template = NodePath("../CharacterRect")
+afterimage_lifetime = 0.2
+metadata/_edit_lock_ = true
+
+[node name="Line2D" type="Line2D" parent="Player2" unique_id=1963168883]
+z_index = -1
+position = Vector2(0, -6)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2" unique_id=1934986410]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_s6e1r")
+metadata/_edit_lock_ = true
+
+[node name="CharacterRect" type="ColorRect" parent="Player2" unique_id=519452840]
+material = SubResource("ShaderMaterial_e0x48")
+offset_left = -4.0
+offset_top = -11.0
+offset_right = 4.0
+color = Color(0.8687545, 0, 0.22967622, 1)
+metadata/_edit_lock_ = true
+
+[node name="Respawn" type="Node" parent="Player2" unique_id=1943076021]
+script = ExtResource("3_gky2q")
+
+[node name="Death" type="Node" parent="Player2" unique_id=959090426]
+script = ExtResource("4_u2484")
+
+[node name="DeathFeedback" type="Node" parent="Player2/Death" unique_id=971985133]
+script = ExtResource("5_gw65r")
+
+[node name="States" type="Node" parent="Player2" unique_id=488059730]
+
+[node name="Color" type="Node" parent="Player2" unique_id=428075422]
+
+[node name="PlayerColorController" type="Node" parent="Player2/Color" unique_id=511190538 node_paths=PackedStringArray("player_visual")]
+script = ExtResource("6_6myqt")
+player_visual = NodePath("../../CharacterRect")
+red_color = Color(0.8352941, 0.1254902, 0.1254902, 1)
+blue_color = Color(0.2627451, 0.43137255, 0.69411767, 1)
+
+[node name="PlayerColorEjectionBridge" type="Node" parent="Player2/Color" unique_id=918003510 node_paths=PackedStringArray("player_collision_shape")]
+script = ExtResource("7_vwerk")
+player_collision_shape = NodePath("../../CollisionShape2D")
+travel_acceleration = 2000.0
+exit_speed = 200.0
+lift_boost_cap = 20.0
+ejection_hazard_grace_time = 0.1
+
+[node name="SFX" type="Node" parent="Player2" unique_id=1685571941 node_paths=PackedStringArray("dash_sfx")]
+script = ExtResource("8_f7ooj")
+dash_sfx = NodePath("Dash")
+
+[node name="Dash" type="AudioStreamPlayer" parent="Player2/SFX" unique_id=992758233]
+stream = ExtResource("9_a2otr")
+volume_db = -4.0
+pitch_scale = 1.1
+
+[node name="melee" type="AnimatedSprite2D" parent="Player2" unique_id=184007789]
+sprite_frames = SubResource("SpriteFrames_s8ugk")
+animation = &"melee"
+script = ExtResource("14_y5b2m")
+
+[node name="PlayerMelee" type="Node2D" parent="Player2" unique_id=854368262 node_paths=PackedStringArray("melee_visual")]
+script = ExtResource("15_2itju")
+melee_visual = NodePath("../melee")
+metadata/_custom_type_script = "uid://dhaj2ykn3fx0h"
+
+[node name="Chunk" type="StaticBody2D" parent="." unique_id=1496637084]
+position = Vector2(-160, -88)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Base" type="Polygon2D" parent="Chunk" unique_id=659687905]
+color = Color(0.25490198, 0.25490198, 0.25490198, 1)
+polygon = PackedVector2Array(0, 0, 0, 184, 120, 184, 120, 176, 120, 152, 104, 152, 104, 176, 40, 176, 40, 160, 32, 160, 32, 152, 8, 152, 8, 88, 16, 88, 16, 48, 56, 48, 56, 24, 72, 24, 72, 0, 104, 0, 104, 40, 120, 40, 120, 32, 128, 32, 128, 8, 136, 8, 136, 16, 152, 16, 152, 24, 160, 24, 160, 16, 176, 16, 176, 8, 232, 8, 232, 16, 248, 16, 248, 40, 264, 40, 264, 72, 272, 72, 272, 80, 280, 80, 280, 96, 288, 96, 288, 8, 308, 8, 308, 136, 272, 136, 272, 160, 248, 160, 248, 168, 224, 168, 224, 160, 184, 160, 184, 128, 192, 128, 192, 120, 152, 120, 152, 144, 168, 144, 168, 176, 168, 184, 320, 184, 320, 0)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk" unique_id=1872199322]
+polygon = PackedVector2Array(0, 184, 120, 184, 120, 152, 104, 152, 104, 176, 40, 176, 40, 160, 32, 160, 32, 152, 8, 152, 8, 88, 16, 88, 16, 48, 56, 48, 56, 24, 72, 24, 72, 8, 104, 8, 104, 40, 120, 40, 120, 32, 128, 32, 128, 8, 136, 8, 136, 16, 152, 16, 152, 24, 160, 24, 160, 8, 232, 8, 232, 16, 248, 16, 248, 40, 264, 40, 264, 72, 272, 72, 272, 80, 280, 80, 280, 96, 288, 96, 288, 8, 308, 8, 308, 136, 272, 136, 272, 160, 248, 160, 248, 168, 224, 168, 224, 160, 184, 160, 184, 128, 192, 128, 192, 120, 152, 120, 152, 144, 168, 144, 168, 176, 168, 184, 320, 184, 320, 0, 0, 0)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk" unique_id=1624970905]
+polygon = PackedVector2Array(160, 72, 160, 56, 176, 56, 176, 72)
+
+[node name="Chunk2" type="Polygon2D" parent="Chunk" unique_id=1230487910]
+color = Color(0.25490198, 0.25490198, 0.25490198, 1)
+polygon = PackedVector2Array(160, 56, 184, 56, 184, 72, 160, 72)
+
+[node name="Red" type="StaticBody2D" parent="." unique_id=1444830401]
+position = Vector2(40, 40)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("16_mdug0")
+affiliation = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Red" unique_id=1311224135]
+position = Vector2(0, -8)
+polygon = PackedVector2Array(-80, -16, -96, -16, -96, 32, -80, 32)
+metadata/_edit_lock_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="Red" unique_id=976788282]
+polygon = PackedVector2Array(-96, 24, -96, -24, -80, -24, -80, 24)
+metadata/_edit_lock_ = true
+
+[node name="Blue" type="StaticBody2D" parent="." unique_id=1216292673]
+position = Vector2(168, 40)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("16_mdug0")
+affiliation = 1
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Blue" unique_id=1155584183]
+position = Vector2(-4, -8)
+polygon = PackedVector2Array(-84, 0, -108, 0, -108, 8, -84, 8)
+metadata/_edit_lock_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="Blue" unique_id=1619755385]
+position = Vector2(-4, 0)
+polygon = PackedVector2Array(-108, 0, -108, -8, -84, -8, -84, 0)
+metadata/_edit_lock_ = true
+
+[node name="EnvironmentBody" type="StaticBody2D" parent="." unique_id=439029779]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("16_mdug0")
+hostile = true
+hostile_contact_margin = 0.1
+metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="EnvironmentBody" unique_id=490090913]
+position = Vector2(36, 68.00001)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D26" type="Sprite2D" parent="EnvironmentBody" unique_id=509087421]
+visible = false
+position = Vector2(-28, 88)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D31" type="Sprite2D" parent="EnvironmentBody" unique_id=1148204280]
+visible = false
+position = Vector2(-35, 88)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D27" type="Sprite2D" parent="EnvironmentBody" unique_id=778142120]
+visible = false
+position = Vector2(-20, 88)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D28" type="Sprite2D" parent="EnvironmentBody" unique_id=1275068780]
+visible = false
+position = Vector2(-12.000001, 88)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D29" type="Sprite2D" parent="EnvironmentBody" unique_id=1607142448]
+visible = false
+position = Vector2(-4.000001, 88)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D30" type="Sprite2D" parent="EnvironmentBody" unique_id=1864860414]
+position = Vector2(27.999996, 68)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D11" type="Sprite2D" parent="EnvironmentBody" unique_id=1665820794]
+position = Vector2(-3.9999998, -28)
+rotation = -1.5707964
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D12" type="Sprite2D" parent="EnvironmentBody" unique_id=1963216019]
+position = Vector2(-4, -20)
+rotation = -1.5707964
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D20" type="Sprite2D" parent="EnvironmentBody" unique_id=698804005]
+position = Vector2(3.9999995, -12)
+rotation = -3.1415927
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D21" type="Sprite2D" parent="EnvironmentBody" unique_id=1980637852]
+position = Vector2(12, -12)
+rotation = -3.1415927
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D22" type="Sprite2D" parent="EnvironmentBody" unique_id=815893609]
+position = Vector2(20, -12)
+rotation = -3.1415927
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D23" type="Sprite2D" parent="EnvironmentBody" unique_id=1753661702]
+position = Vector2(20, -36)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D24" type="Sprite2D" parent="EnvironmentBody" unique_id=1778848405]
+position = Vector2(12, -36)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D25" type="Sprite2D" parent="EnvironmentBody" unique_id=1923048812]
+position = Vector2(3.9999995, -36)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D13" type="Sprite2D" parent="EnvironmentBody" unique_id=130014694]
+position = Vector2(-4, 28)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D14" type="Sprite2D" parent="EnvironmentBody" unique_id=280459009]
+position = Vector2(3.9999995, 28)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D15" type="Sprite2D" parent="EnvironmentBody" unique_id=774021213]
+position = Vector2(11.999999, 28)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D16" type="Sprite2D" parent="EnvironmentBody" unique_id=1679464864]
+position = Vector2(20, 28)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D17" type="Sprite2D" parent="EnvironmentBody" unique_id=2103342606]
+position = Vector2(28, 28)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D18" type="Sprite2D" parent="EnvironmentBody" unique_id=1674797035]
+position = Vector2(28, -20.000002)
+rotation = 1.5707964
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D19" type="Sprite2D" parent="EnvironmentBody" unique_id=157710084]
+position = Vector2(28, -28.000002)
+rotation = 1.5707964
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="EnvironmentBody" unique_id=537119909]
+position = Vector2(44, 68)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D3" type="Sprite2D" parent="EnvironmentBody" unique_id=1769002912]
+position = Vector2(52, 68)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D4" type="Sprite2D" parent="EnvironmentBody" unique_id=747114187]
+position = Vector2(60, 68)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D5" type="Sprite2D" parent="EnvironmentBody" unique_id=1244898844]
+position = Vector2(67.200005, 76)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D6" type="Sprite2D" parent="EnvironmentBody" unique_id=1146795000]
+position = Vector2(75.200005, 76)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D7" type="Sprite2D" parent="EnvironmentBody" unique_id=1149471420]
+position = Vector2(83.200005, 76)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D8" type="Sprite2D" parent="EnvironmentBody" unique_id=511722599]
+position = Vector2(92, 68)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D9" type="Sprite2D" parent="EnvironmentBody" unique_id=1211771721]
+position = Vector2(100, 68)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D10" type="Sprite2D" parent="EnvironmentBody" unique_id=1299439203]
+position = Vector2(108, 68)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=346569506]
+position = Vector2(0, -8)
+polygon = PackedVector2Array(24, 76, 64, 76, 64, 80, 24, 80)
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=1899199537]
+position = Vector2(-64, 12)
+polygon = PackedVector2Array(24, 76, 72, 76, 72, 80, 24, 80)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=1468997686]
+position = Vector2(-40, -48)
+polygon = PackedVector2Array(32, 76, 72, 76, 72, 80, 32, 80)
+
+[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=195142054]
+position = Vector2(-152, 4)
+polygon = PackedVector2Array(32, 80, 96, 80, 96, 84, 32, 84)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=1893378035]
+position = Vector2(-32, -48)
+polygon = PackedVector2Array(28, 16, 36, 16, 36, 12, 52, 12, 52, 16, 60, 16, 60, 32, 52, 32, 52, 36, 36, 36, 36, 32, 28, 32)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=462201216]
+position = Vector2(48, -8)
+polygon = PackedVector2Array(40, 76, 64, 76, 64, 80, 40, 80)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=1866270371]
+position = Vector2(21.2, 0)
+polygon = PackedVector2Array(42, 76, 66, 76, 66, 80, 42, 80)
+
+[node name="Frame" type="Polygon2D" parent="." unique_id=133863737]
+polygon = PackedVector2Array(-152, 96, -160, 96, -160, -92, 160, -92, 160, 96, 156, 96, -152, 96, -152, 84, 152, 84, 152, -84, -152, -84)
+metadata/_edit_lock_ = true
+
+[node name="Line2D" type="Line2D" parent="Frame" unique_id=1990020903]
+points = PackedVector2Array(-152, -84, -152, 84, 152, 84, 152, -84, -152, -84)
+width = 1.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Turnip" type="Area2D" parent="." unique_id=1578499193 node_paths=PackedStringArray("sprite")]
+position = Vector2(12, -52)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("18_ggv0g")
+sprite = NodePath("Turnip")
+float_height = 1.0
+
+[node name="Turnip" type="Sprite2D" parent="Turnip" unique_id=2058717642]
+position = Vector2(-7.6293945e-06, -3.8146973e-06)
+scale = Vector2(0.100000024, 0.100000024)
+texture = ExtResource("19_udg6q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Turnip" unique_id=740113667]
+shape = SubResource("CircleShape2D_i0rsr")

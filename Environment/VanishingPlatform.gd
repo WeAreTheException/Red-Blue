@@ -4,176 +4,163 @@ class_name VanishingPlatform
 
 @export_group("References")
 
-@export var visual: Polygon2D
-@export var solid_collision: CollisionPolygon2D
-@export var step_trigger: Area2D
+@export var visual: Node2D
+@export var trigger_area: Area2D
 
 
-@export_group("Vanish")
+@export_group("Timing")
 
-@export var vanish_delay: float = 0.8
+@export var vanish_delay: float = 0.5
+@export var respawn_delay: float = 1.5
 
 
-@export_group("Warning Shake")
+@export_group("Feedback")
 
 @export var shake_amount: float = 1.0
-@export var shake_speed: float = 20.0
+@export var shake_speed: float = 35.0
 
 
-@export_group("Debug")
+var _triggered: bool = false
+var _vanished: bool = false
 
-@export var print_debug: bool = true
+var _shake_time: float = 0.0
+var _visual_start_position: Vector2 = Vector2.ZERO
 
-
-var is_triggered: bool = false
-var shake_time: float = 0.0
-var visual_start_position: Vector2
+var _original_collision_layer: int = 0
 
 
 func _ready() -> void:
-	if print_debug:
-		print("----- VANISH PLATFORM READY -----")
-		print("Visual: ", visual)
-		print("Solid Collision: ", solid_collision)
-		print("Step Trigger: ", step_trigger)
-
-	if visual != null:
-		visual_start_position = visual.position
-
-	if step_trigger == null:
-		if print_debug:
-			print("ERROR: Step Trigger is NOT assigned.")
-		return
-
-	# For testing, detect bodies on every collision layer.
-	step_trigger.collision_layer = 0
-	step_trigger.collision_mask = 0xFFFFFFFF
-	step_trigger.monitoring = true
-
-	if print_debug:
-		print(
-			"Trigger monitoring: ",
-			step_trigger.monitoring
-		)
-
-		print(
-			"Trigger collision layer: ",
-			step_trigger.collision_layer
-		)
-
-		print(
-			"Trigger collision mask: ",
-			step_trigger.collision_mask
-		)
-
-	step_trigger.body_entered.connect(
-		_on_body_entered
+	_original_collision_layer = (
+		collision_layer
 	)
 
-	if print_debug:
-		print("body_entered signal CONNECTED.")
+	if visual != null:
+		_visual_start_position = (
+			visual.position
+		)
 
+	if trigger_area == null:
+		push_error(
+			"VanishingPlatform: Trigger Area is not assigned."
+		)
 
-func _process(delta: float) -> void:
-	if not is_triggered:
 		return
 
-	shake_time += delta
+	trigger_area.body_entered.connect(
+		_on_trigger_body_entered
+	)
 
-	_update_warning_shake()
+
+func _process(
+	delta: float
+) -> void:
+	if not _triggered:
+		return
+
+	if _vanished:
+		return
+
+	if visual == null:
+		return
+
+	_shake_time += delta
+
+	var shake_x: float = (
+		sin(
+			_shake_time
+			* shake_speed
+		)
+		* shake_amount
+	)
+
+	visual.position = (
+		_visual_start_position
+		+ Vector2(
+			shake_x,
+			0.0
+		)
+	)
 
 
-func _on_body_entered(body: Node2D) -> void:
-	if print_debug:
-		print("------------------------------")
-		print("BODY ENTERED TRIGGER")
-		print("Body: ", body)
-		print("Body name: ", body.name)
-		print("Body class: ", body.get_class())
-		print("Is PlayerRoot: ", body is PlayerRoot)
-		print("------------------------------")
-
-	if is_triggered:
+func _on_trigger_body_entered(
+	body: Node2D
+) -> void:
+	if _triggered:
 		return
 
 	if not body is PlayerRoot:
-		if print_debug:
-			print("IGNORED: Body is not PlayerRoot.")
 		return
 
-	if print_debug:
-		print("PLAYER DETECTED. STARTING COUNTDOWN.")
-
-	_start_countdown()
+	_start_vanish_cycle()
 
 
-func _start_countdown() -> void:
-	if is_triggered:
-		return
+func _start_vanish_cycle() -> void:
+	_triggered = true
+	_shake_time = 0.0
 
-	is_triggered = true
-	shake_time = 0.0
-
-	if print_debug:
-		print(
-			"VANISH COUNTDOWN STARTED: ",
-			vanish_delay,
-			" seconds"
+	if trigger_area != null:
+		trigger_area.set_deferred(
+			"monitoring",
+			false
 		)
 
 	await get_tree().create_timer(
 		vanish_delay
 	).timeout
 
-	_vanish()
-
-
-func _update_warning_shake() -> void:
-	if visual == null:
+	if not is_inside_tree():
 		return
 
-	var frame: int = int(
-		shake_time * shake_speed
-	)
+	_vanish()
 
-	var x_offset: float = shake_amount
+	await get_tree().create_timer(
+		respawn_delay
+	).timeout
 
-	if frame % 2 == 0:
-		x_offset = -shake_amount
+	if not is_inside_tree():
+		return
 
-	visual.position = (
-		visual_start_position
-		+ Vector2(
-			x_offset,
-			0.0
-		)
-	)
+	_respawn()
 
 
 func _vanish() -> void:
-	if print_debug:
-		print("VANISHING PLATFORM NOW.")
+	_vanished = true
+
+	_reset_visual()
 
 	if visual != null:
-		visual.position = visual_start_position
 		visual.visible = false
-	else:
-		if print_debug:
-			print("ERROR: No Polygon2D assigned.")
 
-	if solid_collision != null:
-		solid_collision.set_deferred(
-			"disabled",
+	# Disable the StaticBody2D without caring
+	# what type of collision child it uses.
+	collision_layer = 0
+
+
+func _respawn() -> void:
+	_vanished = false
+
+	collision_layer = (
+		_original_collision_layer
+	)
+
+	if visual != null:
+		visual.visible = true
+
+	_reset_visual()
+
+	_triggered = false
+
+	if trigger_area != null:
+		trigger_area.set_deferred(
+			"monitoring",
 			true
 		)
-	else:
-		if print_debug:
-			print(
-				"ERROR: No CollisionPolygon2D assigned."
-			)
 
-	if step_trigger != null:
-		step_trigger.set_deferred(
-			"monitoring",
-			false
-		)
+
+func _reset_visual() -> void:
+	if visual == null:
+		return
+
+	visual.position = (
+		_visual_start_position
+	)

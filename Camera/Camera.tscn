@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://cp7h8mwtch3aa"]
 
 [ext_resource type="Script" uid="uid://q5pi4nl4r1vb" path="res://Camera/CameraShake.gd" id="1_npc1t"]
+[ext_resource type="Script" uid="uid://ci1yqu2ju08c0" path="res://Camera/RoomTransition.gd" id="2_88gwk"]
 
-[node name="Camera" type="Camera2D" unique_id=2143111211]
+[node name="Camera" type="Camera2D" unique_id=2143111211 node_paths=PackedStringArray("room_transition")]
 script = ExtResource("1_npc1t")
-landing_strength_px = 0.2
-landing_time = 0.1
+room_transition = NodePath("Node")
+
+[node name="Node" type="Node" parent="." unique_id=289158145]
+script = ExtResource("2_88gwk")

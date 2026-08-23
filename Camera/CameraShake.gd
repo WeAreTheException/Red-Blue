@@ -2,6 +2,11 @@ extends Camera2D
 class_name CameraShake
 
 
+@export_group("References")
+
+@export var room_transition: RoomTransition
+
+
 @export_group("Dash Shake")
 
 @export var dash_strength_px: float = 8.0
@@ -18,6 +23,12 @@ class_name CameraShake
 @export var decay_curve_power: float = 2.0
 
 
+@export_group("Room Transition Test")
+
+@export var test_room_center: Marker2D
+@export var test_transition_key: Key = KEY_KP_5
+
+
 var _dir: Vector2 = Vector2.ZERO
 var _strength_px: float = 0.0
 var _time_left: float = 0.0
@@ -28,6 +39,9 @@ func _ready() -> void:
 	PlayerEvents.dash_direction_set.connect(
 		_on_dash_direction_set
 	)
+
+	if room_transition != null:
+		room_transition.camera = self
 
 
 func _on_dash_direction_set(
@@ -80,17 +94,17 @@ func _process(
 		_time_left - delta
 	)
 
-	var t := (
+	var t: float = (
 		_time_left
 		/ _duration
 	)
 
-	var falloff := pow(
+	var falloff: float = pow(
 		t,
 		decay_curve_power
 	)
 
-	var dir_part := (
+	var dir_part: Vector2 = (
 		_dir
 		* (
 			_strength_px
@@ -98,7 +112,7 @@ func _process(
 		)
 	)
 
-	var jitter := Vector2(
+	var jitter: Vector2 = Vector2(
 		randf_range(
 			-1.0,
 			1.0
@@ -109,18 +123,18 @@ func _process(
 		)
 	)
 
-	var noise_amt := minf(
+	var noise_amt: float = minf(
 		noise_px_cap,
 		_strength_px
 		* noise_ratio
 	)
 
-	var noise_part := (
+	var noise_part: Vector2 = (
 		jitter
 		* noise_amt
 	)
 
-	var out := (
+	var out: Vector2 = (
 		dir_part
 		+ noise_part
 	) * falloff
@@ -132,3 +146,44 @@ func _process(
 		)
 
 	offset = out
+
+
+func _unhandled_input(
+	event: InputEvent
+) -> void:
+	if not event is InputEventKey:
+		return
+
+	var key_event: InputEventKey = (
+		event as InputEventKey
+	)
+
+	if not key_event.pressed:
+		return
+
+	if key_event.echo:
+		return
+
+	if key_event.keycode != test_transition_key:
+		return
+
+	if room_transition == null:
+		print(
+			"CAMERA TEST: RoomTransition missing"
+		)
+		return
+
+	if test_room_center == null:
+		print(
+			"CAMERA TEST: Room center missing"
+		)
+		return
+
+	print(
+		"CAMERA TEST -> ",
+		test_room_center.global_position
+	)
+
+	room_transition.transition_to(
+		test_room_center.global_position
+	)

@@ -59,6 +59,12 @@ func _ready() -> void:
 		melee_visual.position
 	)
 
+	melee_visual.visible = false
+
+	melee_visual.animation_finished.connect(
+		_on_melee_animation_finished
+	)
+
 
 func _input(
 	event: InputEvent
@@ -96,6 +102,11 @@ func attack() -> void:
 	_apply_melee_direction(
 		current_aim_direction
 	)
+
+	melee_visual.visible = true
+
+	melee_visual.stop()
+	melee_visual.frame = 0
 
 	melee_visual.play(
 		melee_animation
@@ -208,3 +219,7 @@ func _get_horizontal_side(
 	return (
 		player.movement.movement_state.Facing
 	)
+
+
+func _on_melee_animation_finished() -> void:
+	melee_visual.visible = false

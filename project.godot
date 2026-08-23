@@ -17,7 +17,7 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 
 PlayerEvents="*uid://bw2cjq305fwwo"
 ColorSystem="*uid://dwqtmv5feey0b"
-Camera="*uid://cp7h8mwtch3aa"
+Camera="uid://cp7h8mwtch3aa"
 PlayerLocator="*uid://b42cu8chfgxa4"
 
 [display]
