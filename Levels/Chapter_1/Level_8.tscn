@@ -17,8 +17,6 @@
 [ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="15_2itju"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="16_mdug0"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="17_lgcyr"]
-[ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="18_ggv0g"]
-[ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="19_udg6q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s6e1r"]
 size = Vector2(8, 11)
@@ -47,9 +45,6 @@ animations = [{
 "name": &"melee",
 "speed": 12.0
 }]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_i0rsr"]
-radius = 8.0
 
 [node name="Level_8" type="Node2D" unique_id=1497379900]
 
@@ -154,17 +149,17 @@ collision_mask = 0
 
 [node name="Base" type="Polygon2D" parent="Chunk" unique_id=659687905]
 color = Color(0.25490198, 0.25490198, 0.25490198, 1)
-polygon = PackedVector2Array(0, 0, 0, 184, 120, 184, 120, 176, 120, 152, 104, 152, 104, 176, 40, 176, 40, 160, 32, 160, 32, 152, 8, 152, 8, 88, 16, 88, 16, 48, 56, 48, 56, 24, 72, 24, 72, 0, 104, 0, 104, 40, 120, 40, 120, 32, 128, 32, 128, 8, 136, 8, 136, 16, 152, 16, 152, 24, 160, 24, 160, 16, 176, 16, 176, 8, 232, 8, 232, 16, 248, 16, 248, 40, 264, 40, 264, 72, 272, 72, 272, 80, 280, 80, 280, 96, 288, 96, 288, 8, 308, 8, 308, 136, 272, 136, 272, 160, 248, 160, 248, 168, 224, 168, 224, 160, 184, 160, 184, 128, 192, 128, 192, 120, 152, 120, 152, 144, 168, 144, 168, 176, 168, 184, 320, 184, 320, 0)
+polygon = PackedVector2Array(0, 0, 0, 184, 120, 184, 120, 176, 120, 152, 104, 152, 104, 176, 40, 176, 40, 160, 32, 160, 32, 152, 8, 152, 8, 88, 16, 88, 16, 48, 40, 48, 40, 40, 56, 40, 56, 24, 72, 24, 72, 0, 104, 0, 104, 40, 120, 40, 120, 32, 128, 32, 128, 8, 136, 8, 136, 16, 152, 16, 152, 24, 160, 24, 160, 16, 176, 16, 176, 8, 232, 8, 232, 16, 248, 16, 248, 40, 264, 40, 264, 72, 272, 72, 272, 80, 280, 80, 280, 96, 288, 96, 288, 8, 308, 8, 308, 136, 272, 136, 272, 160, 248, 160, 248, 168, 224, 168, 224, 160, 184, 160, 184, 128, 192, 128, 192, 120, 152, 120, 152, 144, 168, 144, 168, 176, 168, 184, 320, 184, 320, 0)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk" unique_id=1872199322]
-polygon = PackedVector2Array(0, 184, 120, 184, 120, 152, 104, 152, 104, 176, 40, 176, 40, 160, 32, 160, 32, 152, 8, 152, 8, 88, 16, 88, 16, 48, 56, 48, 56, 24, 72, 24, 72, 8, 104, 8, 104, 40, 120, 40, 120, 32, 128, 32, 128, 8, 136, 8, 136, 16, 152, 16, 152, 24, 160, 24, 160, 8, 232, 8, 232, 16, 248, 16, 248, 40, 264, 40, 264, 72, 272, 72, 272, 80, 280, 80, 280, 96, 288, 96, 288, 8, 308, 8, 308, 136, 272, 136, 272, 160, 248, 160, 248, 168, 224, 168, 224, 160, 184, 160, 184, 128, 192, 128, 192, 120, 152, 120, 152, 144, 168, 144, 168, 176, 168, 184, 320, 184, 320, 0, 0, 0)
+polygon = PackedVector2Array(0, 184, 120, 184, 120, 152, 104, 152, 104, 176, 40, 176, 40, 160, 32, 160, 32, 152, 8, 152, 8, 88, 16, 88, 16, 48, 40, 48, 40, 40, 56, 40, 56, 24, 72, 24, 72, 8, 104, 8, 104, 40, 120, 40, 120, 32, 128, 32, 128, 8, 136, 8, 136, 16, 152, 16, 152, 24, 160, 24, 160, 8, 232, 8, 232, 16, 248, 16, 248, 40, 264, 40, 264, 72, 272, 72, 272, 80, 280, 80, 280, 96, 288, 96, 288, 8, 308, 8, 308, 136, 272, 136, 272, 160, 248, 160, 248, 168, 224, 168, 224, 160, 184, 160, 184, 128, 192, 128, 192, 120, 152, 120, 152, 144, 168, 144, 168, 176, 168, 184, 320, 184, 320, 0, 0, 0)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk" unique_id=1624970905]
-polygon = PackedVector2Array(160, 72, 160, 56, 176, 56, 176, 72)
+polygon = PackedVector2Array(152, 72, 152, 56, 160, 56, 160, 8, 184, 8, 184, 56, 192, 56, 192, 72)
 
 [node name="Chunk2" type="Polygon2D" parent="Chunk" unique_id=1230487910]
 color = Color(0.25490198, 0.25490198, 0.25490198, 1)
-polygon = PackedVector2Array(160, 56, 184, 56, 184, 72, 160, 72)
+polygon = PackedVector2Array(152, 56, 160, 56, 160, 8, 184, 8, 184, 56, 192, 56, 192, 72, 152, 72)
 
 [node name="Red" type="StaticBody2D" parent="." unique_id=1444830401]
 position = Vector2(40, 40)
@@ -250,18 +245,6 @@ position = Vector2(27.999996, 68)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("17_lgcyr")
 
-[node name="Sprite2D11" type="Sprite2D" parent="EnvironmentBody" unique_id=1665820794]
-position = Vector2(-3.9999998, -28)
-rotation = -1.5707964
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("17_lgcyr")
-
-[node name="Sprite2D12" type="Sprite2D" parent="EnvironmentBody" unique_id=1963216019]
-position = Vector2(-4, -20)
-rotation = -1.5707964
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("17_lgcyr")
-
 [node name="Sprite2D20" type="Sprite2D" parent="EnvironmentBody" unique_id=698804005]
 position = Vector2(3.9999995, -12)
 rotation = -3.1415927
@@ -277,21 +260,6 @@ texture = ExtResource("17_lgcyr")
 [node name="Sprite2D22" type="Sprite2D" parent="EnvironmentBody" unique_id=815893609]
 position = Vector2(20, -12)
 rotation = -3.1415927
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("17_lgcyr")
-
-[node name="Sprite2D23" type="Sprite2D" parent="EnvironmentBody" unique_id=1753661702]
-position = Vector2(20, -36)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("17_lgcyr")
-
-[node name="Sprite2D24" type="Sprite2D" parent="EnvironmentBody" unique_id=1778848405]
-position = Vector2(12, -36)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("17_lgcyr")
-
-[node name="Sprite2D25" type="Sprite2D" parent="EnvironmentBody" unique_id=1923048812]
-position = Vector2(3.9999995, -36)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("17_lgcyr")
 
@@ -317,18 +285,6 @@ texture = ExtResource("17_lgcyr")
 
 [node name="Sprite2D17" type="Sprite2D" parent="EnvironmentBody" unique_id=2103342606]
 position = Vector2(28, 28)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("17_lgcyr")
-
-[node name="Sprite2D18" type="Sprite2D" parent="EnvironmentBody" unique_id=1674797035]
-position = Vector2(28, -20.000002)
-rotation = 1.5707964
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("17_lgcyr")
-
-[node name="Sprite2D19" type="Sprite2D" parent="EnvironmentBody" unique_id=157710084]
-position = Vector2(28, -28.000002)
-rotation = 1.5707964
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("17_lgcyr")
 
@@ -395,7 +351,7 @@ polygon = PackedVector2Array(32, 80, 96, 80, 96, 84, 32, 84)
 
 [node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=1893378035]
 position = Vector2(-32, -48)
-polygon = PackedVector2Array(28, 16, 36, 16, 36, 12, 52, 12, 52, 16, 60, 16, 60, 32, 52, 32, 52, 36, 36, 36, 36, 32, 28, 32)
+polygon = PackedVector2Array(52, 32, 52, 36, 36, 36, 36, 32)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=462201216]
 position = Vector2(48, -8)
@@ -413,19 +369,3 @@ metadata/_edit_lock_ = true
 points = PackedVector2Array(-152, -84, -152, 84, 152, 84, 152, -84, -152, -84)
 width = 1.0
 default_color = Color(0, 0, 0, 1)
-
-[node name="Turnip" type="Area2D" parent="." unique_id=1578499193 node_paths=PackedStringArray("sprite")]
-position = Vector2(12, -52)
-collision_layer = 3
-collision_mask = 3
-script = ExtResource("18_ggv0g")
-sprite = NodePath("Turnip")
-float_height = 1.0
-
-[node name="Turnip" type="Sprite2D" parent="Turnip" unique_id=2058717642]
-position = Vector2(-7.6293945e-06, -3.8146973e-06)
-scale = Vector2(0.100000024, 0.100000024)
-texture = ExtResource("19_udg6q")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Turnip" unique_id=740113667]
-shape = SubResource("CircleShape2D_i0rsr")

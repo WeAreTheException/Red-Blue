@@ -1,20 +1,20 @@
 [gd_scene format=3 uid="uid://ckytlxbavp0xj"]
 
+[ext_resource type="Shader" path="res://Shaders/HalftonesReal.gdshader" id="1_eyfh7"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="1_xme3l"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="2_rhbk3"]
-[ext_resource type="Script" uid="uid://dxw44lhrykiic" path="res://Environment/VanishingPlatform.gd" id="16_prjv0"]
-[ext_resource type="Script" uid="uid://cficjfe4qtfyi" path="res://Levels/VanishTrigger.gd" id="19_1wusc"]
-[ext_resource type="Shader" uid="uid://brrnuux81p04o" path="res://Shaders/Halftones.gdshader" id="19_8is0e"]
+[ext_resource type="Script" path="res://Environment/VanishingPlatform.gd" id="16_prjv0"]
+[ext_resource type="Script" path="res://Levels/VanishTrigger.gd" id="19_1wusc"]
+[ext_resource type="Shader" path="res://Shaders/Halftones.gdshader" id="19_8is0e"]
 [ext_resource type="Texture2D" uid="uid://5ldj0fhhwgdy" path="res://Shaders/8PixelCircle.png" id="20_oil7k"]
-[ext_resource type="Shader" uid="uid://bn7xlckeib3kx" path="res://Shaders/HalftonesReal.gdshader" id="23_6tmp7"]
 [ext_resource type="Script" uid="uid://c2djyy8t3xtdi" path="res://animations/Scripts/PlayerDashVisual.gd" id="30_u1foj"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iq6f5"]
-shader = ExtResource("23_6tmp7")
-shader_parameter/circle_color = Color(0, 0, 0, 0.5254902)
-shader_parameter/circle_multiplier = 10.0
-shader_parameter/circle_radius = 0.4499999899416
-shader_parameter/speed = 0.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l7mtv"]
+shader = ExtResource("1_eyfh7")
+shader_parameter/circle_color = Color(0.071308844, 4.8010425e-05, 0.24910936, 1)
+shader_parameter/circle_multiplier = 1.02
+shader_parameter/circle_radius = 0.26999999396496
+shader_parameter/speed = 0.2
 shader_parameter/direction = Vector2(1, 1)
 shader_parameter/rotation = Transform2D(1, -1, 1, 1, 0, 0)
 
@@ -29,12 +29,13 @@ shader_parameter/offset = Vector2(0, 0)
 
 [node name="Node2D" type="Node2D" unique_id=2059484946]
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=639434490]
-material = SubResource("ShaderMaterial_iq6f5")
-offset_left = -160.0
-offset_top = -96.0
-offset_right = 160.0
-offset_bottom = 84.0
+[node name="ColorRect" type="ColorRect" parent="." unique_id=60607162]
+visible = false
+material = SubResource("ShaderMaterial_l7mtv")
+offset_left = -144.0
+offset_top = -80.0
+offset_right = 89.0
+offset_bottom = 73.0
 
 [node name="Environemnt" type="Node2D" parent="." unique_id=2088071325]
 
@@ -293,7 +294,6 @@ script = ExtResource("19_1wusc")
 polygon = PackedVector2Array(-109, 11, -75, 11, -75, 29, -109, 29)
 
 [node name="Frame2" type="Polygon2D" parent="." unique_id=464077508]
-visible = false
 position = Vector2(252, 0)
 polygon = PackedVector2Array(-160, 96, -160, -96, -156, -96, -156, -40, 152, -40, 152, -80, -156, -80, -156, -96, 160, -96, 160, 96)
 

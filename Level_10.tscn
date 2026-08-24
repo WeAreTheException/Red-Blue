@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b643epkd3tcuo"]
 
 [ext_resource type="Texture2D" uid="uid://crddjs6tcwqq1" path="res://Environment/Platform/Screenshot 2026-08-22 233629.png" id="1_c3tiy"]
-[ext_resource type="Script" uid="uid://dxw44lhrykiic" path="res://Environment/VanishingPlatform.gd" id="2_nt0ah"]
-[ext_resource type="Script" uid="uid://cficjfe4qtfyi" path="res://Levels/VanishTrigger.gd" id="3_yqrqy"]
+[ext_resource type="Script" path="res://Environment/VanishingPlatform.gd" id="2_nt0ah"]
+[ext_resource type="Script" path="res://Levels/VanishTrigger.gd" id="3_yqrqy"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="4_flbir"]
 [ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="5_8mpvu"]
 [ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="6_8vte0"]
@@ -212,7 +212,7 @@ polygon = PackedVector2Array(-8, -40, 8, -40, 8, 48, 0, 48, 0, 40, -8, 40)
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Red" unique_id=856361138]
 polygon = PackedVector2Array(-8, -40, 8, -40, 8, 48, 0, 48, 0, 40, -8, 40)
 
-[node name="Red2" type="StaticBody2D" parent="." unique_id=155767255]
+[node name="Blue" type="StaticBody2D" parent="." unique_id=155767255]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("4_flbir")
@@ -220,11 +220,11 @@ affiliation = 1
 metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
 metadata/_edit_lock_ = true
 
-[node name="Polygon2D4" type="Polygon2D" parent="Red2" unique_id=120861353]
+[node name="Polygon2D4" type="Polygon2D" parent="Blue" unique_id=120861353]
 polygon = PackedVector2Array(-152, -8, -120, -8, -120, 16, -152, 16)
 metadata/_edit_lock_ = true
 
-[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Red2" unique_id=1501090751]
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Blue" unique_id=1501090751]
 position = Vector2(-144, -7)
 polygon = PackedVector2Array(-8, -1, 24, -1, 24, 23, -8, 23)
 metadata/_edit_lock_ = true

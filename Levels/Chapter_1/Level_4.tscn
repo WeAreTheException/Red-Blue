@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="13_85j6u"]
 [ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="14_8w5jw"]
 [ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Sound/Music/TimMusic1.wav" id="15_8w5jw"]
-[ext_resource type="Shader" uid="uid://brrnuux81p04o" path="res://Shaders/Halftones.gdshader" id="22_f0t86"]
+[ext_resource type="Shader" path="res://Shaders/Halftones.gdshader" id="22_f0t86"]
 [ext_resource type="Texture2D" uid="uid://5ldj0fhhwgdy" path="res://Shaders/8PixelCircle.png" id="23_rocm8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_02vam"]
@@ -39,7 +39,6 @@ shader_parameter/offset = Vector2(0, 0)
 position = Vector2(-140, 64)
 
 [node name="Frame" type="Node2D" parent="." unique_id=586028041]
-visible = false
 metadata/_edit_lock_ = true
 
 [node name="Floor" type="StaticBody2D" parent="Frame" unique_id=421884623]
@@ -427,9 +426,11 @@ float_height = 1.0
 position = Vector2(-7.6293945e-06, -3.8146973e-06)
 scale = Vector2(0.100000024, 0.100000024)
 texture = ExtResource("14_8w5jw")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Red/Turnip" unique_id=846272960]
 shape = SubResource("CircleShape2D_e74oc")
+metadata/_edit_lock_ = true
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=2140437003]
 stream = ExtResource("15_8w5jw")
