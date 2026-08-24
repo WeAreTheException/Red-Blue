@@ -611,6 +611,18 @@ func _hit_player(
 	if player == null:
 		return
 
+	# Do not kill the player during an upward
+	# color ejection or its short grace period.
+	if _player_has_ejection_hazard_protection(
+		player
+	):
+		if print_debug:
+			print(
+				"HOSTILE ENVIRONMENT: EJECTION PROTECTED"
+			)
+
+		return
+
 	var player_death: PlayerDeath = null
 
 	for child in player.get_children():
@@ -637,3 +649,31 @@ func _hit_player(
 		)
 
 	player_death.die()
+
+
+func _player_has_ejection_hazard_protection(
+	target_player: PlayerRoot
+) -> bool:
+	var color_system: ColorSystemRoot = (
+		ColorSystemRoot.instance
+	)
+
+	if color_system == null:
+		return false
+
+	var bridge: PlayerColorEjectionBridge = (
+		color_system.player_ejection_bridge
+	)
+
+	if bridge == null:
+		return false
+
+	if not is_instance_valid(
+		bridge
+	):
+		return false
+
+	if bridge.player != target_player:
+		return false
+
+	return bridge.is_hazard_protected()

@@ -178,7 +178,6 @@ player_collision_shape = NodePath("../../CollisionShape2D")
 travel_acceleration = 2000.0
 exit_speed = 200.0
 lift_boost_cap = 20.0
-ejection_hazard_grace_time = 100.0
 
 [node name="SFX" type="Node" parent="Player2" unique_id=1367977442 node_paths=PackedStringArray("dash_sfx")]
 script = ExtResource("12_rsl20")

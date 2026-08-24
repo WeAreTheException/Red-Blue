@@ -264,8 +264,6 @@ func apply_position_correction(
 		await get_tree().process_frame
 		return
 
-	# Hazard protection starts ONLY for the
-	# real upward color ejection.
 	_ejection_hazard_protected = true
 	_ejection_hazard_grace_timer = 0.0
 
@@ -372,6 +370,12 @@ func finish_color_transaction(
 	if route == &"UP":
 		state.StateMachineState = (
 			player.StNormal
+		)
+
+		# Successful upward color ejection
+		# refills the player's dash.
+		state.Dashes = (
+			player.MaxDashes
 		)
 
 		state.Speed.x = 0.0
@@ -559,8 +563,6 @@ func _on_movement_state_changed(
 		or state_name == &"WALL JUMP"
 		or state_name == &"SUPER WALL JUMP"
 	):
-		# Jump already used LiftBoost before
-		# the movement event was emitted.
 		_clear_ejection_lift_boost()
 
 
