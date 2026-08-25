@@ -42,9 +42,12 @@ func update(delta: float) -> void:
 
 	_update_timers(delta)
 
-	movement_state.onGround = (
-		player_collision.OnGround()
-	)
+	if movement_state.Speed.y >= 0.0:
+		movement_state.onGround = (
+			player_collision.OnGround()
+		)
+	else:
+		movement_state.onGround = false
 
 	if player.ClimbInfiniteStamina:
 		player_grab.RefillStamina()
@@ -111,9 +114,12 @@ func update(delta: float) -> void:
 		* delta
 	)
 
-	movement_state.onGround = (
-		player_collision.OnGround()
-	)
+	if movement_state.Speed.y >= 0.0:
+		movement_state.onGround = (
+			player_collision.OnGround()
+		)
+	else:
+		movement_state.onGround = false
 
 	if (
 		not movement_state.onGround

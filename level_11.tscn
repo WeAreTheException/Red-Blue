@@ -175,6 +175,7 @@ script = ExtResource("18_xefq0")
 spring_top = NodePath("..")
 spring_line = NodePath("Line2D")
 bounce_speed = -235.0
+horizontal_bounce_speed = -135.0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spring/Spring" unique_id=1991202631]
@@ -203,7 +204,8 @@ collision_layer = 3
 script = ExtResource("18_xefq0")
 spring_top = NodePath("..")
 spring_line = NodePath("Line2D")
-bounce_speed = -225.0
+bounce_speed = -235.0
+horizontal_bounce_speed = 235.0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spring2/Spring" unique_id=503445645]
