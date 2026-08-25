@@ -15,6 +15,7 @@ var player_dash: PlayerDash
 var player_super_jump: PlayerSuperJump
 var player_wall_jump: PlayerWallJump
 var player_collision: PlayerCollision
+var player_grab: PlayerGrab
 
 
 func setup(
@@ -45,6 +46,16 @@ func update(delta: float) -> void:
 		player_collision.OnGround()
 	)
 
+	if player.ClimbInfiniteStamina:
+		player_grab.RefillStamina()
+
+	elif (
+		movement_state.onGround
+		and movement_state.StateMachineState
+		!= player.StClimb
+	):
+		player_grab.RefillStamina()
+
 	if movement_state.onGround:
 		movement_state.jumpGraceTimer = (
 			player.JumpGraceTime
@@ -70,10 +81,19 @@ func update(delta: float) -> void:
 
 	match movement_state.StateMachineState:
 		player.StNormal:
-			_normal_update(delta)
+			_normal_update(
+				delta
+			)
+
+		player.StClimb:
+			player_grab.ClimbUpdate(
+				delta
+			)
 
 		player.StDash:
-			player_dash.DashUpdate(delta)
+			player_dash.DashUpdate(
+				delta
+			)
 
 	if (
 		movement_state.StateMachineState
@@ -127,9 +147,14 @@ func _build_movement_runtime() -> void:
 	player_super_jump = PlayerSuperJump.new()
 	player_wall_jump = PlayerWallJump.new()
 	player_collision = PlayerCollision.new()
+	player_grab = PlayerGrab.new()
 
 	movement_state.Dashes = (
 		player.MaxDashes
+	)
+
+	movement_state.Stamina = (
+		player.ClimbMaxStamina
 	)
 
 	movement_state.lastAim = (
@@ -188,21 +213,43 @@ func _build_movement_runtime() -> void:
 		player_wall_jump
 	)
 
+	player_grab.setup(
+		player,
+		self,
+		movement_state,
+		player_collision,
+		player_jump,
+		player_dash,
+		player_wall_jump
+	)
 
-func _normal_update(delta: float) -> void:
+
+func _normal_update(
+	delta: float
+) -> void:
+	if player_grab.CanGrab():
+		player_grab.StartGrab()
+		return
+
 	if player_dash.CanDash():
 		player_dash.StartDash()
 		return
 
-	player_move.update(delta)
+	player_move.update(
+		delta
+	)
 
-	if player_jump.update(delta):
+	if player_jump.update(
+		delta
+	):
 		return
 
 	player_wall_jump.TryWallJump()
 
 
-func _update_timers(delta: float) -> void:
+func _update_timers(
+	delta: float
+) -> void:
 	if (
 		movement_state.dashCooldownTimer
 		> 0.0
@@ -246,6 +293,7 @@ func _update_timers(delta: float) -> void:
 				<= 0.0
 			):
 				movement_state.AutoJump = false
+
 		else:
 			movement_state.AutoJumpTimer = 0.0
 
@@ -269,8 +317,30 @@ func _update_timers(delta: float) -> void:
 			delta
 		)
 
+		if (
+			movement_state.moveX
+			== movement_state.wallBoostDir
+			and movement_state.wallBoostDir
+			!= 0
+		):
+			movement_state.Speed.x = (
+				player.WallJumpHSpeed
+				* movement_state.moveX
+			)
+
+			player_grab.RefundClimbJumpStamina()
+
+			movement_state.wallBoostTimer = 0.0
+			movement_state.wallBoostDir = 0
+
 
 func _update_public_state_events() -> void:
+	if (
+		movement_state.StateMachineState
+		== player.StClimb
+	):
+		return
+
 	if (
 		movement_state.onGround
 		and not movement_state.wasOnGround
@@ -311,6 +381,7 @@ func _update_public_state_events() -> void:
 		_set_phase(
 			&"MOVE"
 		)
+
 	else:
 		_set_phase(
 			&"IDLE"

@@ -251,6 +251,18 @@ rotation = -3.1415927
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("17_lgcyr")
 
+[node name="Sprite2D24" type="Sprite2D" parent="EnvironmentBody" unique_id=1471593985]
+position = Vector2(-3.9999995, -12)
+rotation = -3.1415927
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D25" type="Sprite2D" parent="EnvironmentBody" unique_id=580051939]
+position = Vector2(28, -11.999999)
+rotation = -3.1415927
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
 [node name="Sprite2D21" type="Sprite2D" parent="EnvironmentBody" unique_id=1980637852]
 position = Vector2(12, -12)
 rotation = -3.1415927
@@ -285,6 +297,24 @@ texture = ExtResource("17_lgcyr")
 
 [node name="Sprite2D17" type="Sprite2D" parent="EnvironmentBody" unique_id=2103342606]
 position = Vector2(28, 28)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D18" type="Sprite2D" parent="EnvironmentBody" unique_id=203687641]
+position = Vector2(-12, 36)
+rotation = -1.5707964
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D19" type="Sprite2D" parent="EnvironmentBody" unique_id=794516488]
+position = Vector2(-11.999999, 44)
+rotation = -1.5707964
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_lgcyr")
+
+[node name="Sprite2D23" type="Sprite2D" parent="EnvironmentBody" unique_id=931901506]
+position = Vector2(-12, 52)
+rotation = -1.5707964
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("17_lgcyr")
 
@@ -343,7 +373,11 @@ polygon = PackedVector2Array(24, 76, 72, 76, 72, 80, 24, 80)
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=1468997686]
 position = Vector2(-40, -48)
-polygon = PackedVector2Array(32, 76, 72, 76, 72, 80, 32, 80)
+polygon = PackedVector2Array(36, 76, 68, 76, 68, 80, 36, 80)
+
+[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=1624927351]
+position = Vector2(-40, -48)
+polygon = PackedVector2Array(28, 80, 32, 80, 32, 104, 28, 104)
 
 [node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=195142054]
 position = Vector2(-152, 4)
@@ -351,7 +385,7 @@ polygon = PackedVector2Array(32, 80, 96, 80, 96, 84, 32, 84)
 
 [node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=1893378035]
 position = Vector2(-32, -48)
-polygon = PackedVector2Array(52, 32, 52, 36, 36, 36, 36, 32)
+polygon = PackedVector2Array(60, 32, 60, 36, 28, 36, 28, 32)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=462201216]
 position = Vector2(48, -8)

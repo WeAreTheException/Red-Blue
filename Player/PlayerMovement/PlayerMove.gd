@@ -37,6 +37,7 @@ func update(delta: float) -> void:
 			max_run * state.moveX,
 			player.RunReduce * mult * delta
 		)
+
 	else:
 		state.Speed.x = _approach(
 			state.Speed.x,
@@ -57,6 +58,7 @@ func update(delta: float) -> void:
 			fmf,
 			player.FastMaxAccel * delta
 		)
+
 	else:
 		state.maxFall = _approach(
 			state.maxFall,
@@ -70,11 +72,19 @@ func update(delta: float) -> void:
 		state.wallSlideDir = 0
 
 		if (
-			state.moveX == state.Facing
+			(
+				state.moveX == state.Facing
+				or (
+					state.moveX == 0
+					and state.grab_check
+				)
+			)
 			and state.moveY != 1
 			and state.Speed.y >= 0.0
 			and state.wallSlideTimer > 0.0
-			and collision.WallJumpCheck(state.Facing)
+			and collision.WallJumpCheck(
+				state.Facing
+			)
 		):
 			state.wallSlideDir = state.Facing
 
@@ -82,10 +92,11 @@ func update(delta: float) -> void:
 			current_max = lerp(
 				player.MaxFall,
 				player.WallSlideStartMax,
-				state.wallSlideTimer / player.WallSlideTime
+				state.wallSlideTimer
+				/ player.WallSlideTime
 			)
 
-			state.wallSlideTimer = max(
+			state.wallSlideTimer = maxf(
 				state.wallSlideTimer - delta,
 				0.0
 			)
@@ -93,7 +104,8 @@ func update(delta: float) -> void:
 		var gravity_mult: float = 1.0
 
 		if (
-			abs(state.Speed.y) < player.HalfGravThreshold
+			abs(state.Speed.y)
+			< player.HalfGravThreshold
 			and (
 				state.jump_check
 				or state.AutoJump
@@ -102,12 +114,16 @@ func update(delta: float) -> void:
 			gravity_mult = 0.5
 
 		if player.InSpace:
-			gravity_mult *= player.SpacePhysicsMult
+			gravity_mult *= (
+				player.SpacePhysicsMult
+			)
 
 		state.Speed.y = _approach(
 			state.Speed.y,
 			current_max,
-			player.Gravity * gravity_mult * delta
+			player.Gravity
+			* gravity_mult
+			* delta
 		)
 
 
@@ -117,12 +133,12 @@ func _approach(
 	amount: float
 ) -> float:
 	if value < target:
-		return min(
+		return minf(
 			value + amount,
 			target
 		)
 
-	return max(
+	return maxf(
 		value - amount,
 		target
 	)

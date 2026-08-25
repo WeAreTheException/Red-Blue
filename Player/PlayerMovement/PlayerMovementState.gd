@@ -37,6 +37,8 @@ var wallSlideDir: int = 0
 
 var wallSpeedRetentionTimer: float = 0.0
 var wallSpeedRetained: float = 0.0
+
+var wallBoostDir: int = 0
 var wallBoostTimer: float = 0.0
 
 var maxFall: float = 0.0
@@ -51,7 +53,10 @@ var dashPending: bool = false
 
 var jump_pressed: bool = false
 var jump_check: bool = false
+
 var dash_pressed: bool = false
+
+var grab_check: bool = false
 
 var _jump_was_down: bool = false
 var _dash_was_down: bool = false
@@ -60,6 +65,9 @@ var Ducking: bool = false
 var launched: bool = false
 
 var LiftBoost: Vector2 = Vector2.ZERO
+
+var Stamina: float = 0.0
+var climbNoMoveTimer: float = 0.0
 
 var movement_phase: StringName = &""
 

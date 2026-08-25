@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="15_md5w8"]
 [ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="16_avllr"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="17_7fqjt"]
-[ext_resource type="Script" path="res://Environment/Spring.gd" id="18_xefq0"]
+[ext_resource type="Script" uid="uid://dl2bu554414wd" path="res://Environment/Spring.gd" id="18_xefq0"]
 [ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="18_xy47d"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="19_feiy4"]
 [ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="19_utgr6"]
@@ -76,6 +76,9 @@ player_visual = NodePath("CharacterRect")
 respawn_point = NodePath("../Spawn")
 MaxFall = 140.0
 JumpSpeed = -110.0
+ClimbInfiniteStamina = false
+ClimbMaxStamina = 80.0
+ClimbTiredThreshold = 10.0
 DashTime = 0.1
 
 [node name="DashPixel" type="Sprite2D" parent="Player2" unique_id=1077825792]

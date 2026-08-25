@@ -9,6 +9,9 @@ enum Direction {
 }
 
 
+const ACTION_JUMP: StringName = &"JUMP"
+
+
 @export_group("References")
 
 @export var bounce_point: Marker2D
@@ -19,6 +22,8 @@ enum Direction {
 @export_group("Spring")
 
 @export var direction: Direction = Direction.UP
+
+@export var snap_to_center: bool = true
 
 @export var bounce_speed: float = -185.0
 
@@ -117,8 +122,11 @@ func _can_activate(
 ) -> bool:
 	match direction:
 		Direction.UP:
-			if state.Speed.y < 0.0:
-				return false
+			# Area body_entered already prevents the spring
+			# from repeatedly firing while the player exits.
+			# Do not reject an UP spring just because a jump
+			# started on the same frame.
+			return true
 
 		Direction.RIGHT:
 			if state.Speed.x > 0.0:
@@ -168,6 +176,19 @@ func _bounce_player(
 	state.dashPending = false
 	state.StartedDashing = false
 	state.Ducking = false
+
+	# Consume the fresh normal-jump press so it
+	# cannot overwrite the spring on this frame.
+	#
+	# jump_check is NOT cleared, so holding jump
+	# can still affect the variable spring height.
+	state.jump_pressed = false
+
+	state._jump_was_down = (
+		Input.is_action_pressed(
+			ACTION_JUMP
+		)
+	)
 
 	match direction:
 		Direction.UP:
@@ -233,7 +254,6 @@ func _bounce_horizontal(
 		* float(horizontal_direction)
 	)
 
-	# Side springs also kick upward.
 	state.Speed.y = (
 		side_vertical_bounce_speed
 	)
@@ -269,19 +289,38 @@ func _snap_player_to_bounce_point(
 
 	match direction:
 		Direction.UP:
+			# Always normalize the spring surface Y.
 			player.global_position.y = (
 				bounce_point.global_position.y
 			)
 
+			# Optional center correction.
+			if snap_to_center:
+				player.global_position.x = (
+					bounce_point.global_position.x
+				)
+
 		Direction.LEFT:
+			# Normalize the side surface X.
 			player.global_position.x = (
 				bounce_point.global_position.x
 			)
 
+			if snap_to_center:
+				player.global_position.y = (
+					bounce_point.global_position.y
+				)
+
 		Direction.RIGHT:
+			# Normalize the side surface X.
 			player.global_position.x = (
 				bounce_point.global_position.x
 			)
+
+			if snap_to_center:
+				player.global_position.y = (
+					bounce_point.global_position.y
+				)
 
 
 func _play_feedback() -> void:

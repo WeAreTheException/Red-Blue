@@ -21,6 +21,27 @@ signal landed(player: PlayerRoot)
 
 signal wavedashed(player: PlayerRoot)
 
+
+signal climb_started(
+	player: PlayerRoot
+)
+
+signal climb_ended(
+	player: PlayerRoot
+)
+
+signal climb_hopped(
+	player: PlayerRoot
+)
+
+signal climb_stamina_changed(
+	player: PlayerRoot,
+	current_stamina: float,
+	max_stamina: float,
+	is_tired: bool
+)
+
+
 signal player_died(player: PlayerRoot)
 signal player_respawned(player: PlayerRoot)
 
@@ -78,6 +99,44 @@ func broadcast_dash_direction(
 	dash_direction_set.emit(
 		player,
 		direction
+	)
+
+
+func broadcast_climb_started(
+	player: PlayerRoot
+) -> void:
+	climb_started.emit(
+		player
+	)
+
+
+func broadcast_climb_ended(
+	player: PlayerRoot
+) -> void:
+	climb_ended.emit(
+		player
+	)
+
+
+func broadcast_climb_hopped(
+	player: PlayerRoot
+) -> void:
+	climb_hopped.emit(
+		player
+	)
+
+
+func broadcast_climb_stamina_changed(
+	player: PlayerRoot,
+	current_stamina: float,
+	max_stamina: float,
+	is_tired: bool
+) -> void:
+	climb_stamina_changed.emit(
+		player,
+		current_stamina,
+		max_stamina,
+		is_tired
 	)
 
 

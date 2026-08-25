@@ -102,10 +102,15 @@ const StDash: int = 2
 
 @export_group("Climb")
 
+# Leave this ON while testing.
+# Turn it OFF when you want real stamina.
+@export var ClimbInfiniteStamina: bool = true
+
 @export var ClimbMaxStamina: float = 110.0
 @export var ClimbTiredThreshold: float = 20.0
 
 @export var ClimbCheckDist: int = 2
+@export var ClimbUpCheckDist: int = 2
 @export var ClimbNoMoveTime: float = 0.1
 
 @export var ClimbUpSpeed: float = -45.0
@@ -122,6 +127,22 @@ const StDash: int = 2
 @export var ClimbStillCost: float = (
 	100.0 / 10.0
 )
+
+@export var ClimbJumpCost: float = (
+	110.0 / 4.0
+)
+
+
+@export_subgroup("Climb Jump")
+
+@export var ClimbJumpBoostTime: float = 0.2
+
+
+@export_subgroup("Ledge Hop")
+
+@export var ClimbHopY: float = -120.0
+@export var ClimbHopX: float = 100.0
+@export var ClimbHopForceTime: float = 0.2
 
 #endregion
 

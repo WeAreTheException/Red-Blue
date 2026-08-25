@@ -8,6 +8,7 @@ const ACTION_UP: StringName = &"UP"
 const ACTION_DOWN: StringName = &"DOWN"
 const ACTION_JUMP: StringName = &"JUMP"
 const ACTION_DASH: StringName = &"DASH"
+const ACTION_GRAB: StringName = &"GRAB"
 
 
 var player: PlayerRoot
@@ -53,7 +54,7 @@ func update() -> void:
 
 	state.moveY = input_move_y
 
-	var aim := Vector2(
+	var aim: Vector2 = Vector2(
 		input_move_x,
 		input_move_y
 	)
@@ -89,6 +90,12 @@ func update() -> void:
 	)
 
 	state._dash_was_down = dash_down
+
+	state.grab_check = (
+		Input.is_action_pressed(
+			ACTION_GRAB
+		)
+	)
 
 	if (
 		state.moveX != 0
