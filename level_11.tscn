@@ -76,6 +76,7 @@ player_visual = NodePath("CharacterRect")
 respawn_point = NodePath("../Spawn")
 MaxFall = 140.0
 JumpSpeed = -110.0
+BounceSpeed = -235.0
 ClimbInfiniteStamina = false
 ClimbMaxStamina = 80.0
 ClimbTiredThreshold = 10.0
@@ -174,8 +175,6 @@ collision_layer = 3
 script = ExtResource("18_xefq0")
 spring_top = NodePath("..")
 spring_line = NodePath("Line2D")
-bounce_speed = -235.0
-horizontal_bounce_speed = -135.0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spring/Spring" unique_id=1991202631]
@@ -204,8 +203,6 @@ collision_layer = 3
 script = ExtResource("18_xefq0")
 spring_top = NodePath("..")
 spring_line = NodePath("Line2D")
-bounce_speed = -235.0
-horizontal_bounce_speed = 235.0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spring2/Spring" unique_id=503445645]

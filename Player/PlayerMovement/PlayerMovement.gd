@@ -16,6 +16,7 @@ var player_super_jump: PlayerSuperJump
 var player_wall_jump: PlayerWallJump
 var player_collision: PlayerCollision
 var player_grab: PlayerGrab
+var player_bounce: PlayerBounce
 
 
 func setup(
@@ -154,6 +155,7 @@ func _build_movement_runtime() -> void:
 	player_wall_jump = PlayerWallJump.new()
 	player_collision = PlayerCollision.new()
 	player_grab = PlayerGrab.new()
+	player_bounce = PlayerBounce.new()
 
 	movement_state.Dashes = (
 		player.MaxDashes
@@ -229,6 +231,13 @@ func _build_movement_runtime() -> void:
 		player_wall_jump
 	)
 
+	player_bounce.setup(
+		player,
+		self,
+		movement_state,
+		player_grab
+	)
+
 
 func _normal_update(
 	delta: float
@@ -288,8 +297,16 @@ func _update_timers(
 			delta
 		)
 
-	if movement_state.AutoJumpTimer > 0.0:
-		if movement_state.AutoJump:
+	# AutoJump may deliberately be created with
+	# a zero timer by SuperBounce / SideBounce.
+	#
+	# In that case it lasts until the next
+	# movement update and is then cleared.
+	if movement_state.AutoJump:
+		if (
+			movement_state.AutoJumpTimer
+			> 0.0
+		):
 			movement_state.AutoJumpTimer -= (
 				delta
 			)
@@ -298,10 +315,18 @@ func _update_timers(
 				movement_state.AutoJumpTimer
 				<= 0.0
 			):
+				movement_state.AutoJumpTimer = 0.0
 				movement_state.AutoJump = false
 
 		else:
+			movement_state.AutoJump = false
 			movement_state.AutoJumpTimer = 0.0
+
+	elif (
+		movement_state.AutoJumpTimer
+		> 0.0
+	):
+		movement_state.AutoJumpTimer = 0.0
 
 	if (
 		movement_state.forceMoveXTimer

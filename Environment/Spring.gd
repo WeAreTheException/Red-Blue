@@ -9,9 +9,6 @@ enum Direction {
 }
 
 
-const ACTION_JUMP: StringName = &"JUMP"
-
-
 @export_group("References")
 
 @export var bounce_point: Marker2D
@@ -23,19 +20,22 @@ const ACTION_JUMP: StringName = &"JUMP"
 
 @export var direction: Direction = Direction.UP
 
-@export var snap_to_center: bool = true
-
-@export var bounce_speed: float = -185.0
-
-@export var horizontal_bounce_speed: float = 240.0
-@export var side_vertical_bounce_speed: float = -140.0
-
-@export var bounce_var_jump_time: float = 0.2
-@export var auto_jump_time: float = 0.1
-
-@export var horizontal_force_time: float = 0.3
+@export var super_bounce_on_jump: bool = true
 
 @export var refill_dash: bool = true
+@export var refill_stamina: bool = true
+
+
+@export_group("Contact")
+
+# Helps stop an UP spring firing when the player
+# merely walks into its lower side.
+@export var contact_tolerance_px: float = 3.0
+
+# Optional for now.
+# BouncePoint represents the desired PlayerRoot
+# origin at the moment the spring fires.
+@export var snap_to_center: bool = false
 
 
 @export_group("Programmer Animation")
@@ -54,7 +54,9 @@ const ACTION_JUMP: StringName = &"JUMP"
 @export var print_debug: bool = false
 
 
-var _top_start_position: Vector2 = Vector2.ZERO
+var _top_start_position: Vector2 = (
+	Vector2.ZERO
+)
 
 var _line_start_points: PackedVector2Array = (
 	PackedVector2Array()
@@ -91,194 +93,149 @@ func _on_body_entered(
 	if not body is PlayerRoot:
 		return
 
-	var player := (
+	var player: PlayerRoot = (
 		body as PlayerRoot
 	)
 
 	if player.movement == null:
 		return
 
-	if player.movement.movement_state == null:
-		return
-
-	var state := (
+	if (
 		player.movement.movement_state
-	)
-
-	if not _can_activate(
-		state
+		== null
 	):
 		return
 
-	_bounce_player(
-		player
-	)
+	if (
+		player.movement.player_bounce
+		== null
+	):
+		return
 
-	_play_feedback()
-
-
-func _can_activate(
-	state: PlayerMovementState
-) -> bool:
-	match direction:
-		Direction.UP:
-			# Area body_entered already prevents the spring
-			# from repeatedly firing while the player exits.
-			# Do not reject an UP spring just because a jump
-			# started on the same frame.
-			return true
-
-		Direction.RIGHT:
-			if state.Speed.x > 0.0:
-				return false
-
-		Direction.LEFT:
-			if state.Speed.x < 0.0:
-				return false
-
-	return true
-
-
-func _bounce_player(
-	player: PlayerRoot
-) -> void:
-	var state := (
+	var state: PlayerMovementState = (
 		player.movement.movement_state
 	)
 
-	_snap_player_to_bounce_point(
-		player
+	var bounce: PlayerBounce = (
+		player.movement.player_bounce
 	)
 
-	state.StateMachineState = (
-		player.StNormal
-	)
+	if not _can_activate(
+		player,
+		state,
+		bounce
+	):
+		return
 
-	if refill_dash:
-		state.Dashes = (
-			player.MaxDashes
+	if snap_to_center:
+		_snap_player_to_bounce_point(
+			player
 		)
-
-	state.jumpGraceTimer = 0.0
-
-	state.dashAttackTimer = 0.0
-
-	state.wallSlideTimer = (
-		player.WallSlideTime
-	)
-
-	state.wallBoostTimer = 0.0
-
-	state.DashDir = (
-		Vector2.ZERO
-	)
-
-	state.dashPending = false
-	state.StartedDashing = false
-	state.Ducking = false
-
-	# Consume the fresh normal-jump press so it
-	# cannot overwrite the spring on this frame.
-	#
-	# jump_check is NOT cleared, so holding jump
-	# can still affect the variable spring height.
-	state.jump_pressed = false
-
-	state._jump_was_down = (
-		Input.is_action_pressed(
-			ACTION_JUMP
-		)
-	)
 
 	match direction:
 		Direction.UP:
-			_bounce_up(
-				state
+			if (
+				super_bounce_on_jump
+				and bounce.WantsSuperBounce()
+			):
+				bounce.SuperBounce(
+					refill_dash,
+					refill_stamina
+				)
+
+			else:
+				bounce.Bounce(
+					refill_dash,
+					refill_stamina
+				)
+
+		Direction.LEFT:
+			bounce.SideBounce(
+				-1,
+				refill_dash,
+				refill_stamina
 			)
 
 		Direction.RIGHT:
-			_bounce_horizontal(
-				state,
-				1
+			bounce.SideBounce(
+				1,
+				refill_dash,
+				refill_stamina
 			)
 
-		Direction.LEFT:
-			_bounce_horizontal(
-				state,
-				-1
-			)
-
-	state.launched = false
-
-	state.movement_phase = (
-		&"AIR_UP"
-	)
+	_play_feedback()
 
 	if print_debug:
 		print(
-			"SPRING | DIRECTION: ",
+			"SPRING | ",
 			Direction.keys()[direction],
 			" | SPEED: ",
-			state.Speed
+			state.Speed,
+			" | STATE: ",
+			state.movement_phase
 		)
 
 
-func _bounce_up(
-	state: PlayerMovementState
-) -> void:
-	state.Speed.y = (
-		bounce_speed
-	)
-
-	state.varJumpSpeed = (
-		state.Speed.y
-	)
-
-	state.varJumpTimer = (
-		bounce_var_jump_time
-	)
-
-	state.AutoJump = true
-
-	state.AutoJumpTimer = (
-		auto_jump_time
-	)
-
-
-func _bounce_horizontal(
+func _can_activate(
+	player: PlayerRoot,
 	state: PlayerMovementState,
-	horizontal_direction: int
-) -> void:
-	state.Speed.x = (
-		horizontal_bounce_speed
-		* float(horizontal_direction)
-	)
+	bounce: PlayerBounce
+) -> bool:
+	match direction:
+		Direction.UP:
+			# If we have a BouncePoint, reject contacts
+			# clearly below the top face of the spring.
+			#
+			# PlayerRoot uses a bottom-center origin,
+			# so this is comparing the player's feet.
+			if bounce_point != null:
+				if (
+					player.global_position.y
+					> bounce_point.global_position.y
+					+ contact_tolerance_px
+				):
+					return false
 
-	state.Speed.y = (
-		side_vertical_bounce_speed
-	)
+			# Already travelling upward should normally
+			# not trigger an UP spring.
+			#
+			# Exception: jump is currently held and this
+			# contact is intentionally becoming a
+			# SuperBounce.
+			if state.Speed.y < 0.0:
+				if not (
+					super_bounce_on_jump
+					and bounce.WantsSuperBounce()
+				):
+					return false
 
-	state.varJumpSpeed = (
-		state.Speed.y
-	)
+		Direction.LEFT:
+			# Already travelling away from the spring.
+			if state.Speed.x < 0.0:
+				return false
 
-	state.varJumpTimer = (
-		bounce_var_jump_time
-	)
+			if bounce_point != null:
+				if (
+					player.global_position.x
+					> bounce_point.global_position.x
+					+ contact_tolerance_px
+				):
+					return false
 
-	state.AutoJump = true
+		Direction.RIGHT:
+			# Already travelling away from the spring.
+			if state.Speed.x > 0.0:
+				return false
 
-	state.AutoJumpTimer = (
-		auto_jump_time
-	)
+			if bounce_point != null:
+				if (
+					player.global_position.x
+					< bounce_point.global_position.x
+					- contact_tolerance_px
+				):
+					return false
 
-	state.forceMoveX = (
-		horizontal_direction
-	)
-
-	state.forceMoveXTimer = (
-		horizontal_force_time
-	)
+	return true
 
 
 func _snap_player_to_bounce_point(
@@ -287,40 +244,9 @@ func _snap_player_to_bounce_point(
 	if bounce_point == null:
 		return
 
-	match direction:
-		Direction.UP:
-			# Always normalize the spring surface Y.
-			player.global_position.y = (
-				bounce_point.global_position.y
-			)
-
-			# Optional center correction.
-			if snap_to_center:
-				player.global_position.x = (
-					bounce_point.global_position.x
-				)
-
-		Direction.LEFT:
-			# Normalize the side surface X.
-			player.global_position.x = (
-				bounce_point.global_position.x
-			)
-
-			if snap_to_center:
-				player.global_position.y = (
-					bounce_point.global_position.y
-				)
-
-		Direction.RIGHT:
-			# Normalize the side surface X.
-			player.global_position.x = (
-				bounce_point.global_position.x
-			)
-
-			if snap_to_center:
-				player.global_position.y = (
-					bounce_point.global_position.y
-				)
+	player.global_position = (
+		bounce_point.global_position
+	)
 
 
 func _play_feedback() -> void:

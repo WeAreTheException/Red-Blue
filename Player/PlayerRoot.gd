@@ -61,6 +61,36 @@ const StDash: int = 2
 #endregion
 
 
+#region Bounce
+
+@export_group("Bounce")
+
+# Your current normal spring launch.
+@export var BounceSpeed: float = -185.0
+@export var BounceVarJumpTime: float = 0.2
+@export var BounceAutoJumpTime: float = 0.1
+
+
+@export_subgroup("Super Bounce")
+
+# JUMP + UP spring.
+# Separate from the normal spring speed.
+@export var SuperBounceSpeed: float = -235.0
+@export var SuperBounceVarJumpTime: float = 0.2
+@export var SuperBounceAutoJumpTime: float = 0.0
+
+
+@export_subgroup("Side Bounce")
+
+@export var SideBounceHSpeed: float = 240.0
+@export var SideBounceVSpeed: float = -140.0
+@export var SideBounceVarJumpTime: float = 0.2
+@export var SideBounceAutoJumpTime: float = 0.0
+@export var SideBounceForceTime: float = 0.3
+
+#endregion
+
+
 #region Super Jump
 
 @export_group("Super Jump")
