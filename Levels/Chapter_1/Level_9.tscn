@@ -16,8 +16,8 @@
 [ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="14_udys3"]
 [ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="15_yketd"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="16_p5tpa"]
-[ext_resource type="Script" uid="uid://dxw44lhrykiic" path="res://Environment/VanishingPlatform.gd" id="17_t4in5"]
-[ext_resource type="Script" uid="uid://cficjfe4qtfyi" path="res://Levels/VanishTrigger.gd" id="18_78g7n"]
+[ext_resource type="Script" path="res://Environment/VanishingPlatform.gd" id="17_t4in5"]
+[ext_resource type="Script" path="res://Levels/VanishTrigger.gd" id="18_78g7n"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="19_2sauv"]
 [ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Sound/Music/TimMusic1.wav" id="20_t3mvv"]
 

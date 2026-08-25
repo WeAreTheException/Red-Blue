@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="19_nj0l1"]
 [ext_resource type="Texture2D" uid="uid://bbmfwdcgt3qkr" path="res://Environment/Platform/RedSpike.png" id="20_8vte0"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="21_h6ht2"]
+[ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Sound/Music/TimMusic1.wav" id="22_yub5h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hvm7k"]
 size = Vector2(8, 11)
@@ -74,6 +75,7 @@ metadata/_edit_lock_ = true
 position = Vector2(128, -8)
 color = Color(0.7708395, 0.77083945, 0.77083945, 1)
 polygon = PackedVector2Array(-152, 32, -152, 48, -136, 48, -136, 32)
+metadata/_edit_lock_ = true
 
 [node name="Area2D" type="Area2D" parent="Vanishin2" unique_id=1329221044]
 position = Vector2(84, 4)
@@ -562,3 +564,8 @@ points = PackedVector2Array(-152, -84, -152, 84, 152, 84, 152, -84, -152, -84)
 width = 1.0
 default_color = Color(0, 0, 0, 1)
 metadata/_edit_lock_ = true
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1126892272]
+stream = ExtResource("22_yub5h")
+volume_db = -12.156
+autoplay = true

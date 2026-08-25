@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bphc7a631e84h"]
 
-[ext_resource type="Texture2D" uid="uid://b22k22tu01gox" path="res://Levels/Screenshot 2026-08-24 154933.png" id="1_ve6sx"]
 [ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="2_bllrj"]
 [ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="3_7fqjt"]
 [ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="4_xefq0"]
@@ -21,6 +20,7 @@
 [ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="18_xy47d"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="19_feiy4"]
 [ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="19_utgr6"]
+[ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Sound/Music/TimMusic1.wav" id="22_utgr6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xgubu"]
 size = Vector2(8, 11)
@@ -59,12 +59,6 @@ radius = 8.0
 [node name="Level11" type="Node2D" unique_id=834353221]
 metadata/_edit_lock_ = true
 
-[node name="Screenshot20260824154933" type="Sprite2D" parent="." unique_id=1090410444]
-visible = false
-scale = Vector2(0.167, 0.167)
-texture = ExtResource("1_ve6sx")
-metadata/_edit_lock_ = true
-
 [node name="Spawn" type="Node2D" parent="." unique_id=1589245528]
 position = Vector2(-144, 56)
 
@@ -77,6 +71,7 @@ respawn_point = NodePath("../Spawn")
 MaxFall = 140.0
 JumpSpeed = -110.0
 BounceSpeed = -235.0
+SuperBounceSpeed = -250.0
 ClimbInfiniteStamina = false
 ClimbMaxStamina = 80.0
 ClimbTiredThreshold = 10.0
@@ -431,3 +426,8 @@ points = PackedVector2Array(-152, -84, -152, 84, 152, 84, 152, -84, -152, -84)
 width = 1.0
 default_color = Color(0, 0, 0, 1)
 metadata/_edit_lock_ = true
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=159361852]
+stream = ExtResource("22_utgr6")
+volume_db = -12.156
+autoplay = true

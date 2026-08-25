@@ -491,7 +491,6 @@ script = ExtResource("16_4dq5s")
 spring_top = NodePath("..")
 spring_line = NodePath("Line2D")
 direction = 2
-bounce_speed = -300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Spring" unique_id=1563542567]
 position = Vector2(0, -4)
@@ -511,7 +510,6 @@ collision_layer = 3
 script = ExtResource("16_4dq5s")
 spring_top = NodePath("..")
 spring_line = NodePath("Line2D")
-bounce_speed = -300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Spring2" unique_id=1823658280]
 position = Vector2(0, -4)
@@ -525,12 +523,11 @@ default_color = Color(0.021434637, 0.021434635, 0.021434633, 1)
 color = Color(0.5394907, 0.24205488, 0.044932455, 1)
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
 
-[node name="Player2" type="CharacterBody2D" parent="." unique_id=1816341858 node_paths=PackedStringArray("player_visual", "respawn_point")]
+[node name="Player2" type="CharacterBody2D" parent="." unique_id=1816341858 node_paths=PackedStringArray("player_visual")]
 position = Vector2(-36, 72)
 collision_mask = 2
 script = ExtResource("1_l37n1")
 player_visual = NodePath("CharacterRect")
-respawn_point = NodePath("")
 MaxFall = 140.0
 JumpSpeed = -110.0
 DashTime = 0.1
