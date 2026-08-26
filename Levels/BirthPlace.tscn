@@ -23,12 +23,10 @@
 [ext_resource type="Texture2D" uid="uid://btj5sorkcxdyg" path="res://Combat/Bullet/Frames/Slash_color1_frame4.png" id="21_mtwqn"]
 [ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="22_rkoof"]
 [ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="23_kypk3"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rtxo0"]
-size = Vector2(8, 11)
+[ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="24_waxww"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xhnrm"]
-size = Vector2(320, 8)
+size = Vector2(480, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s65o1"]
 size = Vector2(304, 1.5258789e-05)
@@ -103,68 +101,10 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wjnlq"]
+size = Vector2(480, 180)
+
 [node name="BirthPlace" type="Node2D" unique_id=513358353]
-
-[node name="Camera" type="Node2D" parent="." unique_id=875490865]
-
-[node name="Camera2D" type="Camera2D" parent="Camera" unique_id=1223180826]
-metadata/_edit_lock_ = true
-
-[node name="Player" type="CharacterBody2D" parent="." unique_id=1471819122 node_paths=PackedStringArray("player_visual", "respawn_point")]
-position = Vector2(-36, 72)
-collision_mask = 2
-script = ExtResource("1_l37n1")
-player_visual = NodePath("CharacterRect")
-respawn_point = NodePath("../Environment/SpawnPoint")
-JumpSpeed = -110.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=886732985]
-position = Vector2(0, -5.5)
-shape = SubResource("RectangleShape2D_rtxo0")
-metadata/_edit_lock_ = true
-
-[node name="CharacterRect" type="ColorRect" parent="Player" unique_id=1262950450]
-offset_left = -4.0
-offset_top = -11.0
-offset_right = 4.0
-color = Color(0.8039216, 0.24313726, 0.07058824, 1)
-metadata/_edit_lock_ = true
-
-[node name="Respawn" type="Node" parent="Player" unique_id=991375424]
-script = ExtResource("4_4htjr")
-
-[node name="Death" type="Node" parent="Player" unique_id=1004093653]
-script = ExtResource("2_l37n1")
-
-[node name="DeathFeedback" type="Node" parent="Player/Death" unique_id=996169188]
-script = ExtResource("3_xv7f0")
-
-[node name="States" type="Node" parent="Player" unique_id=95643535]
-
-[node name="Color" type="Node" parent="Player" unique_id=1356409346]
-
-[node name="PlayerColorController" type="Node" parent="Player/Color" unique_id=2036995734 node_paths=PackedStringArray("player_visual")]
-script = ExtResource("9_nkd7i")
-player_visual = NodePath("../../CharacterRect")
-metadata/_custom_type_script = "uid://bla5jhlpbksb4"
-
-[node name="PlayerColorController2" type="Node" parent="Player/Color" unique_id=195933838 node_paths=PackedStringArray("player_visual")]
-script = ExtResource("9_nkd7i")
-player_visual = NodePath("../../CharacterRect")
-metadata/_custom_type_script = "uid://bla5jhlpbksb4"
-
-[node name="PlayerColorEjectionBridge" type="Node" parent="Player/Color" unique_id=1628955122]
-script = ExtResource("10_erifg")
-metadata/_custom_type_script = "uid://c0xmcdujgwai2"
-
-[node name="SFX" type="Node" parent="Player" unique_id=1904351981 node_paths=PackedStringArray("dash_sfx")]
-script = ExtResource("7_arsq6")
-dash_sfx = NodePath("Dash")
-
-[node name="Dash" type="AudioStreamPlayer" parent="Player/SFX" unique_id=2123002089]
-stream = ExtResource("10_arsq6")
-volume_db = -5.0
-pitch_scale = 1.1
 
 [node name="Environment" type="Node2D" parent="." unique_id=1526362816]
 
@@ -176,17 +116,16 @@ collision_mask = 0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Frame/Floor" unique_id=335125510]
-position = Vector2(0, 84)
+position = Vector2(80, 84)
 shape = SubResource("RectangleShape2D_xhnrm")
 metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Environment/Frame/Floor" unique_id=2131449320]
 offset_left = -168.0
 offset_top = 80.0
-offset_right = 168.0
+offset_right = 320.0
 offset_bottom = 96.0
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
-metadata/_edit_lock_ = true
 
 [node name="Ceiling" type="StaticBody2D" parent="Environment/Frame" unique_id=865881217]
 rotation = 3.1415927
@@ -233,14 +172,14 @@ collision_mask = 0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Frame/RightWall" unique_id=1879051009]
-position = Vector2(6.8189765e-06, 156)
+position = Vector2(-3.999996, 320)
 shape = SubResource("RectangleShape2D_75r8i")
 
 [node name="ColorRect" type="ColorRect" parent="Environment/Frame/RightWall" unique_id=648334648]
-offset_left = -79.956924
-offset_top = 152.01389
-offset_right = 81.05266
-offset_bottom = 160.65355
+offset_left = -79.99999
+offset_top = 312.0
+offset_right = 81.00959
+offset_bottom = 320.63965
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
 
 [node name="Red" type="Node2D" parent="Environment" unique_id=1170659750]
@@ -453,11 +392,10 @@ volume_db = -20.558
 
 [node name="ColorStuff" type="Node" parent="." unique_id=206227053]
 
-[node name="ColorSystemRoot" type="Node" parent="ColorStuff" unique_id=84076866 node_paths=PackedStringArray("color_state", "ejection_resolver", "player_ejection_bridge")]
+[node name="ColorSystemRoot" type="Node" parent="ColorStuff" unique_id=84076866 node_paths=PackedStringArray("color_state", "ejection_resolver")]
 script = ExtResource("7_8tuvi")
 color_state = NodePath("ColorState")
 ejection_resolver = NodePath("ColorEjectionResolver")
-player_ejection_bridge = NodePath("../../Player/Color/PlayerColorEjectionBridge")
 metadata/_custom_type_script = "uid://dtkl3wqummjce"
 
 [node name="ColorState" type="Node" parent="ColorStuff/ColorSystemRoot" unique_id=1902587845]
@@ -612,3 +550,13 @@ metadata/_edit_lock_ = true
 script = ExtResource("23_kypk3")
 melee_visual = NodePath("../melee")
 metadata/_custom_type_script = "uid://dhaj2ykn3fx0h"
+
+[node name="CameraBounds" type="Area2D" parent="." unique_id=937693998 node_paths=PackedStringArray("bounds_shape")]
+script = ExtResource("24_waxww")
+bounds_shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds" unique_id=1912059346]
+position = Vector2(80, 0)
+shape = SubResource("RectangleShape2D_wjnlq")
+disabled = true
+metadata/_edit_lock_ = true

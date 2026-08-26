@@ -210,36 +210,6 @@ position = Vector2(36, 68.00001)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("17_lgcyr")
 
-[node name="Sprite2D26" type="Sprite2D" parent="EnvironmentBody" unique_id=509087421]
-visible = false
-position = Vector2(-28, 88)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("17_lgcyr")
-
-[node name="Sprite2D31" type="Sprite2D" parent="EnvironmentBody" unique_id=1148204280]
-visible = false
-position = Vector2(-35, 88)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("17_lgcyr")
-
-[node name="Sprite2D27" type="Sprite2D" parent="EnvironmentBody" unique_id=778142120]
-visible = false
-position = Vector2(-20, 88)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("17_lgcyr")
-
-[node name="Sprite2D28" type="Sprite2D" parent="EnvironmentBody" unique_id=1275068780]
-visible = false
-position = Vector2(-12.000001, 88)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("17_lgcyr")
-
-[node name="Sprite2D29" type="Sprite2D" parent="EnvironmentBody" unique_id=1607142448]
-visible = false
-position = Vector2(-4.000001, 88)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("17_lgcyr")
-
 [node name="Sprite2D30" type="Sprite2D" parent="EnvironmentBody" unique_id=1864860414]
 position = Vector2(27.999996, 68)
 scale = Vector2(0.1, 0.1)

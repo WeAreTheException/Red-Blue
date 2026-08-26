@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://cp7h8mwtch3aa"]
 
 [ext_resource type="Script" uid="uid://q5pi4nl4r1vb" path="res://Camera/CameraShake.gd" id="1_npc1t"]
-[ext_resource type="Script" uid="uid://ci1yqu2ju08c0" path="res://Camera/RoomTransition.gd" id="2_88gwk"]
+[ext_resource type="Script" uid="uid://cu8ji35aa3tpe" path="res://Camera/CameraFollow.gd" id="2_88gwk"]
 
-[node name="Camera" type="Camera2D" unique_id=2143111211 node_paths=PackedStringArray("room_transition")]
-script = ExtResource("1_npc1t")
-room_transition = NodePath("Node")
-
-[node name="Node" type="Node" parent="." unique_id=289158145]
+[node name="Camera" type="Node2D" unique_id=752428712 node_paths=PackedStringArray("camera")]
 script = ExtResource("2_88gwk")
+camera = NodePath("Camera2D")
+horizontal_trigger_distance_px = 75.0
+horizontal_step_time = 1.0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1529913247]
+script = ExtResource("1_npc1t")
