@@ -344,12 +344,6 @@ metadata/_edit_lock_ = true
 shape = SubResource("CircleShape2D_iiwav")
 metadata/_edit_lock_ = true
 
-[node name="Download" type="Sprite2D" parent="." unique_id=1037935908]
-position = Vector2(32, -16.000002)
-rotation = 3.1415927
-scale = Vector2(0.089750074, -0.09270694)
-texture = ExtResource("15_fd2lm")
-
 [node name="Shooter" type="Node2D" parent="." unique_id=646743014]
 position = Vector2(32, -20)
 script = ExtResource("16_14e4r")
@@ -357,6 +351,12 @@ bullet_scene = ExtResource("17_4xqv6")
 shots_per_burst = 1
 shot_interval = 5.0
 burst_interval = 2.5
+
+[node name="Download" type="Sprite2D" parent="Shooter" unique_id=1037935908]
+position = Vector2(0, 3.999998)
+rotation = -3.1415925
+scale = Vector2(0.089750074, -0.09270694)
+texture = ExtResource("15_fd2lm")
 
 [node name="Spikes" type="StaticBody2D" parent="." unique_id=25170995]
 script = ExtResource("11_7n86h")

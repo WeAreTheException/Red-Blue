@@ -84,9 +84,7 @@ var _has_hit_player: bool = false
 
 
 func _ready() -> void:
-	# Player is on collision layer 1.
-	collision_layer = 0
-	collision_mask = 1
+	_configure_collision()
 
 	monitoring = true
 	monitorable = true
@@ -110,6 +108,34 @@ func setup(
 	speed = new_speed
 	affiliation = new_affiliation
 	hostile = new_hostile
+
+
+func _configure_collision() -> void:
+	if hostile:
+		# ENEMY BULLET
+		#
+		# Layer 7 = ENEMY_ATTACK
+		#
+		# Detect:
+		# Layer 1 = PLAYER
+		# Layer 2 = WORLD
+		# Layer 3 = COLOR_WORLD
+
+		collision_layer = 64
+		collision_mask = 7
+
+	else:
+		# PLAYER BULLET
+		#
+		# Layer 6 = PLAYER_ATTACK
+		#
+		# Detect:
+		# Layer 2 = WORLD
+		# Layer 3 = COLOR_WORLD
+		# Layer 5 = ENEMY_HURTBOX
+
+		collision_layer = 32
+		collision_mask = 22
 
 
 func _physics_process(
@@ -271,6 +297,23 @@ func _on_body_entered(
 	if not is_active:
 		return
 
+	# Active EnvironmentBody blocks the bullet.
+	#
+	# Inactive colored EnvironmentBody collision
+	# is already disabled by the color system,
+	# so bullets pass through automatically.
+	if body is EnvironmentBody:
+		if print_debug:
+			print(
+				"BULLET: HIT ENVIRONMENT | ",
+				body.name
+			)
+
+		queue_free()
+
+		return
+
+	# Player bullets don't hurt PlayerRoot.
 	if not hostile:
 		return
 

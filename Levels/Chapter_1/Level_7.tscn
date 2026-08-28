@@ -356,12 +356,11 @@ default_color = Color(0, 0, 0, 1)
 script = ExtResource("30_u1foj")
 metadata/_custom_type_script = "uid://c2djyy8t3xtdi"
 
-[node name="Player2" type="CharacterBody2D" parent="." unique_id=1532643190 node_paths=PackedStringArray("player_visual", "respawn_point")]
+[node name="Player2" type="CharacterBody2D" parent="." unique_id=1532643190 node_paths=PackedStringArray("player_visual")]
 position = Vector2(-104, 32)
 collision_mask = 2
 script = ExtResource("9_v013c")
 player_visual = NodePath("CharacterRect")
-respawn_point = NodePath("")
 MaxFall = 140.0
 JumpSpeed = -110.0
 DashTime = 0.1

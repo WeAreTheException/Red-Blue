@@ -70,6 +70,17 @@ func _ready() -> void:
 		start_firing()
 
 
+func fire_once() -> void:
+	if bullet_scene == null:
+		push_error(
+			"BulletShooter has no Bullet Scene."
+		)
+
+		return
+
+	_spawn_bullet()
+
+
 func start_firing() -> void:
 	if is_firing:
 		return
