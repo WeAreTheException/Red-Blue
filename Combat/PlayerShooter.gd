@@ -74,7 +74,10 @@ func _ready() -> void:
 
 	bullet_shooter.fire_on_ready = false
 	bullet_shooter.follow_player = false
-	bullet_shooter.hostile = false
+
+	bullet_shooter.team = (
+		Bullet.Team.PLAYER
+	)
 
 	_update_aim()
 
@@ -129,7 +132,7 @@ func _fire() -> void:
 
 
 func _update_aim() -> void:
-	var stick_aim := Vector2(
+	var stick_aim: Vector2 = Vector2(
 		Input.get_joy_axis(
 			joy_device,
 			JOY_AXIS_LEFT_X
@@ -150,7 +153,7 @@ func _update_aim() -> void:
 
 		return
 
-	var mouse_direction := (
+	var mouse_direction: Vector2 = (
 		get_global_mouse_position()
 		- global_position
 	)

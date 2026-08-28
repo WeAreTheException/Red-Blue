@@ -18,9 +18,14 @@
 [ext_resource type="Script" uid="uid://da2pscf8s85w" path="res://Combat/PlayerShooter.gd" id="16_nm833"]
 [ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="16_td4qv"]
 [ext_resource type="Script" uid="uid://crcgmiib02jia" path="res://Combat/Bullet/BulletShooter.gd" id="17_q8vq6"]
+[ext_resource type="PackedScene" uid="uid://dsriv7umxtsqf" path="res://Combat/Bullet/PlayerBullet.tscn" id="18_bg4i3"]
 [ext_resource type="PackedScene" uid="uid://cydq1qlqk1xus" path="res://Combat/Bullet/Bullet.tscn" id="18_ctmup"]
 [ext_resource type="Script" uid="uid://cjecs6abl72rc" path="res://Combat/enemy/CandyCorn/MovingSquare.gd" id="19_q8vq6"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="20_ctmup"]
+[ext_resource type="Script" uid="uid://dig1lrhh2w7g5" path="res://Combat/Hurtbox.gd" id="21_egg54"]
+[ext_resource type="Script" uid="uid://ctuc536qf1efr" path="res://Combat/HealthComponent.gd" id="21_ixknr"]
+[ext_resource type="Texture2D" uid="uid://bw0akwr5dnplj" path="res://Levels/Chapter_1/pixel_character_80x80.png" id="22_xyx0r"]
+[ext_resource type="Script" uid="uid://gi2x0o7wihnh" path="res://Combat/DestroyOnDeath.gd" id="23_f3qia"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v2bil"]
 size = Vector2(8, 11)
@@ -53,13 +58,16 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_njov2"]
 size = Vector2(160, 90)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixknr"]
+size = Vector2(24, 24)
+
 [node name="Node2D" type="Node2D" unique_id=15293232]
 
 [node name="Spawn" type="Node2D" parent="." unique_id=374435199]
 position = Vector2(72, 40)
 
 [node name="Player2" type="CharacterBody2D" parent="." unique_id=1307098927 node_paths=PackedStringArray("player_visual", "respawn_point")]
-position = Vector2(72, 36)
+position = Vector2(66, 38)
 collision_mask = 6
 script = ExtResource("2_s2xbw")
 player_visual = NodePath("CharacterRect")
@@ -156,8 +164,7 @@ bullet_shooter = NodePath("../Shooter5")
 [node name="Shooter5" type="Node2D" parent="Player2" unique_id=913884505]
 position = Vector2(0, -5)
 script = ExtResource("17_q8vq6")
-bullet_scene = ExtResource("18_ctmup")
-hostile = false
+bullet_scene = ExtResource("18_bg4i3")
 shots_per_burst = 1
 shot_interval = 5.0
 burst_interval = 2.5
@@ -172,7 +179,7 @@ disabled = true
 metadata/_edit_lock_ = true
 
 [node name="Frame" type="Polygon2D" parent="." unique_id=223998067]
-polygon = PackedVector2Array(-76, 88, -160, 88, -160, -92, 160, -92, 160, 96, 156, 96, -76, 88, -76, 40, 76, 40, 76, -40, -76, -40)
+polygon = PackedVector2Array(-76, 88, -160, 88, -160, -92, 160, -92, 160, 88, 152, 88, -76, 88, -76, 40, 76, 40, 76, -40, -76, -40)
 
 [node name="Line2D" type="Line2D" parent="Frame" unique_id=1318415636]
 points = PackedVector2Array(-76, -40, -76, 40, 76, 40, 76, -40, -76, -40)
@@ -206,46 +213,61 @@ pause_time_b = 2.0
 pause_scale = 0.9
 pause_vibrate_px = 0
 
-[node name="Shooter" type="Node2D" parent="MovingCube" unique_id=219788149]
-script = ExtResource("17_q8vq6")
-bullet_scene = ExtResource("18_ctmup")
-hostile = false
-shots_per_burst = 1
-shot_interval = 5.0
-burst_interval = 2.5
-
-[node name="Shooter2" type="Node2D" parent="MovingCube" unique_id=34339949]
-script = ExtResource("17_q8vq6")
-bullet_scene = ExtResource("18_ctmup")
-hostile = false
-direction = Vector2(0, 1)
-shots_per_burst = 1
-shot_interval = 5.0
-burst_interval = 2.5
-
-[node name="Shooter3" type="Node2D" parent="MovingCube" unique_id=1410546495]
-script = ExtResource("17_q8vq6")
-bullet_scene = ExtResource("18_ctmup")
-hostile = false
-direction = Vector2(0, -1)
-shots_per_burst = 1
-shot_interval = 5.0
-burst_interval = 2.5
-
-[node name="Shooter4" type="Node2D" parent="MovingCube" unique_id=2116137546]
-script = ExtResource("17_q8vq6")
-bullet_scene = ExtResource("18_ctmup")
-hostile = false
-direction = Vector2(1, 0)
-shots_per_burst = 1
-shot_interval = 5.0
-burst_interval = 2.5
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MovingCube" unique_id=712861086]
 polygon = PackedVector2Array(-12, -12, 12, -12, 12, 12, -12, 12)
 
 [node name="Polygon2D" type="Polygon2D" parent="MovingCube" unique_id=1506891574]
 polygon = PackedVector2Array(-12, -12, -12, 12, 12, 12, 12, -12)
+
+[node name="shooters" type="Node2D" parent="MovingCube" unique_id=1134848253]
+
+[node name="Shooter" type="Node2D" parent="MovingCube/shooters" unique_id=219788149]
+script = ExtResource("17_q8vq6")
+bullet_scene = ExtResource("18_ctmup")
+shots_per_burst = 1
+shot_interval = 5.0
+burst_interval = 2.5
+
+[node name="Shooter2" type="Node2D" parent="MovingCube/shooters" unique_id=34339949]
+script = ExtResource("17_q8vq6")
+bullet_scene = ExtResource("18_ctmup")
+direction = Vector2(0, 1)
+shots_per_burst = 1
+shot_interval = 5.0
+burst_interval = 2.5
+
+[node name="Shooter3" type="Node2D" parent="MovingCube/shooters" unique_id=1410546495]
+script = ExtResource("17_q8vq6")
+bullet_scene = ExtResource("18_ctmup")
+direction = Vector2(0, -1)
+shots_per_burst = 1
+shot_interval = 5.0
+burst_interval = 2.5
+
+[node name="Shooter4" type="Node2D" parent="MovingCube/shooters" unique_id=2116137546]
+script = ExtResource("17_q8vq6")
+bullet_scene = ExtResource("18_ctmup")
+direction = Vector2(1, 0)
+shots_per_burst = 1
+shot_interval = 5.0
+burst_interval = 2.5
+
+[node name="Health" type="Node" parent="MovingCube" unique_id=161972041]
+script = ExtResource("21_ixknr")
+
+[node name="Area2D" type="Area2D" parent="MovingCube" unique_id=782891468 node_paths=PackedStringArray("health")]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("21_egg54")
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovingCube/Area2D" unique_id=283148797]
+shape = SubResource("RectangleShape2D_ixknr")
+
+[node name="Node" type="Node" parent="MovingCube" unique_id=2102894128 node_paths=PackedStringArray("health", "destroy_target")]
+script = ExtResource("23_f3qia")
+health = NodePath("../Health")
+destroy_target = NodePath("..")
 
 [node name="Red" type="StaticBody2D" parent="." unique_id=1411495201]
 collision_layer = 4
@@ -273,3 +295,9 @@ polygon = PackedVector2Array(-12, 8, -36, 8, -36, 16, -12, 16)
 [node name="Polygon2D" type="Polygon2D" parent="Blue" unique_id=1026383564]
 position = Vector2(52, 0)
 polygon = PackedVector2Array(-36, 8, -36, 0, -12, 0, -12, 8)
+
+[node name="PixelCharacter80x80" type="Sprite2D" parent="." unique_id=279336931]
+visible = false
+position = Vector2(67, 27.25)
+scale = Vector2(0.25, 0.23124996)
+texture = ExtResource("22_xyx0r")

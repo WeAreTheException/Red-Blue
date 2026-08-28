@@ -2,7 +2,22 @@ extends Area2D
 class_name Bullet
 
 
+enum Team {
+	PLAYER,
+	ENEMY
+}
+
+
 @export_group("Bullet")
+
+@export_enum(
+	"PLAYER",
+	"ENEMY"
+)
+var team: int = (
+	Team.ENEMY
+)
+
 
 @export_enum(
 	"RED",
@@ -13,13 +28,14 @@ var affiliation: int = (
 	ColorState.Affiliation.NEUTRAL
 )
 
-@export var hostile: bool = true
 
 @export var direction: Vector2 = (
 	Vector2.LEFT
 )
 
 @export var speed: float = 100.0
+
+@export var damage: float = 10.0
 
 @export_range(
 	0.1,
@@ -61,13 +77,6 @@ const BLUE_COLOR: Color = Color8(
 )
 
 const NEUTRAL_COLOR: Color = Color8(
-	173,
-	170,
-	170,
-	255
-)
-
-const NEUTRAL_HOSTILE_COLOR: Color = Color8(
 	25,
 	25,
 	25,
@@ -80,7 +89,8 @@ var color_state: ColorState = null
 var is_active: bool = true
 
 var _life_elapsed: float = 0.0
-var _has_hit_player: bool = false
+
+var _has_hit_target: bool = false
 
 
 func _ready() -> void:
@@ -93,6 +103,10 @@ func _ready() -> void:
 		_on_body_entered
 	)
 
+	area_entered.connect(
+		_on_area_entered
+	)
+
 	_apply_visual()
 
 	_connect_color_state()
@@ -102,40 +116,38 @@ func setup(
 	new_direction: Vector2,
 	new_speed: float,
 	new_affiliation: int,
-	new_hostile: bool
+	new_team: int
 ) -> void:
 	direction = new_direction
+
 	speed = new_speed
+
 	affiliation = new_affiliation
-	hostile = new_hostile
+
+	team = new_team
 
 
 func _configure_collision() -> void:
-	if hostile:
-		# ENEMY BULLET
-		#
-		# Layer 7 = ENEMY_ATTACK
-		#
-		# Detect:
-		# Layer 1 = PLAYER
-		# Layer 2 = WORLD
-		# Layer 3 = COLOR_WORLD
+	match team:
+		Team.PLAYER:
+			# Layer 6 = PLAYER_ATTACK
+			collision_layer = 32
 
-		collision_layer = 64
-		collision_mask = 7
+			# Mask:
+			# 2 = WORLD
+			# 3 = COLOR_WORLD
+			# 5 = ENEMY_HURTBOX
+			collision_mask = 22
 
-	else:
-		# PLAYER BULLET
-		#
-		# Layer 6 = PLAYER_ATTACK
-		#
-		# Detect:
-		# Layer 2 = WORLD
-		# Layer 3 = COLOR_WORLD
-		# Layer 5 = ENEMY_HURTBOX
+		Team.ENEMY:
+			# Layer 7 = ENEMY_ATTACK
+			collision_layer = 64
 
-		collision_layer = 32
-		collision_mask = 22
+			# Mask:
+			# 1 = PLAYER
+			# 2 = WORLD
+			# 3 = COLOR_WORLD
+			collision_mask = 7
 
 
 func _physics_process(
@@ -155,7 +167,7 @@ func _physics_process(
 
 
 func _connect_color_state() -> void:
-	var color_system_root := (
+	var color_system_root: ColorSystemRoot = (
 		ColorSystemRoot.instance
 	)
 
@@ -220,36 +232,22 @@ func _sync_active_state(
 	if color_state == null:
 		return
 
-	var wants_active: bool = (
-		color_state.is_affiliation_active(
-			affiliation,
-			player_color
-		)
-	)
+	# Enemy bullets are always active attacks.
+	#
+	# Player bullets use the player's current
+	# RED / BLUE color behavior.
+	if team == Team.ENEMY:
+		is_active = true
 
-	var became_active: bool = (
-		not is_active
-		and wants_active
-	)
-
-	is_active = wants_active
-
-	_apply_visual()
-
-	if became_active:
-		call_deferred(
-			"_check_overlapping_player"
-		)
-
-	if print_debug:
-		print(
-			"BULLET ACTIVE: ",
-			is_active,
-			" | AFFILIATION: ",
-			ColorState.affiliation_name(
-				affiliation
+	else:
+		is_active = (
+			color_state.is_affiliation_active(
+				affiliation,
+				player_color
 			)
 		)
+
+	_apply_visual()
 
 
 func _apply_visual() -> void:
@@ -282,9 +280,6 @@ func _get_affiliation_color() -> Color:
 			return BLUE_COLOR
 
 		ColorState.Affiliation.NEUTRAL:
-			if hostile:
-				return NEUTRAL_HOSTILE_COLOR
-
 			return NEUTRAL_COLOR
 
 		_:
@@ -294,59 +289,118 @@ func _get_affiliation_color() -> Color:
 func _on_body_entered(
 	body: Node2D
 ) -> void:
-	if not is_active:
+	if _has_hit_target:
 		return
 
-	# Active EnvironmentBody blocks the bullet.
-	#
-	# Inactive colored EnvironmentBody collision
-	# is already disabled by the color system,
-	# so bullets pass through automatically.
+	# Colored environment / armor.
 	if body is EnvironmentBody:
-		if print_debug:
-			print(
-				"BULLET: HIT ENVIRONMENT | ",
-				body.name
-			)
+		var environment: EnvironmentBody = (
+			body as EnvironmentBody
+		)
 
-		queue_free()
+		if _environment_blocks_bullet(
+			environment
+		):
+			if print_debug:
+				print(
+					"BULLET BLOCKED | BULLET: ",
+					ColorState.affiliation_name(
+						affiliation
+					),
+					" | BLOCK: ",
+					ColorState.affiliation_name(
+						environment.affiliation
+					)
+				)
+
+			queue_free()
 
 		return
 
-	# Player bullets don't hurt PlayerRoot.
-	if not hostile:
-		return
-
-	if not body is PlayerRoot:
-		return
-
-	_hit_player(
-		body as PlayerRoot
-	)
-
-
-func _check_overlapping_player() -> void:
-	if not is_inside_tree():
-		return
-
-	if not is_active:
-		return
-
-	if not hostile:
-		return
-
-	if _has_hit_player:
-		return
-
-	for body in get_overlapping_bodies():
-		if not body is PlayerRoot:
-			continue
-
+	# Enemy bullets can hurt PlayerRoot.
+	if (
+		team == Team.ENEMY
+		and body is PlayerRoot
+	):
 		_hit_player(
 			body as PlayerRoot
 		)
 
 		return
+
+	# Anything else on WORLD stops bullets.
+	queue_free()
+
+
+func _on_area_entered(
+	area: Area2D
+) -> void:
+	if _has_hit_target:
+		return
+
+	# Only PLAYER bullets interact with
+	# ENEMY Hurtboxes.
+	if team != Team.PLAYER:
+		return
+
+	if not area is Hurtbox:
+		return
+
+	var hurtbox: Hurtbox = (
+		area as Hurtbox
+	)
+
+	_has_hit_target = true
+
+	var info: DamageInfo = (
+		DamageInfo.new()
+	)
+
+	info.setup(
+		damage,
+		self,
+		affiliation
+	)
+
+	hurtbox.receive_damage(
+		info
+	)
+
+	if print_debug:
+		print(
+			"PLAYER BULLET DAMAGE: ",
+			damage
+		)
+
+	queue_free()
+
+
+func _environment_blocks_bullet(
+	environment: EnvironmentBody
+) -> bool:
+	if environment == null:
+		return false
+
+	# Neutral WORLD always blocks bullets.
+	if (
+		environment.affiliation
+		== ColorState.Affiliation.NEUTRAL
+	):
+		return true
+
+	# Neutral bullets ignore colored blocks.
+	if (
+		affiliation
+		== ColorState.Affiliation.NEUTRAL
+	):
+		return false
+
+	# Colored bullets only collide with
+	# the SAME color.
+	return (
+		affiliation
+		== environment.affiliation
+	)
 
 
 func _hit_player(
@@ -355,16 +409,13 @@ func _hit_player(
 	if player == null:
 		return
 
-	if _has_hit_player:
+	if _has_hit_target:
 		return
 
-	if not hostile:
+	if team != Team.ENEMY:
 		return
 
-	if not is_active:
-		return
-
-	var player_death := (
+	var player_death: PlayerDeath = (
 		_find_player_death(
 			player
 		)
@@ -381,11 +432,11 @@ func _hit_player(
 	if player_death.is_dead:
 		return
 
-	_has_hit_player = true
+	_has_hit_target = true
 
 	if print_debug:
 		print(
-			"BULLET: KILL PLAYER"
+			"ENEMY BULLET: HIT PLAYER"
 		)
 
 	player_death.die()
@@ -401,8 +452,8 @@ func _find_player_death(
 			node as PlayerDeath
 		)
 
-	for child in node.get_children():
-		var found := (
+	for child: Node in node.get_children():
+		var found: PlayerDeath = (
 			_find_player_death(
 				child
 			)

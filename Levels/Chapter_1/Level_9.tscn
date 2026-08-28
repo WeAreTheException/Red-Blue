@@ -55,7 +55,7 @@ animations = [{
 position = Vector2(-148, 56)
 
 [node name="Player2" type="CharacterBody2D" parent="." unique_id=1004969556 node_paths=PackedStringArray("player_visual", "respawn_point")]
-position = Vector2(-148, 56)
+position = Vector2(-128, 35)
 collision_mask = 2
 script = ExtResource("1_fercq")
 player_visual = NodePath("CharacterRect")

@@ -700,7 +700,6 @@ texture = ExtResource("14_uj4ah")
 polygon = PackedVector2Array(12, 8, 8, 8, 8, -20, 12, -20)
 
 [node name="Level2" type="Sprite2D" parent="." unique_id=810379538]
-visible = false
 material = SubResource("ShaderMaterial_ew56h")
 position = Vector2(0, 2)
 texture = SubResource("CompressedTexture2D_1i6ur")

@@ -6,6 +6,16 @@ class_name BulletShooter
 
 @export var bullet_scene: PackedScene
 
+
+@export_enum(
+	"PLAYER",
+	"ENEMY"
+)
+var team: int = (
+	Bullet.Team.ENEMY
+)
+
+
 @export_enum(
 	"RED",
 	"BLUE",
@@ -15,7 +25,6 @@ var affiliation: int = (
 	ColorState.Affiliation.NEUTRAL
 )
 
-@export var hostile: bool = true
 
 @export var direction: Vector2 = (
 	Vector2.LEFT
@@ -203,7 +212,7 @@ func _spawn_bullet() -> void:
 		if shot_direction == Vector2.ZERO:
 			return
 
-	var bullet_node := (
+	var bullet_node: Node = (
 		bullet_scene.instantiate()
 	)
 
@@ -216,7 +225,7 @@ func _spawn_bullet() -> void:
 
 		return
 
-	var bullet := (
+	var bullet: Bullet = (
 		bullet_node as Bullet
 	)
 
@@ -224,10 +233,10 @@ func _spawn_bullet() -> void:
 		shot_direction,
 		bullet_speed,
 		affiliation,
-		hostile
+		team
 	)
 
-	var spawn_parent := (
+	var spawn_parent: Node = (
 		get_tree().current_scene
 	)
 
@@ -246,12 +255,14 @@ func _spawn_bullet() -> void:
 
 	if print_debug:
 		print(
-			"BULLET FIRED | ",
+			"BULLET FIRED | TEAM: ",
+			"PLAYER"
+			if team == Bullet.Team.PLAYER
+			else "ENEMY",
+			" | COLOR: ",
 			ColorState.affiliation_name(
 				affiliation
 			),
-			" | HOSTILE: ",
-			hostile,
 			" | DIRECTION: ",
 			shot_direction
 		)
