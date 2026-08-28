@@ -281,6 +281,12 @@ polygon = PackedVector2Array(64, -64, 88, -64, 88, -56, 104, -56, 104, -48, 128,
 position = Vector2(184, -128)
 polygon = PackedVector2Array(-192, 176, -192, 168, -176, 168, -176, 176)
 
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="Base" unique_id=1338959276]
+polygon = PackedVector2Array(-64, 8, -56, 8, -56, 24, -64, 24)
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="Base" unique_id=754762773]
+polygon = PackedVector2Array(-8, -32, 24, -32, 24, -24, -8, -24)
+
 [node name="KillFloor" type="StaticBody2D" parent="." unique_id=266493404]
 collision_layer = 2
 script = ExtResource("17_7fqjt")
@@ -302,17 +308,21 @@ metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
 position = Vector2(132, -144)
 polygon = PackedVector2Array(-196, 172, -196, 168, -188, 168, -188, 172)
 
+[node name="CollisionPolygon2D11" type="CollisionPolygon2D" parent="Spikes" unique_id=2034801487]
+position = Vector2(132, -164)
+polygon = PackedVector2Array(-196, 172, -196, 168, -188, 168, -188, 172)
+
 [node name="CollisionPolygon2D12" type="CollisionPolygon2D" parent="Spikes" unique_id=579813500]
 position = Vector2(180, -200)
-polygon = PackedVector2Array(-192, 176, -192, 168, -188, 168, -188, 176)
+polygon = PackedVector2Array(-192, 172, -192, 168, -188, 168, -188, 172)
 
 [node name="CollisionPolygon2D13" type="CollisionPolygon2D" parent="Spikes" unique_id=2108935370]
 position = Vector2(220, -200)
-polygon = PackedVector2Array(-196, 176, -196, 168, -192, 168, -192, 172)
+polygon = PackedVector2Array(-196, 172, -196, 168, -192, 168, -192, 172)
 
 [node name="CollisionPolygon2D14" type="CollisionPolygon2D" parent="Spikes" unique_id=2000823241]
-position = Vector2(212, -204)
-polygon = PackedVector2Array(-220, 172, -220, 168, -188, 168, -188, 172)
+position = Vector2(208, -192)
+polygon = PackedVector2Array(-212, 172, -212, 168, -188, 168, -188, 172)
 
 [node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="Spikes" unique_id=624433235]
 position = Vector2(132, -164)
@@ -352,6 +362,30 @@ texture = ExtResource("19_feiy4")
 
 [node name="Sprite2D10" type="Sprite2D" parent="Spikes" unique_id=1524086328]
 position = Vector2(20, -36)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("19_feiy4")
+
+[node name="Sprite2D11" type="Sprite2D" parent="Spikes" unique_id=1695040632]
+position = Vector2(-4.000002, -20.999992)
+rotation = -3.1415927
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("19_feiy4")
+
+[node name="Sprite2D12" type="Sprite2D" parent="Spikes" unique_id=459674431]
+position = Vector2(4.000001, -21)
+rotation = -3.1415927
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("19_feiy4")
+
+[node name="Sprite2D13" type="Sprite2D" parent="Spikes" unique_id=802781670]
+position = Vector2(12.000001, -20.999996)
+rotation = -3.1415927
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("19_feiy4")
+
+[node name="Sprite2D14" type="Sprite2D" parent="Spikes" unique_id=1236809255]
+position = Vector2(20.000002, -20.999996)
+rotation = -3.1415927
 scale = Vector2(0.099999964, 0.099999994)
 texture = ExtResource("19_feiy4")
 

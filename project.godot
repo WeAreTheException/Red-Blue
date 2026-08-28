@@ -11,7 +11,9 @@ config_version=5
 [application]
 
 config/name="Red&Blue"
+run/main_scene="uid://c2l8pri7pgm10"
 config/features=PackedStringArray("4.6", "Forward Plus")
+run/max_fps=60
 
 [autoload]
 
@@ -95,4 +97,5 @@ GRAB={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
-environment/defaults/default_clear_color=Color(0.09803922, 0.17254902, 0.25490198, 1)
+environment/defaults/default_clear_color=Color(0.92941177, 0.627451, 0.19215687, 1)
+2d/snap/snap_2d_transforms_to_pixel=true

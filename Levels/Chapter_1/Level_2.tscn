@@ -718,5 +718,6 @@ autoplay = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=590545170]
 
 [node name="Polygon2D2" type="Polygon2D" parent="." unique_id=1794879837]
+visible = false
 position = Vector2(192, 0)
 polygon = PackedVector2Array(-352, 96, -352, -96, -344, -96, -344, 80, -40, 80, -40, 32, -344, 32, -344, 24, -32, 24, -32, 96)

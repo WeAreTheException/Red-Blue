@@ -1,24 +1,24 @@
 [gd_scene format=3 uid="uid://cl4haqcjejy20"]
 
-[ext_resource type="PackedScene" uid="uid://clnxavhk3e18s" path="res://Levels/Chapter_1/Level_4.tscn" id="1_8nbe2"]
-[ext_resource type="PackedScene" uid="uid://cp7h8mwtch3aa" path="res://Camera/Camera.tscn" id="1_17lp5"]
-[ext_resource type="PackedScene" uid="uid://ckytlxbavp0xj" path="res://Levels/Chapter_1/Level_7.tscn" id="1_76yoy"]
-[ext_resource type="PackedScene" uid="uid://16boayvaeb3u" path="res://Levels/Level_2.tscn" id="3_nvemk"]
-[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="3_sfre8"]
-[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="4_e6a5w"]
-[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="5_8exwu"]
-[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="6_e2dr3"]
-[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="7_a6726"]
-[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://Color/ColorChange/PlayerColorController.gd" id="8_1scu0"]
-[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://Color/ColorChange/PlayerColorEjectionBridge.gd" id="9_kcqmg"]
-[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="10_mxlk8"]
-[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="11_dungn"]
-[ext_resource type="Texture2D" uid="uid://dkphu7hbt7ujh" path="res://Combat/Bullet/Frames/Slash_color1_frame1.png" id="12_lyq2e"]
-[ext_resource type="Texture2D" uid="uid://dwbwaoimck1gc" path="res://Combat/Bullet/Frames/Slash_color1_frame2.png" id="13_7k3il"]
-[ext_resource type="Texture2D" uid="uid://2ntjaitlghyy" path="res://Combat/Bullet/Frames/Slash_color1_frame3.png" id="14_jmmtm"]
-[ext_resource type="Texture2D" uid="uid://btj5sorkcxdyg" path="res://Combat/Bullet/Frames/Slash_color1_frame4.png" id="15_x6pql"]
-[ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="16_8cx3t"]
-[ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="17_qb875"]
+[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="1_wbab1"]
+[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="2_7cgy7"]
+[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="3_ugqpy"]
+[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="4_qkvmx"]
+[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="5_uxbck"]
+[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://Color/ColorChange/PlayerColorController.gd" id="6_ui0lh"]
+[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://Color/ColorChange/PlayerColorEjectionBridge.gd" id="7_u8phr"]
+[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="8_d888a"]
+[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="9_wq0oy"]
+[ext_resource type="Texture2D" uid="uid://dkphu7hbt7ujh" path="res://Combat/Bullet/Frames/Slash_color1_frame1.png" id="10_eq767"]
+[ext_resource type="Texture2D" uid="uid://dwbwaoimck1gc" path="res://Combat/Bullet/Frames/Slash_color1_frame2.png" id="11_dsui6"]
+[ext_resource type="Texture2D" uid="uid://2ntjaitlghyy" path="res://Combat/Bullet/Frames/Slash_color1_frame3.png" id="12_ivlp8"]
+[ext_resource type="Texture2D" uid="uid://btj5sorkcxdyg" path="res://Combat/Bullet/Frames/Slash_color1_frame4.png" id="13_mwqpc"]
+[ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="14_ufuky"]
+[ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="15_500fv"]
+[ext_resource type="PackedScene" uid="uid://cp7h8mwtch3aa" path="res://Camera/Camera.tscn" id="16_ljgps"]
+[ext_resource type="PackedScene" uid="uid://clnxavhk3e18s" path="res://Levels/Chapter_1/Level_4.tscn" id="17_lgbl1"]
+[ext_resource type="PackedScene" uid="uid://16boayvaeb3u" path="res://Levels/Chapter_1/Level_2.tscn" id="18_t1f4i"]
+[ext_resource type="PackedScene" uid="uid://ckytlxbavp0xj" path="res://Levels/Chapter_1/Level_7.tscn" id="19_q223g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jtv8d"]
 size = Vector2(8, 11)
@@ -29,16 +29,16 @@ size = Vector2(8, 11)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("12_lyq2e")
+"texture": ExtResource("10_eq767")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_7k3il")
+"texture": ExtResource("11_dsui6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("14_jmmtm")
+"texture": ExtResource("12_ivlp8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("15_x6pql")
+"texture": ExtResource("13_mwqpc")
 }, {
 "duration": 1.0,
 "texture": null
@@ -53,7 +53,7 @@ animations = [{
 [node name="Player2" type="CharacterBody2D" parent="." unique_id=1327916337 node_paths=PackedStringArray("player_visual")]
 position = Vector2(-128, 40)
 collision_mask = 2
-script = ExtResource("3_sfre8")
+script = ExtResource("1_wbab1")
 player_visual = NodePath("CharacterRect")
 MaxFall = 140.0
 JumpSpeed = -110.0
@@ -64,7 +64,7 @@ position = Vector2(-128, -56)
 metadata/_edit_lock_ = true
 
 [node name="DashTrail" type="Node2D" parent="Player2" unique_id=1143526208 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
-script = ExtResource("4_e6a5w")
+script = ExtResource("2_7cgy7")
 trail_template = NodePath("../Line2D")
 trail_lifetime = 1.0
 max_points = 15
@@ -95,60 +95,61 @@ color = Color(0.8687545, 0, 0.22967622, 1)
 metadata/_edit_lock_ = true
 
 [node name="Respawn" type="Node" parent="Player2" unique_id=1536140773]
-script = ExtResource("5_8exwu")
+script = ExtResource("3_ugqpy")
 
 [node name="Death" type="Node" parent="Player2" unique_id=1795378541]
-script = ExtResource("6_e2dr3")
+script = ExtResource("4_qkvmx")
 
 [node name="DeathFeedback" type="Node" parent="Player2/Death" unique_id=236553501]
-script = ExtResource("7_a6726")
+script = ExtResource("5_uxbck")
 
 [node name="States" type="Node" parent="Player2" unique_id=1007308331]
 
 [node name="Color" type="Node" parent="Player2" unique_id=693763594]
 
 [node name="PlayerColorController" type="Node" parent="Player2/Color" unique_id=411810939 node_paths=PackedStringArray("player_visual")]
-script = ExtResource("8_1scu0")
+script = ExtResource("6_ui0lh")
 player_visual = NodePath("../../CharacterRect")
 red_color = Color(0.8352941, 0.1254902, 0.1254902, 1)
 blue_color = Color(0.2627451, 0.43137255, 0.69411767, 1)
 
 [node name="PlayerColorEjectionBridge" type="Node" parent="Player2/Color" unique_id=1244107779 node_paths=PackedStringArray("player_collision_shape")]
-script = ExtResource("9_kcqmg")
+script = ExtResource("7_u8phr")
 player_collision_shape = NodePath("../../CollisionShape2D")
 travel_acceleration = 2000.0
 exit_speed = 100.0
 lift_boost_cap = 20.0
 
 [node name="SFX" type="Node" parent="Player2" unique_id=1527580121 node_paths=PackedStringArray("dash_sfx")]
-script = ExtResource("10_mxlk8")
+script = ExtResource("8_d888a")
 dash_sfx = NodePath("Dash")
 
 [node name="Dash" type="AudioStreamPlayer" parent="Player2/SFX" unique_id=1957128719]
-stream = ExtResource("11_dungn")
+stream = ExtResource("9_wq0oy")
 volume_db = -4.0
 pitch_scale = 1.1
 
 [node name="melee" type="AnimatedSprite2D" parent="Player2" unique_id=1436431239]
 sprite_frames = SubResource("SpriteFrames_uvkxa")
 animation = &"melee"
-script = ExtResource("16_8cx3t")
+script = ExtResource("14_ufuky")
 
 [node name="PlayerMelee" type="Node2D" parent="Player2" unique_id=875136547 node_paths=PackedStringArray("melee_visual")]
-script = ExtResource("17_qb875")
+script = ExtResource("15_500fv")
 melee_visual = NodePath("../melee")
 metadata/_custom_type_script = "uid://dhaj2ykn3fx0h"
 
-[node name="Camera" parent="." unique_id=2143111211 node_paths=PackedStringArray("test_room_center") instance=ExtResource("1_17lp5")]
-test_room_center = NodePath("../Marker2D2")
+[node name="Camera" parent="." unique_id=2143111211 instance=ExtResource("16_ljgps")]
 
-[node name="level_4" parent="." unique_id=365869652 instance=ExtResource("1_8nbe2")]
+[node name="level_4" parent="." unique_id=365869652 instance=ExtResource("17_lgbl1")]
 position = Vector2(112, -184)
 
-[node name="Level2" parent="." unique_id=200058639 instance=ExtResource("3_nvemk")]
-position = Vector2(244, -7)
+[node name="Level2" parent="." unique_id=200058639 instance=ExtResource("18_t1f4i")]
+position = Vector2(-248, 0)
+scale = Vector2(-1, 1)
 
-[node name="Node2D" parent="." unique_id=2059484946 instance=ExtResource("1_76yoy")]
+[node name="Node2D" parent="." unique_id=2059484946 instance=ExtResource("19_q223g")]
+scale = Vector2(-1, 1)
 
 [node name="Marker2D2" type="Marker2D" parent="." unique_id=686819700]
 position = Vector2(112, -184)

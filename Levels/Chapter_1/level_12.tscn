@@ -1,23 +1,23 @@
 [gd_scene format=3 uid="uid://bcvnat6ni3es0"]
 
-[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="2_r14r6"]
-[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="3_e5oej"]
-[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="4_4wtfn"]
-[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="5_yg8oi"]
-[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="6_p4vr0"]
-[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://Color/ColorChange/PlayerColorController.gd" id="7_esoy5"]
-[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://Color/ColorChange/PlayerColorEjectionBridge.gd" id="8_kg3h7"]
-[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="9_jjgao"]
-[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="10_8x383"]
-[ext_resource type="Texture2D" uid="uid://dkphu7hbt7ujh" path="res://Combat/Bullet/Frames/Slash_color1_frame1.png" id="11_xjpm5"]
-[ext_resource type="Texture2D" uid="uid://dwbwaoimck1gc" path="res://Combat/Bullet/Frames/Slash_color1_frame2.png" id="12_lgjvf"]
-[ext_resource type="Texture2D" uid="uid://2ntjaitlghyy" path="res://Combat/Bullet/Frames/Slash_color1_frame3.png" id="13_qkbaj"]
-[ext_resource type="Texture2D" uid="uid://btj5sorkcxdyg" path="res://Combat/Bullet/Frames/Slash_color1_frame4.png" id="14_1kpsa"]
-[ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="15_lh1sk"]
-[ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="16_ub55g"]
-[ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Sound/Music/TimMusic1.wav" id="17_e5oej"]
-[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="18_4wtfn"]
-[ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="19_yg8oi"]
+[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="1_4bemy"]
+[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="2_2ooat"]
+[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="3_wswy8"]
+[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="4_4i4u6"]
+[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="5_y7xe2"]
+[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://Color/ColorChange/PlayerColorController.gd" id="6_te1s1"]
+[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://Color/ColorChange/PlayerColorEjectionBridge.gd" id="7_qy080"]
+[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="8_is30g"]
+[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="9_krygi"]
+[ext_resource type="Texture2D" uid="uid://dkphu7hbt7ujh" path="res://Combat/Bullet/Frames/Slash_color1_frame1.png" id="10_h25cl"]
+[ext_resource type="Texture2D" uid="uid://dwbwaoimck1gc" path="res://Combat/Bullet/Frames/Slash_color1_frame2.png" id="11_tb6u4"]
+[ext_resource type="Texture2D" uid="uid://2ntjaitlghyy" path="res://Combat/Bullet/Frames/Slash_color1_frame3.png" id="12_30j8t"]
+[ext_resource type="Texture2D" uid="uid://btj5sorkcxdyg" path="res://Combat/Bullet/Frames/Slash_color1_frame4.png" id="13_onyxf"]
+[ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="14_n0u7x"]
+[ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="15_eahl2"]
+[ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Sound/Music/TimMusic1.wav" id="16_jphy0"]
+[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="17_x5mw6"]
+[ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="18_q4rc3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_76a1a"]
 size = Vector2(8, 11)
@@ -28,16 +28,16 @@ size = Vector2(8, 11)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("11_xjpm5")
+"texture": ExtResource("10_h25cl")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_lgjvf")
+"texture": ExtResource("11_tb6u4")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_qkbaj")
+"texture": ExtResource("12_30j8t")
 }, {
 "duration": 1.0,
-"texture": ExtResource("14_1kpsa")
+"texture": ExtResource("13_onyxf")
 }, {
 "duration": 1.0,
 "texture": null
@@ -55,7 +55,7 @@ position = Vector2(-144, 56)
 [node name="Player2" type="CharacterBody2D" parent="." unique_id=198376936 node_paths=PackedStringArray("player_visual", "respawn_point")]
 position = Vector2(-144, 56)
 collision_mask = 2
-script = ExtResource("2_r14r6")
+script = ExtResource("1_4bemy")
 player_visual = NodePath("CharacterRect")
 respawn_point = NodePath("../Spawn")
 MaxFall = 140.0
@@ -72,7 +72,7 @@ position = Vector2(-128, -56)
 metadata/_edit_lock_ = true
 
 [node name="DashTrail" type="Node2D" parent="Player2" unique_id=95758969 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
-script = ExtResource("3_e5oej")
+script = ExtResource("2_2ooat")
 trail_template = NodePath("../Line2D")
 trail_lifetime = 1.0
 max_points = 15
@@ -103,48 +103,48 @@ color = Color(0.8687545, 0, 0.22967622, 1)
 metadata/_edit_lock_ = true
 
 [node name="Respawn" type="Node" parent="Player2" unique_id=123794954]
-script = ExtResource("4_4wtfn")
+script = ExtResource("3_wswy8")
 
 [node name="Death" type="Node" parent="Player2" unique_id=1273849968]
-script = ExtResource("5_yg8oi")
+script = ExtResource("4_4i4u6")
 
 [node name="DeathFeedback" type="Node" parent="Player2/Death" unique_id=821243525]
-script = ExtResource("6_p4vr0")
+script = ExtResource("5_y7xe2")
 
 [node name="States" type="Node" parent="Player2" unique_id=275522188]
 
 [node name="Color" type="Node" parent="Player2" unique_id=1714336367]
 
 [node name="PlayerColorController" type="Node" parent="Player2/Color" unique_id=1974242147 node_paths=PackedStringArray("player_visual")]
-script = ExtResource("7_esoy5")
+script = ExtResource("6_te1s1")
 player_visual = NodePath("../../CharacterRect")
 red_color = Color(0.8352941, 0.1254902, 0.1254902, 1)
 blue_color = Color(0.2627451, 0.43137255, 0.69411767, 1)
 
 [node name="PlayerColorEjectionBridge" type="Node" parent="Player2/Color" unique_id=1212537884 node_paths=PackedStringArray("player_collision_shape")]
-script = ExtResource("8_kg3h7")
+script = ExtResource("7_qy080")
 player_collision_shape = NodePath("../../CollisionShape2D")
 travel_acceleration = 2000.0
 exit_speed = 200.0
 lift_boost_cap = 20.0
 
 [node name="SFX" type="Node" parent="Player2" unique_id=318674143 node_paths=PackedStringArray("dash_sfx")]
-script = ExtResource("9_jjgao")
+script = ExtResource("8_is30g")
 dash_sfx = NodePath("Dash")
 
 [node name="Dash" type="AudioStreamPlayer" parent="Player2/SFX" unique_id=1495349443]
-stream = ExtResource("10_8x383")
+stream = ExtResource("9_krygi")
 volume_db = -4.0
 pitch_scale = 1.1
 
 [node name="melee" type="AnimatedSprite2D" parent="Player2" unique_id=618900823]
 sprite_frames = SubResource("SpriteFrames_udfdp")
 animation = &"melee"
-script = ExtResource("15_lh1sk")
+script = ExtResource("14_n0u7x")
 metadata/_edit_lock_ = true
 
 [node name="PlayerMelee" type="Node2D" parent="Player2" unique_id=2093296385 node_paths=PackedStringArray("melee_visual")]
-script = ExtResource("16_ub55g")
+script = ExtResource("15_eahl2")
 melee_visual = NodePath("../melee")
 metadata/_custom_type_script = "uid://dhaj2ykn3fx0h"
 metadata/_edit_lock_ = true
@@ -181,7 +181,7 @@ default_color = Color(0, 0, 0, 1)
 metadata/_edit_lock_ = true
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=46877219]
-stream = ExtResource("17_e5oej")
+stream = ExtResource("16_jphy0")
 volume_db = -12.156
 autoplay = true
 
@@ -189,7 +189,7 @@ autoplay = true
 position = Vector2(184, 0)
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("18_4wtfn")
+script = ExtResource("17_x5mw6")
 affiliation = 1
 metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
 
@@ -204,7 +204,7 @@ metadata/_edit_lock_ = true
 
 [node name="Spikes" type="StaticBody2D" parent="Music/Blue" unique_id=1614199]
 collision_layer = 2
-script = ExtResource("18_4wtfn")
+script = ExtResource("17_x5mw6")
 hostile = true
 hostile_contact_margin = 0.1
 metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
@@ -260,151 +260,151 @@ polygon = PackedVector2Array(-200, 208, -200, 172, -196, 172, -196, 208)
 [node name="Sprite2D7" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1301627902]
 position = Vector2(-244, -12)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D12" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1988861663]
 position = Vector2(-300, 75.99999)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D13" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=865110533]
 position = Vector2(-292.00003, 76.00001)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D14" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=2034403081]
 position = Vector2(-284.00003, 76)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D19" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=955607962]
 position = Vector2(-276.00003, 76)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D34" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1884378918]
 position = Vector2(-268, 76)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D35" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1031813845]
 position = Vector2(-260, 76)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D15" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=754171344]
 position = Vector2(-251.99998, -4.000002)
 rotation = -1.5707964
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D16" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1569330620]
 position = Vector2(-235.99997, -4.000002)
 rotation = 1.5707964
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D8" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=737232472]
 position = Vector2(-227.99998, 59.99999)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D25" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1360749703]
 position = Vector2(-220, 60)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D26" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1537710834]
 position = Vector2(-212.00002, 60)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D27" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=208005951]
 position = Vector2(-204, 60)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D9" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1840774785]
 position = Vector2(-187.99998, 67.99999)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D28" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1299869996]
 position = Vector2(-180, 68.00001)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D29" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=2065224647]
 position = Vector2(-172, 68)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D30" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=257588519]
 position = Vector2(-140, 68)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D31" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=810022484]
 position = Vector2(-124, 76)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D32" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=403405800]
 position = Vector2(-116.00001, 76)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D33" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=145063921]
 position = Vector2(-155.99998, 60)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D10" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=441360079]
 position = Vector2(-195.99998, 28.999992)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D11" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1630911683]
 position = Vector2(-164, 60)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D17" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=432108777]
 position = Vector2(-148, 68)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D18" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1259017549]
 position = Vector2(-132, 76)
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D20" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1494755548]
 position = Vector2(-180, -51.999996)
 rotation = 7.853982
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D21" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=772840969]
 position = Vector2(-180, -44)
 rotation = 7.853982
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D22" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=365150528]
 position = Vector2(-180, -36)
 rotation = 7.853982
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D23" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=545663339]
 position = Vector2(-180, -28)
 rotation = 7.853982
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")
 
 [node name="Sprite2D24" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1563244659]
 position = Vector2(-180, -19)
 rotation = 7.853982
 scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("19_yg8oi")
+texture = ExtResource("18_q4rc3")

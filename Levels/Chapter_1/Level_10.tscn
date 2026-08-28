@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://crddjs6tcwqq1" path="res://Environment/Platform/Screenshot 2026-08-22 233629.png" id="1_c3tiy"]
 [ext_resource type="Script" path="res://Environment/VanishingPlatform.gd" id="2_nt0ah"]
-[ext_resource type="Script" path="res://Levels/VanishTrigger.gd" id="3_yqrqy"]
+[ext_resource type="Script" uid="uid://cficjfe4qtfyi" path="res://Environment/VanishTrigger.gd" id="3_yqrqy"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="4_flbir"]
 [ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="5_8mpvu"]
 [ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="6_8vte0"]

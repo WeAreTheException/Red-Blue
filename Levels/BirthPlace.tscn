@@ -102,7 +102,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wjnlq"]
-size = Vector2(480, 180)
+size = Vector2(192, 88)
 
 [node name="BirthPlace" type="Node2D" unique_id=513358353]
 
@@ -556,7 +556,7 @@ script = ExtResource("24_waxww")
 bounds_shape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds" unique_id=1912059346]
-position = Vector2(80, 0)
+position = Vector2(0, 36)
 shape = SubResource("RectangleShape2D_wjnlq")
 disabled = true
 metadata/_edit_lock_ = true

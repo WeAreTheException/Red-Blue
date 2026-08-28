@@ -20,7 +20,25 @@ class_name CameraShake
 @export var directional_ratio: float = 0.85
 @export var noise_ratio: float = 0.15
 @export var noise_px_cap: float = 3.0
+
 @export var decay_curve_power: float = 2.0
+
+
+@export_group("Shake Damping")
+
+# How quickly the camera responds to the shake target.
+#
+# Higher = sharper / jerkier.
+# Lower = softer / heavier.
+@export var shake_response_speed: float = 32.0
+
+# How quickly the camera settles back to zero
+# after the active shake is finished.
+@export var shake_return_speed: float = 24.0
+
+# Once the remaining shake is this tiny,
+# force it completely back to zero.
+@export var shake_deadband_px: float = 0.20
 
 
 @export_group("Room Transition Test")
@@ -30,9 +48,13 @@ class_name CameraShake
 
 
 var _dir: Vector2 = Vector2.ZERO
+
 var _strength_px: float = 0.0
+
 var _time_left: float = 0.0
 var _duration: float = 0.0
+
+var _current_offset: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
@@ -79,16 +101,28 @@ func _start_shake(
 	_time_left = _duration
 
 
-func _process(
+func _physics_process(
 	delta: float
 ) -> void:
 	if (
-		_time_left <= 0.0
-		or _strength_px <= 0.0
+		_time_left > 0.0
+		and _strength_px > 0.0
 	):
-		offset = Vector2.ZERO
-		return
+		_update_active_shake(
+			delta
+		)
 
+	else:
+		_update_return(
+			delta
+		)
+
+	_apply_offset()
+
+
+func _update_active_shake(
+	delta: float
+) -> void:
 	_time_left = maxf(
 		0.0,
 		_time_left - delta
@@ -134,18 +168,71 @@ func _process(
 		* noise_amt
 	)
 
-	var out: Vector2 = (
+	var target_offset: Vector2 = (
 		dir_part
 		+ noise_part
 	) * falloff
 
-	if out.length() > max_offset_px:
-		out = (
-			out.normalized()
+	if (
+		target_offset.length()
+		> max_offset_px
+	):
+		target_offset = (
+			target_offset.normalized()
 			* max_offset_px
 		)
 
-	offset = out
+	var response_weight: float = (
+		1.0
+		- exp(
+			-shake_response_speed
+			* delta
+		)
+	)
+
+	_current_offset = (
+		_current_offset.lerp(
+			target_offset,
+			response_weight
+		)
+	)
+
+
+func _update_return(
+	delta: float
+) -> void:
+	if (
+		_current_offset.length()
+		<= shake_deadband_px
+	):
+		_current_offset = Vector2.ZERO
+		return
+
+	var return_weight: float = (
+		1.0
+		- exp(
+			-shake_return_speed
+			* delta
+		)
+	)
+
+	_current_offset = (
+		_current_offset.lerp(
+			Vector2.ZERO,
+			return_weight
+		)
+	)
+
+
+func _apply_offset() -> void:
+	offset = Vector2(
+		roundf(
+			_current_offset.x
+		),
+		roundf(
+			_current_offset.y
+		)
+	)
 
 
 func _unhandled_input(
