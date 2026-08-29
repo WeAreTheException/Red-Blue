@@ -9,6 +9,15 @@ var super_jump: PlayerSuperJump
 var wall_jump: PlayerWallJump
 
 
+# Remembers a JUMP press that happened on the
+# exact same physics frame that the dash started.
+#
+# Without this, PlayerInput sees the press once,
+# StartDash() consumes that frame, and by the next
+# DashUpdate the edge press is already gone.
+var _jump_pressed_on_dash_start: bool = false
+
+
 func setup(
 	source_player: PlayerRoot,
 	source_movement: PlayerMovement,
@@ -84,11 +93,19 @@ func DashBegin() -> void:
 	state.dashTimer = 0.0
 	state.dashPending = true
 
+	# Preserve JUMP if DASH + JUMP were pressed
+	# on the exact same physics frame.
+	_jump_pressed_on_dash_start = (
+		state.jump_pressed
+	)
+
 	state.movement_phase = &"DASH"
 
 	movement.emit_movement_state(
 		&"DASH"
 	)
+
+	_start_dash_hitstop()
 
 
 func DashUpdate(delta: float) -> int:
@@ -166,9 +183,34 @@ func DashUpdate(delta: float) -> int:
 			player.DashTime
 		)
 
+		# DASH + JUMP on the same frame.
+		#
+		# PlayerInput's jump_pressed is an edge press,
+		# so normally it would already be gone by this
+		# first DashUpdate.
+		#
+		# Restore it exactly once so the existing
+		# PlayerSuperJump logic gets to evaluate it.
+		if _jump_pressed_on_dash_start:
+			_jump_pressed_on_dash_start = false
+
+			state.jump_pressed = true
+
+			if super_jump.CanSuperJump():
+				super_jump.SuperJump()
+
+				state.StateMachineState = (
+					player.StNormal
+				)
+
+				return player.StNormal
+
 		return player.StDash
 
+	# Normal jump press during the dash.
 	if super_jump.CanSuperJump():
+		_jump_pressed_on_dash_start = false
+
 		super_jump.SuperJump()
 
 		state.StateMachineState = (
@@ -178,6 +220,8 @@ func DashUpdate(delta: float) -> int:
 		return player.StNormal
 
 	if wall_jump.TryDashWallJump():
+		_jump_pressed_on_dash_start = false
+
 		state.StateMachineState = (
 			player.StNormal
 		)
@@ -187,6 +231,8 @@ func DashUpdate(delta: float) -> int:
 	state.dashTimer -= delta
 
 	if state.dashTimer <= 0.0:
+		_jump_pressed_on_dash_start = false
+
 		DashEnd()
 
 		state.StateMachineState = (
@@ -224,3 +270,41 @@ func RefillDash() -> bool:
 		return true
 
 	return false
+
+
+func _start_dash_hitstop() -> void:
+	if player == null:
+		return
+
+	if player.DashHitstopTime <= 0.0:
+		return
+
+	_run_dash_hitstop(
+		player.DashHitstopTime
+	)
+
+
+func _run_dash_hitstop(
+	duration: float
+) -> void:
+	# Celeste only performs its dash freeze when
+	# the game is running at a meaningful time rate.
+	if Engine.time_scale <= 0.25:
+		return
+
+	var previous_time_scale: float = (
+		Engine.time_scale
+	)
+
+	Engine.time_scale = 0.0
+
+	await player.get_tree().create_timer(
+		duration,
+		true,
+		false,
+		true
+	).timeout
+
+	Engine.time_scale = (
+		previous_time_scale
+	)

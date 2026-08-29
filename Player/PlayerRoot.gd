@@ -192,6 +192,12 @@ const StDash: int = 2
 @export var DashVFloorSnapDist: int = 3
 @export var DashAttackTime: float = 0.3
 @export var DodgeSlideSpeedMult: float = 1.2
+@export_range(
+	0.0,
+	0.2,
+	0.005
+)
+var DashHitstopTime: float = 0.05
 
 #endregion
 

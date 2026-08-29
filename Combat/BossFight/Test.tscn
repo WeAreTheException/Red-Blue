@@ -1,34 +1,31 @@
 [gd_scene format=3 uid="uid://uaqns4jw0fns"]
 
-[ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="1_myinc"]
-[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="2_s2xbw"]
-[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="3_rdfvj"]
-[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="4_iw7q2"]
-[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="5_q8vq6"]
-[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="6_ctmup"]
-[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://Color/ColorChange/PlayerColorController.gd" id="7_nm833"]
-[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://Color/ColorChange/PlayerColorEjectionBridge.gd" id="8_xyx0r"]
-[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="9_ixknr"]
-[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="10_egg54"]
-[ext_resource type="Texture2D" uid="uid://dkphu7hbt7ujh" path="res://Combat/Bullet/Frames/Slash_color1_frame1.png" id="11_f3qia"]
-[ext_resource type="Texture2D" uid="uid://dwbwaoimck1gc" path="res://Combat/Bullet/Frames/Slash_color1_frame2.png" id="12_bg4i3"]
-[ext_resource type="Texture2D" uid="uid://2ntjaitlghyy" path="res://Combat/Bullet/Frames/Slash_color1_frame3.png" id="13_ra0u3"]
-[ext_resource type="Texture2D" uid="uid://btj5sorkcxdyg" path="res://Combat/Bullet/Frames/Slash_color1_frame4.png" id="14_185a3"]
-[ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="15_180o4"]
-[ext_resource type="Script" uid="uid://da2pscf8s85w" path="res://Combat/PlayerShooter.gd" id="16_nm833"]
-[ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="16_td4qv"]
-[ext_resource type="Script" uid="uid://crcgmiib02jia" path="res://Combat/Bullet/BulletShooter.gd" id="17_q8vq6"]
-[ext_resource type="PackedScene" uid="uid://dsriv7umxtsqf" path="res://Combat/Bullet/PlayerBullet.tscn" id="18_bg4i3"]
-[ext_resource type="PackedScene" uid="uid://cydq1qlqk1xus" path="res://Combat/Bullet/Bullet.tscn" id="18_ctmup"]
-[ext_resource type="Script" uid="uid://cjecs6abl72rc" path="res://Combat/enemy/CandyCorn/MovingSquare.gd" id="19_q8vq6"]
-[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="20_ctmup"]
-[ext_resource type="Script" uid="uid://dig1lrhh2w7g5" path="res://Combat/Hurtbox.gd" id="21_egg54"]
-[ext_resource type="Script" uid="uid://ctuc536qf1efr" path="res://Combat/HealthComponent.gd" id="21_ixknr"]
-[ext_resource type="Texture2D" uid="uid://bw0akwr5dnplj" path="res://Levels/Chapter_1/pixel_character_80x80.png" id="22_xyx0r"]
-[ext_resource type="Script" uid="uid://gi2x0o7wihnh" path="res://Combat/DestroyOnDeath.gd" id="23_f3qia"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v2bil"]
-size = Vector2(8, 11)
+[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="1_cevur"]
+[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="2_kvo5d"]
+[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="3_p22qj"]
+[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="4_ntg0x"]
+[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="5_sao80"]
+[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://Color/ColorChange/PlayerColorController.gd" id="6_1pr3b"]
+[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://Color/ColorChange/PlayerColorEjectionBridge.gd" id="7_ydfqo"]
+[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="8_t2ti1"]
+[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="9_evoyk"]
+[ext_resource type="Texture2D" uid="uid://dkphu7hbt7ujh" path="res://Combat/Bullet/Frames/Slash_color1_frame1.png" id="10_2td1u"]
+[ext_resource type="Texture2D" uid="uid://dwbwaoimck1gc" path="res://Combat/Bullet/Frames/Slash_color1_frame2.png" id="11_6cog3"]
+[ext_resource type="Texture2D" uid="uid://2ntjaitlghyy" path="res://Combat/Bullet/Frames/Slash_color1_frame3.png" id="12_4o1a7"]
+[ext_resource type="Texture2D" uid="uid://btj5sorkcxdyg" path="res://Combat/Bullet/Frames/Slash_color1_frame4.png" id="13_g3ao6"]
+[ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="14_7f66b"]
+[ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="15_1raga"]
+[ext_resource type="Script" uid="uid://da2pscf8s85w" path="res://Combat/PlayerShooter.gd" id="16_apixc"]
+[ext_resource type="Script" uid="uid://crcgmiib02jia" path="res://Combat/Bullet/BulletShooter.gd" id="17_rv56j"]
+[ext_resource type="PackedScene" uid="uid://dsriv7umxtsqf" path="res://Combat/Bullet/PlayerBullet.tscn" id="18_6k4ya"]
+[ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="19_ra55l"]
+[ext_resource type="Script" uid="uid://cjecs6abl72rc" path="res://Combat/enemy/CandyCorn/MovingSquare.gd" id="20_y2xac"]
+[ext_resource type="PackedScene" uid="uid://cydq1qlqk1xus" path="res://Combat/Bullet/Bullet.tscn" id="21_o8y2w"]
+[ext_resource type="Script" uid="uid://ctuc536qf1efr" path="res://Combat/HealthComponent.gd" id="22_jxysu"]
+[ext_resource type="Script" uid="uid://dig1lrhh2w7g5" path="res://Combat/Hurtbox.gd" id="23_xs77x"]
+[ext_resource type="Script" uid="uid://gi2x0o7wihnh" path="res://Combat/DestroyOnDeath.gd" id="24_uh15d"]
+[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="25_4gx1j"]
+[ext_resource type="Texture2D" uid="uid://bw0akwr5dnplj" path="res://Levels/Chapter_1/pixel_character_80x80.png" id="26_nl02m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6mxxd"]
 
@@ -36,16 +33,16 @@ size = Vector2(8, 11)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("11_f3qia")
+"texture": ExtResource("10_2td1u")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_bg4i3")
+"texture": ExtResource("11_6cog3")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_ra0u3")
+"texture": ExtResource("12_4o1a7")
 }, {
 "duration": 1.0,
-"texture": ExtResource("14_185a3")
+"texture": ExtResource("13_g3ao6")
 }, {
 "duration": 1.0,
 "texture": null
@@ -69,26 +66,25 @@ position = Vector2(72, 40)
 [node name="Player2" type="CharacterBody2D" parent="." unique_id=1307098927 node_paths=PackedStringArray("player_visual", "respawn_point")]
 position = Vector2(66, 38)
 collision_mask = 6
-script = ExtResource("2_s2xbw")
+script = ExtResource("1_cevur")
 player_visual = NodePath("CharacterRect")
 respawn_point = NodePath("../Spawn")
 MaxFall = 140.0
 JumpSpeed = -110.0
 DashTime = 0.1
+DashCooldown = 0.3
 
 [node name="DashPixel" type="Sprite2D" parent="Player2" unique_id=174186246]
 position = Vector2(-128, -56)
 metadata/_edit_lock_ = true
 
 [node name="DashTrail" type="Node2D" parent="Player2" unique_id=1451285595 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
-script = ExtResource("3_rdfvj")
+script = ExtResource("2_kvo5d")
 trail_template = NodePath("../Line2D")
 trail_lifetime = 1.0
-max_points = 15
 minimum_point_distance = 12.0
 trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
 pixel_template = NodePath("../DashPixel")
-pixels_per_dash = 4
 afterimage_template = NodePath("../CharacterRect")
 afterimage_lifetime = 0.2
 metadata/_edit_lock_ = true
@@ -98,79 +94,84 @@ z_index = -1
 position = Vector2(0, -6)
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2" unique_id=2117598435]
-position = Vector2(0, -5.5)
-shape = SubResource("RectangleShape2D_v2bil")
-metadata/_edit_lock_ = true
-
 [node name="CharacterRect" type="ColorRect" parent="Player2" unique_id=909862391]
 material = SubResource("ShaderMaterial_6mxxd")
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
 offset_left = -4.0
 offset_top = -11.0
 offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 0
 color = Color(0.8687545, 0, 0.22967622, 1)
 metadata/_edit_lock_ = true
 
 [node name="Respawn" type="Node" parent="Player2" unique_id=1004971329]
-script = ExtResource("4_iw7q2")
+script = ExtResource("3_p22qj")
 
 [node name="Death" type="Node" parent="Player2" unique_id=1244412910]
-script = ExtResource("5_q8vq6")
+script = ExtResource("4_ntg0x")
 
 [node name="DeathFeedback" type="Node" parent="Player2/Death" unique_id=202770925]
-script = ExtResource("6_ctmup")
+script = ExtResource("5_sao80")
 
 [node name="States" type="Node" parent="Player2" unique_id=1896720340]
 
 [node name="Color" type="Node" parent="Player2" unique_id=159458531]
 
 [node name="PlayerColorController" type="Node" parent="Player2/Color" unique_id=862045593 node_paths=PackedStringArray("player_visual")]
-script = ExtResource("7_nm833")
+script = ExtResource("6_1pr3b")
 player_visual = NodePath("../../CharacterRect")
 red_color = Color(0.8352941, 0.1254902, 0.1254902, 1)
 blue_color = Color(0.2627451, 0.43137255, 0.69411767, 1)
 
 [node name="PlayerColorEjectionBridge" type="Node" parent="Player2/Color" unique_id=318748034 node_paths=PackedStringArray("player_collision_shape")]
-script = ExtResource("8_xyx0r")
-player_collision_shape = NodePath("../../CollisionShape2D")
+script = ExtResource("7_ydfqo")
+player_collision_shape = NodePath("")
 travel_acceleration = 2000.0
 exit_speed = 200.0
 lift_boost_cap = 20.0
 
 [node name="SFX" type="Node" parent="Player2" unique_id=1583966864 node_paths=PackedStringArray("dash_sfx")]
-script = ExtResource("9_ixknr")
+script = ExtResource("8_t2ti1")
 dash_sfx = NodePath("Dash")
 
 [node name="Dash" type="AudioStreamPlayer" parent="Player2/SFX" unique_id=1029719098]
-stream = ExtResource("10_egg54")
+stream = ExtResource("9_evoyk")
 volume_db = -4.0
 pitch_scale = 1.1
 
 [node name="melee" type="AnimatedSprite2D" parent="Player2" unique_id=795120428]
 sprite_frames = SubResource("SpriteFrames_y3dn3")
 animation = &"melee"
-script = ExtResource("15_180o4")
+script = ExtResource("14_7f66b")
 metadata/_edit_lock_ = true
 
 [node name="PlayerMelee" type="Node2D" parent="Player2" unique_id=2040804995 node_paths=PackedStringArray("melee_visual")]
-script = ExtResource("16_td4qv")
+script = ExtResource("15_1raga")
 melee_visual = NodePath("../melee")
 metadata/_custom_type_script = "uid://dhaj2ykn3fx0h"
 
 [node name="PlayerShooter" type="Node2D" parent="Player2" unique_id=1681363914 node_paths=PackedStringArray("bullet_shooter")]
-script = ExtResource("16_nm833")
+script = ExtResource("16_apixc")
 bullet_shooter = NodePath("../Shooter5")
 
 [node name="Shooter5" type="Node2D" parent="Player2" unique_id=913884505]
 position = Vector2(0, -5)
-script = ExtResource("17_q8vq6")
-bullet_scene = ExtResource("18_bg4i3")
+script = ExtResource("17_rv56j")
+bullet_scene = ExtResource("18_6k4ya")
 shots_per_burst = 1
 shot_interval = 5.0
 burst_interval = 2.5
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player2" unique_id=673732944]
+polygon = PackedVector2Array(-4, -11, 4, -11, 4, 0, -4, 0)
+
 [node name="CameraBounds" type="Area2D" parent="." unique_id=511935966 node_paths=PackedStringArray("bounds_shape")]
-script = ExtResource("1_myinc")
+script = ExtResource("19_ra55l")
 bounds_shape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds" unique_id=1742241886]
@@ -206,7 +207,7 @@ polygon = PackedVector2Array(80, -40, 76, -40, 76, 40, 80, 40)
 position = Vector2(-64, 28)
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("19_q8vq6")
+script = ExtResource("20_y2xac")
 move_speed = 40.0
 pause_chance = 0.35
 pause_time_b = 2.0
@@ -222,57 +223,58 @@ polygon = PackedVector2Array(-12, -12, -12, 12, 12, 12, 12, -12)
 [node name="shooters" type="Node2D" parent="MovingCube" unique_id=1134848253]
 
 [node name="Shooter" type="Node2D" parent="MovingCube/shooters" unique_id=219788149]
-script = ExtResource("17_q8vq6")
-bullet_scene = ExtResource("18_ctmup")
+script = ExtResource("17_rv56j")
+bullet_scene = ExtResource("21_o8y2w")
 shots_per_burst = 1
 shot_interval = 5.0
 burst_interval = 2.5
 
 [node name="Shooter2" type="Node2D" parent="MovingCube/shooters" unique_id=34339949]
-script = ExtResource("17_q8vq6")
-bullet_scene = ExtResource("18_ctmup")
+script = ExtResource("17_rv56j")
+bullet_scene = ExtResource("21_o8y2w")
 direction = Vector2(0, 1)
 shots_per_burst = 1
 shot_interval = 5.0
 burst_interval = 2.5
 
 [node name="Shooter3" type="Node2D" parent="MovingCube/shooters" unique_id=1410546495]
-script = ExtResource("17_q8vq6")
-bullet_scene = ExtResource("18_ctmup")
+script = ExtResource("17_rv56j")
+bullet_scene = ExtResource("21_o8y2w")
 direction = Vector2(0, -1)
 shots_per_burst = 1
 shot_interval = 5.0
 burst_interval = 2.5
 
 [node name="Shooter4" type="Node2D" parent="MovingCube/shooters" unique_id=2116137546]
-script = ExtResource("17_q8vq6")
-bullet_scene = ExtResource("18_ctmup")
+script = ExtResource("17_rv56j")
+bullet_scene = ExtResource("21_o8y2w")
 direction = Vector2(1, 0)
 shots_per_burst = 1
 shot_interval = 5.0
 burst_interval = 2.5
 
 [node name="Health" type="Node" parent="MovingCube" unique_id=161972041]
-script = ExtResource("21_ixknr")
+script = ExtResource("22_jxysu")
+max_health = 50.0
 
 [node name="Area2D" type="Area2D" parent="MovingCube" unique_id=782891468 node_paths=PackedStringArray("health")]
 collision_layer = 16
 collision_mask = 0
-script = ExtResource("21_egg54")
+script = ExtResource("23_xs77x")
 health = NodePath("../Health")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovingCube/Area2D" unique_id=283148797]
 shape = SubResource("RectangleShape2D_ixknr")
 
 [node name="Node" type="Node" parent="MovingCube" unique_id=2102894128 node_paths=PackedStringArray("health", "destroy_target")]
-script = ExtResource("23_f3qia")
+script = ExtResource("24_uh15d")
 health = NodePath("../Health")
 destroy_target = NodePath("..")
 
 [node name="Red" type="StaticBody2D" parent="." unique_id=1411495201]
 collision_layer = 4
 collision_mask = 0
-script = ExtResource("20_ctmup")
+script = ExtResource("25_4gx1j")
 affiliation = 0
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Red" unique_id=1871999905]
@@ -285,7 +287,7 @@ polygon = PackedVector2Array(-40, 8, -40, 0, -16, 0, -16, 8)
 [node name="Blue" type="StaticBody2D" parent="." unique_id=963956079]
 collision_layer = 4
 collision_mask = 0
-script = ExtResource("20_ctmup")
+script = ExtResource("25_4gx1j")
 affiliation = 1
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Blue" unique_id=1136217268]
@@ -300,4 +302,4 @@ polygon = PackedVector2Array(-36, 8, -36, 0, -12, 0, -12, 8)
 visible = false
 position = Vector2(67, 27.25)
 scale = Vector2(0.25, 0.23124996)
-texture = ExtResource("22_xyx0r")
+texture = ExtResource("26_nl02m")
