@@ -39,6 +39,7 @@ var left_stick_deadzone: float = 0.25
 
 @export_group("Debug")
 
+@warning_ignore("shadowed_global_identifier")
 @export var print_debug: bool = false
 
 

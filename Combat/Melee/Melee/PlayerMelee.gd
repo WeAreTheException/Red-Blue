@@ -15,13 +15,8 @@ class_name PlayerMelee
 
 @export_group("Debug")
 
+@warning_ignore("shadowed_global_identifier")
 @export var print_debug: bool = false
-
-
-const RIGHT_STICK_LEFT: StringName = &"AIM_LEFT"
-const RIGHT_STICK_RIGHT: StringName = &"AIM_RIGHT"
-const RIGHT_STICK_UP: StringName = &"AIM_UP"
-const RIGHT_STICK_DOWN: StringName = &"AIM_DOWN"
 
 
 var player: PlayerRoot = null
@@ -124,7 +119,7 @@ func attack() -> void:
 
 
 func _get_aim_direction() -> Vector2:
-	var stick_direction := (
+	var stick_direction: Vector2 = (
 		_get_right_stick_direction()
 	)
 
@@ -138,11 +133,19 @@ func _get_aim_direction() -> Vector2:
 
 
 func _get_right_stick_direction() -> Vector2:
-	var stick_direction := Input.get_vector(
-		RIGHT_STICK_LEFT,
-		RIGHT_STICK_RIGHT,
-		RIGHT_STICK_UP,
-		RIGHT_STICK_DOWN
+	var stick_x: float = Input.get_joy_axis(
+		0,
+		JOY_AXIS_RIGHT_X
+	)
+
+	var stick_y: float = Input.get_joy_axis(
+		0,
+		JOY_AXIS_RIGHT_Y
+	)
+
+	var stick_direction: Vector2 = Vector2(
+		stick_x,
+		stick_y
 	)
 
 	if (

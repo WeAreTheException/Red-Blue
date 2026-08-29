@@ -58,7 +58,9 @@ var dash_pressed: bool = false
 
 var grab_check: bool = false
 
+@warning_ignore("unused_private_class_variable")
 var _jump_was_down: bool = false
+@warning_ignore("unused_private_class_variable")
 var _dash_was_down: bool = false
 
 var Ducking: bool = false

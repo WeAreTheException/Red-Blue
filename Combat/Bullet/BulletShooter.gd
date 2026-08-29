@@ -6,7 +6,6 @@ class_name BulletShooter
 
 @export var bullet_scene: PackedScene
 
-
 @export_enum(
 	"PLAYER",
 	"ENEMY"
@@ -14,7 +13,6 @@ class_name BulletShooter
 var team: int = (
 	Bullet.Team.ENEMY
 )
-
 
 @export_enum(
 	"RED",
@@ -24,7 +22,6 @@ var team: int = (
 var affiliation: int = (
 	ColorState.Affiliation.NEUTRAL
 )
-
 
 @export var direction: Vector2 = (
 	Vector2.LEFT
@@ -45,128 +42,75 @@ var affiliation: int = (
 	20,
 	1
 )
-var shots_per_burst: int = 3
+var shots_per_burst: int = 1
 
 @export_range(
-	0.01,
+	0.0,
 	5.0,
 	0.01
 )
-var shot_interval: float = 0.12
+var time_between_shots: float = 0.1
 
 @export_range(
-	0.01,
+	0.0,
 	10.0,
 	0.01
 )
-var burst_interval: float = 1.0
+var time_between_bursts: float = 1.0
 
-@export var fire_on_ready: bool = true
-
-
-@export_group("Debug")
-
-@export var print_debug: bool = false
+@export var fire_on_ready: bool = false
 
 
-var is_firing: bool = false
-
-var _fire_generation: int = 0
+var _is_firing: bool = false
 
 
 func _ready() -> void:
 	if fire_on_ready:
-		start_firing()
-
-
-func fire_once() -> void:
-	if bullet_scene == null:
-		push_error(
-			"BulletShooter has no Bullet Scene."
+		call_deferred(
+			"start_firing"
 		)
-
-		return
-
-	_spawn_bullet()
 
 
 func start_firing() -> void:
-	if is_firing:
+	if _is_firing:
 		return
 
-	if bullet_scene == null:
-		push_error(
-			"BulletShooter has no Bullet Scene."
-		)
+	_is_firing = true
 
-		return
-
-	is_firing = true
-
-	_fire_generation += 1
-
-	_fire_loop(
-		_fire_generation
-	)
+	_fire_loop()
 
 
 func stop_firing() -> void:
-	if not is_firing:
-		return
-
-	is_firing = false
-
-	_fire_generation += 1
+	_is_firing = false
 
 
-func _fire_loop(
-	generation: int
-) -> void:
-	while (
-		is_firing
-		and generation
-		== _fire_generation
-	):
-		var shot_count: int = (
-			maxi(
-				shots_per_burst,
-				1
-			)
-		)
+func fire_once() -> void:
+	_spawn_bullet()
 
-		for shot_index in range(
-			shot_count
+
+func _fire_loop() -> void:
+	while _is_firing:
+		for shot_index: int in range(
+			shots_per_burst
 		):
-			if not is_firing:
-				return
-
-			if (
-				generation
-				!= _fire_generation
-			):
+			if not _is_firing:
 				return
 
 			_spawn_bullet()
 
 			if (
 				shot_index
-				< shot_count - 1
+				< shots_per_burst - 1
 			):
 				await get_tree().create_timer(
-					shot_interval
+					time_between_shots
 				).timeout
 
-		if not is_firing:
-			return
-
-		if (
-			generation
-			!= _fire_generation
-		):
+		if not _is_firing:
 			return
 
 		await get_tree().create_timer(
-			burst_interval
+			time_between_bursts
 		).timeout
 
 
@@ -174,63 +118,34 @@ func _spawn_bullet() -> void:
 	if bullet_scene == null:
 		return
 
-	var shot_direction: Vector2 = (
+	var bullet := (
+		bullet_scene.instantiate()
+		as Bullet
+	)
+
+	if bullet == null:
+		return
+
+	var spawn_direction: Vector2 = (
 		direction
 	)
 
 	if follow_player:
-		var player_locator := get_node_or_null(
-			"/root/PlayerLocator"
-		)
+		var player_node := get_tree().get_first_node_in_group(
+			"player"
+		) as Node2D
 
-		if player_locator == null:
-			if print_debug:
-				print(
-					"BULLET SHOOTER: PLAYER LOCATOR MISSING"
-				)
+		if player_node != null:
+			spawn_direction = (
+				player_node.global_position
+				- global_position
+			).normalized()
 
-			return
-
-		var target_player: PlayerRoot = (
-			player_locator.get_player()
-		)
-
-		if target_player == null:
-			if print_debug:
-				print(
-					"BULLET SHOOTER: PLAYER NOT FOUND"
-				)
-
-			return
-
-		shot_direction = (
-			global_position.direction_to(
-				target_player.global_position
-			)
-		)
-
-		if shot_direction == Vector2.ZERO:
-			return
-
-	var bullet_node: Node = (
-		bullet_scene.instantiate()
-	)
-
-	if not bullet_node is Bullet:
-		push_error(
-			"BulletShooter Bullet Scene root must use Bullet.gd."
-		)
-
-		bullet_node.free()
-
-		return
-
-	var bullet: Bullet = (
-		bullet_node as Bullet
-	)
+	if spawn_direction == Vector2.ZERO:
+		spawn_direction = Vector2.LEFT
 
 	bullet.setup(
-		shot_direction,
+		spawn_direction,
 		bullet_speed,
 		affiliation,
 		team
@@ -241,8 +156,35 @@ func _spawn_bullet() -> void:
 	)
 
 	if spawn_parent == null:
-		bullet.free()
+		spawn_parent = get_tree().root
 
+	var spawn_position: Vector2 = (
+		global_position
+	)
+
+	_add_bullet_deferred(
+		bullet,
+		spawn_parent,
+		spawn_position
+	)
+
+
+func _add_bullet_deferred(
+	bullet: Bullet,
+	spawn_parent: Node,
+	spawn_position: Vector2
+) -> void:
+	await get_tree().process_frame
+
+	if not is_instance_valid(
+		bullet
+	):
+		return
+
+	if not is_instance_valid(
+		spawn_parent
+	):
+		bullet.free()
 		return
 
 	spawn_parent.add_child(
@@ -250,19 +192,5 @@ func _spawn_bullet() -> void:
 	)
 
 	bullet.global_position = (
-		global_position
+		spawn_position
 	)
-
-	if print_debug:
-		print(
-			"BULLET FIRED | TEAM: ",
-			"PLAYER"
-			if team == Bullet.Team.PLAYER
-			else "ENEMY",
-			" | COLOR: ",
-			ColorState.affiliation_name(
-				affiliation
-			),
-			" | DIRECTION: ",
-			shot_direction
-		)

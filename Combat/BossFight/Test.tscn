@@ -128,9 +128,8 @@ player_visual = NodePath("../../CharacterRect")
 red_color = Color(0.8352941, 0.1254902, 0.1254902, 1)
 blue_color = Color(0.2627451, 0.43137255, 0.69411767, 1)
 
-[node name="PlayerColorEjectionBridge" type="Node" parent="Player2/Color" unique_id=318748034 node_paths=PackedStringArray("player_collision_shape")]
+[node name="PlayerColorEjectionBridge" type="Node" parent="Player2/Color" unique_id=318748034]
 script = ExtResource("7_ydfqo")
-player_collision_shape = NodePath("")
 travel_acceleration = 2000.0
 exit_speed = 200.0
 lift_boost_cap = 20.0
@@ -163,9 +162,6 @@ bullet_shooter = NodePath("../Shooter5")
 position = Vector2(0, -5)
 script = ExtResource("17_rv56j")
 bullet_scene = ExtResource("18_6k4ya")
-shots_per_burst = 1
-shot_interval = 5.0
-burst_interval = 2.5
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player2" unique_id=673732944]
 polygon = PackedVector2Array(-4, -11, 4, -11, 4, 0, -4, 0)
@@ -225,33 +221,27 @@ polygon = PackedVector2Array(-12, -12, -12, 12, 12, 12, 12, -12)
 [node name="Shooter" type="Node2D" parent="MovingCube/shooters" unique_id=219788149]
 script = ExtResource("17_rv56j")
 bullet_scene = ExtResource("21_o8y2w")
-shots_per_burst = 1
-shot_interval = 5.0
-burst_interval = 2.5
+fire_on_ready = true
 
 [node name="Shooter2" type="Node2D" parent="MovingCube/shooters" unique_id=34339949]
 script = ExtResource("17_rv56j")
 bullet_scene = ExtResource("21_o8y2w")
 direction = Vector2(0, 1)
-shots_per_burst = 1
-shot_interval = 5.0
-burst_interval = 2.5
+fire_on_ready = true
 
 [node name="Shooter3" type="Node2D" parent="MovingCube/shooters" unique_id=1410546495]
 script = ExtResource("17_rv56j")
 bullet_scene = ExtResource("21_o8y2w")
 direction = Vector2(0, -1)
-shots_per_burst = 1
-shot_interval = 5.0
-burst_interval = 2.5
+fire_on_ready = true
 
 [node name="Shooter4" type="Node2D" parent="MovingCube/shooters" unique_id=2116137546]
 script = ExtResource("17_rv56j")
 bullet_scene = ExtResource("21_o8y2w")
 direction = Vector2(1, 0)
-shots_per_burst = 1
-shot_interval = 5.0
-burst_interval = 2.5
+time_between_shots = 0.12
+time_between_bursts = 4.11
+fire_on_ready = true
 
 [node name="Health" type="Node" parent="MovingCube" unique_id=161972041]
 script = ExtResource("22_jxysu")
