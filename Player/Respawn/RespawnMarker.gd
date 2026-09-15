@@ -2,6 +2,11 @@ extends Area2D
 class_name RespawnMarker
 
 
+@export_group("Room Spawn")
+
+@export var spawn_id: StringName = &"default"
+
+
 @export_group("Debug")
 
 @export var print_debug: bool = false

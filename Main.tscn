@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://xwkbultksro5"]
+
+[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="1_j4qnp"]
+[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="2_fpfj3"]
+[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="3_sc1dx"]
+[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="4_kjvhd"]
+[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="5_5tuhn"]
+[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://Color/ColorChange/PlayerColorController.gd" id="6_2gh4u"]
+[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://Color/ColorChange/PlayerColorEjectionBridge.gd" id="7_devvj"]
+[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="8_3b0ty"]
+[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="9_bg4s2"]
+[ext_resource type="Texture2D" uid="uid://dkphu7hbt7ujh" path="res://Combat/Bullet/Frames/Slash_color1_frame1.png" id="10_hhcpw"]
+[ext_resource type="Texture2D" uid="uid://dwbwaoimck1gc" path="res://Combat/Bullet/Frames/Slash_color1_frame2.png" id="11_mxvw5"]
+[ext_resource type="Texture2D" uid="uid://2ntjaitlghyy" path="res://Combat/Bullet/Frames/Slash_color1_frame3.png" id="12_xrxkg"]
+[ext_resource type="Texture2D" uid="uid://btj5sorkcxdyg" path="res://Combat/Bullet/Frames/Slash_color1_frame4.png" id="13_sqvbp"]
+[ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="14_hri7i"]
+[ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="15_w3rk5"]
+[ext_resource type="Script" uid="uid://plxu8vl6w5gy" path="res://Levels/RoomTransition/RoomManager.gd" id="16_sc1dx"]
+[ext_resource type="PackedScene" uid="uid://c2l8pri7pgm10" path="res://Levels/Chapter_1/Level4.tscn" id="17_sc1dx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5mvff"]
+size = Vector2(8, 11)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oye8v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_40n85"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_hhcpw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_mxvw5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_xrxkg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_sqvbp")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"melee",
+"speed": 12.0
+}]
+
+[node name="Main" type="Node2D" unique_id=1247182007]
+metadata/_edit_lock_ = true
+
+[node name="Player2" type="CharacterBody2D" parent="." unique_id=996730366 node_paths=PackedStringArray("player_visual")]
+position = Vector2(176, -144)
+collision_mask = 2
+script = ExtResource("1_j4qnp")
+player_visual = NodePath("CharacterRect")
+MaxFall = 140.0
+JumpSpeed = -110.0
+DashTime = 0.1
+
+[node name="DashPixel" type="Sprite2D" parent="Player2" unique_id=1112204026]
+metadata/_edit_lock_ = true
+
+[node name="DashTrail" type="Node2D" parent="Player2" unique_id=97967350 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
+script = ExtResource("2_fpfj3")
+trail_template = NodePath("../Line2D")
+trail_lifetime = 1.0
+max_points = 15
+minimum_point_distance = 12.0
+trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
+pixel_template = NodePath("../DashPixel")
+pixels_per_dash = 4
+afterimage_template = NodePath("../CharacterRect")
+afterimage_lifetime = 0.2
+metadata/_edit_lock_ = true
+
+[node name="Line2D" type="Line2D" parent="Player2" unique_id=144154498]
+z_index = -1
+position = Vector2(0, -6)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2" unique_id=730840754]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_5mvff")
+metadata/_edit_lock_ = true
+
+[node name="CharacterRect" type="ColorRect" parent="Player2" unique_id=524112010]
+material = SubResource("ShaderMaterial_oye8v")
+offset_left = -4.0
+offset_top = -11.0
+offset_right = 4.0
+color = Color(0.8687545, 0, 0.22967622, 1)
+metadata/_edit_lock_ = true
+
+[node name="Respawn" type="Node" parent="Player2" unique_id=1280383036]
+script = ExtResource("3_sc1dx")
+
+[node name="Death" type="Node" parent="Player2" unique_id=1450226562]
+script = ExtResource("4_kjvhd")
+
+[node name="DeathFeedback" type="Node" parent="Player2/Death" unique_id=700675000]
+script = ExtResource("5_5tuhn")
+
+[node name="States" type="Node" parent="Player2" unique_id=235311940]
+
+[node name="Color" type="Node" parent="Player2" unique_id=1391768368]
+
+[node name="PlayerColorController" type="Node" parent="Player2/Color" unique_id=968854910 node_paths=PackedStringArray("player_visual")]
+script = ExtResource("6_2gh4u")
+player_visual = NodePath("../../CharacterRect")
+red_color = Color(0.8352941, 0.1254902, 0.1254902, 1)
+blue_color = Color(0.2627451, 0.43137255, 0.69411767, 1)
+
+[node name="PlayerColorEjectionBridge" type="Node" parent="Player2/Color" unique_id=1666524055 node_paths=PackedStringArray("player_collision_shape")]
+script = ExtResource("7_devvj")
+player_collision_shape = NodePath("../../CollisionShape2D")
+travel_acceleration = 2000.0
+exit_speed = 200.0
+lift_boost_cap = 20.0
+ejection_hazard_grace_time = 0.1
+
+[node name="SFX" type="Node" parent="Player2" unique_id=938340359 node_paths=PackedStringArray("dash_sfx")]
+script = ExtResource("8_3b0ty")
+dash_sfx = NodePath("Dash")
+
+[node name="Dash" type="AudioStreamPlayer" parent="Player2/SFX" unique_id=1583522587]
+stream = ExtResource("9_bg4s2")
+volume_db = -4.0
+pitch_scale = 1.1
+
+[node name="melee" type="AnimatedSprite2D" parent="Player2" unique_id=210944138]
+sprite_frames = SubResource("SpriteFrames_40n85")
+animation = &"melee"
+script = ExtResource("14_hri7i")
+metadata/_edit_lock_ = true
+
+[node name="PlayerMelee" type="Node2D" parent="Player2" unique_id=2079370033 node_paths=PackedStringArray("melee_visual")]
+script = ExtResource("15_w3rk5")
+melee_visual = NodePath("../melee")
+metadata/_custom_type_script = "uid://dhaj2ykn3fx0h"
+metadata/_edit_lock_ = true
+
+[node name="RoomContainer" type="Node2D" parent="." unique_id=26957151 node_paths=PackedStringArray("player")]
+script = ExtResource("16_sc1dx")
+player = NodePath("../Player2")
+metadata/_edit_lock_ = true
+
+[node name="Level4" parent="RoomContainer" unique_id=98120481 instance=ExtResource("17_sc1dx")]
