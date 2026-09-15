@@ -157,7 +157,7 @@ scale = Vector2(-1, 1)
 [node name="Level3" parent="." unique_id=200058639 instance=ExtResource("16_wbab1")]
 position = Vector2(1280, -984)
 
-[node name="Level2" parent="." unique_id=1515681554 instance=ExtResource("18_t1f4i")]
+[node name="Level5" parent="." unique_id=1515681554 instance=ExtResource("18_t1f4i")]
 position = Vector2(1064, -544)
 
 [node name="Level1" parent="." unique_id=1785950857 instance=ExtResource("16_ob6w4")]
@@ -189,7 +189,5 @@ position = Vector2(1592, -720)
 [node name="Node2D3" parent="." unique_id=98120481 instance=ExtResource("28_500fv")]
 position = Vector2(1216, -368)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1348972688]
-
-[node name="Level4" parent="." unique_id=923864493 instance=ExtResource("28_eq767")]
+[node name="Level2" parent="." unique_id=923864493 instance=ExtResource("28_eq767")]
 position = Vector2(352, -120)

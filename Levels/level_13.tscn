@@ -166,15 +166,17 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/StaticBody2D" unique_id=1945650269]
-color = Color(0.92941177, 0.627451, 0.19215687, 1)
-polygon = PackedVector2Array(-152, -40, -144, -40, -144, -56, -112, -56, -112, -72, -40, -72, -40, -56, -24, -56, -24, -64, 48, -64, 56, -64, 56, -64, 56, -72, 88, -72, 88, -64, 96, -64, 96, -56, 104, -56, 104, -88, -152, -88)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
+polygon = PackedVector2Array(-152, -40, -144, -40, -144, -56, -112, -56, -112, -72, -40, -72, -40, -56, -24, -56, -24, -64, 48, -64, 56, -64, 56, -64, 56, -72, 88, -72, 88, -64, 96, -64, 96, -56, 104, -56, 104, -151.86499, 128, -152, 128, -144, 176, -144, 176, -168, 88, -168, 8, -168, -152, -168, -152, -88)
+metadata/_edit_lock_ = true
 
 [node name="Polygon2D2" type="Polygon2D" parent="Environment/StaticBody2D" unique_id=1238423868]
-color = Color(0.92941177, 0.627451, 0.19215687, 1)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
 polygon = PackedVector2Array(88, 24, 96, 24, 96, 32, 104, 32, 104, 0, 112, 0, 112, -24, 88, -24)
 
 [node name="Polygon2D3" type="Polygon2D" parent="Environment/StaticBody2D" unique_id=990883370]
-polygon = PackedVector2Array(136, -88, 136, -32, 144, -32, 144, 8, 152, 8, 152, -88)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
+polygon = PackedVector2Array(136, -48, 136, -32, 144, -32, 144, 8, 152, 8, 152, 80, 152, -48)
 
 [node name="Polygon2D4" type="Polygon2D" parent="Environment/StaticBody2D" unique_id=825880687]
 polygon = PackedVector2Array(152, 64, 144, 64, 144, 72, 112, 72, 112, 56, 72, 56, 72, 48, 48, 48, 48, 72, 32, 72, 32, 88, 152, 88)
@@ -189,7 +191,7 @@ polygon = PackedVector2Array(-72, 0, -72, 32, -64, 32, -64, 0)
 polygon = PackedVector2Array(-152, 64, -152, 88, -88, 88, -88, 80, -144, 80, -144, 64)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/StaticBody2D" unique_id=872692579]
-polygon = PackedVector2Array(-152, -40, -144, -40, -144, -56, -112, -56, -112, -72, -96.02216, -72.00001, -40, -72, -40, -56, -24, -56, -24, -64, 56, -64, 56, -72, 88, -72, 88, -64, 96, -64, 96, -56, 104, -56, 104, -88, 104, -88, -152, -88, -160, -88, -160, 64, -152, 64)
+polygon = PackedVector2Array(-152, -40, -144, -40, -144, -56, -112, -56, -112, -72, -96.02216, -72.00001, -40, -72, -40, -56, -24, -56, -24, -64, 56, -64, 56, -72, 88, -72, 88, -64, 96, -64, 96, -56, 104, -56, 104, -88, 104, -88, 104, -104, 136, -104, 136, -96, 152, -96, 152, -112, 88, -112, 88, -88, -152, -88, -160, -88, -160, 64, -152, 64)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Environment/StaticBody2D" unique_id=814616253]
 polygon = PackedVector2Array(-144, 64, -144, 80, -88, 80, -88, 88, -160, 88, -160, 64)
@@ -204,7 +206,7 @@ polygon = PackedVector2Array(-64, 0, -64, 32, -72, 32, -72, 0)
 polygon = PackedVector2Array(112, -24, 112, 0, 104, 0, 104, 32, 96, 32, 96, 24, 88, 24, 88, -24)
 
 [node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="Environment/StaticBody2D" unique_id=1819623102]
-polygon = PackedVector2Array(152, -88, 152, 8, 144, 8, 144, -32, 136, -32, 136, -88)
+polygon = PackedVector2Array(152, -48, 152, 8, 144, 8, 144, -32, 136, -32, 136, -48)
 
 [node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="Environment/StaticBody2D" unique_id=814968417]
 polygon = PackedVector2Array(72, 48, 72, 56, 112, 56, 112, 72, 144, 72, 144, 64, 152, 64, 152, 8, 160, 8, 160, 88, 32, 88, 32, 72, 48, 72, 48, 48)
@@ -434,11 +436,12 @@ polygon = PackedVector2Array(0, -4, 8, -4, 8, 0, 0, 0)
 metadata/_edit_lock_ = true
 
 [node name="Frame" type="Polygon2D" parent="." unique_id=874791697]
-polygon = PackedVector2Array(-152, 96, -160, 96, -160, -92, 160, -92, 160, 96, 156, 96, -152, 96, -152, 84, 152, 84, 152, -84, -152, -84)
-metadata/_edit_lock_ = true
+visible = false
+position = Vector2(71.489365, -42.893616)
+scale = Vector2(1.4468086, 1.4468085)
+polygon = PackedVector2Array(-152, 96, -160, 96, -160, -36.70589, 61.176468, -36.70589, 61.176468, 96.000015, 61.176468, 96, -152, 96, -152, 84, 55.647057, 84, 55.647057, -25.64706, -152, -25.64706)
 
 [node name="Line2D" type="Line2D" parent="Frame" unique_id=125902057]
-points = PackedVector2Array(-152, -84, -152, 84, 152, 84, 152, -84, -152, -84)
+points = PackedVector2Array(-152, -25.64706, -152, 84, 55.647057, 84, 55.647057, -25.64706, -152, -25.64706)
 width = 1.0
 default_color = Color(0, 0, 0, 1)
-metadata/_edit_lock_ = true

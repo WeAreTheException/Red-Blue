@@ -16,14 +16,8 @@ const CAMERA_FOLLOW_GROUP: StringName = &"camera_follow"
 
 @export_group("Vertical Follow")
 
-# Normal jumps inside this distance do not
-# affect the camera vertically.
 @export var vertical_dead_zone_up_px: float = 30.0
-
 @export var vertical_dead_zone_down_px: float = 24.0
-
-# Speed used once the player actually pushes
-# outside the vertical dead zone.
 @export var vertical_follow_speed: float = 8.0
 
 
@@ -31,17 +25,21 @@ const CAMERA_FOLLOW_GROUP: StringName = &"camera_follow"
 
 @export var room_transition_time: float = 0.6
 
+@export_range(
+	1.0,
+	6.0,
+	0.1
+)
+var room_transition_ease_power: float = 2.0
+
 
 @export_group("Camera Damping")
 
-# Ignore microscopic internal camera corrections.
 @export var position_deadband_px: float = 0.5
 
 
 @export_group("Pixel")
 
-# Final rendered camera position stays on
-# whole internal-resolution pixels.
 @export var pixel_snap: bool = true
 
 
@@ -89,6 +87,9 @@ var _room_transition_elapsed: float = 0.0
 var _room_transition_bounds: CameraBounds = null
 
 
+var _destination_bounds_hold: bool = false
+
+
 func _ready() -> void:
 	add_to_group(
 		CAMERA_FOLLOW_GROUP
@@ -101,6 +102,7 @@ func _ready() -> void:
 		push_error(
 			"CameraFollow: Camera2D child missing."
 		)
+
 		return
 
 	camera.set_as_top_level(
@@ -145,6 +147,35 @@ func _physics_process(
 		if player == null:
 			return
 
+
+	if _destination_bounds_hold:
+		if (
+			current_bounds != null
+			and current_bounds.contains_global_point(
+				player.global_position
+			)
+		):
+			_destination_bounds_hold = false
+
+			_vertical_target_y = (
+				_follow_position.y
+			)
+
+			_horizontal_target_x = (
+				_follow_position.x
+			)
+
+			_look_ahead_x = 0.0
+
+			if print_debug:
+				print(
+					"CAMERA FOLLOW -> DESTINATION BOUNDS HOLD RELEASED"
+				)
+
+		else:
+			return
+
+
 	var found_bounds: CameraBounds = (
 		_find_bounds_for_player()
 	)
@@ -170,6 +201,7 @@ func _physics_process(
 
 	if not _initialized:
 		_initialize_follow()
+
 		return
 
 	if (
@@ -205,9 +237,15 @@ func _process(
 		_update_room_transition(
 			delta
 		)
+
 		return
 
 	if _room_transition_locked:
+		return
+
+	if _destination_bounds_hold:
+		_apply_camera_position()
+
 		return
 
 	if not _initialized:
@@ -246,6 +284,8 @@ func _process(
 func lock_for_room_transition() -> void:
 	_room_transition_locked = true
 
+	_destination_bounds_hold = false
+
 	_horizontal_transitioning = false
 
 	if print_debug:
@@ -261,6 +301,7 @@ func start_room_transition(
 		push_error(
 			"CameraFollow: Destination CameraBounds missing."
 		)
+
 		return
 
 	_room_transition_bounds = (
@@ -317,11 +358,8 @@ func _update_room_transition(
 	)
 
 	var eased_t: float = (
-		t
-		* t
-		* (
-			3.0
-			- 2.0 * t
+		_ease_room_transition(
+			t
 		)
 	)
 
@@ -338,6 +376,33 @@ func _update_room_transition(
 		return
 
 	_finish_room_transition()
+
+
+func _ease_room_transition(
+	t: float
+) -> float:
+	var power: float = maxf(
+		1.0,
+		room_transition_ease_power
+	)
+
+	if t < 0.5:
+		return (
+			0.5
+			* pow(
+				t * 2.0,
+				power
+			)
+		)
+
+	return (
+		1.0
+		- 0.5
+		* pow(
+			(1.0 - t) * 2.0,
+			power
+		)
+	)
 
 
 func _finish_room_transition() -> void:
@@ -372,13 +437,20 @@ func _finish_room_transition() -> void:
 
 	_room_transitioning = false
 	_room_transition_locked = false
+
 	_room_transition_bounds = null
+
+	_destination_bounds_hold = true
 
 	_apply_camera_position()
 
 	if print_debug:
 		print(
 			"CAMERA FOLLOW -> ROOM TRANSITION FINISHED"
+		)
+
+		print(
+			"CAMERA FOLLOW -> DESTINATION BOUNDS HELD"
 		)
 
 	room_transition_finished.emit()
@@ -1163,9 +1235,7 @@ func _unhandled_input(
 
 
 func _print_debug_snapshot() -> void:
-	print(
-		""
-	)
+	print("")
 
 	print(
 		"========== CAMERA DEBUG =========="
@@ -1215,6 +1285,11 @@ func _print_debug_snapshot() -> void:
 	print(
 		"HORIZONTAL TRANSITIONING: ",
 		_horizontal_transitioning
+	)
+
+	print(
+		"DESTINATION BOUNDS HOLD: ",
+		_destination_bounds_hold
 	)
 
 	print(
@@ -1311,9 +1386,7 @@ func _print_debug_snapshot() -> void:
 		"=================================="
 	)
 
-	print(
-		""
-	)
+	print("")
 
 
 func _refresh_world_references() -> void:
@@ -1346,8 +1419,7 @@ func _find_camera() -> Camera2D:
 	for child: Node in get_children():
 		if child is Camera2D:
 			return (
-				child
-				as Camera2D
+				child as Camera2D
 			)
 
 	return null
@@ -1371,8 +1443,7 @@ func _find_player_recursive(
 ) -> PlayerRoot:
 	if node is PlayerRoot:
 		return (
-			node
-			as PlayerRoot
+			node as PlayerRoot
 		)
 
 	for child: Node in node.get_children():
@@ -1417,8 +1488,7 @@ func _find_bounds_for_player() -> CameraBounds:
 			continue
 
 		var bounds: CameraBounds = (
-			node
-			as CameraBounds
+			node as CameraBounds
 		)
 
 		bounds_count += 1

@@ -30,14 +30,14 @@ shader_parameter/dot_color = Color(0.5176471, 0.49411765, 0.5294118, 0.015686275
 shader_parameter/tile_size = 8.0
 shader_parameter/offset = Vector2(0, 0)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6exc"]
+size = Vector2(360, 169)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f61kr"]
 size = Vector2(16, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eoeuh"]
 size = Vector2(64, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6exc"]
-size = Vector2(256, 180)
 
 [node name="Level5" type="Node2D" unique_id=2059484946]
 
@@ -50,6 +50,7 @@ offset_right = 89.0
 offset_bottom = 73.0
 
 [node name="Environemnt" type="Node2D" parent="." unique_id=2088071325]
+position = Vector2(0, 19)
 
 [node name="Starting" type="StaticBody2D" parent="Environemnt" unique_id=2146867347]
 position = Vector2(0, 41)
@@ -59,13 +60,23 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environemnt/Starting" unique_id=1713762689]
 position = Vector2(8, -9)
-polygon = PackedVector2Array(-152, 8, -152, 40, -136, 40, -136, 16, -120, 16, -120, 40, -88, 40, -88, 8, -80, 8, -80, 0, -120, 0, -120, 8)
+polygon = PackedVector2Array(-120, 40, -88, 40, -88, 8, -80, 8, -80, 0, -120, 0)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Environemnt/Starting" unique_id=2113340459]
+position = Vector2(8, -9)
+polygon = PackedVector2Array(-152, 8, -152, 40, -136, 40, -136, 8)
 
 [node name="Polygon2D" type="Polygon2D" parent="Environemnt/Starting" unique_id=1733972028]
 material = SubResource("ShaderMaterial_54oyp")
 position = Vector2(8, -9)
 color = Color(0.25490198, 0.25490198, 0.25490198, 1)
-polygon = PackedVector2Array(-112, 0, -120, 0, -120, 8, -152, 8, -152, 40, -136, 40, -136, 16, -120, 16, -120, 40, -112, 40, -88, 40, -88, 8, -80, 8, -80, 0, -88, 0)
+polygon = PackedVector2Array(-112, 0, -120, 0, -120, 21, -88, 21, -88, 8, -80, 8, -80, 0, -88, 0)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Environemnt/Starting" unique_id=724359471]
+material = SubResource("ShaderMaterial_54oyp")
+position = Vector2(8, -9)
+color = Color(0.25490198, 0.25490198, 0.25490198, 1)
+polygon = PackedVector2Array(-152, 8, -152, 21, -136, 21, -136, 8)
 
 [node name="Ceiling" type="StaticBody2D" parent="Environemnt" unique_id=1756754022]
 position = Vector2(32, 36)
@@ -277,7 +288,8 @@ polygon = PackedVector2Array(-76, -128, -76, -63.759193, -76, -55.999996, -68, -
 [node name="Frame" type="Polygon2D" parent="." unique_id=863349490]
 visible = false
 material = SubResource("ShaderMaterial_oil7k")
-polygon = PackedVector2Array(-160, 80, -160, -96, -144, -96, -144, 72, 88, 72, 88, -80, -144, -80, -144, -96, 96, -96, 96, 80)
+position = Vector2(0, 11)
+polygon = PackedVector2Array(-160, 69, -160, -96, -144, -96, -144, 61, 88, 61, 88, -80, -144, -80, -144, -96, 96, -96, 96, 69)
 
 [node name="Vanishin2" type="StaticBody2D" parent="." unique_id=1770356453 node_paths=PackedStringArray("visual", "trigger_area")]
 collision_layer = 2
@@ -309,7 +321,6 @@ position = Vector2(256, 0)
 polygon = PackedVector2Array(-160, 96, -160, -96, -156, -96, -156, -40, 152, -40, 152, -80, -156, -80, -156, -96, 160, -96, 160, 96)
 
 [node name="Line2D" type="Line2D" parent="." unique_id=495312561]
-visible = false
 points = PackedVector2Array(88, -80, -144, -80, -144, 72, 88, 72, 88, -80)
 width = 1.0
 default_color = Color(0, 0, 0, 1)
@@ -323,6 +334,17 @@ default_color = Color(0, 0, 0, 1)
 [node name="PlayerDashVisual" type="Node2D" parent="." unique_id=1056257063]
 script = ExtResource("8_p51u0")
 metadata/_custom_type_script = "uid://c2djyy8t3xtdi"
+
+[node name="CameraBounds" type="Area2D" parent="." unique_id=446453632 node_paths=PackedStringArray("bounds_shape")]
+script = ExtResource("11_wh3ke")
+bounds_shape = NodePath("CollisionShape2D")
+horizontal_mode = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds" unique_id=1534643521]
+position = Vector2(-32, -4.5)
+shape = SubResource("RectangleShape2D_q6exc")
+disabled = true
+metadata/_edit_lock_ = true
 
 [node name="Markers" type="Node2D" parent="." unique_id=2064644958]
 metadata/_edit_lock_ = true
@@ -349,14 +371,3 @@ script = ExtResource("10_yc6il")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Exit/Area2D" unique_id=1145072094]
 position = Vector2(52, -16)
 shape = SubResource("RectangleShape2D_eoeuh")
-
-[node name="CameraBounds" type="Area2D" parent="Markers" unique_id=446453632 node_paths=PackedStringArray("bounds_shape")]
-script = ExtResource("11_wh3ke")
-bounds_shape = NodePath("CollisionShape2D")
-horizontal_mode = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/CameraBounds" unique_id=1534643521]
-position = Vector2(-32, 1)
-shape = SubResource("RectangleShape2D_q6exc")
-disabled = true
-metadata/_edit_lock_ = true

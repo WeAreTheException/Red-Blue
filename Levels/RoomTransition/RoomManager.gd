@@ -6,6 +6,12 @@ const ROOM_MANAGER_GROUP: StringName = &"room_manager"
 const CAMERA_FOLLOW_GROUP: StringName = &"camera_follow"
 
 
+enum TransitionVelocityMode {
+	PRESERVE,
+	CLEAR
+}
+
+
 @export_group("References")
 
 @export var player: PlayerRoot
@@ -16,6 +22,17 @@ const CAMERA_FOLLOW_GROUP: StringName = &"camera_follow"
 @export var starting_spawn_id: StringName = &"from_left"
 
 
+@export_group("Room Transition")
+
+@export var pre_transition_freeze_time: float = 0.04
+
+@export var post_transition_freeze_time: float = 0.10
+
+@export var velocity_mode: TransitionVelocityMode = (
+	TransitionVelocityMode.PRESERVE
+)
+
+
 @export_group("Debug")
 
 @export var print_debug: bool = true
@@ -23,15 +40,12 @@ const CAMERA_FOLLOW_GROUP: StringName = &"camera_follow"
 
 var _transitioning: bool = false
 
+var _current_room: Node = null
+
 
 func _ready() -> void:
 	add_to_group(
 		ROOM_MANAGER_GROUP
-	)
-
-	print(
-		"ROOM MANAGER READY -> ",
-		get_path()
 	)
 
 	_place_player_at_start()
@@ -41,31 +55,22 @@ func transition_to_room(
 	room_scene: PackedScene,
 	spawn_id: StringName
 ) -> void:
-	print(
-		"ROOM MANAGER -> TRANSITION CALLED"
-	)
-
 	if _transitioning:
-		print(
-			"ROOM MANAGER -> ALREADY TRANSITIONING"
-		)
 		return
 
 	if room_scene == null:
-		print(
-			"ROOM MANAGER -> DESTINATION ROOM NULL"
+		push_error(
+			"RoomManager: Destination room missing."
 		)
+
 		return
 
 	if player == null:
-		print(
-			"ROOM MANAGER -> PLAYER NULL"
+		push_error(
+			"RoomManager: Player missing."
 		)
-		return
 
-	print(
-		"ROOM MANAGER -> SEARCHING FOR ROOM"
-	)
+		return
 
 	var destination_room: Node = (
 		_find_loaded_room(
@@ -74,35 +79,25 @@ func transition_to_room(
 	)
 
 	if destination_room == null:
-		print(
-			"ROOM MANAGER -> LOADED ROOM NOT FOUND: ",
-			room_scene.resource_path
+		push_error(
+			"RoomManager: Loaded destination room not found: "
+			+ room_scene.resource_path
 		)
+
 		return
 
-	print(
-		"ROOM MANAGER -> ROOM FOUND: ",
-		destination_room.name
-	)
 
-	var spawn: RespawnMarker = (
-		_find_spawn(
-			destination_room,
-			spawn_id
-		)
-	)
+	# Do not transition to the room that is
+	# already active.
+	if destination_room == _current_room:
+		if print_debug:
+			print(
+				"ROOM MANAGER -> ALREADY IN ROOM: ",
+				destination_room.name
+			)
 
-	if spawn == null:
-		print(
-			"ROOM MANAGER -> SPAWN NOT FOUND: ",
-			spawn_id
-		)
 		return
 
-	print(
-		"ROOM MANAGER -> SPAWN FOUND: ",
-		spawn.global_position
-	)
 
 	var destination_bounds: CameraBounds = (
 		_find_camera_bounds(
@@ -111,15 +106,28 @@ func transition_to_room(
 	)
 
 	if destination_bounds == null:
-		print(
-			"ROOM MANAGER -> CAMERA BOUNDS NOT FOUND"
+		push_error(
+			"RoomManager: Destination CameraBounds missing."
 		)
+
 		return
 
-	print(
-		"ROOM MANAGER -> CAMERA BOUNDS FOUND: ",
-		destination_bounds.name
+	var destination_spawn: RespawnMarker = (
+		_find_spawn(
+			destination_room,
+			spawn_id
+		)
 	)
+
+	if destination_spawn == null:
+		push_error(
+			"RoomManager: Destination spawn not found: "
+			+ String(
+				spawn_id
+			)
+		)
+
+		return
 
 	var camera_follow: CameraFollow = (
 		get_tree().get_first_node_in_group(
@@ -129,46 +137,96 @@ func transition_to_room(
 	)
 
 	if camera_follow == null:
-		print(
-			"ROOM MANAGER -> CAMERA FOLLOW NOT FOUND"
+		push_error(
+			"RoomManager: CameraFollow not found."
 		)
+
 		return
 
-	print(
-		"ROOM MANAGER -> CAMERA FOLLOW FOUND"
-	)
 
 	_transitioning = true
 
-	camera_follow.lock_for_room_transition()
 
-	print(
-		"ROOM MANAGER -> CAMERA LOCKED"
+	var saved_velocity: Vector2 = (
+		player.velocity
 	)
+
 
 	player.set_physics_process(
 		false
 	)
 
-	player.global_position = (
-		spawn.global_position
-	)
+	camera_follow.lock_for_room_transition()
 
-	player.respawn_point = spawn
 
-	print(
-		"ROOM MANAGER -> PLAYER MOVED"
-	)
+	if print_debug:
+		print(
+			"ROOM MANAGER -> PLAYER FROZEN"
+		)
+
+
+	if pre_transition_freeze_time > 0.0:
+		await get_tree().create_timer(
+			pre_transition_freeze_time
+		).timeout
+
 
 	camera_follow.start_room_transition(
 		destination_bounds
 	)
 
-	print(
-		"ROOM MANAGER -> CAMERA TRANSITION STARTED"
-	)
+
+	if print_debug:
+		print(
+			"ROOM MANAGER -> CAMERA PAN START"
+		)
+
 
 	await camera_follow.room_transition_finished
+
+
+	# Destination is now the active room.
+	_current_room = (
+		destination_room
+	)
+
+
+	# Update respawn without moving the player.
+	player.respawn_point = (
+		destination_spawn
+	)
+
+
+	if print_debug:
+		print(
+			"ROOM MANAGER -> CURRENT ROOM: ",
+			_current_room.name
+		)
+
+		print(
+			"ROOM MANAGER -> RESPAWN UPDATED: ",
+			spawn_id
+		)
+
+
+	if post_transition_freeze_time > 0.0:
+		await get_tree().create_timer(
+			post_transition_freeze_time
+		).timeout
+
+
+	match velocity_mode:
+
+		TransitionVelocityMode.PRESERVE:
+			player.velocity = (
+				saved_velocity
+			)
+
+		TransitionVelocityMode.CLEAR:
+			player.velocity = (
+				Vector2.ZERO
+			)
+
 
 	player.set_physics_process(
 		true
@@ -176,9 +234,11 @@ func transition_to_room(
 
 	_transitioning = false
 
-	print(
-		"ROOM MANAGER -> PLAYER UNFROZEN"
-	)
+
+	if print_debug:
+		print(
+			"ROOM MANAGER -> PLAYER UNFROZEN"
+		)
 
 
 func _place_player_at_start() -> void:
@@ -186,6 +246,7 @@ func _place_player_at_start() -> void:
 		push_error(
 			"RoomManager: Player missing."
 		)
+
 		return
 
 	var current_room: Node = (
@@ -196,6 +257,7 @@ func _place_player_at_start() -> void:
 		push_error(
 			"RoomManager: Starting room missing."
 		)
+
 		return
 
 	var spawn: RespawnMarker = (
@@ -212,7 +274,14 @@ func _place_player_at_start() -> void:
 				starting_spawn_id
 			)
 		)
+
 		return
+
+
+	_current_room = (
+		current_room
+	)
+
 
 	player.global_position = (
 		spawn.global_position
@@ -220,7 +289,13 @@ func _place_player_at_start() -> void:
 
 	player.respawn_point = spawn
 
+
 	if print_debug:
+		print(
+			"ROOM MANAGER -> STARTING ROOM: ",
+			_current_room.name
+		)
+
 		print(
 			"ROOM MANAGER -> PLAYER SPAWNED AT: ",
 			starting_spawn_id,

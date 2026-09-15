@@ -29,6 +29,7 @@ size = Vector2(16, 16)
 [node name="Level4" type="Node2D" unique_id=98120481]
 
 [node name="Environment" type="Node2D" parent="." unique_id=1286449990]
+metadata/_edit_lock_ = true
 
 [node name="Base" type="StaticBody2D" parent="Environment" unique_id=1169516523]
 collision_layer = 2
@@ -573,9 +574,9 @@ metadata/_edit_lock_ = true
 [node name="Frame" type="Polygon2D" parent="." unique_id=250070519]
 visible = false
 polygon = PackedVector2Array(-152, 96, -160, 96, -160, -96, 400, -96, 400, 96, 176, 96, -152, 96, -152, 84, 392, 84, 392, -84, -152, -84)
-metadata/_edit_lock_ = true
 
 [node name="Line2D" type="Line2D" parent="Frame" unique_id=641411197]
+visible = false
 points = PackedVector2Array(-152, -84, -152, 84, 392, 84, 392, -84, 273.69534, -84, -152, -84)
 width = 1.0
 default_color = Color(0, 0, 0, 1)
@@ -616,7 +617,7 @@ position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_lcssr")
 
 [node name="Exit" type="Node2D" parent="Markers" unique_id=1556185951]
-position = Vector2(24, -80)
+position = Vector2(24, -88)
 
 [node name="Area2D" type="Area2D" parent="Markers/Exit" unique_id=98671257]
 position = Vector2(0, 8)
@@ -627,3 +628,11 @@ destination_spawn_id = &"from_bottom"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Exit/Area2D" unique_id=1833347999]
 position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_b5xk4")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1635907230]
+polygon = PackedVector2Array(16, -84, 16, -96, -160, -96, -160, 96, 400, 96, 400, -96, 32, -96, 32, -84, 392, -84, 392, 84, -152, 85, -152, -84)
+
+[node name="Line2D" type="Line2D" parent="Polygon2D" unique_id=2021581346]
+points = PackedVector2Array(32, -96, 32, -84, 392, -84, 392, 84, -152, 85, -152, -84, 16, -84, 16, -96)
+width = 1.0
+default_color = Color(0, 0, 0, 1)
