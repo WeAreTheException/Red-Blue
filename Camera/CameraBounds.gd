@@ -10,6 +10,57 @@ const CAMERA_BOUNDS_GROUP: StringName = &"camera_bounds"
 @export var bounds_shape: CollisionShape2D
 
 
+@export_group("Horizontal Step")
+
+# How far the player can move from the current
+# camera center before the next chunk begins.
+@export var horizontal_trigger_distance_px: float = 100.0
+
+# How far the camera moves per chunk.
+@export var horizontal_step_distance_px: float = 160.0
+
+# Normal cinematic duration of a camera chunk.
+@export var horizontal_step_time: float = 1.5
+
+
+@export_group("Horizontal Look Ahead")
+
+# Look-ahead affects when the next chunk triggers.
+# It does NOT continuously move the camera.
+@export var horizontal_look_ahead_px: float = 24.0
+
+# Tiny horizontal velocities are ignored.
+@export var look_ahead_velocity_threshold: float = 15.0
+
+# How quickly look-ahead builds while moving.
+@export var look_ahead_response_speed: float = 70.0
+
+# How quickly look-ahead returns to zero
+# when horizontal movement stops.
+@export var look_ahead_release_speed: float = 45.0
+
+
+@export_group("Catch Up")
+
+# Once the player gets this far from the
+# actual camera center, speed up the chunk.
+@export var catch_up_distance_px: float = 115.0
+
+@export var catch_up_multiplier: float = 2.25
+
+# Emergency distance before the player gets
+# dangerously close to leaving the screen.
+@export var emergency_catch_up_distance_px: float = 140.0
+
+@export var emergency_catch_up_multiplier: float = 5.0
+
+# Damps the transition into and out of catch-up.
+@export var catch_up_response_speed: float = 12.0
+
+# Emergency catch-up reacts more quickly.
+@export var emergency_catch_up_response_speed: float = 28.0
+
+
 @export_group("Debug")
 
 @warning_ignore("shadowed_global_identifier")

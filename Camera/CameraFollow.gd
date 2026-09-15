@@ -10,57 +10,6 @@ const CAMERA_BOUNDS_GROUP: StringName = &"camera_bounds"
 @export var camera: Camera2D
 
 
-@export_group("Horizontal Step")
-
-# How far the player can move from the current
-# camera center before the next chunk begins.
-@export var horizontal_trigger_distance_px: float = 100.0
-
-# How far the camera moves per chunk.
-@export var horizontal_step_distance_px: float = 160.0
-
-# Normal cinematic duration of a camera chunk.
-@export var horizontal_step_time: float = 1.5
-
-
-@export_group("Horizontal Look Ahead")
-
-# Look-ahead affects when the next chunk triggers.
-# It does NOT continuously move the camera.
-@export var horizontal_look_ahead_px: float = 24.0
-
-# Tiny horizontal velocities are ignored.
-@export var look_ahead_velocity_threshold: float = 15.0
-
-# How quickly look-ahead builds while moving.
-@export var look_ahead_response_speed: float = 70.0
-
-# How quickly look-ahead returns to zero
-# when horizontal movement stops.
-@export var look_ahead_release_speed: float = 45.0
-
-
-@export_group("Catch Up")
-
-# Once the player gets this far from the
-# actual camera center, speed up the chunk.
-@export var catch_up_distance_px: float = 115.0
-
-@export var catch_up_multiplier: float = 2.25
-
-# Emergency distance before the player gets
-# dangerously close to leaving the screen.
-@export var emergency_catch_up_distance_px: float = 140.0
-
-@export var emergency_catch_up_multiplier: float = 5.0
-
-# Damps the transition into and out of catch-up.
-@export var catch_up_response_speed: float = 12.0
-
-# Emergency catch-up reacts more quickly.
-@export var emergency_catch_up_response_speed: float = 28.0
-
-
 @export_group("Vertical Follow")
 
 # Normal jumps inside this distance do not
@@ -153,11 +102,6 @@ func _ready() -> void:
 	)
 
 
-# Gameplay-side camera decisions.
-#
-# Player movement is physics-based, so player
-# position, velocity, look-ahead intent and
-# chunk triggers are evaluated here.
 func _physics_process(
 	delta: float
 ) -> void:
@@ -212,12 +156,6 @@ func _physics_process(
 	_update_vertical_target()
 
 
-# Visual camera motion.
-#
-# This runs with rendered frames.
-#
-# Delta keeps the camera timing independent
-# from 60 Hz, 144 Hz, 240 Hz, etc.
 func _process(
 	delta: float
 ) -> void:
@@ -285,7 +223,7 @@ func _initialize_follow() -> void:
 
 		var step_size: float = maxf(
 			1.0,
-			horizontal_step_distance_px
+			current_bounds.horizontal_step_distance_px
 		)
 
 		var player_clamped_x: float = clampf(
@@ -377,22 +315,22 @@ func _update_look_ahead(
 		absf(
 			velocity_x
 		)
-		>= look_ahead_velocity_threshold
+		>= current_bounds.look_ahead_velocity_threshold
 	):
 		desired_look_ahead = (
 			signf(
 				velocity_x
 			)
-			* horizontal_look_ahead_px
+			* current_bounds.horizontal_look_ahead_px
 		)
 
 	var response_speed: float = (
-		look_ahead_response_speed
+		current_bounds.look_ahead_response_speed
 	)
 
 	if desired_look_ahead == 0.0:
 		response_speed = (
-			look_ahead_release_speed
+			current_bounds.look_ahead_release_speed
 		)
 
 	_look_ahead_x = move_toward(
@@ -411,12 +349,12 @@ func _check_horizontal_step() -> void:
 
 	var left_trigger: float = (
 		_horizontal_target_x
-		- horizontal_trigger_distance_px
+		- current_bounds.horizontal_trigger_distance_px
 	)
 
 	var right_trigger: float = (
 		_horizontal_target_x
-		+ horizontal_trigger_distance_px
+		+ current_bounds.horizontal_trigger_distance_px
 	)
 
 	if effective_player_x > right_trigger:
@@ -470,7 +408,7 @@ func _begin_horizontal_step(
 		+ float(
 			direction
 		)
-		* horizontal_step_distance_px
+		* current_bounds.horizontal_step_distance_px
 	)
 
 	new_target_x = clampf(
@@ -516,7 +454,7 @@ func _update_horizontal_transition(
 ) -> void:
 	var duration: float = maxf(
 		0.001,
-		horizontal_step_time
+		current_bounds.horizontal_step_time
 	)
 
 	var player_distance_from_camera: float = absf(
@@ -527,27 +465,27 @@ func _update_horizontal_transition(
 	var desired_multiplier: float = 1.0
 
 	var multiplier_response_speed: float = (
-		catch_up_response_speed
+		current_bounds.catch_up_response_speed
 	)
 
 	if (
 		player_distance_from_camera
-		>= emergency_catch_up_distance_px
+		>= current_bounds.emergency_catch_up_distance_px
 	):
 		desired_multiplier = (
-			emergency_catch_up_multiplier
+			current_bounds.emergency_catch_up_multiplier
 		)
 
 		multiplier_response_speed = (
-			emergency_catch_up_response_speed
+			current_bounds.emergency_catch_up_response_speed
 		)
 
 	elif (
 		player_distance_from_camera
-		>= catch_up_distance_px
+		>= current_bounds.catch_up_distance_px
 	):
 		desired_multiplier = (
-			catch_up_multiplier
+			current_bounds.catch_up_multiplier
 		)
 
 	var multiplier_weight: float = (
@@ -582,10 +520,6 @@ func _update_horizontal_transition(
 		1.0
 	)
 
-	# Ease-out cubic.
-	#
-	# Moves decisively at the start,
-	# then settles into the final chunk.
 	var eased_t: float = (
 		1.0
 		- pow(
@@ -868,21 +802,6 @@ func _print_debug_snapshot() -> void:
 	)
 
 	print(
-		"TRIGGER DISTANCE: ",
-		horizontal_trigger_distance_px
-	)
-
-	print(
-		"STEP DISTANCE: ",
-		horizontal_step_distance_px
-	)
-
-	print(
-		"STEP TIME: ",
-		horizontal_step_time
-	)
-
-	print(
 		"HORIZONTAL TRANSITIONING: ",
 		_horizontal_transitioning
 	)
@@ -891,29 +810,6 @@ func _print_debug_snapshot() -> void:
 		"TRANSITION SPEED MULTIPLIER: ",
 		_transition_speed_multiplier
 	)
-
-	if player != null:
-		var camera_player_distance: float = absf(
-			player.global_position.x
-			- _follow_position.x
-		)
-
-		print(
-			"PLAYER CAMERA DISTANCE: ",
-			camera_player_distance
-		)
-
-		print(
-			"CATCH UP ACTIVE: ",
-			camera_player_distance
-			>= catch_up_distance_px
-		)
-
-		print(
-			"EMERGENCY CATCH UP: ",
-			camera_player_distance
-			>= emergency_catch_up_distance_px
-		)
 
 	if current_bounds == null:
 		print(
@@ -924,6 +820,44 @@ func _print_debug_snapshot() -> void:
 		var bounds_rect: Rect2 = (
 			current_bounds.get_global_rect()
 		)
+
+		print(
+			"TRIGGER DISTANCE: ",
+			current_bounds.horizontal_trigger_distance_px
+		)
+
+		print(
+			"STEP DISTANCE: ",
+			current_bounds.horizontal_step_distance_px
+		)
+
+		print(
+			"STEP TIME: ",
+			current_bounds.horizontal_step_time
+		)
+
+		if player != null:
+			var camera_player_distance: float = absf(
+				player.global_position.x
+				- _follow_position.x
+			)
+
+			print(
+				"PLAYER CAMERA DISTANCE: ",
+				camera_player_distance
+			)
+
+			print(
+				"CATCH UP ACTIVE: ",
+				camera_player_distance
+				>= current_bounds.catch_up_distance_px
+			)
+
+			print(
+				"EMERGENCY CATCH UP: ",
+				camera_player_distance
+				>= current_bounds.emergency_catch_up_distance_px
+			)
 
 		print(
 			"CURRENT BOUNDS: ",

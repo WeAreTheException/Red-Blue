@@ -59,7 +59,6 @@ animations = [{
 }]
 
 [node name="Chapter1" type="Node2D" unique_id=135446523]
-position = Vector2(-848, -48)
 
 [node name="Player2" type="CharacterBody2D" parent="." unique_id=1157908824 node_paths=PackedStringArray("player_visual")]
 position = Vector2(-72.00001, -88.00001)
