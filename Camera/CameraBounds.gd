@@ -5,11 +5,38 @@ class_name CameraBounds
 const CAMERA_BOUNDS_GROUP: StringName = &"camera_bounds"
 
 
+enum HorizontalMode {
+	LOCKED,
+	STEP,
+	FOLLOW
+}
+
+
+enum VerticalMode {
+	LOCKED,
+	DEAD_ZONE,
+	FOLLOW
+}
+
 @export_group("References")
 
 @export var bounds_shape: CollisionShape2D
 
 
+@export_group("Camera Movement")
+
+@export var horizontal_mode: HorizontalMode = (
+	HorizontalMode.STEP
+)
+
+@export var vertical_mode: VerticalMode = (
+	VerticalMode.DEAD_ZONE
+)
+
+
+@export_group("Horizontal Step")
+
+# Your existing variables continue here...
 @export_group("Horizontal Step")
 
 # How far the player can move from the current

@@ -146,14 +146,22 @@ func _physics_process(
 		_initialize_follow()
 		return
 
-	_update_look_ahead(
-		delta
-	)
+	if (
+		current_bounds.horizontal_mode
+		== CameraBounds.HorizontalMode.STEP
+	):
+		_update_look_ahead(
+			delta
+		)
 
-	if not _horizontal_transitioning:
-		_check_horizontal_step()
+		if not _horizontal_transitioning:
+			_check_horizontal_step()
 
-	_update_vertical_target()
+	if (
+		current_bounds.vertical_mode
+		== CameraBounds.VerticalMode.DEAD_ZONE
+	):
+		_update_vertical_target()
 
 
 func _process(
