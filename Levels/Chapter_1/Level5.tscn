@@ -59,7 +59,7 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environemnt/Starting" unique_id=1713762689]
 position = Vector2(8, -9)
-polygon = PackedVector2Array(-152, 8, -152, 40, -88, 40, -88, 8, -80, 8, -80, 0, -120, 0, -120, 8)
+polygon = PackedVector2Array(-152, 8, -152, 40, -136, 40, -136, 16, -120, 16, -120, 40, -88, 40, -88, 8, -80, 8, -80, 0, -120, 0, -120, 8)
 
 [node name="Polygon2D" type="Polygon2D" parent="Environemnt/Starting" unique_id=1733972028]
 material = SubResource("ShaderMaterial_54oyp")
@@ -275,6 +275,7 @@ color = Color(0.2159017, 0.21590173, 0.2159017, 1)
 polygon = PackedVector2Array(-76, -128, -76, -63.759193, -76, -55.999996, -68, -55.999996, -68, -47.999996, -60, -47.999996, -60, -31.999996, -60, 24.000004, -52, 24.000004, -52, -128)
 
 [node name="Frame" type="Polygon2D" parent="." unique_id=863349490]
+visible = false
 material = SubResource("ShaderMaterial_oil7k")
 polygon = PackedVector2Array(-160, 80, -160, -96, -144, -96, -144, 72, 88, 72, 88, -80, -144, -80, -144, -96, 96, -96, 96, 80)
 
@@ -303,6 +304,7 @@ script = ExtResource("7_n7fxb")
 polygon = PackedVector2Array(-109, 11, -75, 11, -75, 29, -109, 29)
 
 [node name="Frame2" type="Polygon2D" parent="." unique_id=464077508]
+visible = false
 position = Vector2(256, 0)
 polygon = PackedVector2Array(-160, 96, -160, -96, -156, -96, -156, -40, 152, -40, 152, -80, -156, -80, -156, -96, 160, -96, 160, 96)
 
