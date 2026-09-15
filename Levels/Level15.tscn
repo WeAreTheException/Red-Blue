@@ -51,7 +51,6 @@ animations = [{
 [node name="Level15" type="Node2D" unique_id=918570759]
 
 [node name="Base" type="StaticBody2D" parent="." unique_id=1613565057]
-visible = false
 position = Vector2(-176, 8)
 rotation = 3.1415927
 scale = Vector2(1, -1)
@@ -103,7 +102,6 @@ width = 1.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="Blue" type="StaticBody2D" parent="." unique_id=1970944049]
-visible = false
 position = Vector2(72, 92)
 collision_layer = 2
 collision_mask = 0
@@ -139,7 +137,6 @@ offset_right = 148.0
 offset_bottom = 40.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=418275069]
-visible = false
 script = ExtResource("1_rcj85")
 hostile = true
 hostile_contact_margin = 0.1
