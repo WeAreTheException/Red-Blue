@@ -157,6 +157,14 @@ func _physics_process(
 		if not _horizontal_transitioning:
 			_check_horizontal_step()
 
+	elif (
+		current_bounds.horizontal_mode
+		== CameraBounds.HorizontalMode.FOLLOW
+	):
+		_update_look_ahead(
+			delta
+		)
+
 	if (
 		current_bounds.vertical_mode
 		== CameraBounds.VerticalMode.DEAD_ZONE
@@ -176,8 +184,20 @@ func _process(
 	if camera == null:
 		return
 
-	if _horizontal_transitioning:
+	if (
+		current_bounds.horizontal_mode
+		== CameraBounds.HorizontalMode.STEP
+		and _horizontal_transitioning
+	):
 		_update_horizontal_transition(
+			delta
+		)
+
+	elif (
+		current_bounds.horizontal_mode
+		== CameraBounds.HorizontalMode.FOLLOW
+	):
+		_update_horizontal_follow(
 			delta
 		)
 
@@ -213,7 +233,11 @@ func _initialize_follow() -> void:
 		+ bounds.size.x * 0.5
 	)
 
-	if bounds.size.x > view_size.x:
+	if (
+		bounds.size.x > view_size.x
+		and current_bounds.horizontal_mode
+		== CameraBounds.HorizontalMode.STEP
+	):
 		var legal_min_x: float = (
 			bounds.position.x
 			+ half_view.x
@@ -264,6 +288,19 @@ func _initialize_follow() -> void:
 			initial_x,
 			legal_min_x,
 			legal_max_x
+		)
+
+	elif (
+		bounds.size.x > view_size.x
+		and current_bounds.horizontal_mode
+		== CameraBounds.HorizontalMode.FOLLOW
+	):
+		initial_x = clampf(
+			player.global_position.x,
+			bounds.position.x
+			+ half_view.x,
+			bounds.end.x
+			- half_view.x
 		)
 
 	var initial_position: Vector2 = (
@@ -569,6 +606,88 @@ func _update_horizontal_transition(
 				"CAMERA STEP FINISHED -> ",
 				_horizontal_target_x
 			)
+
+
+func _update_horizontal_follow(
+	delta: float
+) -> void:
+	if current_bounds == null:
+		return
+
+	var dead_zone: float = (
+		current_bounds.horizontal_follow_dead_zone_px
+	)
+
+	var player_x: float = (
+		player.global_position.x
+	)
+
+	var left_limit: float = (
+		_follow_position.x
+		- dead_zone
+	)
+
+	var right_limit: float = (
+		_follow_position.x
+		+ dead_zone
+	)
+
+	var desired_x: float = (
+		_follow_position.x
+	)
+
+	if player_x > right_limit:
+		desired_x = (
+			player_x
+			- dead_zone
+			+ _look_ahead_x
+		)
+
+	elif player_x < left_limit:
+		desired_x = (
+			player_x
+			+ dead_zone
+			+ _look_ahead_x
+		)
+
+	else:
+		return
+
+	var horizontal_target: Vector2 = (
+		_clamp_to_bounds(
+			Vector2(
+				desired_x,
+				_follow_position.y
+			)
+		)
+	)
+
+	var difference: float = (
+		horizontal_target.x
+		- _follow_position.x
+	)
+
+	if (
+		absf(
+			difference
+		)
+		<= position_deadband_px
+	):
+		return
+
+	var weight: float = (
+		1.0
+		- exp(
+			-current_bounds.horizontal_follow_speed
+			* delta
+		)
+	)
+
+	_follow_position.x = lerpf(
+		_follow_position.x,
+		horizontal_target.x,
+		weight
+	)
 
 
 func _update_vertical_target() -> void:

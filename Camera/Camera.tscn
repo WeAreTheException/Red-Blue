@@ -6,13 +6,6 @@
 [node name="Camera" type="Node2D" unique_id=752428712 node_paths=PackedStringArray("camera")]
 script = ExtResource("2_88gwk")
 camera = NodePath("Camera2D")
-vertical_dead_zone_up_px = null
-vertical_dead_zone_down_px = null
-vertical_follow_speed = null
-position_deadband_px = null
-pixel_snap = null
-print_debug = null
-debug_key = null
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1529913247]
 process_callback = 0

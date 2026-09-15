@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://du536ufxh6l0f" path="res://Levels/Chapter_1/Level_1.tscn" id="16_ob6w4"]
 [ext_resource type="PackedScene" uid="uid://5iunxq0xbw5l" path="res://Levels/Level_3.tscn" id="16_wbab1"]
 [ext_resource type="PackedScene" uid="uid://clnxavhk3e18s" path="res://Levels/Level_4.tscn" id="17_lgbl1"]
-[ext_resource type="PackedScene" uid="uid://bx7mc4025gxob" path="res://Levels/Level_5.tscn" id="18_7cgy7"]
 [ext_resource type="PackedScene" uid="uid://16boayvaeb3u" path="res://Levels/Level_2.tscn" id="18_t1f4i"]
 [ext_resource type="PackedScene" uid="uid://ckytlxbavp0xj" path="res://Levels/Level_7.tscn" id="19_q223g"]
 [ext_resource type="PackedScene" uid="uid://bvdo4ot8px4cc" path="res://Levels/Level_8.tscn" id="22_uxbck"]
@@ -28,7 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://bl6p3718hkj0l" path="res://Levels/level_13.tscn" id="26_mwqpc"]
 [ext_resource type="PackedScene" uid="uid://de77cvpubmakx" path="res://Levels/RaashiLevel.tscn" id="27_ufuky"]
 [ext_resource type="PackedScene" uid="uid://c2l8pri7pgm10" path="res://Levels/Chapter_1/Level4.tscn" id="28_500fv"]
-[ext_resource type="PackedScene" uid="uid://ccbss1p0bcnng" path="res://Levels/Level15.tscn" id="29_dsui6"]
+[ext_resource type="PackedScene" uid="uid://cljalnul2cgl0" path="res://Levels/Chapter_1/Level2.tscn" id="28_eq767"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52s3y"]
 size = Vector2(8, 11)
@@ -151,9 +150,6 @@ script = ExtResource("15_500fv")
 melee_visual = NodePath("../melee")
 metadata/_custom_type_script = "uid://dhaj2ykn3fx0h"
 
-[node name="Level5" parent="." unique_id=269724449 instance=ExtResource("18_7cgy7")]
-position = Vector2(592, -120)
-
 [node name="level_4" parent="." unique_id=365869652 instance=ExtResource("17_lgbl1")]
 position = Vector2(1272, -720)
 scale = Vector2(-1, 1)
@@ -165,6 +161,7 @@ position = Vector2(1280, -984)
 position = Vector2(1064, -544)
 
 [node name="Level1" parent="." unique_id=1785950857 instance=ExtResource("16_ob6w4")]
+position = Vector2(32, -8)
 
 [node name="Node2D" parent="." unique_id=2059484946 instance=ExtResource("19_q223g")]
 position = Vector2(1368, -536)
@@ -192,7 +189,7 @@ position = Vector2(1592, -720)
 [node name="Node2D3" parent="." unique_id=98120481 instance=ExtResource("28_500fv")]
 position = Vector2(1216, -368)
 
-[node name="Level15" parent="." unique_id=918570759 instance=ExtResource("29_dsui6")]
-position = Vector2(312, -120)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1348972688]
+
+[node name="Level4" parent="." unique_id=923864493 instance=ExtResource("28_eq767")]
+position = Vector2(352, -120)

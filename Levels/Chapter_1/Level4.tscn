@@ -722,7 +722,7 @@ metadata/_edit_lock_ = true
 [node name="CameraBounds" type="Area2D" parent="." unique_id=1951539281 node_paths=PackedStringArray("bounds_shape")]
 script = ExtResource("1_0mr58")
 bounds_shape = NodePath("CollisionShape2D")
-vertical_mode = 0
+horizontal_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds" unique_id=92992462]
 position = Vector2(118, 1)

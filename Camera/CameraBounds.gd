@@ -18,6 +18,7 @@ enum VerticalMode {
 	FOLLOW
 }
 
+
 @export_group("References")
 
 @export var bounds_shape: CollisionShape2D
@@ -36,9 +37,6 @@ enum VerticalMode {
 
 @export_group("Horizontal Step")
 
-# Your existing variables continue here...
-@export_group("Horizontal Step")
-
 # How far the player can move from the current
 # camera center before the next chunk begins.
 @export var horizontal_trigger_distance_px: float = 100.0
@@ -52,8 +50,11 @@ enum VerticalMode {
 
 @export_group("Horizontal Look Ahead")
 
-# Look-ahead affects when the next chunk triggers.
-# It does NOT continuously move the camera.
+# Look-ahead affects when the next chunk triggers
+# in STEP mode.
+#
+# In FOLLOW mode, it offsets the follow target
+# after the player leaves the follow dead zone.
 @export var horizontal_look_ahead_px: float = 24.0
 
 # Tiny horizontal velocities are ignored.
@@ -65,6 +66,15 @@ enum VerticalMode {
 # How quickly look-ahead returns to zero
 # when horizontal movement stops.
 @export var look_ahead_release_speed: float = 45.0
+
+
+@export_group("Horizontal Follow")
+
+# How far the player can move left/right
+# before FOLLOW begins moving the camera.
+@export var horizontal_follow_dead_zone_px: float = 8.0
+
+@export var horizontal_follow_speed: float = 8.0
 
 
 @export_group("Catch Up")
