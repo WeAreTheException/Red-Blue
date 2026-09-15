@@ -2,7 +2,11 @@ extends Node2D
 class_name CameraFollow
 
 
+signal room_transition_finished
+
+
 const CAMERA_BOUNDS_GROUP: StringName = &"camera_bounds"
+const CAMERA_FOLLOW_GROUP: StringName = &"camera_follow"
 
 
 @export_group("References")
@@ -21,6 +25,11 @@ const CAMERA_BOUNDS_GROUP: StringName = &"camera_bounds"
 # Speed used once the player actually pushes
 # outside the vertical dead zone.
 @export var vertical_follow_speed: float = 8.0
+
+
+@export_group("Room Transition")
+
+@export var room_transition_time: float = 0.6
 
 
 @export_group("Camera Damping")
@@ -70,7 +79,21 @@ var _vertical_target_y: float = 0.0
 var _initialized: bool = false
 
 
+var _room_transition_locked: bool = false
+var _room_transitioning: bool = false
+
+var _room_transition_start: Vector2 = Vector2.ZERO
+var _room_transition_target: Vector2 = Vector2.ZERO
+var _room_transition_elapsed: float = 0.0
+
+var _room_transition_bounds: CameraBounds = null
+
+
 func _ready() -> void:
+	add_to_group(
+		CAMERA_FOLLOW_GROUP
+	)
+
 	if camera == null:
 		camera = _find_camera()
 
@@ -106,6 +129,9 @@ func _physics_process(
 	delta: float
 ) -> void:
 	if camera == null:
+		return
+
+	if _room_transition_locked:
 		return
 
 	if (
@@ -175,6 +201,15 @@ func _physics_process(
 func _process(
 	delta: float
 ) -> void:
+	if _room_transitioning:
+		_update_room_transition(
+			delta
+		)
+		return
+
+	if _room_transition_locked:
+		return
+
 	if not _initialized:
 		return
 
@@ -206,6 +241,255 @@ func _process(
 	)
 
 	_apply_camera_position()
+
+
+func lock_for_room_transition() -> void:
+	_room_transition_locked = true
+
+	_horizontal_transitioning = false
+
+	if print_debug:
+		print(
+			"CAMERA FOLLOW -> ROOM TRANSITION LOCKED"
+		)
+
+
+func start_room_transition(
+	destination_bounds: CameraBounds
+) -> void:
+	if destination_bounds == null:
+		push_error(
+			"CameraFollow: Destination CameraBounds missing."
+		)
+		return
+
+	_room_transition_bounds = (
+		destination_bounds
+	)
+
+	_room_transition_start = (
+		_follow_position
+	)
+
+	_room_transition_target = (
+		_get_position_for_bounds(
+			destination_bounds
+		)
+	)
+
+	_room_transition_elapsed = 0.0
+
+	_room_transitioning = true
+	_room_transition_locked = true
+
+	if print_debug:
+		print(
+			"CAMERA TRANSITION -> ",
+			_room_transition_start,
+			" -> ",
+			_room_transition_target
+		)
+
+
+func _update_room_transition(
+	delta: float
+) -> void:
+	var duration: float = maxf(
+		0.001,
+		room_transition_time
+	)
+
+	_room_transition_elapsed = minf(
+		duration,
+		_room_transition_elapsed
+		+ delta
+	)
+
+	var t: float = (
+		_room_transition_elapsed
+		/ duration
+	)
+
+	t = clampf(
+		t,
+		0.0,
+		1.0
+	)
+
+	var eased_t: float = (
+		t
+		* t
+		* (
+			3.0
+			- 2.0 * t
+		)
+	)
+
+	_follow_position = (
+		_room_transition_start.lerp(
+			_room_transition_target,
+			eased_t
+		)
+	)
+
+	_apply_camera_position()
+
+	if t < 1.0:
+		return
+
+	_finish_room_transition()
+
+
+func _finish_room_transition() -> void:
+	_follow_position = (
+		_room_transition_target
+	)
+
+	current_bounds = (
+		_room_transition_bounds
+	)
+
+	_horizontal_target_x = (
+		_follow_position.x
+	)
+
+	_horizontal_step_start_x = (
+		_follow_position.x
+	)
+
+	_horizontal_step_elapsed = 0.0
+	_horizontal_transitioning = false
+
+	_vertical_target_y = (
+		_follow_position.y
+	)
+
+	_look_ahead_x = 0.0
+
+	_transition_speed_multiplier = 1.0
+
+	_initialized = true
+
+	_room_transitioning = false
+	_room_transition_locked = false
+	_room_transition_bounds = null
+
+	_apply_camera_position()
+
+	if print_debug:
+		print(
+			"CAMERA FOLLOW -> ROOM TRANSITION FINISHED"
+		)
+
+	room_transition_finished.emit()
+
+
+func _get_position_for_bounds(
+	bounds_node: CameraBounds
+) -> Vector2:
+	var bounds: Rect2 = (
+		bounds_node.get_global_rect()
+	)
+
+	var view_size: Vector2 = (
+		_get_world_view_size()
+	)
+
+	var half_view: Vector2 = (
+		view_size
+		* 0.5
+	)
+
+	var target_x: float = (
+		bounds.position.x
+		+ bounds.size.x * 0.5
+	)
+
+	if bounds.size.x > view_size.x:
+		var legal_min_x: float = (
+			bounds.position.x
+			+ half_view.x
+		)
+
+		var legal_max_x: float = (
+			bounds.end.x
+			- half_view.x
+		)
+
+		if (
+			bounds_node.horizontal_mode
+			== CameraBounds.HorizontalMode.STEP
+		):
+			var bounds_center_x: float = (
+				bounds.position.x
+				+ bounds.size.x * 0.5
+			)
+
+			var step_size: float = maxf(
+				1.0,
+				bounds_node.horizontal_step_distance_px
+			)
+
+			var player_clamped_x: float = clampf(
+				player.global_position.x,
+				legal_min_x,
+				legal_max_x
+			)
+
+			var relative_step: float = (
+				(
+					player_clamped_x
+					- bounds_center_x
+				)
+				/ step_size
+			)
+
+			var nearest_step: int = roundi(
+				relative_step
+			)
+
+			target_x = (
+				bounds_center_x
+				+ float(
+					nearest_step
+				)
+				* step_size
+			)
+
+			target_x = clampf(
+				target_x,
+				legal_min_x,
+				legal_max_x
+			)
+
+		elif (
+			bounds_node.horizontal_mode
+			== CameraBounds.HorizontalMode.FOLLOW
+		):
+			target_x = clampf(
+				player.global_position.x,
+				legal_min_x,
+				legal_max_x
+			)
+
+	var target_y: float = (
+		bounds.position.y
+		+ bounds.size.y * 0.5
+	)
+
+	if bounds.size.y > view_size.y:
+		target_y = clampf(
+			player.global_position.y,
+			bounds.position.y
+			+ half_view.y,
+			bounds.end.y
+			- half_view.y
+		)
+
+	return Vector2(
+		target_x,
+		target_y
+	)
 
 
 func _initialize_follow() -> void:

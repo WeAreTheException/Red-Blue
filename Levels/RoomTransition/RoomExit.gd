@@ -53,7 +53,24 @@ func _on_body_entered(
 		)
 		return
 
+	print(
+		"ROOM EXIT -> ROOM MANAGER FOUND"
+	)
+
+	print(
+		"ROOM EXIT -> MANAGER PATH: ",
+		room_manager.get_path()
+	)
+
+	print(
+		"ROOM EXIT -> CALLING TRANSITION NOW"
+	)
+
 	room_manager.transition_to_room(
 		destination_room,
 		destination_spawn_id
+	)
+
+	print(
+		"ROOM EXIT -> TRANSITION CALL RETURNED"
 	)

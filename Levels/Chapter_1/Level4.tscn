@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="1_0mr58"]
 [ext_resource type="Script" uid="uid://don73e2npfp5a" path="res://Player/Respawn/RespawnMarker.gd" id="1_tfmp2"]
 [ext_resource type="Script" uid="uid://b2utpm0apq5cx" path="res://Levels/RoomTransition/RoomExit.gd" id="10_b5xk4"]
-[ext_resource type="PackedScene" uid="uid://ckytlxbavp0xj" path="res://Levels/Level_7.tscn" id="11_lncm8"]
+[ext_resource type="PackedScene" uid="uid://ckytlxbavp0xj" path="res://Levels/Chapter_1/Level5.tscn" id="11_lncm8"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="16_l2wyi"]
 [ext_resource type="Script" uid="uid://dxw44lhrykiic" path="res://Environment/VanishingPlatform.gd" id="17_kr07x"]
 [ext_resource type="Script" uid="uid://cficjfe4qtfyi" path="res://Environment/VanishTrigger.gd" id="18_q4w7k"]
@@ -36,7 +36,12 @@ collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Base" unique_id=699592583]
 position = Vector2(-160, -88)
-polygon = PackedVector2Array(0, 184, 152, 184, 152, 168, 136, 168, 136, 152, 120, 152, 120, 168, 96, 168, 96, 152, 80, 152, 80, 160, 64, 160, 64, 168, 40, 168, 40, 152, 16, 152, 16, 144, 8, 144, 8, 88, 24, 88, 24, 80, 32, 80, 32, 72, 56, 72, 56, 64, 40, 64, 40, 56, 48, 56, 48, 48, 32, 48, 32, 40, 24, 40, 24, 24, 32, 24, 32, 16, 72, 16, 72, 8, 128, 8, 128, 16, 136, 16, 136, 32, 144, 32, 144, 40, 160, 40, 160, 48, 168, 48, 168, 88, 184, 88, 184, 80, 176, 80, 176, 64, 176, 40, 176, 0, 192, 0, 192, 24, 200, 24, 200, 40, 216, 40, 216, 24, 232, 24, 232, 16, 240, 16, 240, 8, 320, 8, 320, 0, 464, 0, 464, 56, 472, 56, 472, 40, 488, 40, 488, 24, 496, 24, 496, 16, 548, 16, 548, 40, 536, 40, 536, 64, 544, 64, 544, 128, 556, 128, 556, -8, 0, -8)
+polygon = PackedVector2Array(0, 184, 152, 184, 152, 168, 136, 168, 136, 152, 120, 152, 120, 168, 96, 168, 96, 152, 80, 152, 80, 160, 64, 160, 64, 168, 40, 168, 40, 152, 16, 152, 16, 144, 8, 144, 8, 88, 24, 88, 24, 80, 32, 80, 32, 72, 56, 72, 56, 64, 40, 64, 40, 56, 48, 56, 48, 48, 32, 48, 32, 40, 24, 40, 24, 24, 32, 24, 32, 16, 72, 16, 72, 8, 128, 8, 128, 16, 136, 16, 136, 32, 144, 32, 144, 40, 160, 40, 160, 48, 168, 48, 168, 88, 184, 88, 184, 80, 176, 80, 176, 64, 176, 40, 176, -8, 0, -8)
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Environment/Base" unique_id=1389770307]
+position = Vector2(-160, -88)
+polygon = PackedVector2Array(192, -8, 192, 24, 200, 24, 200, 40, 216, 40, 216, 24, 232, 24, 232, 16, 240, 16, 240, 8, 320, 8, 320, 0, 464, 0, 464, 56, 472, 56, 472, 40, 488, 40, 488, 24, 496, 24, 496, 16, 548, 16, 548, 40, 536, 40, 536, 64, 544, 64, 544, 128, 556, 128, 556, -8)
 metadata/_edit_lock_ = true
 
 [node name="Chunk3" type="CollisionPolygon2D" parent="Environment/Base" unique_id=1102137933]
@@ -50,11 +55,18 @@ polygon = PackedVector2Array(40, 56, 48, 56, 48, 104, 40, 104)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Environment/Base" unique_id=1025779127]
 polygon = PackedVector2Array(32, 64, 32, 72, 80, 72, 80, 88, 256, 84, 256, 56, 264, 56, 264, 48, 296, 48, 296, 40, 304, 40, 304, 16, 280, 16, 280, 32, 232, 32, 232, 48, 184, 48, 184, 32, 200, 32, 200, 8, 208, 8, 208, -8, 216, -8, 216, -16, 200, -16, 200, -8, 184, -8, 184, -40, 128, -40, 128, 16, 144, 16, 144, 40, 136, 40, 136, 48, 104, 48, 104, 64)
+metadata/_edit_lock_ = true
 
 [node name="Base" type="Polygon2D" parent="Environment/Base" unique_id=291774660]
 position = Vector2(-144, -88)
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
-polygon = PackedVector2Array(-16, -8, -16, 184, 136, 184, 168, 184, 168, 176, 136, 176, 136, 168, 120, 168, 120, 152, 104, 152, 104, 168, 80, 168, 80, 152, 64, 152, 64, 160, 48, 160, 48, 168, 24, 168, 24, 152, 0, 152, 0, 144, -8, 144, -8, 88, 8, 88, 8, 80, 16, 80, 16, 72, 40, 72, 40, 64, 24, 64, 24, 56, 32, 56, 32, 48, 16, 48, 16, 40, 8, 40, 8, 24, 16, 24, 16, 16, 56, 16, 56, 8, 112, 8, 112, 16, 120, 16, 120, 32, 128, 32, 128, 40, 144, 40, 144, 48, 152, 48, 152, 88, 168, 88, 168, 80, 160, 80, 160, 40, 160, 0, 176, 0, 176, 24, 184, 24, 184, 40, 200, 40, 200, 24, 216, 24, 216, 16, 224, 16, 224, 8, 304, 8, 304, 4, 448, 4, 448, -8)
+polygon = PackedVector2Array(-16, -8, -16, 184, 136, 184, 168, 184, 168, 176, 136, 176, 136, 168, 120, 168, 120, 152, 104, 152, 104, 168, 80, 168, 80, 152, 64, 152, 64, 160, 48, 160, 48, 168, 24, 168, 24, 152, 0, 152, 0, 144, -8, 144, -8, 88, 8, 88, 8, 80, 16, 80, 16, 72, 40, 72, 40, 64, 24, 64, 24, 56, 32, 56, 32, 48, 16, 48, 16, 40, 8, 40, 8, 24, 16, 24, 16, 16, 56, 16, 56, 8, 112, 8, 112, 16, 120, 16, 120, 32, 128, 32, 128, 40, 144, 40, 144, 48, 152, 48, 152, 88, 168, 88, 168, 80, 160, 80, 160, 40, 160, -8)
+metadata/_edit_lock_ = true
+
+[node name="Base2" type="Polygon2D" parent="Environment/Base" unique_id=1394529942]
+position = Vector2(-144, -88)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
+polygon = PackedVector2Array(176, -8, 176, 0, 176, 24, 184, 24, 184, 40, 200, 40, 200, 24, 216, 24, 216, 16, 224, 16, 224, 8, 304, 8, 304, 0, 448, 0, 448, -8)
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Base" unique_id=713222441]
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
@@ -323,6 +335,7 @@ collision_mask = 0
 script = ExtResource("16_l2wyi")
 affiliation = 0
 metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
+metadata/_edit_lock_ = true
 
 [node name="Chunk4" type="Polygon2D" parent="Environment/Red" unique_id=122461607]
 position = Vector2(-160, -79)
@@ -558,6 +571,7 @@ shape = SubResource("CircleShape2D_hph6r")
 metadata/_edit_lock_ = true
 
 [node name="Frame" type="Polygon2D" parent="." unique_id=250070519]
+visible = false
 polygon = PackedVector2Array(-152, 96, -160, 96, -160, -96, 400, -96, 400, 96, 176, 96, -152, 96, -152, 84, 392, 84, 392, -84, -152, -84)
 metadata/_edit_lock_ = true
 
@@ -605,10 +619,11 @@ shape = SubResource("RectangleShape2D_lcssr")
 position = Vector2(24, -80)
 
 [node name="Area2D" type="Area2D" parent="Markers/Exit" unique_id=98671257]
+position = Vector2(0, 8)
 script = ExtResource("10_b5xk4")
 destination_room = ExtResource("11_lncm8")
 destination_spawn_id = &"from_bottom"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Exit/Area2D" unique_id=1833347999]
-position = Vector2(0, -8)
+position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_b5xk4")
