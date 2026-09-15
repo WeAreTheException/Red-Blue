@@ -25,7 +25,7 @@
 [ext_resource type="Script" uid="uid://dig1lrhh2w7g5" path="res://Combat/Hurtbox.gd" id="23_xs77x"]
 [ext_resource type="Script" uid="uid://gi2x0o7wihnh" path="res://Combat/DestroyOnDeath.gd" id="24_uh15d"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="25_4gx1j"]
-[ext_resource type="Texture2D" uid="uid://bw0akwr5dnplj" path="res://Levels/Chapter_1/pixel_character_80x80.png" id="26_nl02m"]
+[ext_resource type="Texture2D" uid="uid://bw0akwr5dnplj" path="res://pixel_character_80x80.png" id="26_nl02m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6mxxd"]
 

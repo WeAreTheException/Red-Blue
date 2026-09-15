@@ -20,9 +20,9 @@
 [ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="18_nso8a"]
 [ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="19_ei31p"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="20_7pj4m"]
-[ext_resource type="Texture2D" uid="uid://bn74xwu6ajm5g" path="res://Levels/Chapter_1/cute-anime-girl-wallpaper-286.webp" id="21_sq68l"]
+[ext_resource type="Texture2D" uid="uid://bn74xwu6ajm5g" path="res://Levels/cute-anime-girl-wallpaper-286.webp" id="21_sq68l"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="22_78nol"]
-[ext_resource type="Texture2D" uid="uid://jobxgolm8sfd" path="res://Levels/Chapter_1/Screenshot 2026-08-26 233305_edited.png" id="23_8avam"]
+[ext_resource type="Texture2D" uid="uid://jobxgolm8sfd" path="res://Screenshot 2026-08-26 233305_edited.png" id="23_8avam"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xpudw"]
 radius = 8.0

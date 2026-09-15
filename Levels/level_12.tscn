@@ -149,6 +149,214 @@ melee_visual = NodePath("../melee")
 metadata/_custom_type_script = "uid://dhaj2ykn3fx0h"
 metadata/_edit_lock_ = true
 
+[node name="Spikes" type="StaticBody2D" parent="." unique_id=1614199]
+position = Vector2(184, 0)
+collision_layer = 2
+script = ExtResource("17_x5mw6")
+hostile = true
+hostile_contact_margin = 0.1
+metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
+
+[node name="CollisionPolygon2D17" type="CollisionPolygon2D" parent="Spikes" unique_id=1795426820]
+position = Vector2(-4, -140)
+polygon = PackedVector2Array(-196, 172, -196, 168, -188, 168, -188, 172)
+
+[node name="CollisionPolygon2D18" type="CollisionPolygon2D" parent="Spikes" unique_id=748929047]
+position = Vector2(29, -108)
+polygon = PackedVector2Array(-196, 172, -196, 168, -181, 168, -181, 172)
+
+[node name="CollisionPolygon2D19" type="CollisionPolygon2D" parent="Spikes" unique_id=786706534]
+position = Vector2(4, -100)
+polygon = PackedVector2Array(-196, 172, -196, 168, -172, 168, -172, 172)
+
+[node name="CollisionPolygon2D20" type="CollisionPolygon2D" parent="Spikes" unique_id=1926500578]
+position = Vector2(44, -100)
+polygon = PackedVector2Array(-196, 172, -196, 168, -180, 168, -180, 172)
+
+[node name="CollisionPolygon2D21" type="CollisionPolygon2D" parent="Spikes" unique_id=1616175475]
+position = Vector2(60, -92)
+polygon = PackedVector2Array(-196, 172, -196, 168, -172, 168, -172, 172)
+
+[node name="CollisionPolygon2D22" type="CollisionPolygon2D" parent="Spikes" unique_id=784107805]
+position = Vector2(85, -84)
+polygon = PackedVector2Array(-196, 172, -196, 168, -117, 168, -117, 172)
+
+[node name="CollisionPolygon2D23" type="CollisionPolygon2D" parent="Spikes" unique_id=438125735]
+position = Vector2(-108, -92)
+polygon = PackedVector2Array(-196, 172, -196, 168, -148, 168, -148, 172)
+
+[node name="CollisionPolygon2D12" type="CollisionPolygon2D" parent="Spikes" unique_id=1087190685]
+position = Vector2(-60, -176)
+polygon = PackedVector2Array(-192, 176, -192, 168, -188, 168, -188, 176)
+
+[node name="CollisionPolygon2D15" type="CollisionPolygon2D" parent="Spikes" unique_id=725066076]
+position = Vector2(-48, -176)
+polygon = PackedVector2Array(-192, 176, -192, 168, -188, 168, -188, 176)
+
+[node name="CollisionPolygon2D16" type="CollisionPolygon2D" parent="Spikes" unique_id=183707453]
+position = Vector2(-56, -184)
+polygon = PackedVector2Array(-192, 176, -192, 172, -184, 172, -184, 176)
+
+[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="Spikes" unique_id=1758331055]
+position = Vector2(-31, -124)
+polygon = PackedVector2Array(-201, 188, -201, 184, -169, 184, -169, 188)
+
+[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="Spikes" unique_id=1750781976]
+position = Vector2(16, -228)
+polygon = PackedVector2Array(-200, 208, -200, 172, -196, 172, -196, 208)
+
+[node name="Sprite2D7" type="Sprite2D" parent="Spikes" unique_id=1301627902]
+position = Vector2(-244, -12)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D12" type="Sprite2D" parent="Spikes" unique_id=1988861663]
+position = Vector2(-300, 75.99999)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D13" type="Sprite2D" parent="Spikes" unique_id=865110533]
+position = Vector2(-292.00003, 76.00001)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D14" type="Sprite2D" parent="Spikes" unique_id=2034403081]
+position = Vector2(-284.00003, 76)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D19" type="Sprite2D" parent="Spikes" unique_id=955607962]
+position = Vector2(-276.00003, 76)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D34" type="Sprite2D" parent="Spikes" unique_id=1884378918]
+position = Vector2(-268, 76)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D35" type="Sprite2D" parent="Spikes" unique_id=1031813845]
+position = Vector2(-260, 76)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D15" type="Sprite2D" parent="Spikes" unique_id=754171344]
+position = Vector2(-251.99998, -4.000002)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D16" type="Sprite2D" parent="Spikes" unique_id=1569330620]
+position = Vector2(-235.99997, -4.000002)
+rotation = 1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D8" type="Sprite2D" parent="Spikes" unique_id=737232472]
+position = Vector2(-227.99998, 59.99999)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D25" type="Sprite2D" parent="Spikes" unique_id=1360749703]
+position = Vector2(-220, 60)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D26" type="Sprite2D" parent="Spikes" unique_id=1537710834]
+position = Vector2(-212.00002, 60)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D27" type="Sprite2D" parent="Spikes" unique_id=208005951]
+position = Vector2(-204, 60)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D9" type="Sprite2D" parent="Spikes" unique_id=1840774785]
+position = Vector2(-187.99998, 67.99999)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D28" type="Sprite2D" parent="Spikes" unique_id=1299869996]
+position = Vector2(-180, 68.00001)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D29" type="Sprite2D" parent="Spikes" unique_id=2065224647]
+position = Vector2(-172, 68)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D30" type="Sprite2D" parent="Spikes" unique_id=257588519]
+position = Vector2(-140, 68)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D31" type="Sprite2D" parent="Spikes" unique_id=810022484]
+position = Vector2(-124, 76)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D32" type="Sprite2D" parent="Spikes" unique_id=403405800]
+position = Vector2(-116.00001, 76)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D33" type="Sprite2D" parent="Spikes" unique_id=145063921]
+position = Vector2(-155.99998, 60)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D10" type="Sprite2D" parent="Spikes" unique_id=441360079]
+position = Vector2(-195.99998, 28.999992)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D11" type="Sprite2D" parent="Spikes" unique_id=1630911683]
+position = Vector2(-164, 60)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D17" type="Sprite2D" parent="Spikes" unique_id=432108777]
+position = Vector2(-148, 68)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D18" type="Sprite2D" parent="Spikes" unique_id=1259017549]
+position = Vector2(-132, 76)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D20" type="Sprite2D" parent="Spikes" unique_id=1494755548]
+position = Vector2(-180, -51.999996)
+rotation = 7.853982
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D21" type="Sprite2D" parent="Spikes" unique_id=772840969]
+position = Vector2(-180, -44)
+rotation = 7.853982
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D22" type="Sprite2D" parent="Spikes" unique_id=365150528]
+position = Vector2(-180, -36)
+rotation = 7.853982
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D23" type="Sprite2D" parent="Spikes" unique_id=545663339]
+position = Vector2(-180, -28)
+rotation = 7.853982
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
+[node name="Sprite2D24" type="Sprite2D" parent="Spikes" unique_id=1563244659]
+position = Vector2(-180, -19)
+rotation = 7.853982
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("18_q4rc3")
+
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=403020185]
 collision_layer = 2
 collision_mask = 0
@@ -201,210 +409,3 @@ metadata/_edit_lock_ = true
 position = Vector2(-144, -7)
 polygon = PackedVector2Array(-8, -1, 24, -1, 24, 23, -8, 23)
 metadata/_edit_lock_ = true
-
-[node name="Spikes" type="StaticBody2D" parent="Music/Blue" unique_id=1614199]
-collision_layer = 2
-script = ExtResource("17_x5mw6")
-hostile = true
-hostile_contact_margin = 0.1
-metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
-
-[node name="CollisionPolygon2D17" type="CollisionPolygon2D" parent="Music/Blue/Spikes" unique_id=1795426820]
-position = Vector2(-4, -140)
-polygon = PackedVector2Array(-196, 172, -196, 168, -188, 168, -188, 172)
-
-[node name="CollisionPolygon2D18" type="CollisionPolygon2D" parent="Music/Blue/Spikes" unique_id=748929047]
-position = Vector2(29, -108)
-polygon = PackedVector2Array(-196, 172, -196, 168, -181, 168, -181, 172)
-
-[node name="CollisionPolygon2D19" type="CollisionPolygon2D" parent="Music/Blue/Spikes" unique_id=786706534]
-position = Vector2(4, -100)
-polygon = PackedVector2Array(-196, 172, -196, 168, -172, 168, -172, 172)
-
-[node name="CollisionPolygon2D20" type="CollisionPolygon2D" parent="Music/Blue/Spikes" unique_id=1926500578]
-position = Vector2(44, -100)
-polygon = PackedVector2Array(-196, 172, -196, 168, -180, 168, -180, 172)
-
-[node name="CollisionPolygon2D21" type="CollisionPolygon2D" parent="Music/Blue/Spikes" unique_id=1616175475]
-position = Vector2(60, -92)
-polygon = PackedVector2Array(-196, 172, -196, 168, -172, 168, -172, 172)
-
-[node name="CollisionPolygon2D22" type="CollisionPolygon2D" parent="Music/Blue/Spikes" unique_id=784107805]
-position = Vector2(85, -84)
-polygon = PackedVector2Array(-196, 172, -196, 168, -117, 168, -117, 172)
-
-[node name="CollisionPolygon2D23" type="CollisionPolygon2D" parent="Music/Blue/Spikes" unique_id=438125735]
-position = Vector2(-108, -92)
-polygon = PackedVector2Array(-196, 172, -196, 168, -148, 168, -148, 172)
-
-[node name="CollisionPolygon2D12" type="CollisionPolygon2D" parent="Music/Blue/Spikes" unique_id=1087190685]
-position = Vector2(-60, -176)
-polygon = PackedVector2Array(-192, 176, -192, 168, -188, 168, -188, 176)
-
-[node name="CollisionPolygon2D15" type="CollisionPolygon2D" parent="Music/Blue/Spikes" unique_id=725066076]
-position = Vector2(-48, -176)
-polygon = PackedVector2Array(-192, 176, -192, 168, -188, 168, -188, 176)
-
-[node name="CollisionPolygon2D16" type="CollisionPolygon2D" parent="Music/Blue/Spikes" unique_id=183707453]
-position = Vector2(-56, -184)
-polygon = PackedVector2Array(-192, 176, -192, 172, -184, 172, -184, 176)
-
-[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="Music/Blue/Spikes" unique_id=1758331055]
-position = Vector2(-31, -124)
-polygon = PackedVector2Array(-201, 188, -201, 184, -169, 184, -169, 188)
-
-[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="Music/Blue/Spikes" unique_id=1750781976]
-position = Vector2(16, -228)
-polygon = PackedVector2Array(-200, 208, -200, 172, -196, 172, -196, 208)
-
-[node name="Sprite2D7" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1301627902]
-position = Vector2(-244, -12)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D12" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1988861663]
-position = Vector2(-300, 75.99999)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D13" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=865110533]
-position = Vector2(-292.00003, 76.00001)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D14" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=2034403081]
-position = Vector2(-284.00003, 76)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D19" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=955607962]
-position = Vector2(-276.00003, 76)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D34" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1884378918]
-position = Vector2(-268, 76)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D35" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1031813845]
-position = Vector2(-260, 76)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D15" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=754171344]
-position = Vector2(-251.99998, -4.000002)
-rotation = -1.5707964
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D16" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1569330620]
-position = Vector2(-235.99997, -4.000002)
-rotation = 1.5707964
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D8" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=737232472]
-position = Vector2(-227.99998, 59.99999)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D25" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1360749703]
-position = Vector2(-220, 60)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D26" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1537710834]
-position = Vector2(-212.00002, 60)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D27" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=208005951]
-position = Vector2(-204, 60)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D9" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1840774785]
-position = Vector2(-187.99998, 67.99999)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D28" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1299869996]
-position = Vector2(-180, 68.00001)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D29" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=2065224647]
-position = Vector2(-172, 68)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D30" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=257588519]
-position = Vector2(-140, 68)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D31" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=810022484]
-position = Vector2(-124, 76)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D32" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=403405800]
-position = Vector2(-116.00001, 76)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D33" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=145063921]
-position = Vector2(-155.99998, 60)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D10" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=441360079]
-position = Vector2(-195.99998, 28.999992)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D11" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1630911683]
-position = Vector2(-164, 60)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D17" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=432108777]
-position = Vector2(-148, 68)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D18" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1259017549]
-position = Vector2(-132, 76)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D20" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1494755548]
-position = Vector2(-180, -51.999996)
-rotation = 7.853982
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D21" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=772840969]
-position = Vector2(-180, -44)
-rotation = 7.853982
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D22" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=365150528]
-position = Vector2(-180, -36)
-rotation = 7.853982
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D23" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=545663339]
-position = Vector2(-180, -28)
-rotation = 7.853982
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")
-
-[node name="Sprite2D24" type="Sprite2D" parent="Music/Blue/Spikes" unique_id=1563244659]
-position = Vector2(-180, -19)
-rotation = 7.853982
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("18_q4rc3")

@@ -306,6 +306,7 @@ color = Color(0.2159017, 0.21590173, 0.2159017, 1)
 polygon = PackedVector2Array(-76, -128, -76, -63.759193, -76, -55.999996, -68, -55.999996, -68, -47.999996, -60, -47.999996, -60, -31.999996, -60, 24.000004, -52, 24.000004, -52, -128)
 
 [node name="Frame" type="Polygon2D" parent="." unique_id=863349490]
+visible = false
 material = SubResource("ShaderMaterial_oil7k")
 polygon = PackedVector2Array(-160, 96, -160, -96, -144, -96, -144, 72, 88, 72, 88, -80, -144, -80, -144, -96, 92, -96, 92, 96)
 
@@ -337,17 +338,20 @@ script = ExtResource("19_1wusc")
 polygon = PackedVector2Array(-109, 11, -75, 11, -75, 29, -109, 29)
 
 [node name="Frame2" type="Polygon2D" parent="." unique_id=464077508]
+visible = false
 position = Vector2(252, 0)
 polygon = PackedVector2Array(-160, 96, -160, -96, -156, -96, -156, -40, 152, -40, 152, -80, -156, -80, -156, -96, 160, -96, 160, 96)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=800366993]
 
 [node name="Line2D" type="Line2D" parent="." unique_id=495312561]
+visible = false
 points = PackedVector2Array(88, -80, -144, -80, -144, 72, 88, 72, 88, -80)
 width = 1.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="Line2D2" type="Line2D" parent="." unique_id=1593730610]
+visible = false
 points = PackedVector2Array(168, -80, 92, -80, 92, -40, 168, -40)
 width = 1.0
 default_color = Color(0, 0, 0, 1)

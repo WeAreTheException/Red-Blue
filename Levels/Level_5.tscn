@@ -281,7 +281,7 @@ volume_db = -12.156
 autoplay = true
 
 [node name="Player2" type="CharacterBody2D" parent="." unique_id=2043498802 node_paths=PackedStringArray("player_visual", "respawn_point")]
-position = Vector2(-96, 64)
+position = Vector2(-144, -34)
 collision_mask = 2
 script = ExtResource("8_ma0wr")
 player_visual = NodePath("CharacterRect")
@@ -378,3 +378,11 @@ polygon = PackedVector2Array(-160, 96, -160, -104, -152, -104, -152, 80, 32, 80,
 visible = false
 position = Vector2(192, 0)
 polygon = PackedVector2Array(-160, 96, -160, -104, -152, -104, -152, 8, -40, 8, -40, -80, -152, -80, -152, -104, -32, -104, -32, 96)
+
+[node name="Frame" type="Polygon2D" parent="." unique_id=1778738034]
+polygon = PackedVector2Array(-152, 96, -160, 96, -160, -92, 160, -92, 160, 96, 156, 96, -152, 96, -152, 84, 152, 84, 152, -84, -152, -84)
+
+[node name="Line2D" type="Line2D" parent="Frame" unique_id=430240798]
+points = PackedVector2Array(-152, -84, -152, 84, 152, 84, 152, -84, -152, -84)
+width = 1.0
+default_color = Color(0, 0, 0, 1)

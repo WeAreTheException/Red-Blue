@@ -37,7 +37,7 @@ size = Vector2(8, 11)
 [sub_resource type="CircleShape2D" id="CircleShape2D_62muh"]
 radius = 8.0
 
-[node name="Level2" type="Node2D" unique_id=200058639]
+[node name="Level3" type="Node2D" unique_id=200058639]
 
 [node name="Frame" type="Node2D" parent="." unique_id=1563424573]
 metadata/_edit_lock_ = true

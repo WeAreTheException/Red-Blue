@@ -24,6 +24,34 @@
 [ext_resource type="Texture2D" uid="uid://5ldj0fhhwgdy" path="res://Shaders/8PixelCircle.png" id="23_rocm8"]
 [ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="23_wks14"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ocej"]
+size = Vector2(8, 11)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bik5n"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0agm4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_m2lkm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_lexgl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_t2mqg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_07et6")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"melee",
+"speed": 12.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_02vam"]
 size = Vector2(320, 8)
 
@@ -48,35 +76,105 @@ shader_parameter/dot_color = Color(1, 1, 1, 1)
 shader_parameter/tile_size = 8.0
 shader_parameter/offset = Vector2(0, 0)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ctut"]
-size = Vector2(8, 11)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_75i71"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_8pyc4"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("18_m2lkm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_lexgl")
-}, {
-"duration": 1.0,
-"texture": ExtResource("20_t2mqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_07et6")
-}, {
-"duration": 1.0,
-"texture": null
-}],
-"loop": false,
-"name": &"melee",
-"speed": 12.0
-}]
-
 [node name="level_4" type="Node2D" unique_id=365869652]
+
+[node name="Player3" type="CharacterBody2D" parent="." unique_id=370088154 node_paths=PackedStringArray("player_visual", "respawn_point")]
+position = Vector2(-120, 64)
+rotation = -6.2831855
+collision_mask = 2
+script = ExtResource("9_4ocej")
+player_visual = NodePath("CharacterRect")
+respawn_point = NodePath("../Spawn")
+MaxFall = 140.0
+JumpSpeed = -110.0
+BounceSpeed = -235.0
+SuperBounceSpeed = -250.0
+ClimbInfiniteStamina = false
+ClimbMaxStamina = 80.0
+ClimbTiredThreshold = 10.0
+DashTime = 0.1
+
+[node name="DashPixel" type="Sprite2D" parent="Player3" unique_id=783985422]
+position = Vector2(-128, -56)
+metadata/_edit_lock_ = true
+
+[node name="DashTrail" type="Node2D" parent="Player3" unique_id=1440977356 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
+script = ExtResource("10_bik5n")
+trail_template = NodePath("../Line2D")
+trail_lifetime = 1.0
+max_points = 15
+minimum_point_distance = 12.0
+trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
+pixel_template = NodePath("../DashPixel")
+pixels_per_dash = 4
+afterimage_template = NodePath("../CharacterRect")
+afterimage_lifetime = 0.2
+metadata/_edit_lock_ = true
+
+[node name="Line2D" type="Line2D" parent="Player3" unique_id=1918753526]
+z_index = -1
+position = Vector2(0, -6)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player3" unique_id=624441403]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_4ocej")
+metadata/_edit_lock_ = true
+
+[node name="CharacterRect" type="ColorRect" parent="Player3" unique_id=261108016]
+material = SubResource("ShaderMaterial_bik5n")
+offset_left = -4.0
+offset_top = -11.0
+offset_right = 4.0
+color = Color(0.8687545, 0, 0.22967622, 1)
+metadata/_edit_lock_ = true
+
+[node name="Respawn" type="Node" parent="Player3" unique_id=265723560]
+script = ExtResource("11_0agm4")
+
+[node name="Death" type="Node" parent="Player3" unique_id=1706864595]
+script = ExtResource("12_wy04f")
+
+[node name="DeathFeedback" type="Node" parent="Player3/Death" unique_id=1501476440]
+script = ExtResource("13_6fuwn")
+
+[node name="States" type="Node" parent="Player3" unique_id=1939791062]
+
+[node name="Color" type="Node" parent="Player3" unique_id=871725775]
+
+[node name="PlayerColorController" type="Node" parent="Player3/Color" unique_id=2096453923 node_paths=PackedStringArray("player_visual")]
+script = ExtResource("14_h43c1")
+player_visual = NodePath("../../CharacterRect")
+red_color = Color(0.8352941, 0.1254902, 0.1254902, 1)
+blue_color = Color(0.2627451, 0.43137255, 0.69411767, 1)
+
+[node name="PlayerColorEjectionBridge" type="Node" parent="Player3/Color" unique_id=1231391124 node_paths=PackedStringArray("player_collision_shape")]
+script = ExtResource("15_xu0uq")
+player_collision_shape = NodePath("../../CollisionShape2D")
+travel_acceleration = 2000.0
+exit_speed = 200.0
+lift_boost_cap = 20.0
+
+[node name="SFX" type="Node" parent="Player3" unique_id=1071656243 node_paths=PackedStringArray("dash_sfx")]
+script = ExtResource("16_2x6vd")
+dash_sfx = NodePath("Dash")
+
+[node name="Dash" type="AudioStreamPlayer" parent="Player3/SFX" unique_id=164500981]
+stream = ExtResource("17_yebn5")
+volume_db = -4.0
+pitch_scale = 1.1
+
+[node name="melee" type="AnimatedSprite2D" parent="Player3" unique_id=1055448381]
+sprite_frames = SubResource("SpriteFrames_0agm4")
+animation = &"melee"
+script = ExtResource("22_nfp3l")
+metadata/_edit_lock_ = true
+
+[node name="PlayerMelee" type="Node2D" parent="Player3" unique_id=845838422 node_paths=PackedStringArray("melee_visual")]
+script = ExtResource("23_wks14")
+melee_visual = NodePath("../melee")
+metadata/_custom_type_script = "uid://dhaj2ykn3fx0h"
+metadata/_edit_lock_ = true
 
 [node name="RespawnPoint" type="Node2D" parent="." unique_id=524326093]
 position = Vector2(-140, 64)
@@ -186,12 +284,12 @@ polygon = PackedVector2Array(-152, 32, -152, 16, -96, 16, -96, -8, -80, -8, -80,
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Base" unique_id=34802089]
 position = Vector2(143.2, 126.00001)
-polygon = PackedVector2Array(8.800003, -46.000008, 8.800003, -134, -31.199997, -134, -31.199997, -118.00001, -55.199997, -118.00001, -55.199997, -102.00001, -87.2, -102.00001, -87.2, -94.00001, -95.2, -94.00001, -95.2, -86.00001, -71.2, -86.00001, -71.2, -70.00001, -95.2, -70.00001, -95.2, -62.000008, -143.2, -62.000008, -143.2, -46.000008)
+polygon = PackedVector2Array(8.800003, -46.000008, 8.800003, -134, -31.199997, -134, -31.199997, -118.00001, -55.199997, -118.00001, -55.199997, -102.00001, -87.2, -102.00001, -71.2, -86.00001, -71.2, -70.00001, -95.2, -70.00001, -95.2, -62.000008, -143.2, -62.000008, -143.2, -46.000008)
 
 [node name="Polygon2D4" type="Polygon2D" parent="Base" unique_id=139632974]
 position = Vector2(143.2, 126.00001)
 color = Color(0.15294118, 0.2509804, 0.36078432, 1)
-polygon = PackedVector2Array(-143.2, -62.000008, -95.2, -62.000008, -95.2, -70.00001, -71.2, -70.00001, -71.2, -86.00001, -95.2, -86.00001, -95.2, -94.00001, -87.2, -94.00001, -87.2, -102.00001, -55.199997, -102.00001, -55.199997, -118.00001, -31.199997, -118.00001, -31.199997, -134, 8.800003, -134, 8.800003, -118.00001, 8.800003, -46.000008, -55.199997, -46.000008, -143.2, -46.000008)
+polygon = PackedVector2Array(-143.2, -62.000008, -95.2, -62.000008, -95.2, -70.00001, -71.2, -70.00001, -71.2, -86.00001, -87.2, -86.00001, -87.2, -102.00001, -55.199997, -102.00001, -55.199997, -118.00001, -31.199997, -118.00001, -31.199997, -134, 8.800003, -134, 8.800003, -118.00001, 8.800003, -46.000008, -55.199997, -46.000008, -143.2, -46.000008)
 
 [node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="Base" unique_id=536304163]
 position = Vector2(140, 47.600006)
@@ -200,7 +298,7 @@ polygon = PackedVector2Array(-132, -39.600006, -132, -55.600006, -124, -55.60000
 [node name="Polygon2D5" type="Polygon2D" parent="Base" unique_id=2120380835]
 position = Vector2(140, 47.600006)
 color = Color(0.15294118, 0.2509804, 0.36078432, 1)
-polygon = PackedVector2Array(-140, -79.600006, -112.65976, -79.600006, -108, -79.600006, -108, -87.600006, -76, -87.600006, -76, -71.600006, -92, -71.600006, -92, -63.600006, -124, -63.600006, -124, -55.600006, -132, -55.600006, -132, -39.600006, -140, -39.600006)
+polygon = PackedVector2Array(-140, -79.600006, -112.65976, -79.600006, -108, -79.600006, -108, -87.600006, -76, -87.600006, -76, -71.600006, -92, -71.600006, -92, -55.600006, -108, -55.600006, -108, -39.600006, -116, -39.600006, -116, -47.600006, -132, -47.600006, -132, -39.600006, -140, -39.600006)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1945789105]
 script = ExtResource("11_dh6nl")
@@ -360,10 +458,6 @@ polygon = PackedVector2Array(91.799995, -19.999992, 91.799995, -15.999992, 115.7
 position = Vector2(-31.799995, 39.999992)
 polygon = PackedVector2Array(123.799995, -35.999992, 123.799995, -31.999992, 143.79999, -31.999992, 143.79999, -35.999992)
 
-[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=802825341]
-position = Vector2(-44, 48)
-polygon = PackedVector2Array(96, -20, 96, -16, 100, -16, 100, -20)
-
 [node name="NeutralSpike28" type="Sprite2D" parent="StaticBody2D" unique_id=615222540]
 position = Vector2(68, 19.999998)
 scale = Vector2(0.1, 0.1)
@@ -371,11 +465,6 @@ texture = ExtResource("10_hshm6")
 
 [node name="NeutralSpike34" type="Sprite2D" parent="StaticBody2D" unique_id=1718660307]
 position = Vector2(61, 20.000002)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("10_hshm6")
-
-[node name="NeutralSpike35" type="Sprite2D" parent="StaticBody2D" unique_id=637393817]
-position = Vector2(52, 28)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("10_hshm6")
 
@@ -481,100 +570,10 @@ volume_db = -12.156
 autoplay = true
 
 [node name="Frame2" type="Polygon2D" parent="." unique_id=31506242]
+visible = false
 material = SubResource("ShaderMaterial_rocm8")
 color = Color(0.7581918, 0.7581918, 0.7581917, 1)
 polygon = PackedVector2Array(-160, 96, -160, -96, -152, -96, -152, 80, 152, 80, 152, -84, -152, -84, -152, -96, -104, -96, 160, -96, 160, 96)
 
 [node name="Spawn" type="Node2D" parent="." unique_id=875437804]
 position = Vector2(-140, 64)
-
-[node name="Player2" type="CharacterBody2D" parent="." unique_id=271648987 node_paths=PackedStringArray("player_visual", "respawn_point")]
-position = Vector2(-140, 64)
-collision_mask = 2
-script = ExtResource("9_4ocej")
-player_visual = NodePath("CharacterRect")
-respawn_point = NodePath("")
-MaxFall = 140.0
-JumpSpeed = -110.0
-DashTime = 0.1
-
-[node name="DashPixel" type="Sprite2D" parent="Player2" unique_id=619103964]
-position = Vector2(-128, -56)
-metadata/_edit_lock_ = true
-
-[node name="DashTrail" type="Node2D" parent="Player2" unique_id=2019672538 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
-script = ExtResource("10_bik5n")
-trail_template = NodePath("../Line2D")
-trail_lifetime = 1.0
-max_points = 15
-minimum_point_distance = 12.0
-trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
-pixel_template = NodePath("../DashPixel")
-pixels_per_dash = 4
-afterimage_template = NodePath("../CharacterRect")
-afterimage_lifetime = 0.2
-metadata/_edit_lock_ = true
-
-[node name="Line2D" type="Line2D" parent="Player2" unique_id=51190083]
-z_index = -1
-position = Vector2(0, -6)
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2" unique_id=951609766]
-position = Vector2(0, -5.5)
-shape = SubResource("RectangleShape2D_1ctut")
-metadata/_edit_lock_ = true
-
-[node name="CharacterRect" type="ColorRect" parent="Player2" unique_id=1679961039]
-material = SubResource("ShaderMaterial_75i71")
-offset_left = -4.0
-offset_top = -11.0
-offset_right = 4.0
-color = Color(0.8687545, 0, 0.22967622, 1)
-metadata/_edit_lock_ = true
-
-[node name="Respawn" type="Node" parent="Player2" unique_id=1342604662]
-script = ExtResource("11_0agm4")
-
-[node name="Death" type="Node" parent="Player2" unique_id=65208903]
-script = ExtResource("12_wy04f")
-
-[node name="DeathFeedback" type="Node" parent="Player2/Death" unique_id=490888266]
-script = ExtResource("13_6fuwn")
-
-[node name="States" type="Node" parent="Player2" unique_id=368623724]
-
-[node name="Color" type="Node" parent="Player2" unique_id=1632203221]
-
-[node name="PlayerColorController" type="Node" parent="Player2/Color" unique_id=216127084 node_paths=PackedStringArray("player_visual")]
-script = ExtResource("14_h43c1")
-player_visual = NodePath("../../CharacterRect")
-red_color = Color(0.8352941, 0.1254902, 0.1254902, 1)
-blue_color = Color(0.2627451, 0.43137255, 0.69411767, 1)
-
-[node name="PlayerColorEjectionBridge" type="Node" parent="Player2/Color" unique_id=1725182896 node_paths=PackedStringArray("player_collision_shape")]
-script = ExtResource("15_xu0uq")
-player_collision_shape = NodePath("../../CollisionShape2D")
-travel_acceleration = 2000.0
-exit_speed = 200.0
-lift_boost_cap = 20.0
-ejection_hazard_grace_time = 0.1
-
-[node name="SFX" type="Node" parent="Player2" unique_id=1959610428 node_paths=PackedStringArray("dash_sfx")]
-script = ExtResource("16_2x6vd")
-dash_sfx = NodePath("Dash")
-
-[node name="Dash" type="AudioStreamPlayer" parent="Player2/SFX" unique_id=899192228]
-stream = ExtResource("17_yebn5")
-volume_db = -4.0
-pitch_scale = 1.1
-
-[node name="melee" type="AnimatedSprite2D" parent="Player2" unique_id=555717279]
-sprite_frames = SubResource("SpriteFrames_8pyc4")
-animation = &"melee"
-script = ExtResource("22_nfp3l")
-
-[node name="PlayerMelee" type="Node2D" parent="Player2" unique_id=1904627237 node_paths=PackedStringArray("melee_visual")]
-script = ExtResource("23_wks14")
-melee_visual = NodePath("../melee")
-metadata/_custom_type_script = "uid://dhaj2ykn3fx0h"

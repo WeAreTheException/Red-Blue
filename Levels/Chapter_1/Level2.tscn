@@ -1,0 +1,507 @@
+[gd_scene format=3 uid="uid://cljalnul2cgl0"]
+
+[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="3_axrbu"]
+[ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="4_swk1o"]
+[ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="5_8y41u"]
+[ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="6_c4e6e"]
+[ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="7_ohyp5"]
+[ext_resource type="Texture2D" uid="uid://bbmfwdcgt3qkr" path="res://Environment/Platform/RedSpike.png" id="7_wx4rb"]
+[ext_resource type="Texture2D" uid="uid://bta8p4lk11qdy" path="res://Environment/Platform/BlueSpikeSpike.png" id="8_gihsq"]
+[ext_resource type="Script" uid="uid://don73e2npfp5a" path="res://Player/Respawn/RespawnMarker.gd" id="8_plqfe"]
+[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="9_553d4"]
+[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="10_18yf4"]
+[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="11_b67pj"]
+[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="12_e0wlu"]
+[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="13_paot2"]
+[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://Color/ColorChange/PlayerColorController.gd" id="14_gs1uk"]
+[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://Color/ColorChange/PlayerColorEjectionBridge.gd" id="15_tkun1"]
+[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="16_r106g"]
+[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="17_r2nml"]
+[ext_resource type="Texture2D" uid="uid://dkphu7hbt7ujh" path="res://Combat/Bullet/Frames/Slash_color1_frame1.png" id="18_rp2tw"]
+[ext_resource type="Texture2D" uid="uid://dwbwaoimck1gc" path="res://Combat/Bullet/Frames/Slash_color1_frame2.png" id="19_ua02m"]
+[ext_resource type="Texture2D" uid="uid://2ntjaitlghyy" path="res://Combat/Bullet/Frames/Slash_color1_frame3.png" id="20_allft"]
+[ext_resource type="Texture2D" uid="uid://btj5sorkcxdyg" path="res://Combat/Bullet/Frames/Slash_color1_frame4.png" id="21_i5ti5"]
+[ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="22_jv3fc"]
+[ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="23_mn383"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c2r6i"]
+size = Vector2(32, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_455q4"]
+size = Vector2(8, 11)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jmf4s"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v8k6w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_rp2tw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_ua02m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_allft")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_i5ti5")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"melee",
+"speed": 12.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_axrbu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5s6u2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8c8xh"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_axrbu"]
+size = Vector2(556, 180)
+
+[node name="Level2" type="Node2D" unique_id=923864493]
+
+[node name="Spawn" type="Node2D" parent="." unique_id=2013114001]
+position = Vector2(-144, 72)
+
+[node name="Area2D" type="Area2D" parent="Spawn" unique_id=1989762145]
+script = ExtResource("8_plqfe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn/Area2D" unique_id=830759165]
+position = Vector2(8, -24)
+shape = SubResource("RectangleShape2D_c2r6i")
+
+[node name="Player2" type="CharacterBody2D" parent="." unique_id=913218625 node_paths=PackedStringArray("player_visual", "respawn_point")]
+position = Vector2(-144, 72)
+collision_mask = 2
+script = ExtResource("9_553d4")
+player_visual = NodePath("CharacterRect")
+respawn_point = NodePath("../Spawn")
+MaxFall = 140.0
+JumpSpeed = -110.0
+DashTime = 0.1
+
+[node name="DashPixel" type="Sprite2D" parent="Player2" unique_id=1879117082]
+position = Vector2(-128, -56)
+metadata/_edit_lock_ = true
+
+[node name="DashTrail" type="Node2D" parent="Player2" unique_id=572567124 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
+script = ExtResource("10_18yf4")
+trail_template = NodePath("../Line2D")
+trail_lifetime = 1.0
+max_points = 15
+minimum_point_distance = 12.0
+trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
+pixel_template = NodePath("../DashPixel")
+pixels_per_dash = 4
+afterimage_template = NodePath("../CharacterRect")
+afterimage_lifetime = 0.2
+metadata/_edit_lock_ = true
+
+[node name="Line2D" type="Line2D" parent="Player2" unique_id=534571580]
+z_index = -1
+position = Vector2(0, -6)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2" unique_id=707427622]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_455q4")
+metadata/_edit_lock_ = true
+
+[node name="CharacterRect" type="ColorRect" parent="Player2" unique_id=793342639]
+material = SubResource("ShaderMaterial_jmf4s")
+offset_left = -4.0
+offset_top = -11.0
+offset_right = 4.0
+color = Color(0.8687545, 0, 0.22967622, 1)
+metadata/_edit_lock_ = true
+
+[node name="Respawn" type="Node" parent="Player2" unique_id=1796620077]
+script = ExtResource("11_b67pj")
+
+[node name="Death" type="Node" parent="Player2" unique_id=1465400429]
+script = ExtResource("12_e0wlu")
+
+[node name="DeathFeedback" type="Node" parent="Player2/Death" unique_id=839258009]
+script = ExtResource("13_paot2")
+
+[node name="States" type="Node" parent="Player2" unique_id=673750290]
+
+[node name="Color" type="Node" parent="Player2" unique_id=2056211295]
+
+[node name="PlayerColorController" type="Node" parent="Player2/Color" unique_id=238064543 node_paths=PackedStringArray("player_visual")]
+script = ExtResource("14_gs1uk")
+player_visual = NodePath("../../CharacterRect")
+red_color = Color(0.8352941, 0.1254902, 0.1254902, 1)
+blue_color = Color(0.2627451, 0.43137255, 0.69411767, 1)
+
+[node name="PlayerColorEjectionBridge" type="Node" parent="Player2/Color" unique_id=102355848 node_paths=PackedStringArray("player_collision_shape")]
+script = ExtResource("15_tkun1")
+player_collision_shape = NodePath("../../CollisionShape2D")
+travel_acceleration = 2000.0
+exit_speed = 200.0
+lift_boost_cap = 20.0
+ejection_hazard_grace_time = 0.1
+
+[node name="SFX" type="Node" parent="Player2" unique_id=145676981 node_paths=PackedStringArray("dash_sfx")]
+script = ExtResource("16_r106g")
+dash_sfx = NodePath("Dash")
+
+[node name="Dash" type="AudioStreamPlayer" parent="Player2/SFX" unique_id=1065598523]
+stream = ExtResource("17_r2nml")
+volume_db = -4.0
+pitch_scale = 1.1
+
+[node name="melee" type="AnimatedSprite2D" parent="Player2" unique_id=1613016179]
+sprite_frames = SubResource("SpriteFrames_v8k6w")
+animation = &"melee"
+script = ExtResource("22_jv3fc")
+
+[node name="PlayerMelee" type="Node2D" parent="Player2" unique_id=388681064 node_paths=PackedStringArray("melee_visual")]
+script = ExtResource("23_mn383")
+melee_visual = NodePath("../melee")
+metadata/_custom_type_script = "uid://dhaj2ykn3fx0h"
+
+[node name="Chunk1" type="Node2D" parent="." unique_id=966147485]
+
+[node name="Base" type="StaticBody2D" parent="Chunk1" unique_id=871585300]
+position = Vector2(-176, 8)
+rotation = -3.1415925
+scale = Vector2(1, -1)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Polygon2D" type="Polygon2D" parent="Chunk1/Base" unique_id=2015117066]
+position = Vector2(-232, -136)
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+polygon = PackedVector2Array(104, 44, 104, 80, 112, 80, 112, 64, 128, 64, 128, 80, 144, 80, 144, 112, 152, 112, 152, 152, 112, 152, 112, 160, 152, 160, 152, 168, 160, 168, 160, 152, 184, 152, 184, 96, 200, 96, 200, 112, 208, 112, 208, 96, 208, 44)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Chunk1/Base" unique_id=1208944692]
+position = Vector2(-212.8, -52.000008)
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+polygon = PackedVector2Array(68.79999, 132, 68.8, 28.000008, 76.8, 27.999996, 76.8, 19.999996, 60.800003, 20.000008, 60.800003, 12.000008, 12.800001, 11.999989, 12.800001, 19.99999, 28.800001, 19.999992, 28.799992, 123.99999, -27.200008, 123.999985, -27.200008, 107.999985, -91.2, 107.999985, -91.20001, 131.99998)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Chunk1/Base" unique_id=801529603]
+position = Vector2(-152, 28)
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+polygon = PackedVector2Array(128, 60, 128, 36, 80, 36, 80, 60)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk1/Base" unique_id=1924411237]
+position = Vector2(-56, -112)
+polygon = PackedVector2Array(-72, 56, -64, 56, -64, 40, -48, 40, -48, 56, -32, 56, -32, 88, -24, 88, -24, 128, -64, 128, -64, 136, -24, 136, -24, 144, -16, 144, -16, 128, 8, 128, 8, 72, 24, 72, 24, 88, 32, 88, 32.000023, 8, -143.99998, 7.9999847, -143.99998, 15.999985, -71.999985, 15.999992)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Chunk1/Base" unique_id=197070483]
+position = Vector2(-60.999985, -112.00001)
+polygon = PackedVector2Array(-83.000015, 200, -83.00001, 87.99999, -75.00001, 88, -75, 80, -91.00001, 79.99999, -91.00001, 71.99999, -139, 71.999985, -139, 79.99999, -123.00001, 79.99999, -123.000015, 184, -179.00002, 183.99998, -179.00002, 167.99998, -243, 167.99998, -243.00003, 199.99998)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Chunk1/Base" unique_id=1082563221]
+position = Vector2(0, -32)
+polygon = PackedVector2Array(-72.00001, 119.99999, -24.000015, 120, -24, 96, -72, 96)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="Chunk1/Base" unique_id=1350044167]
+position = Vector2(-296.00003, -120.00002)
+rotation = -3.1415925
+scale = Vector2(1, -1)
+polygon = PackedVector2Array(-96.00003, 55.999992, -88.00003, 55.999996, -88.00003, 39.999992, -72.00003, 39.999992, -72.00003, 55.999996, -56.00004, 55.999996, -56.00004, 88, -48.00004, 88, -48.00004, 128, -88.00004, 127.99999, -88.00004, 136, -48.00004, 136, -48.00004, 152, -40.00004, 152, -40.00004, 128, -16, 128, -16.000038, 96, -8.000038, 96, -8.000038, 104, -3.8146973e-05, 104, -3.8146973e-05, 128, 8, 128, 8, 72, 24, 72, 24, 88, 32, 88, 32, 24, -96.00003, 23.999992)
+
+[node name="Polygon2D4" type="Polygon2D" parent="Chunk1/Base" unique_id=630309298]
+position = Vector2(-95.999985, -144.00002)
+rotation = -3.1415925
+scale = Vector2(1, -1)
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+polygon = PackedVector2Array(104, 44, 104, 80, 112, 80, 112, 64, 128, 64, 128, 80, 144, 80, 144, 112, 152, 112, 152, 152, 112, 152, 112, 160, 152, 160, 152, 176, 160, 176, 160, 152, 184, 152, 184, 120.00001, 192, 120.00001, 192, 128, 200, 128, 200, 152, 208, 152, 208, 96.00001, 224, 96.00001, 224, 112.00001, 232, 112.00001, 232, 44)
+
+[node name="Blue" type="StaticBody2D" parent="Chunk1" unique_id=1215857027]
+position = Vector2(72, 92)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_axrbu")
+affiliation = 1
+
+[node name="Polygon2D2" type="Polygon2D" parent="Chunk1/Blue" unique_id=1615770237]
+material = SubResource("ShaderMaterial_axrbu")
+position = Vector2(-40, -60)
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+polygon = PackedVector2Array(-64, 0, -128, 0, -128, 32, -64, 32)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Chunk1/Blue" unique_id=513548203]
+position = Vector2(-64, -100)
+polygon = PackedVector2Array(-104, 40, -104, 72, -40, 72, -40, 40)
+
+[node name="Spikes" type="StaticBody2D" parent="Chunk1" unique_id=1763781400]
+position = Vector2(152, 0)
+script = ExtResource("3_axrbu")
+hostile = true
+hostile_contact_margin = 0.1
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk1/Spikes" unique_id=1260346121]
+position = Vector2(-224, 48)
+polygon = PackedVector2Array(108, -36, 108, -32, 144, -32, 144, -36)
+
+[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="Chunk1/Spikes" unique_id=606382311]
+position = Vector2(-236, 108)
+polygon = PackedVector2Array(96, -32, 96, -28, 144, -28, 144, -32)
+
+[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="Chunk1/Spikes" unique_id=1629310035]
+position = Vector2(-159, 112)
+polygon = PackedVector2Array(95, -24, 95, -20, 295, -20, 295, -24)
+
+[node name="NeutralSpike4" type="Sprite2D" parent="Chunk1/Spikes" unique_id=946581462]
+position = Vector2(-139.99998, 76)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike12" type="Sprite2D" parent="Chunk1/Spikes" unique_id=124017902]
+position = Vector2(-116.00001, 12)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike22" type="Sprite2D" parent="Chunk1/Spikes" unique_id=2105833276]
+position = Vector2(-107.99999, 12.000004)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike26" type="Sprite2D" parent="Chunk1/Spikes" unique_id=606239888]
+position = Vector2(-99.99999, 12.000004)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike31" type="Sprite2D" parent="Chunk1/Spikes" unique_id=120172391]
+position = Vector2(-91.99999, 12.000004)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike32" type="Sprite2D" parent="Chunk1/Spikes" unique_id=207416994]
+position = Vector2(-83.99999, 12.000004)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike33" type="Sprite2D" parent="Chunk1/Spikes" unique_id=284949591]
+position = Vector2(-92, 76)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike5" type="Sprite2D" parent="Chunk1/Spikes" unique_id=1999452491]
+position = Vector2(-124, 76)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike6" type="Sprite2D" parent="Chunk1/Spikes" unique_id=1316485219]
+position = Vector2(-132, 76)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike7" type="Sprite2D" parent="Chunk1/Spikes" unique_id=356995530]
+position = Vector2(-115.999985, 76)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike8" type="Sprite2D" parent="Chunk1/Spikes" unique_id=778628409]
+position = Vector2(-99.999985, 76)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike9" type="Sprite2D" parent="Chunk1/Spikes" unique_id=1043062323]
+position = Vector2(-107.999985, 76)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Chunk1/Spikes" unique_id=383224188]
+position = Vector2(-152, 0)
+script = ExtResource("3_axrbu")
+hostile = true
+hostile_contact_margin = 0.1
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk1/Spikes/StaticBody2D" unique_id=183908849]
+position = Vector2(-201.2, 56)
+polygon = PackedVector2Array(105.2, -36, 105.2, -32, 141.2, -32, 141.2, -36)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Chunk1/Spikes/StaticBody2D" unique_id=1152480297]
+position = Vector2(-208, 120)
+polygon = PackedVector2Array(105.2, -36, 105.2, -32, 176, -32, 176, -36)
+
+[node name="NeutralSpike12" type="Sprite2D" parent="Chunk1/Spikes/StaticBody2D" unique_id=731483223]
+position = Vector2(-92, 20)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike22" type="Sprite2D" parent="Chunk1/Spikes/StaticBody2D" unique_id=2094829087]
+position = Vector2(-84, 20)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike26" type="Sprite2D" parent="Chunk1/Spikes/StaticBody2D" unique_id=1864641124]
+position = Vector2(-76, 20)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike31" type="Sprite2D" parent="Chunk1/Spikes/StaticBody2D" unique_id=264813252]
+position = Vector2(-68, 20)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="NeutralSpike32" type="Sprite2D" parent="Chunk1/Spikes/StaticBody2D" unique_id=1700059868]
+position = Vector2(-59.999996, 20)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_c4e6e")
+
+[node name="Chunk2" type="Node2D" parent="." unique_id=2013254598]
+position = Vector2(24, 0)
+
+[node name="Blue" type="StaticBody2D" parent="Chunk2" unique_id=1125253092]
+position = Vector2(328, 36)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_axrbu")
+affiliation = 1
+
+[node name="Polygon2D2" type="Polygon2D" parent="Chunk2/Blue" unique_id=511155684]
+material = SubResource("ShaderMaterial_5s6u2")
+position = Vector2(-40, -60)
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+polygon = PackedVector2Array(-112, 0, -128, 0, -128, 32, -112, 32)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Chunk2/Blue" unique_id=1611071908]
+position = Vector2(-64, -100)
+polygon = PackedVector2Array(-104, 40, -104, 72, -88, 72, -88, 40)
+
+[node name="Red2" type="StaticBody2D" parent="Chunk2" unique_id=1799894962]
+position = Vector2(412, 36)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_axrbu")
+affiliation = 0
+
+[node name="Polygon2D" type="Polygon2D" parent="Chunk2/Red2" unique_id=1335302366]
+material = SubResource("ShaderMaterial_5s6u2")
+position = Vector2(-140, -12)
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+polygon = PackedVector2Array(-112, 0, -128, 0, -128, 32, -112, 32)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk2/Red2" unique_id=1037393676]
+position = Vector2(-168, -52)
+polygon = PackedVector2Array(-100, 40, -100, 72, -84, 72, -84, 40)
+
+[node name="Turnip" type="Area2D" parent="Chunk2" unique_id=282892031 node_paths=PackedStringArray("sprite")]
+position = Vector2(256, -48)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("4_swk1o")
+sprite = NodePath("Turnip")
+float_height = 1.0
+
+[node name="Turnip" type="Sprite2D" parent="Chunk2/Turnip" unique_id=67799891]
+position = Vector2(-7.6293945e-06, -3.8146973e-06)
+scale = Vector2(0.100000024, 0.100000024)
+texture = ExtResource("5_8y41u")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk2/Turnip" unique_id=522208623]
+shape = SubResource("CircleShape2D_8c8xh")
+metadata/_edit_lock_ = true
+
+[node name="Base" type="StaticBody2D" parent="Chunk2" unique_id=732361744]
+position = Vector2(152, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Polygon2D4" type="Polygon2D" parent="Chunk2/Base" unique_id=958203703]
+position = Vector2(31.199997, -76.2)
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+polygon = PackedVector2Array(56.800003, 52.199997, 80.8, 52.199997, 80.8, 76.2, 88.8, 76.2, 88.8, 124.2, 104.8, 124.2, 104.8, 172.2, 184.8, 172.2, 184.8, 36.199997, 56.800003, 36.199997)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="Chunk2/Base" unique_id=561529933]
+position = Vector2(183.2, -136.2)
+polygon = PackedVector2Array(-95.2, 112.2, -71.2, 112.2, -71.2, 136.2, -63.199997, 136.2, -63.199997, 184.2, -47.199997, 184.2, -47.200012, 224.2, 32.799988, 224.2, 32.799988, 96.2, -95.2, 96.2)
+
+[node name="Spawn" type="Node2D" parent="Chunk2" unique_id=75510294]
+position = Vector2(8, -32)
+
+[node name="RedSpikes" type="StaticBody2D" parent="Chunk2" unique_id=69073273]
+position = Vector2(176, 24)
+rotation = 3.1415927
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_axrbu")
+affiliation = 0
+hostile = true
+
+[node name="RedSpike5" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=1379671302]
+position = Vector2(20, 3.9999993)
+rotation = 3.1415927
+texture = ExtResource("7_wx4rb")
+
+[node name="RedSpike6" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=1570148081]
+position = Vector2(28, 3.9999986)
+rotation = 3.1415927
+texture = ExtResource("7_wx4rb")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk2/RedSpikes" unique_id=999234879]
+polygon = PackedVector2Array(28, 3.999998, 20, 3.999998, 20, -1.9073486e-06, 28, -1.9073486e-06)
+
+[node name="BlueSpikes" type="StaticBody2D" parent="Chunk2" unique_id=1065974418]
+position = Vector2(176, 24)
+rotation = 3.1415927
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_axrbu")
+affiliation = 1
+hostile = true
+
+[node name="RedSpike3" type="Sprite2D" parent="Chunk2/BlueSpikes" unique_id=909844926]
+position = Vector2(4.000005, 52)
+rotation = 3.1415927
+texture = ExtResource("8_gihsq")
+
+[node name="RedSpike4" type="Sprite2D" parent="Chunk2/BlueSpikes" unique_id=2087202362]
+position = Vector2(12.000005, 52.000004)
+rotation = 3.1415927
+texture = ExtResource("8_gihsq")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk2/BlueSpikes" unique_id=989174224]
+position = Vector2(-15.999996, 48)
+polygon = PackedVector2Array(28, 3.999998, 20, 3.999998, 20, -1.9073486e-06, 28, -1.9073486e-06)
+
+[node name="Panel" type="Panel" parent="." unique_id=2018116395]
+visible = false
+modulate = Color(0.8980392, 0, 1, 1)
+self_modulate = Color(1, 0, 1, 1)
+top_level = true
+offset_left = 8.0
+offset_top = -20.0
+offset_right = 56.0
+offset_bottom = 8.0
+
+[node name="Panel2" type="Panel" parent="." unique_id=1399690229]
+visible = false
+top_level = true
+offset_left = 48.0
+offset_top = 12.0
+offset_right = 148.0
+offset_bottom = 40.0
+
+[node name="Frame2" type="Polygon2D" parent="." unique_id=1245109519]
+polygon = PackedVector2Array(-152, 96, -160, 96, -160, -96, 400, -96, 400, 96, 176, 96, -152, 96, -152, 84, 392, 84, 392, -84, -152, -84)
+metadata/_edit_lock_ = true
+
+[node name="Line2D" type="Line2D" parent="Frame2" unique_id=500832990]
+points = PackedVector2Array(-152, -84, -152, 84, 392, 84, 392, -84, 273.69534, -84, -152, -84)
+width = 1.0
+default_color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="CameraBounds" type="Area2D" parent="." unique_id=1474557291 node_paths=PackedStringArray("bounds_shape")]
+script = ExtResource("7_ohyp5")
+bounds_shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds" unique_id=139507178]
+position = Vector2(118, 1)
+shape = SubResource("RectangleShape2D_axrbu")
+disabled = true
+metadata/_edit_lock_ = true

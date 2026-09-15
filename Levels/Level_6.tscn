@@ -348,7 +348,6 @@ metadata/_edit_lock_ = true
 position = Vector2(32, -20)
 script = ExtResource("16_14e4r")
 bullet_scene = ExtResource("17_4xqv6")
-shots_per_burst = 1
 shot_interval = 5.0
 burst_interval = 2.5
 

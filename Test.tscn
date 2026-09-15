@@ -24,7 +24,7 @@
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="20_ctmup"]
 [ext_resource type="Script" uid="uid://dig1lrhh2w7g5" path="res://Combat/Hurtbox.gd" id="21_egg54"]
 [ext_resource type="Script" uid="uid://ctuc536qf1efr" path="res://Combat/HealthComponent.gd" id="21_ixknr"]
-[ext_resource type="Texture2D" uid="uid://bw0akwr5dnplj" path="res://Levels/Chapter_1/pixel_character_80x80.png" id="22_xyx0r"]
+[ext_resource type="Texture2D" uid="uid://bw0akwr5dnplj" path="res://pixel_character_80x80.png" id="22_xyx0r"]
 [ext_resource type="Script" uid="uid://gi2x0o7wihnh" path="res://Combat/DestroyOnDeath.gd" id="23_f3qia"]
 [ext_resource type="Script" uid="uid://by8dwwesm3pia" path="res://Combat/ShooterCountdownLabel.gd" id="25_ra0u3"]
 
