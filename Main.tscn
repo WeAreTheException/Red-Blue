@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="15_w3rk5"]
 [ext_resource type="Script" uid="uid://plxu8vl6w5gy" path="res://Levels/RoomTransition/RoomManager.gd" id="16_sc1dx"]
 [ext_resource type="PackedScene" uid="uid://c2l8pri7pgm10" path="res://Levels/Chapter_1/Level4.tscn" id="17_sc1dx"]
+[ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Sound/Music/TimMusic1.wav" id="18_kjvhd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5mvff"]
 size = Vector2(8, 11)
@@ -146,3 +147,8 @@ player = NodePath("../Player2")
 metadata/_edit_lock_ = true
 
 [node name="Level4" parent="RoomContainer" unique_id=98120481 instance=ExtResource("17_sc1dx")]
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=987115664]
+stream = ExtResource("18_kjvhd")
+volume_db = -12.156
+autoplay = true

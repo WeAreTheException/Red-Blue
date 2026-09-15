@@ -2,22 +2,29 @@
 
 [ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="1_0mr58"]
 [ext_resource type="Script" uid="uid://don73e2npfp5a" path="res://Player/Respawn/RespawnMarker.gd" id="1_tfmp2"]
+[ext_resource type="Script" uid="uid://b2utpm0apq5cx" path="res://Levels/RoomTransition/RoomExit.gd" id="10_b5xk4"]
+[ext_resource type="PackedScene" uid="uid://ckytlxbavp0xj" path="res://Levels/Level_7.tscn" id="11_lncm8"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="16_l2wyi"]
 [ext_resource type="Script" uid="uid://dxw44lhrykiic" path="res://Environment/VanishingPlatform.gd" id="17_kr07x"]
 [ext_resource type="Script" uid="uid://cficjfe4qtfyi" path="res://Environment/VanishTrigger.gd" id="18_q4w7k"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="19_sjuhf"]
-[ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Sound/Music/TimMusic1.wav" id="20_1k1m4"]
 [ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="22_lcssr"]
 [ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="23_tfmp2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hph6r"]
 radius = 8.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lcssr"]
-size = Vector2(32, 56)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2h6i1"]
 size = Vector2(556, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7rko"]
+size = Vector2(16, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lcssr"]
+size = Vector2(16, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b5xk4"]
+size = Vector2(16, 16)
 
 [node name="Level4" type="Node2D" unique_id=98120481]
 
@@ -550,32 +557,6 @@ metadata/_edit_lock_ = true
 shape = SubResource("CircleShape2D_hph6r")
 metadata/_edit_lock_ = true
 
-[node name="Spawn" type="Node2D" parent="." unique_id=1329023077]
-position = Vector2(-144, 48)
-
-[node name="Area2D" type="Area2D" parent="Spawn" unique_id=133640363]
-script = ExtResource("1_tfmp2")
-spawn_id = &"from_left"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn/Area2D" unique_id=186782086]
-position = Vector2(12, -28)
-shape = SubResource("RectangleShape2D_lcssr")
-
-[node name="Spawn2" type="Node2D" parent="." unique_id=779015203]
-position = Vector2(156, -40)
-
-[node name="Area2D" type="Area2D" parent="Spawn2" unique_id=1025465535]
-script = ExtResource("1_tfmp2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn2/Area2D" unique_id=405087687]
-position = Vector2(0, -20)
-shape = SubResource("RectangleShape2D_lcssr")
-
-[node name="Music" type="AudioStreamPlayer" parent="." unique_id=13478301]
-stream = ExtResource("20_1k1m4")
-volume_db = -12.156
-autoplay = true
-
 [node name="Frame" type="Polygon2D" parent="." unique_id=250070519]
 polygon = PackedVector2Array(-152, 96, -160, 96, -160, -96, 400, -96, 400, 96, 176, 96, -152, 96, -152, 84, 392, 84, 392, -84, -152, -84)
 metadata/_edit_lock_ = true
@@ -596,3 +577,38 @@ position = Vector2(118, 1)
 shape = SubResource("RectangleShape2D_2h6i1")
 disabled = true
 metadata/_edit_lock_ = true
+
+[node name="Markers" type="Node2D" parent="." unique_id=1450956964]
+
+[node name="Spawn" type="Node2D" parent="Markers" unique_id=1329023077]
+position = Vector2(-144, 48)
+
+[node name="Area2D" type="Area2D" parent="Markers/Spawn" unique_id=133640363]
+script = ExtResource("1_tfmp2")
+spawn_id = &"from_left"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Spawn/Area2D" unique_id=186782086]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_n7rko")
+
+[node name="Spawn2" type="Node2D" parent="Markers" unique_id=779015203]
+position = Vector2(156, -40)
+
+[node name="Area2D" type="Area2D" parent="Markers/Spawn2" unique_id=1025465535]
+script = ExtResource("1_tfmp2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Spawn2/Area2D" unique_id=405087687]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_lcssr")
+
+[node name="Exit" type="Node2D" parent="Markers" unique_id=1556185951]
+position = Vector2(24, -80)
+
+[node name="Area2D" type="Area2D" parent="Markers/Exit" unique_id=98671257]
+script = ExtResource("10_b5xk4")
+destination_room = ExtResource("11_lncm8")
+destination_spawn_id = &"from_bottom"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Exit/Area2D" unique_id=1833347999]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_b5xk4")
