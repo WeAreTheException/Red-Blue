@@ -18,7 +18,7 @@
 [ext_resource type="Script" uid="uid://plxu8vl6w5gy" path="res://Levels/RoomTransition/RoomManager.gd" id="16_sc1dx"]
 [ext_resource type="PackedScene" uid="uid://c2l8pri7pgm10" path="res://Levels/Chapter_1/Level4.tscn" id="17_sc1dx"]
 [ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Sound/Music/TimMusic1.wav" id="18_kjvhd"]
-[ext_resource type="PackedScene" uid="uid://ckytlxbavp0xj" path="res://Levels/Chapter_1/Level5.tscn" id="19_5tuhn"]
+[ext_resource type="PackedScene" uid="uid://dvgc2kgr315hf" path="res://Level5.tscn" id="19_5tuhn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5mvff"]
 size = Vector2(8, 11)
@@ -52,7 +52,7 @@ animations = [{
 metadata/_edit_lock_ = true
 
 [node name="Player2" type="CharacterBody2D" parent="." unique_id=996730366 node_paths=PackedStringArray("player_visual")]
-position = Vector2(176, -144)
+position = Vector2(-136, 56)
 collision_mask = 2
 script = ExtResource("1_j4qnp")
 player_visual = NodePath("CharacterRect")
@@ -149,8 +149,8 @@ metadata/_edit_lock_ = true
 
 [node name="Level4" parent="RoomContainer" unique_id=98120481 instance=ExtResource("17_sc1dx")]
 
-[node name="Level5" parent="RoomContainer" unique_id=2059484946 instance=ExtResource("19_5tuhn")]
-position = Vector2(144, -168)
+[node name="Level5" parent="RoomContainer" unique_id=2051680900 instance=ExtResource("19_5tuhn")]
+position = Vector2(-152, -184)
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=987115664]
 stream = ExtResource("18_kjvhd")

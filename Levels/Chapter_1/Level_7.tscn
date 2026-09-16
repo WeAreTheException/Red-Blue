@@ -1,19 +1,19 @@
 [gd_scene format=3 uid="uid://ckytlxbavp0xj"]
 
-[ext_resource type="Shader" uid="uid://bn7xlckeib3kx" path="res://Shaders/HalftonesReal.gdshader" id="1_dx8vf"]
-[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="2_wh3ke"]
-[ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="3_q6exc"]
-[ext_resource type="Shader" uid="uid://brrnuux81p04o" path="res://Shaders/Halftones.gdshader" id="4_5047l"]
-[ext_resource type="Texture2D" uid="uid://5ldj0fhhwgdy" path="res://Shaders/8PixelCircle.png" id="5_xeecd"]
-[ext_resource type="Script" uid="uid://dxw44lhrykiic" path="res://Environment/VanishingPlatform.gd" id="6_pdp3s"]
-[ext_resource type="Script" uid="uid://cficjfe4qtfyi" path="res://Environment/VanishTrigger.gd" id="7_n7fxb"]
-[ext_resource type="Script" uid="uid://c2djyy8t3xtdi" path="res://animations/Scripts/PlayerDashVisual.gd" id="8_p51u0"]
-[ext_resource type="Script" uid="uid://don73e2npfp5a" path="res://Player/Respawn/RespawnMarker.gd" id="9_6xj5y"]
-[ext_resource type="Script" uid="uid://b2utpm0apq5cx" path="res://Levels/RoomTransition/RoomExit.gd" id="10_yc6il"]
-[ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="11_wh3ke"]
+[ext_resource type="Shader" uid="uid://bn7xlckeib3kx" path="res://Shaders/HalftonesReal.gdshader" id="1_n7ymb"]
+[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="2_b8tmw"]
+[ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="3_m4fjp"]
+[ext_resource type="Shader" uid="uid://brrnuux81p04o" path="res://Shaders/Halftones.gdshader" id="4_t70kg"]
+[ext_resource type="Texture2D" uid="uid://5ldj0fhhwgdy" path="res://Shaders/8PixelCircle.png" id="5_y120k"]
+[ext_resource type="Script" uid="uid://dxw44lhrykiic" path="res://Environment/VanishingPlatform.gd" id="6_nkdwm"]
+[ext_resource type="Script" uid="uid://cficjfe4qtfyi" path="res://Environment/VanishTrigger.gd" id="7_ca2cu"]
+[ext_resource type="Script" uid="uid://c2djyy8t3xtdi" path="res://animations/Scripts/PlayerDashVisual.gd" id="8_22ctg"]
+[ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="9_0jddu"]
+[ext_resource type="Script" uid="uid://don73e2npfp5a" path="res://Player/Respawn/RespawnMarker.gd" id="10_4h741"]
+[ext_resource type="Script" uid="uid://b2utpm0apq5cx" path="res://Levels/RoomTransition/RoomExit.gd" id="11_23jjg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l7mtv"]
-shader = ExtResource("1_dx8vf")
+shader = ExtResource("1_n7ymb")
 shader_parameter/circle_color = Color(0.071308844, 4.8010425e-05, 0.24910936, 1)
 shader_parameter/circle_multiplier = 1.02
 shader_parameter/circle_radius = 0.26999999396496
@@ -24,8 +24,8 @@ shader_parameter/rotation = Transform2D(1, -1, 1, 1, 0, 0)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_54oyp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oil7k"]
-shader = ExtResource("4_5047l")
-shader_parameter/circle_texture = ExtResource("5_xeecd")
+shader = ExtResource("4_t70kg")
+shader_parameter/circle_texture = ExtResource("5_y120k")
 shader_parameter/dot_color = Color(0.5176471, 0.49411765, 0.5294118, 0.015686275)
 shader_parameter/tile_size = 8.0
 shader_parameter/offset = Vector2(0, 0)
@@ -39,10 +39,9 @@ size = Vector2(16, 40)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eoeuh"]
 size = Vector2(64, 16)
 
-[node name="Level5" type="Node2D" unique_id=2059484946]
+[node name="Level_5" type="Node2D" unique_id=2059484946]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=60607162]
-visible = false
 material = SubResource("ShaderMaterial_l7mtv")
 offset_left = -144.0
 offset_top = -80.0
@@ -107,7 +106,7 @@ polygon = PackedVector2Array(-96, 8.000004, -104, 8.000005, -104, 32.000004, -96
 polygon = PackedVector2Array(-104, 8.000005, -104, 32.000004, -96, 32.000004, -96, 8.000004)
 
 [node name="Spike" type="StaticBody2D" parent="Environemnt" unique_id=319921236]
-script = ExtResource("2_wh3ke")
+script = ExtResource("2_b8tmw")
 hostile = true
 metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
 
@@ -115,157 +114,157 @@ metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
 visible = false
 position = Vector2(-44, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike5" type="Sprite2D" parent="Environemnt/Spike" unique_id=172915168]
 visible = false
 position = Vector2(-36, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike6" type="Sprite2D" parent="Environemnt/Spike" unique_id=312607156]
 visible = false
 position = Vector2(-28, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike7" type="Sprite2D" parent="Environemnt/Spike" unique_id=2077758596]
 visible = false
 position = Vector2(-76, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike8" type="Sprite2D" parent="Environemnt/Spike" unique_id=1000457473]
 visible = false
 position = Vector2(-68, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike9" type="Sprite2D" parent="Environemnt/Spike" unique_id=1970143111]
 visible = false
 position = Vector2(-60, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike10" type="Sprite2D" parent="Environemnt/Spike" unique_id=1374027454]
 visible = false
 position = Vector2(-52, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike11" type="Sprite2D" parent="Environemnt/Spike" unique_id=642555348]
 visible = false
 position = Vector2(11.999996, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike12" type="Sprite2D" parent="Environemnt/Spike" unique_id=1018621280]
 visible = false
 position = Vector2(19.999996, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike13" type="Sprite2D" parent="Environemnt/Spike" unique_id=1170460584]
 visible = false
 position = Vector2(27.999996, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike14" type="Sprite2D" parent="Environemnt/Spike" unique_id=1461082918]
 visible = false
 position = Vector2(-20.000004, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike15" type="Sprite2D" parent="Environemnt/Spike" unique_id=674021996]
 visible = false
 position = Vector2(-12.000004, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike16" type="Sprite2D" parent="Environemnt/Spike" unique_id=1162874418]
 visible = false
 position = Vector2(-4.000004, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike17" type="Sprite2D" parent="Environemnt/Spike" unique_id=1160423131]
 visible = false
 position = Vector2(3.9999962, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike18" type="Sprite2D" parent="Environemnt/Spike" unique_id=444852815]
 visible = false
 position = Vector2(68, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike19" type="Sprite2D" parent="Environemnt/Spike" unique_id=932624666]
 visible = false
 position = Vector2(76, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike20" type="Sprite2D" parent="Environemnt/Spike" unique_id=1245974401]
 visible = false
 position = Vector2(84, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike21" type="Sprite2D" parent="Environemnt/Spike" unique_id=945849956]
 visible = false
 position = Vector2(35.999996, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike22" type="Sprite2D" parent="Environemnt/Spike" unique_id=1099168419]
 visible = false
 position = Vector2(43.999996, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike23" type="Sprite2D" parent="Environemnt/Spike" unique_id=319118311]
 visible = false
 position = Vector2(51.999996, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike24" type="Sprite2D" parent="Environemnt/Spike" unique_id=2099866246]
 visible = false
 position = Vector2(59.999996, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike25" type="Sprite2D" parent="Environemnt/Spike" unique_id=2098561249]
 visible = false
 position = Vector2(91.999985, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike26" type="Sprite2D" parent="Environemnt/Spike" unique_id=103467592]
 visible = false
 position = Vector2(99.999985, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike27" type="Sprite2D" parent="Environemnt/Spike" unique_id=1508248119]
 visible = false
 position = Vector2(107.999985, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike32" type="Sprite2D" parent="Environemnt/Spike" unique_id=885426935]
 visible = false
 position = Vector2(147.99998, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="NeutralSpike33" type="Sprite2D" parent="Environemnt/Spike" unique_id=1366454784]
 visible = false
 position = Vector2(155.99998, 68)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_q6exc")
+texture = ExtResource("3_m4fjp")
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Environemnt/Spike" unique_id=1523869772]
 position = Vector2(0, 128)
@@ -294,7 +293,7 @@ polygon = PackedVector2Array(-160, 69, -160, -96, -144, -96, -144, 61, 88, 61, 8
 [node name="Vanishin2" type="StaticBody2D" parent="." unique_id=1770356453 node_paths=PackedStringArray("visual", "trigger_area")]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("6_pdp3s")
+script = ExtResource("6_nkdwm")
 visual = NodePath("Polygon2D2")
 trigger_area = NodePath("Area2D")
 
@@ -310,7 +309,7 @@ polygon = PackedVector2Array(-152, 24, -152, 40, -120, 40, -120, 24)
 [node name="Area2D" type="Area2D" parent="Vanishin2" unique_id=288371709]
 position = Vector2(84, 4)
 collision_layer = 0
-script = ExtResource("7_n7fxb")
+script = ExtResource("7_ca2cu")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Vanishin2/Area2D" unique_id=1294978114]
 polygon = PackedVector2Array(-109, 11, -75, 11, -75, 29, -109, 29)
@@ -332,11 +331,11 @@ width = 1.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="PlayerDashVisual" type="Node2D" parent="." unique_id=1056257063]
-script = ExtResource("8_p51u0")
+script = ExtResource("8_22ctg")
 metadata/_custom_type_script = "uid://c2djyy8t3xtdi"
 
 [node name="CameraBounds" type="Area2D" parent="." unique_id=446453632 node_paths=PackedStringArray("bounds_shape")]
-script = ExtResource("11_wh3ke")
+script = ExtResource("9_0jddu")
 bounds_shape = NodePath("CollisionShape2D")
 horizontal_mode = 2
 
@@ -353,7 +352,7 @@ metadata/_edit_lock_ = true
 position = Vector2(-120, 40)
 
 [node name="Area2D" type="Area2D" parent="Markers/Spawn" unique_id=1332214493]
-script = ExtResource("9_6xj5y")
+script = ExtResource("10_4h741")
 spawn_id = &"from_bottom"
 print_debug = true
 
@@ -366,7 +365,7 @@ position = Vector2(-20, -64)
 metadata/_edit_lock_ = true
 
 [node name="Area2D" type="Area2D" parent="Markers/Exit" unique_id=1350238655]
-script = ExtResource("10_yc6il")
+script = ExtResource("11_23jjg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Exit/Area2D" unique_id=1145072094]
 position = Vector2(52, -16)

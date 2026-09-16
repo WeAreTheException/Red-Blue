@@ -22,7 +22,7 @@ radius = 8.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_axrbu"]
 size = Vector2(556, 180)
 
-[node name="Level2" type="Node2D" unique_id=923864493]
+[node name="Level7" type="Node2D" unique_id=923864493]
 
 [node name="Spawn" type="Node2D" parent="." unique_id=2013114001]
 position = Vector2(-144, 72)

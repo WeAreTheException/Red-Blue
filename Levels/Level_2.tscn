@@ -36,7 +36,7 @@ size = Vector2(16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uv1r4"]
 size = Vector2(120, 24)
 
-[sub_resource type="Shader" id="Shader_atokh"]
+[sub_resource type="Shader" id="Shader_tfynm"]
 code = "shader_type canvas_item;
 render_mode unshaded;
 
@@ -185,7 +185,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ew56h"]
-shader = SubResource("Shader_atokh")
+shader = SubResource("Shader_tfynm")
 shader_parameter/dither_color = Color(0.16206568, 0.16206554, 0.16206557, 0.3019608)
 shader_parameter/dither_amount = 0.65999998524768
 shader_parameter/darkness_influence = 1.0
@@ -306,6 +306,7 @@ offset_top = 152.01389
 offset_right = 79.96332
 offset_bottom = 159.91032
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="Turnip" type="Area2D" parent="." unique_id=871199182 node_paths=PackedStringArray("sprite")]
 position = Vector2(104, -48)
@@ -713,8 +714,6 @@ autoplay = true
 stream = ExtResource("15_yttaw")
 volume_db = -12.156
 autoplay = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=590545170]
 
 [node name="Polygon2D2" type="Polygon2D" parent="." unique_id=1794879837]
 visible = false
