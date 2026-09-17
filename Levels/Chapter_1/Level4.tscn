@@ -2,8 +2,6 @@
 
 [ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="1_0mr58"]
 [ext_resource type="Script" uid="uid://don73e2npfp5a" path="res://Player/Respawn/RespawnMarker.gd" id="1_tfmp2"]
-[ext_resource type="Script" uid="uid://b2utpm0apq5cx" path="res://Levels/RoomTransition/RoomExit.gd" id="10_b5xk4"]
-[ext_resource type="PackedScene" uid="uid://dvgc2kgr315hf" path="res://Level5.tscn" id="10_lncm8"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="16_l2wyi"]
 [ext_resource type="Script" uid="uid://dxw44lhrykiic" path="res://Environment/VanishingPlatform.gd" id="17_kr07x"]
 [ext_resource type="Script" uid="uid://cficjfe4qtfyi" path="res://Environment/VanishTrigger.gd" id="18_q4w7k"]
@@ -22,9 +20,6 @@ size = Vector2(16, 56)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lcssr"]
 size = Vector2(16, 40)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b5xk4"]
-size = Vector2(16, 16)
 
 [node name="Level4" type="Node2D" unique_id=98120481]
 
@@ -614,19 +609,6 @@ script = ExtResource("1_tfmp2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Spawn2/Area2D" unique_id=405087687]
 position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_lcssr")
-
-[node name="Exit" type="Node2D" parent="Markers" unique_id=1556185951]
-position = Vector2(24, -88)
-
-[node name="Area2D" type="Area2D" parent="Markers/Exit" unique_id=98671257]
-position = Vector2(0, 8)
-script = ExtResource("10_b5xk4")
-destination_room = ExtResource("10_lncm8")
-destination_spawn_id = &"from_bottom"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Exit/Area2D" unique_id=1833347999]
-position = Vector2(0, -24)
-shape = SubResource("RectangleShape2D_b5xk4")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1635907230]
 polygon = PackedVector2Array(16, -84, 16, -96, -160, -96, -160, 96, 400, 96, 400, -96, 32, -96, 32, -84, 392, -84, 392, 84, -152, 85, -152, -84)

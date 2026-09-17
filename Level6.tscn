@@ -1,0 +1,460 @@
+[gd_scene format=3 uid="uid://dgrrgjvr2amfp"]
+
+[ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="1_f5vu5"]
+[ext_resource type="Script" uid="uid://don73e2npfp5a" path="res://Player/Respawn/RespawnMarker.gd" id="1_rm1bw"]
+[ext_resource type="Texture2D" uid="uid://bbmfwdcgt3qkr" path="res://Environment/Platform/RedSpike.png" id="2_rm1bw"]
+[ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="3_nw62s"]
+[ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="4_hwj8o"]
+[ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="5_fvr84"]
+[ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="6_vm5lh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nw62s"]
+size = Vector2(16, 40)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s8q8g"]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_clsb5"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e8g45"]
+size = Vector2(120, 24)
+
+[sub_resource type="Shader" id="Shader_atokh"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+
+uniform vec4 dither_color : source_color = vec4(
+	0.0,
+	0.0,
+	0.0,
+	1.0
+);
+
+uniform float dither_amount : hint_range(
+	0.0,
+	1.0,
+	0.01
+) = 0.65;
+
+uniform float darkness_influence : hint_range(
+	0.0,
+	1.0,
+	0.01
+) = 1.0;
+
+uniform float base_coverage : hint_range(
+	0.0,
+	1.0,
+	0.01
+) = 0.0;
+
+uniform float pixel_size : hint_range(
+	1.0,
+	16.0,
+	1.0
+) = 1.0;
+
+
+varying vec2 local_position;
+
+
+void vertex() {
+	local_position = VERTEX;
+}
+
+
+float bayer_4x4(
+	vec2 position
+) {
+	vec2 cell = mod(
+		floor(position),
+		4.0
+	);
+
+	float x = cell.x;
+	float y = cell.y;
+
+
+	if (y < 1.0) {
+		if (x < 1.0) return 0.0 / 16.0;
+		if (x < 2.0) return 8.0 / 16.0;
+		if (x < 3.0) return 2.0 / 16.0;
+
+		return 10.0 / 16.0;
+	}
+
+
+	if (y < 2.0) {
+		if (x < 1.0) return 12.0 / 16.0;
+		if (x < 2.0) return 4.0 / 16.0;
+		if (x < 3.0) return 14.0 / 16.0;
+
+		return 6.0 / 16.0;
+	}
+
+
+	if (y < 3.0) {
+		if (x < 1.0) return 3.0 / 16.0;
+		if (x < 2.0) return 11.0 / 16.0;
+		if (x < 3.0) return 1.0 / 16.0;
+
+		return 9.0 / 16.0;
+	}
+
+
+	if (x < 1.0) return 15.0 / 16.0;
+	if (x < 2.0) return 7.0 / 16.0;
+	if (x < 3.0) return 13.0 / 16.0;
+
+	return 5.0 / 16.0;
+}
+
+
+void fragment() {
+	vec4 source = COLOR;
+
+
+	float luminance = dot(
+		source.rgb,
+		vec3(
+			0.299,
+			0.587,
+			0.114
+		)
+	);
+
+
+	float darkness = 1.0 - luminance;
+
+
+	float coverage = mix(
+		base_coverage,
+		darkness,
+		darkness_influence
+	);
+
+
+	coverage *= dither_amount;
+
+
+	vec2 pixel_position = floor(
+		local_position / pixel_size
+	);
+
+
+	float threshold = bayer_4x4(
+		pixel_position
+	);
+
+
+	float dither = step(
+		threshold,
+		coverage
+	);
+
+
+	vec3 final_color = mix(
+		source.rgb,
+		dither_color.rgb,
+		dither * dither_color.a
+	);
+
+
+	COLOR = vec4(
+		final_color,
+		source.a
+	);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oxhpx"]
+shader = SubResource("Shader_atokh")
+shader_parameter/dither_color = Color(0.16206568, 0.16206554, 0.16206557, 0.3019608)
+shader_parameter/dither_amount = 0.65999998524768
+shader_parameter/darkness_influence = 1.0
+shader_parameter/base_coverage = 0.0
+shader_parameter/pixel_size = 1.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ni1yb"]
+load_path = "res://.godot/imported/Level2.png-8993bb404a8c3f3189451fda74ae1fc6.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_su0wl"]
+size = Vector2(304, 180)
+
+[node name="Level6" type="Node2D" unique_id=1922034452]
+
+[node name="Markers" type="Node2D" parent="." unique_id=1169051356]
+
+[node name="Spawn" type="Node2D" parent="Markers" unique_id=412885029]
+position = Vector2(144, 64)
+
+[node name="Area2D" type="Area2D" parent="Markers/Spawn" unique_id=451743983]
+script = ExtResource("1_rm1bw")
+spawn_id = &"from_right"
+print_debug = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Spawn/Area2D" unique_id=1330934451]
+position = Vector2(0, -21)
+shape = SubResource("RectangleShape2D_nw62s")
+
+[node name="Chunk2" type="Node2D" parent="." unique_id=747349289]
+
+[node name="RedSpikes" type="StaticBody2D" parent="Chunk2" unique_id=1689464166]
+position = Vector2(176, 36)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_f5vu5")
+affiliation = 0
+hostile = true
+hostile_contact_margin = 0.1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk2/RedSpikes" unique_id=724797350]
+position = Vector2(-176, -36)
+polygon = PackedVector2Array(-32, -40, -28, -40, -28, 20, -32, 20)
+
+[node name="RedSpike" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=1092166499]
+position = Vector2(-204, -72)
+rotation = 1.5707964
+texture = ExtResource("2_rm1bw")
+
+[node name="RedSpike2" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=1798458934]
+position = Vector2(-204, -64)
+rotation = 1.5707964
+texture = ExtResource("2_rm1bw")
+
+[node name="RedSpike3" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=1776066541]
+position = Vector2(-204, -56)
+rotation = 1.5707964
+texture = ExtResource("2_rm1bw")
+
+[node name="RedSpike4" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=685959050]
+position = Vector2(-204, -48)
+rotation = 1.5707964
+texture = ExtResource("2_rm1bw")
+
+[node name="RedSpike5" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=586161097]
+position = Vector2(-204, -40)
+rotation = 1.5707964
+texture = ExtResource("2_rm1bw")
+
+[node name="RedSpike6" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=491516643]
+position = Vector2(-204, -32)
+rotation = 1.5707964
+texture = ExtResource("2_rm1bw")
+
+[node name="RedSpike7" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=386087640]
+position = Vector2(-204, -24)
+rotation = 1.5707964
+texture = ExtResource("2_rm1bw")
+
+[node name="RedSpike8" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=1599663341]
+position = Vector2(-204, -17)
+rotation = 1.5707964
+texture = ExtResource("2_rm1bw")
+
+[node name="Turnip2" type="Area2D" parent="Chunk2" unique_id=1466508567 node_paths=PackedStringArray("sprite")]
+position = Vector2(-124, -52)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_nw62s")
+sprite = NodePath("Turnip")
+float_height = 1.0
+
+[node name="Turnip" type="Sprite2D" parent="Chunk2/Turnip2" unique_id=1359352703]
+position = Vector2(-7.6293945e-06, -3.8146973e-06)
+scale = Vector2(0.100000024, 0.100000024)
+texture = ExtResource("4_hwj8o")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk2/Turnip2" unique_id=1773888849]
+shape = SubResource("CircleShape2D_s8q8g")
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Chunk2" unique_id=2100747314]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Chunk2/StaticBody2D2" unique_id=364878130]
+position = Vector2(104, -16)
+shape = SubResource("RectangleShape2D_clsb5")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Chunk2/StaticBody2D2" unique_id=1017729563]
+position = Vector2(-92, 68)
+shape = SubResource("RectangleShape2D_e8g45")
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=13812804]
+polygon = PackedVector2Array(-40, -40, -32, -40, -32, -56, -24, -56, -24, -64, 72, -64, 72, -72, 144, -72, 144, 24, 152, 24, 152, -72, 152, -80, -44, -80, -152, -80, -152, -64, -136, -64, -136, -72, -40, -72)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=878096700]
+polygon = PackedVector2Array(-112, -40, -152, -40, -152, 88, -32, 88, -32, 56, -96, 56, -96, 24, -104, 24, -104, 8, -80, 8, -80, 24, -64, 24, -64, -8, -112, -8)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=416511448]
+position = Vector2(152, 16)
+polygon = PackedVector2Array(-152, -40, -152, 8, -80, 8, -80, -8, -120, -8, -120, -40)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=1467299260]
+position = Vector2(-24, -88)
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+polygon = PackedVector2Array(120, 64, 120, 80, 136, 80, 136, 64)
+
+[node name="Polygon2D5" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=998353820]
+position = Vector2(-24, -88)
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+polygon = PackedVector2Array(24, 64, 24, 112, 96, 112, 96, 96, 56, 96, 56, 64)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=195809985]
+position = Vector2(-152, 0)
+color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+polygon = PackedVector2Array(0, 88, 120, 88, 120, 56, 56, 56, 56, 24, 48, 24, 48, 8, 72, 8, 72, 24, 88, 24, 88, -8, 40, -8, 40, -40, 0, -40)
+
+[node name="Spawn" type="Node2D" parent="Chunk2" unique_id=2014185313]
+position = Vector2(128, 56)
+
+[node name="Spike" type="StaticBody2D" parent="Chunk2" unique_id=301701184]
+position = Vector2(0, 4)
+script = ExtResource("1_f5vu5")
+hostile = true
+hostile_contact_margin = 0.1
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Chunk2/Spike" unique_id=1998802377]
+position = Vector2(-204, 28)
+polygon = PackedVector2Array(92, -44, 92, -40, 136, -40, 136, -44)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk2/Spike" unique_id=25484575]
+position = Vector2(-12, 120)
+polygon = PackedVector2Array(-20, -44, -20, -40, 116, -40, 116, -44)
+
+[node name="NeutralSpike3" type="Sprite2D" parent="Chunk2/Spike" unique_id=1700918774]
+position = Vector2(60, 7.6293945e-06)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike4" type="Sprite2D" parent="Chunk2/Spike" unique_id=617365458]
+position = Vector2(68, 7.6293945e-06)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike5" type="Sprite2D" parent="Chunk2/Spike" unique_id=768251913]
+position = Vector2(44, 1.5258789e-05)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike6" type="Sprite2D" parent="Chunk2/Spike" unique_id=1398909391]
+position = Vector2(52, 1.5258789e-05)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike8" type="Sprite2D" parent="Chunk2/Spike" unique_id=1043653801]
+position = Vector2(36, 1.5258789e-05)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike13" type="Sprite2D" parent="Chunk2/Spike" unique_id=1145422404]
+position = Vector2(36, -16)
+rotation = 1.5707964
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike14" type="Sprite2D" parent="Chunk2/Spike" unique_id=2114534701]
+position = Vector2(36, -7.9999995)
+rotation = 1.5707964
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike15" type="Sprite2D" parent="Chunk2/Spike" unique_id=730351152]
+position = Vector2(-3.9999962, 76.00001)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike16" type="Sprite2D" parent="Chunk2/Spike" unique_id=1707541951]
+position = Vector2(36, -23.99999)
+rotation = 1.5707964
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike17" type="Sprite2D" parent="Chunk2/Spike" unique_id=637219372]
+position = Vector2(-19.999996, 76.000015)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike19" type="Sprite2D" parent="Chunk2/Spike" unique_id=907621219]
+position = Vector2(-28, 76)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike18" type="Sprite2D" parent="Chunk2/Spike" unique_id=1395209630]
+position = Vector2(-11.999996, 76.000015)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike20" type="Sprite2D" parent="Chunk2/Spike" unique_id=244049449]
+position = Vector2(-68, -16)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike22" type="Sprite2D" parent="Chunk2/Spike" unique_id=950852609]
+position = Vector2(-84, -16)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike23" type="Sprite2D" parent="Chunk2/Spike" unique_id=1908082563]
+position = Vector2(-92, -16)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike26" type="Sprite2D" parent="Chunk2/Spike" unique_id=751828913]
+position = Vector2(-92, -16)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike27" type="Sprite2D" parent="Chunk2/Spike" unique_id=1662589841]
+position = Vector2(-100, -16)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike28" type="Sprite2D" parent="Chunk2/Spike" unique_id=1582714418]
+position = Vector2(-108, -16)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike24" type="Sprite2D" parent="Chunk2/Spike" unique_id=496443285]
+position = Vector2(-76, -16)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="Level2" type="Sprite2D" parent="Chunk2" unique_id=1084797929]
+visible = false
+material = SubResource("ShaderMaterial_oxhpx")
+position = Vector2(0, 2)
+texture = SubResource("CompressedTexture2D_ni1yb")
+
+[node name="EnvironmentBody" type="StaticBody2D" parent="Chunk2" unique_id=1899311850]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_f5vu5")
+affiliation = 0
+metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
+
+[node name="Polygon2D" type="Polygon2D" parent="Chunk2/EnvironmentBody" unique_id=1940446483]
+polygon = PackedVector2Array(-40, -40, -32, -40, -32, 24, -40, 24)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk2/EnvironmentBody" unique_id=571928973]
+polygon = PackedVector2Array(-40, -40, -32, -40, -32, 24, -40, 24)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Chunk2" unique_id=440911704]
+position = Vector2(328, 36)
+rotation = 1.5707964
+color = Color(0.25565878, 0.25565878, 0.25565878, 1)
+polygon = PackedVector2Array(-123.99999, 176, -123.99998, 480, -99.99998, 480, -99.99998, 464, -107.99998, 464, -107.999985, 368, -75.999985, 368, -75.999985, 360, -91.999985, 360, -91.999985, 352, -99.999985, 352, -99.999985, 256, -107.999985, 256, -107.99999, 184, -11.99999, 184, -11.99999, 176, -35.999992, 176)
+
+[node name="CameraBounds" type="Area2D" parent="." unique_id=606424736 node_paths=PackedStringArray("bounds_shape")]
+script = ExtResource("6_vm5lh")
+bounds_shape = NodePath("CollisionShape2D")
+horizontal_trigger_distance_px = 200.0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds" unique_id=257509663]
+shape = SubResource("RectangleShape2D_su0wl")
+disabled = true
+metadata/_edit_lock_ = true
