@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="6_vm5lh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nw62s"]
-size = Vector2(16, 40)
+size = Vector2(16, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s8q8g"]
 radius = 8.0
@@ -187,7 +187,7 @@ size = Vector2(304, 180)
 [node name="Markers" type="Node2D" parent="." unique_id=1169051356]
 
 [node name="Spawn" type="Node2D" parent="Markers" unique_id=412885029]
-position = Vector2(144, 64)
+position = Vector2(112, 64)
 
 [node name="Area2D" type="Area2D" parent="Markers/Spawn" unique_id=451743983]
 script = ExtResource("1_rm1bw")
@@ -195,7 +195,7 @@ spawn_id = &"from_right"
 print_debug = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Spawn/Area2D" unique_id=1330934451]
-position = Vector2(0, -21)
+position = Vector2(0, -32)
 shape = SubResource("RectangleShape2D_nw62s")
 
 [node name="Chunk2" type="Node2D" parent="." unique_id=747349289]
@@ -284,7 +284,7 @@ position = Vector2(-92, 68)
 shape = SubResource("RectangleShape2D_e8g45")
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=13812804]
-polygon = PackedVector2Array(-40, -40, -32, -40, -32, -56, -24, -56, -24, -64, 72, -64, 72, -72, 144, -72, 144, 24, 152, 24, 152, -72, 152, -80, -44, -80, -152, -80, -152, -64, -136, -64, -136, -72, -40, -72)
+polygon = PackedVector2Array(-40, -40, -32, -40, -32, -56, -24, -56, -24, -64, 72, -64, 72, -72, 144, -72, 144, 0, 152, 0, 152, -72, 152, -80, -44, -80, -152, -80, -152, -64, -136, -64, -136, -72, -40, -72)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=878096700]
 polygon = PackedVector2Array(-112, -40, -152, -40, -152, 88, -32, 88, -32, 56, -96, 56, -96, 24, -104, 24, -104, 8, -80, 8, -80, 24, -64, 24, -64, -8, -112, -8)
@@ -300,13 +300,20 @@ polygon = PackedVector2Array(120, 64, 120, 80, 136, 80, 136, 64)
 
 [node name="Polygon2D5" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=998353820]
 position = Vector2(-24, -88)
-color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
 polygon = PackedVector2Array(24, 64, 24, 112, 96, 112, 96, 96, 56, 96, 56, 64)
 
 [node name="Polygon2D2" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=195809985]
 position = Vector2(-152, 0)
-color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
 polygon = PackedVector2Array(0, 88, 120, 88, 120, 56, 56, 56, 56, 24, 48, 24, 48, 8, 72, 8, 72, 24, 88, 24, 88, -8, 40, -8, 40, -40, 0, -40)
+
+[node name="Polygon2D" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=2129139139]
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
+polygon = PackedVector2Array(152, 64, 104, 64, 104, 96, 152, 96)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=2047196419]
+polygon = PackedVector2Array(104, 64, 104, 96, 152, 96, 152, 64)
 
 [node name="Spawn" type="Node2D" parent="Chunk2" unique_id=2014185313]
 position = Vector2(128, 56)
@@ -446,7 +453,7 @@ polygon = PackedVector2Array(-40, -40, -32, -40, -32, 24, -40, 24)
 position = Vector2(328, 36)
 rotation = 1.5707964
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
-polygon = PackedVector2Array(-123.99999, 176, -123.99998, 480, -99.99998, 480, -99.99998, 464, -107.99998, 464, -107.999985, 368, -75.999985, 368, -75.999985, 360, -91.999985, 360, -91.999985, 352, -99.999985, 352, -99.999985, 256, -107.999985, 256, -107.99999, 184, -11.99999, 184, -11.99999, 176, -35.999992, 176)
+polygon = PackedVector2Array(-132, 176, -131.99997, 480, -99.99998, 480, -99.99998, 464, -107.99998, 464, -107.999985, 368, -75.999985, 368, -75.999985, 360, -91.999985, 360, -91.999985, 352, -99.999985, 352, -99.999985, 256, -107.999985, 256, -107.99999, 184, -35.999992, 184, -35.999992, 176)
 
 [node name="CameraBounds" type="Area2D" parent="." unique_id=606424736 node_paths=PackedStringArray("bounds_shape")]
 script = ExtResource("6_vm5lh")

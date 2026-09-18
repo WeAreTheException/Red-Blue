@@ -567,6 +567,7 @@ shape = SubResource("CircleShape2D_hph6r")
 metadata/_edit_lock_ = true
 
 [node name="Frame" type="Polygon2D" parent="." unique_id=250070519]
+visible = false
 polygon = PackedVector2Array(-152, 96, -160, 96, -160, -96, 400, -96, 400, 96, 176, 96, -152, 96, -152, 84, 392, 84, 392, -84, -152, -84)
 
 [node name="Line2D" type="Line2D" parent="Frame" unique_id=641411197]
@@ -611,9 +612,11 @@ position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_lcssr")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1635907230]
+visible = false
 polygon = PackedVector2Array(16, -84, 16, -96, -160, -96, -160, 96, 400, 96, 400, -96, 32, -96, 32, -84, 392, -84, 392, 84, -152, 85, -152, -84)
 
 [node name="Line2D" type="Line2D" parent="Polygon2D" unique_id=2021581346]
+visible = false
 points = PackedVector2Array(32, -96, 32, -84, 392, -84, 392, 84, -152, 85, -152, -84, 16, -84, 16, -96)
 width = 1.0
 default_color = Color(0, 0, 0, 1)

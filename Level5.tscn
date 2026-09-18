@@ -7,10 +7,6 @@
 [ext_resource type="Script" uid="uid://cficjfe4qtfyi" path="res://Environment/VanishTrigger.gd" id="7_2sqat"]
 [ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="9_5i881"]
 [ext_resource type="Script" uid="uid://don73e2npfp5a" path="res://Player/Respawn/RespawnMarker.gd" id="10_kr0eu"]
-[ext_resource type="Script" uid="uid://b2utpm0apq5cx" path="res://Levels/RoomTransition/RoomExit.gd" id="11_fk6xo"]
-[ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="12_oprh5"]
-[ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="13_uu4cx"]
-[ext_resource type="Texture2D" uid="uid://bbmfwdcgt3qkr" path="res://Environment/Platform/RedSpike.png" id="14_a4tlq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qmfdg"]
 shader = ExtResource("1_er5cn")
@@ -26,184 +22,14 @@ shader_parameter/rotation = Transform2D(1, -1, 1, 1, 0, 0)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4apw6"]
 size = Vector2(16, 40)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oyvix"]
-size = Vector2(64, 16)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_qmfdg"]
-radius = 8.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_frjfn"]
-size = Vector2(16, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d1qly"]
-size = Vector2(120, 24)
-
-[sub_resource type="Shader" id="Shader_atokh"]
-code = "shader_type canvas_item;
-render_mode unshaded;
-
-
-uniform vec4 dither_color : source_color = vec4(
-	0.0,
-	0.0,
-	0.0,
-	1.0
-);
-
-uniform float dither_amount : hint_range(
-	0.0,
-	1.0,
-	0.01
-) = 0.65;
-
-uniform float darkness_influence : hint_range(
-	0.0,
-	1.0,
-	0.01
-) = 1.0;
-
-uniform float base_coverage : hint_range(
-	0.0,
-	1.0,
-	0.01
-) = 0.0;
-
-uniform float pixel_size : hint_range(
-	1.0,
-	16.0,
-	1.0
-) = 1.0;
-
-
-varying vec2 local_position;
-
-
-void vertex() {
-	local_position = VERTEX;
-}
-
-
-float bayer_4x4(
-	vec2 position
-) {
-	vec2 cell = mod(
-		floor(position),
-		4.0
-	);
-
-	float x = cell.x;
-	float y = cell.y;
-
-
-	if (y < 1.0) {
-		if (x < 1.0) return 0.0 / 16.0;
-		if (x < 2.0) return 8.0 / 16.0;
-		if (x < 3.0) return 2.0 / 16.0;
-
-		return 10.0 / 16.0;
-	}
-
-
-	if (y < 2.0) {
-		if (x < 1.0) return 12.0 / 16.0;
-		if (x < 2.0) return 4.0 / 16.0;
-		if (x < 3.0) return 14.0 / 16.0;
-
-		return 6.0 / 16.0;
-	}
-
-
-	if (y < 3.0) {
-		if (x < 1.0) return 3.0 / 16.0;
-		if (x < 2.0) return 11.0 / 16.0;
-		if (x < 3.0) return 1.0 / 16.0;
-
-		return 9.0 / 16.0;
-	}
-
-
-	if (x < 1.0) return 15.0 / 16.0;
-	if (x < 2.0) return 7.0 / 16.0;
-	if (x < 3.0) return 13.0 / 16.0;
-
-	return 5.0 / 16.0;
-}
-
-
-void fragment() {
-	vec4 source = COLOR;
-
-
-	float luminance = dot(
-		source.rgb,
-		vec3(
-			0.299,
-			0.587,
-			0.114
-		)
-	);
-
-
-	float darkness = 1.0 - luminance;
-
-
-	float coverage = mix(
-		base_coverage,
-		darkness,
-		darkness_influence
-	);
-
-
-	coverage *= dither_amount;
-
-
-	vec2 pixel_position = floor(
-		local_position / pixel_size
-	);
-
-
-	float threshold = bayer_4x4(
-		pixel_position
-	);
-
-
-	float dither = step(
-		threshold,
-		coverage
-	);
-
-
-	vec3 final_color = mix(
-		source.rgb,
-		dither_color.rgb,
-		dither * dither_color.a
-	);
-
-
-	COLOR = vec4(
-		final_color,
-		source.a
-	);
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u7hyk"]
-shader = SubResource("Shader_atokh")
-shader_parameter/dither_color = Color(0.16206568, 0.16206554, 0.16206557, 0.3019608)
-shader_parameter/dither_amount = 0.65999998524768
-shader_parameter/darkness_influence = 1.0
-shader_parameter/base_coverage = 0.0
-shader_parameter/pixel_size = 1.0
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t1fva"]
-load_path = "res://.godot/imported/Level2.png-8993bb404a8c3f3189451fda74ae1fc6.ctex"
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oprh5"]
-size = Vector2(232, 180)
+size = Vector2(320, 192)
 
 [node name="Level5" type="Node2D" unique_id=2051680900]
 
 [node name="Chunk1" type="Node2D" parent="." unique_id=1443517149]
 position = Vector2(296, 0)
+metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Chunk1" unique_id=1131245422]
 visible = false
@@ -227,19 +53,19 @@ polygon = PackedVector2Array(-120, 56, -88, 56, -88, 8, -80, 8, -80, 0, -120, 0)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk1/Environemnt/Starting" unique_id=501062415]
 position = Vector2(8, -9)
-polygon = PackedVector2Array(-152, 8, -152, 56, -136, 56, -136, 8)
+polygon = PackedVector2Array(-200, 8, -200, 56, -136, 56, -136, 8)
 
 [node name="Polygon2D" type="Polygon2D" parent="Chunk1/Environemnt/Starting" unique_id=567827141]
 material = SubResource("ShaderMaterial_6pu3q")
 position = Vector2(8, -9)
-color = Color(0.25490198, 0.25490198, 0.25490198, 1)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
 polygon = PackedVector2Array(-120, 0, -120, 56, -88, 56, -88, 8, -80, 8, -80, 0, -88, 0)
 
 [node name="Polygon2D2" type="Polygon2D" parent="Chunk1/Environemnt/Starting" unique_id=1819312032]
 material = SubResource("ShaderMaterial_6pu3q")
 position = Vector2(8, -9)
-color = Color(0.25490198, 0.25490198, 0.25490198, 1)
-polygon = PackedVector2Array(-152, 8, -152, 56, -136, 56, -136, 8)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
+polygon = PackedVector2Array(-200, 8, -200, 56, -136, 56, -136, 8)
 
 [node name="Ceiling" type="StaticBody2D" parent="Chunk1/Environemnt" unique_id=676446157]
 position = Vector2(32, 36)
@@ -250,24 +76,25 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk1/Environemnt/Ceiling" unique_id=1038341120]
 position = Vector2(37.000008, 144)
-polygon = PackedVector2Array(-161, 32, -153, 32, -73, 32, -73, 24, -129, 24, -129, 16, -145, 16, -145, -8, -137, -8, -137, -16, -121, -16, -121, -24, -145, -24, -145, -32, -153, -32, -153, -55.999996, -145, -55.999996, -145, -72, -137, -72, -137, -80, -161, -80)
+polygon = PackedVector2Array(-169, 80.00001, -73, 80, -73, 24, -129, 24, -129, 16, -145, 16, -145, -8, -137, -8, -137, -16, -121, -16, -121, -24, -145, -24, -145, -32, -153, -32, -153, -55.999996, -145, -55.999996, -145, -72, -137, -72, -137, -112, -169, -112)
 
 [node name="Polygon2D" type="Polygon2D" parent="Chunk1/Environemnt/Ceiling" unique_id=31488473]
-color = Color(0.25565878, 0.25565878, 0.25565878, 1)
-polygon = PackedVector2Array(-35.999992, 168, -83.99999, 168, -91.99999, 168, -92, 160, -107.99999, 160, -107.99999, 136, -100, 136, -100, 128, -84, 128, -84, 120, -107.99999, 120, -108, 112, -112, 112, -112, 88, -108, 88, -108, 72, -100, 72, -100, 32.000004, -124, 32.000004, -123.99999, 176, -35.999992, 176)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
+polygon = PackedVector2Array(-35.999992, 168, -83.99999, 168, -91.99999, 168, -92, 160, -107.99999, 160, -107.99999, 136, -100, 136, -100, 128, -84, 128, -84, 120, -107.99999, 120, -108, 112, -112, 112, -112, 88, -108, 88, -108, 72, -100, 72, -100, 32.000004, -132, 32, -132, 224, -35.99999, 224)
 
 [node name="Vanishing1" type="StaticBody2D" parent="Chunk1/Environemnt" unique_id=1177379682]
-position = Vector2(24, 48)
 rotation = 1.5707964
 collision_layer = 2
 collision_mask = 0
 
 [node name="Polygon2D" type="Polygon2D" parent="Chunk1/Environemnt/Vanishing1" unique_id=1324529724]
+position = Vector2(62.4, -39.200016)
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
-polygon = PackedVector2Array(-96, 8.000004, -104, 8.000005, -104, 32.000004, -96, 32.000004)
+polygon = PackedVector2Array(-94.4, 15.200012, -102.4, 15.200012, -102.399994, 39.200012, -94.399994, 39.200012)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk1/Environemnt/Vanishing1" unique_id=1108009768]
-polygon = PackedVector2Array(-104, 8.000005, -104, 32.000004, -96, 32.000004, -96, 8.000004)
+position = Vector2(62.4, -39.200016)
+polygon = PackedVector2Array(-102.4, 15.200012, -102.399994, 39.200012, -94.399994, 39.200012, -94.4, 15.200012)
 
 [node name="Spike" type="StaticBody2D" parent="Chunk1/Environemnt" unique_id=306684111]
 script = ExtResource("2_rjmri")
@@ -445,8 +272,8 @@ polygon = PackedVector2Array(-190, 40.00001, -117.99999, 40.000008, -117.99999, 
 
 [node name="Polygon2D2" type="Polygon2D" parent="Chunk1/Environemnt/RightSide2" unique_id=1192233941]
 position = Vector2(140, 47.999996)
-color = Color(0.2159017, 0.21590173, 0.2159017, 1)
-polygon = PackedVector2Array(-76, -128, -76, -63.759193, -76, -55.999996, -68, -55.999996, -68, -47.999996, -60, -47.999996, -60, -31.999996, -60, 24.000004, -52, 24.000004, -52, -128)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
+polygon = PackedVector2Array(-76, -144, -76, -63.759193, -76, -55.999996, -68, -55.999996, -68, -47.999996, -60, -47.999996, -60, -31.999996, -60, 48.000004, -12, 48.000004, -12, -144)
 
 [node name="Vanishin2" type="StaticBody2D" parent="Chunk1" unique_id=1736691187 node_paths=PackedStringArray("visual", "trigger_area")]
 collision_layer = 2
@@ -493,7 +320,7 @@ default_color = Color(0, 0, 0, 1)
 metadata/_edit_lock_ = true
 
 [node name="Spawn" type="Node2D" parent="Chunk1/Markers" unique_id=1530572198]
-position = Vector2(-120, 40)
+position = Vector2(-104, 32)
 
 [node name="Area2D" type="Area2D" parent="Chunk1/Markers/Spawn" unique_id=751403535]
 script = ExtResource("10_kr0eu")
@@ -501,269 +328,20 @@ spawn_id = &"from_bottom"
 print_debug = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk1/Markers/Spawn/Area2D" unique_id=839306943]
-position = Vector2(0, -21)
+position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_4apw6")
 
-[node name="Exit" type="Node2D" parent="Chunk1/Markers" unique_id=2006185018]
-position = Vector2(-20, -64)
-metadata/_edit_lock_ = true
+[node name="Spawn2" type="Node2D" parent="Chunk1/Markers" unique_id=1300950298]
+position = Vector2(-144, 40)
 
-[node name="Area2D" type="Area2D" parent="Chunk1/Markers/Exit" unique_id=1445589391]
-script = ExtResource("11_fk6xo")
+[node name="Area2D" type="Area2D" parent="Chunk1/Markers/Spawn2" unique_id=398168956]
+script = ExtResource("10_kr0eu")
+spawn_id = &"from_left"
+print_debug = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk1/Markers/Exit/Area2D" unique_id=2108074213]
-position = Vector2(52, -16)
-shape = SubResource("RectangleShape2D_oyvix")
-
-[node name="Chunk2" type="Node2D" parent="." unique_id=983103370]
-
-[node name="RedSpikes" type="StaticBody2D" parent="Chunk2" unique_id=1943589420]
-position = Vector2(176, 36)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("2_rjmri")
-affiliation = 0
-hostile = true
-hostile_contact_margin = 0.1
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk2/RedSpikes" unique_id=806540552]
-position = Vector2(-176, -36)
-polygon = PackedVector2Array(-32, -40, -28, -40, -28, 20, -32, 20)
-
-[node name="RedSpike" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=1498429516]
-position = Vector2(-204, -72)
-rotation = 1.5707964
-texture = ExtResource("14_a4tlq")
-
-[node name="RedSpike2" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=1650327971]
-position = Vector2(-204, -64)
-rotation = 1.5707964
-texture = ExtResource("14_a4tlq")
-
-[node name="RedSpike3" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=248261241]
-position = Vector2(-204, -56)
-rotation = 1.5707964
-texture = ExtResource("14_a4tlq")
-
-[node name="RedSpike4" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=1180010859]
-position = Vector2(-204, -48)
-rotation = 1.5707964
-texture = ExtResource("14_a4tlq")
-
-[node name="RedSpike5" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=401083308]
-position = Vector2(-204, -40)
-rotation = 1.5707964
-texture = ExtResource("14_a4tlq")
-
-[node name="RedSpike6" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=1309294722]
-position = Vector2(-204, -32)
-rotation = 1.5707964
-texture = ExtResource("14_a4tlq")
-
-[node name="RedSpike7" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=1271397618]
-position = Vector2(-204, -24)
-rotation = 1.5707964
-texture = ExtResource("14_a4tlq")
-
-[node name="RedSpike8" type="Sprite2D" parent="Chunk2/RedSpikes" unique_id=35051504]
-position = Vector2(-204, -17)
-rotation = 1.5707964
-texture = ExtResource("14_a4tlq")
-
-[node name="Turnip2" type="Area2D" parent="Chunk2" unique_id=1332336499 node_paths=PackedStringArray("sprite")]
-position = Vector2(-124, -52)
-collision_layer = 3
-collision_mask = 3
-script = ExtResource("12_oprh5")
-sprite = NodePath("Turnip")
-float_height = 1.0
-
-[node name="Turnip" type="Sprite2D" parent="Chunk2/Turnip2" unique_id=1866231029]
-position = Vector2(-7.6293945e-06, -3.8146973e-06)
-scale = Vector2(0.100000024, 0.100000024)
-texture = ExtResource("13_uu4cx")
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk2/Turnip2" unique_id=918691502]
-shape = SubResource("CircleShape2D_qmfdg")
-metadata/_edit_lock_ = true
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Chunk2" unique_id=1985257738]
-collision_layer = 2
-collision_mask = 0
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Chunk2/StaticBody2D2" unique_id=1210380043]
-position = Vector2(104, -16)
-shape = SubResource("RectangleShape2D_frjfn")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Chunk2/StaticBody2D2" unique_id=1642488811]
-position = Vector2(-92, 68)
-shape = SubResource("RectangleShape2D_d1qly")
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=709156340]
-polygon = PackedVector2Array(-40, -40, -32, -40, -32, -56, -24, -56, -24, -64, 72, -64, 72, -72, 144, -72, 144, 24, 152, 24, 152, -72, 152, -80, -44, -80, -152, -80, -152, -64, -136, -64, -136, -72, -40, -72)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=1861673203]
-polygon = PackedVector2Array(-112, -40, -152, -40, -152, 88, -32, 88, -32, 56, -96, 56, -96, 24, -104, 24, -104, 8, -80, 8, -80, 24, -64, 24, -64, -8, -112, -8)
-
-[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=1690328210]
-position = Vector2(152, 16)
-polygon = PackedVector2Array(-152, -40, -152, 8, -80, 8, -80, -8, -120, -8, -120, -40)
-
-[node name="Polygon2D3" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=1848644878]
-position = Vector2(-24, -88)
-color = Color(0.15294118, 0.2509804, 0.36078432, 1)
-polygon = PackedVector2Array(120, 64, 120, 80, 136, 80, 136, 64)
-
-[node name="Polygon2D5" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=1716193626]
-position = Vector2(-24, -88)
-color = Color(0.15294118, 0.2509804, 0.36078432, 1)
-polygon = PackedVector2Array(24, 64, 24, 112, 96, 112, 96, 96, 56, 96, 56, 64)
-
-[node name="Polygon2D2" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=1613469974]
-position = Vector2(-152, 0)
-color = Color(0.15294118, 0.2509804, 0.36078432, 1)
-polygon = PackedVector2Array(0, 88, 120, 88, 120, 56, 56, 56, 56, 24, 48, 24, 48, 8, 72, 8, 72, 24, 88, 24, 88, -8, 40, -8, 40, -40, 0, -40)
-
-[node name="Spawn" type="Node2D" parent="Chunk2" unique_id=770937578]
-position = Vector2(128, 56)
-
-[node name="Spike" type="StaticBody2D" parent="Chunk2" unique_id=147030869]
-position = Vector2(0, 4)
-script = ExtResource("2_rjmri")
-hostile = true
-hostile_contact_margin = 0.1
-
-[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Chunk2/Spike" unique_id=693536534]
-position = Vector2(-204, 28)
-polygon = PackedVector2Array(92, -44, 92, -40, 136, -40, 136, -44)
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk2/Spike" unique_id=1266750834]
-position = Vector2(-12, 120)
-polygon = PackedVector2Array(-20, -44, -20, -40, 116, -40, 116, -44)
-
-[node name="NeutralSpike3" type="Sprite2D" parent="Chunk2/Spike" unique_id=112104895]
-position = Vector2(60, 7.6293945e-06)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike4" type="Sprite2D" parent="Chunk2/Spike" unique_id=732811311]
-position = Vector2(68, 7.6293945e-06)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike5" type="Sprite2D" parent="Chunk2/Spike" unique_id=693776941]
-position = Vector2(44, 1.5258789e-05)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike6" type="Sprite2D" parent="Chunk2/Spike" unique_id=332227765]
-position = Vector2(52, 1.5258789e-05)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike8" type="Sprite2D" parent="Chunk2/Spike" unique_id=2125430593]
-position = Vector2(36, 1.5258789e-05)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike13" type="Sprite2D" parent="Chunk2/Spike" unique_id=2013174716]
-position = Vector2(36, -16)
-rotation = 1.5707964
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike14" type="Sprite2D" parent="Chunk2/Spike" unique_id=1717037415]
-position = Vector2(36, -7.9999995)
-rotation = 1.5707964
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike15" type="Sprite2D" parent="Chunk2/Spike" unique_id=768333743]
-position = Vector2(-3.9999962, 76.00001)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike16" type="Sprite2D" parent="Chunk2/Spike" unique_id=1678227923]
-position = Vector2(36, -23.99999)
-rotation = 1.5707964
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike17" type="Sprite2D" parent="Chunk2/Spike" unique_id=2134567256]
-position = Vector2(-19.999996, 76.000015)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike19" type="Sprite2D" parent="Chunk2/Spike" unique_id=910368534]
-position = Vector2(-28, 76)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike18" type="Sprite2D" parent="Chunk2/Spike" unique_id=1820475936]
-position = Vector2(-11.999996, 76.000015)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike20" type="Sprite2D" parent="Chunk2/Spike" unique_id=1245115687]
-position = Vector2(-68, -16)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike22" type="Sprite2D" parent="Chunk2/Spike" unique_id=845000208]
-position = Vector2(-84, -16)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike23" type="Sprite2D" parent="Chunk2/Spike" unique_id=540357788]
-position = Vector2(-92, -16)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike26" type="Sprite2D" parent="Chunk2/Spike" unique_id=924175512]
-position = Vector2(-92, -16)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike27" type="Sprite2D" parent="Chunk2/Spike" unique_id=1924960732]
-position = Vector2(-100, -16)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike28" type="Sprite2D" parent="Chunk2/Spike" unique_id=1233162848]
-position = Vector2(-108, -16)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="NeutralSpike24" type="Sprite2D" parent="Chunk2/Spike" unique_id=2126168631]
-position = Vector2(-76, -16)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cvbi2")
-
-[node name="Level2" type="Sprite2D" parent="Chunk2" unique_id=224628382]
-visible = false
-material = SubResource("ShaderMaterial_u7hyk")
-position = Vector2(0, 2)
-texture = SubResource("CompressedTexture2D_t1fva")
-
-[node name="EnvironmentBody" type="StaticBody2D" parent="Chunk2" unique_id=1881816667]
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("2_rjmri")
-affiliation = 0
-metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
-
-[node name="Polygon2D" type="Polygon2D" parent="Chunk2/EnvironmentBody" unique_id=1517025698]
-polygon = PackedVector2Array(-40, -40, -32, -40, -32, 24, -40, 24)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk2/EnvironmentBody" unique_id=1330005859]
-polygon = PackedVector2Array(-40, -40, -32, -40, -32, 24, -40, 24)
-
-[node name="Polygon2D2" type="Polygon2D" parent="Chunk2" unique_id=846830325]
-position = Vector2(328, 36)
-rotation = 1.5707964
-color = Color(0.25565878, 0.25565878, 0.25565878, 1)
-polygon = PackedVector2Array(-123.99999, 176, -123.99998, 480, -99.99998, 480, -99.99998, 464, -107.99998, 464, -107.999985, 368, -75.999985, 368, -75.999985, 360, -91.999985, 360, -91.999985, 352, -99.999985, 352, -99.999985, 256, -107.999985, 256, -107.99999, 184, -11.99999, 184, -11.99999, 176, -35.999992, 176)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk1/Markers/Spawn2/Area2D" unique_id=925235651]
+position = Vector2(0, -20)
+shape = SubResource("RectangleShape2D_4apw6")
 
 [node name="CameraBounds" type="Area2D" parent="." unique_id=539543633 node_paths=PackedStringArray("bounds_shape")]
 script = ExtResource("9_5i881")
@@ -772,12 +350,13 @@ horizontal_trigger_distance_px = 200.0
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds" unique_id=1964028873]
-position = Vector2(268, 1)
+position = Vector2(264, 0)
 shape = SubResource("RectangleShape2D_oprh5")
 disabled = true
 metadata/_edit_lock_ = true
 
 [node name="Frame" type="Polygon2D" parent="." unique_id=844816615]
+visible = false
 polygon = PackedVector2Array(-152, 96, -160, 96, -160, -96, 400, -96, 400, 96, 176, 96, -152, 96, -152, 84, 392, 84, 392, -84, -152, -84)
 metadata/_edit_lock_ = true
 

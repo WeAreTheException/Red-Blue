@@ -53,9 +53,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_devvj"]
 size = Vector2(16, 24)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3b0ty"]
-size = Vector2(16, 32)
-
 [node name="Main" type="Node2D" unique_id=1247182007]
 metadata/_edit_lock_ = true
 
@@ -159,15 +156,16 @@ metadata/_edit_lock_ = true
 
 [node name="Exit" type="Node2D" parent="RoomContainer/Level4" unique_id=542349167]
 position = Vector2(24, -88)
+metadata/_edit_lock_ = true
 
 [node name="Area2D" type="Area2D" parent="RoomContainer/Level4/Exit" unique_id=1183739367]
-position = Vector2(0, 8)
+position = Vector2(0, -8)
 script = ExtResource("20_devvj")
 destination_room = ExtResource("19_5tuhn")
 destination_spawn_id = &"from_bottom"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContainer/Level4/Exit/Area2D" unique_id=2050158156]
-position = Vector2(0, -24)
+position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_devvj")
 
 [node name="Level6" parent="RoomContainer" unique_id=1922034452 instance=ExtResource("20_2gh4u")]
@@ -175,19 +173,6 @@ position = Vector2(-200, -184)
 
 [node name="Level5" parent="RoomContainer" unique_id=2051680900 instance=ExtResource("19_5tuhn")]
 position = Vector2(-152, -184)
-
-[node name="Exit2" type="Node2D" parent="RoomContainer/Level5" unique_id=486797458]
-position = Vector2(176, 96)
-
-[node name="Area2D" type="Area2D" parent="RoomContainer/Level5/Exit2" unique_id=757052883]
-position = Vector2(-80, -24)
-script = ExtResource("20_devvj")
-destination_room = ExtResource("20_2gh4u")
-destination_spawn_id = &"from_right"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContainer/Level5/Exit2/Area2D" unique_id=1696007651]
-position = Vector2(0, -32)
-shape = SubResource("RectangleShape2D_3b0ty")
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=987115664]
 stream = ExtResource("18_kjvhd")
