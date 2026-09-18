@@ -18,13 +18,10 @@
 [ext_resource type="PackedScene" uid="uid://du536ufxh6l0f" path="res://Levels/Chapter_1/Level_1.tscn" id="16_ob6w4"]
 [ext_resource type="PackedScene" uid="uid://5iunxq0xbw5l" path="res://Levels/Level_3.tscn" id="16_wbab1"]
 [ext_resource type="PackedScene" uid="uid://clnxavhk3e18s" path="res://Levels/Level_4.tscn" id="17_lgbl1"]
-[ext_resource type="PackedScene" uid="uid://16boayvaeb3u" path="res://Levels/Level_2.tscn" id="18_t1f4i"]
-[ext_resource type="PackedScene" uid="uid://ckytlxbavp0xj" path="res://Levels/Chapter_1/Level_7.tscn" id="19_q223g"]
 [ext_resource type="PackedScene" uid="uid://bvdo4ot8px4cc" path="res://Levels/Level_8.tscn" id="22_uxbck"]
 [ext_resource type="PackedScene" uid="uid://b643epkd3tcuo" path="res://Levels/Level_10.tscn" id="23_eq767"]
 [ext_resource type="PackedScene" uid="uid://bphc7a631e84h" path="res://Levels/level_11.tscn" id="24_dsui6"]
 [ext_resource type="PackedScene" uid="uid://bcvnat6ni3es0" path="res://Levels/level_12.tscn" id="25_ivlp8"]
-[ext_resource type="PackedScene" uid="uid://bl6p3718hkj0l" path="res://Levels/level_13.tscn" id="26_mwqpc"]
 [ext_resource type="PackedScene" uid="uid://de77cvpubmakx" path="res://Levels/RaashiLevel.tscn" id="27_ufuky"]
 [ext_resource type="PackedScene" uid="uid://c2l8pri7pgm10" path="res://Levels/Chapter_1/Level4.tscn" id="28_500fv"]
 [ext_resource type="PackedScene" uid="uid://cljalnul2cgl0" path="res://Levels/Chapter_1/Level2.tscn" id="28_eq767"]
@@ -157,15 +154,8 @@ scale = Vector2(-1, 1)
 [node name="Level3" parent="." unique_id=200058639 instance=ExtResource("16_wbab1")]
 position = Vector2(1592, -1000)
 
-[node name="Level5" parent="." unique_id=1515681554 instance=ExtResource("18_t1f4i")]
-position = Vector2(1456, -456)
-scale = Vector2(-1, 1)
-
 [node name="Level1" parent="." unique_id=1785950857 instance=ExtResource("16_ob6w4")]
 position = Vector2(32, -8)
-
-[node name="Node2D" parent="." unique_id=2059484946 instance=ExtResource("19_q223g")]
-position = Vector2(1208, -336)
 
 [node name="Level_8" parent="." unique_id=1497379900 instance=ExtResource("22_uxbck")]
 position = Vector2(1264, -808)
@@ -181,9 +171,6 @@ scale = Vector2(-1, 1)
 [node name="Level12" parent="." unique_id=548476032 instance=ExtResource("25_ivlp8")]
 position = Vector2(1912, -1008)
 
-[node name="Level13" parent="." unique_id=1831271614 instance=ExtResource("26_mwqpc")]
-position = Vector2(912, -224)
-
 [node name="Node2D2" parent="." unique_id=170852076 instance=ExtResource("27_ufuky")]
 position = Vector2(1904, -736)
 
@@ -191,4 +178,4 @@ position = Vector2(1904, -736)
 position = Vector2(1776, -552)
 
 [node name="Level2" parent="." unique_id=923864493 instance=ExtResource("28_eq767")]
-position = Vector2(352, -120)
+position = Vector2(1216, -552)

@@ -16,7 +16,7 @@ radius = 8.0
 size = Vector2(556, 180)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n7rko"]
-size = Vector2(16, 56)
+size = Vector2(16, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lcssr"]
 size = Vector2(16, 40)
@@ -32,8 +32,11 @@ collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Base" unique_id=699592583]
 position = Vector2(-160, -88)
-polygon = PackedVector2Array(0, 184, 152, 184, 152, 168, 136, 168, 136, 152, 120, 152, 120, 168, 96, 168, 96, 152, 80, 152, 80, 160, 64, 160, 64, 168, 40, 168, 40, 152, 16, 152, 16, 144, 8, 144, 8, 88, 24, 88, 24, 80, 32, 80, 32, 72, 56, 72, 56, 64, 40, 64, 40, 56, 48, 56, 48, 48, 32, 48, 32, 40, 24, 40, 24, 24, 32, 24, 32, 16, 72, 16, 72, 8, 128, 8, 128, 16, 136, 16, 136, 32, 144, 32, 144, 40, 160, 40, 160, 48, 168, 48, 168, 88, 184, 88, 184, 80, 176, 80, 176, 64, 176, 40, 176, -8, 0, -8)
-metadata/_edit_lock_ = true
+polygon = PackedVector2Array(0, 88, 8, 88, 24, 88, 24, 80, 32, 80, 32, 72, 56, 72, 56, 64, 40, 64, 40, 56, 48, 56, 48, 48, 32, 48, 32, 40, 24, 40, 24, 24, 32, 24, 32, 16, 72, 16, 72, 8, 128, 8, 128, 16, 136, 16, 136, 32, 144, 32, 144, 40, 160, 40, 160, 48, 168, 48, 168, 88, 184, 88, 184, 80, 176, 80, 176, 64, 176, 40, 176, -8, 0, -8)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Environment/Base" unique_id=31464532]
+position = Vector2(-160, -88)
+polygon = PackedVector2Array(0, 184, 184, 184, 184, 176, 152, 176, 152, 168, 136, 168, 136, 152, 120, 152, 120, 168, 96, 168, 96, 152, 80, 152, 80, 160, 64, 160, 64, 168, 40, 168, 40, 152, 16, 152, 16, 144, 8, 144, 0, 144)
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Environment/Base" unique_id=1389770307]
 position = Vector2(-160, -88)
@@ -56,7 +59,13 @@ metadata/_edit_lock_ = true
 [node name="Base" type="Polygon2D" parent="Environment/Base" unique_id=291774660]
 position = Vector2(-144, -88)
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
-polygon = PackedVector2Array(-16, -8, -16, 184, 136, 184, 168, 184, 168, 176, 136, 176, 136, 168, 120, 168, 120, 152, 104, 152, 104, 168, 80, 168, 80, 152, 64, 152, 64, 160, 48, 160, 48, 168, 24, 168, 24, 152, 0, 152, 0, 144, -8, 144, -8, 88, 8, 88, 8, 80, 16, 80, 16, 72, 40, 72, 40, 64, 24, 64, 24, 56, 32, 56, 32, 48, 16, 48, 16, 40, 8, 40, 8, 24, 16, 24, 16, 16, 56, 16, 56, 8, 112, 8, 112, 16, 120, 16, 120, 32, 128, 32, 128, 40, 144, 40, 144, 48, 152, 48, 152, 88, 168, 88, 168, 80, 160, 80, 160, 40, 160, -8)
+polygon = PackedVector2Array(-16, -8, -16, 88, -8, 88, 8, 88, 8, 80, 16, 80, 16, 72, 40, 72, 40, 64, 24, 64, 24, 56, 32, 56, 32, 48, 16, 48, 16, 40, 8, 40, 8, 24, 16, 24, 16, 16, 56, 16, 56, 8, 112, 8, 112, 16, 120, 16, 120, 32, 128, 32, 128, 40, 144, 40, 144, 48, 152, 48, 152, 88, 168, 88, 168, 80, 160, 80, 160, 40, 160, -8)
+metadata/_edit_lock_ = true
+
+[node name="Base3" type="Polygon2D" parent="Environment/Base" unique_id=598251486]
+position = Vector2(-144, -88)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
+polygon = PackedVector2Array(-16, 184, 136, 184, 168, 184, 168, 176, 136, 176, 136, 168, 120, 168, 120, 152, 104, 152, 104, 168, 80, 168, 80, 152, 64, 152, 64, 160, 48, 160, 48, 168, 24, 168, 24, 152, 0, 152, 0, 144, -16, 144)
 metadata/_edit_lock_ = true
 
 [node name="Base2" type="Polygon2D" parent="Environment/Base" unique_id=1394529942]
@@ -546,7 +555,7 @@ polygon = PackedVector2Array(-96, 72, -104, 72, -104, 88, -120, 88, -120, 48, -8
 position = Vector2(32, -32)
 scale = Vector2(0.5, 1)
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
-polygon = PackedVector2Array(-80, 24, -64, 24, -64, 8, -32, 8, -32, -8, -16, -8, -16, -16, 88, -16, 88, 8, 64, 8, 64, 32, 80, 32, 80, 96, 104, 96, 104, 8, 104, -32, -80, -32)
+polygon = PackedVector2Array(-80, 24, -64, 24, -64, 8, -32, 8, -32, -8, -16, -8, -16, -16, 88, -16, 88, 8, 64, 8, 64, 32, 80, 32, 80, 96, 104, 96, 104, 8, 104, -40, -80, -40)
 
 [node name="Turnip" type="Area2D" parent="Environment" unique_id=1563901126 node_paths=PackedStringArray("sprite")]
 position = Vector2(380, -56)
@@ -591,14 +600,14 @@ metadata/_edit_lock_ = true
 [node name="Markers" type="Node2D" parent="." unique_id=1450956964]
 
 [node name="Spawn" type="Node2D" parent="Markers" unique_id=1329023077]
-position = Vector2(-144, 48)
+position = Vector2(-136, 64)
 
 [node name="Area2D" type="Area2D" parent="Markers/Spawn" unique_id=133640363]
 script = ExtResource("1_tfmp2")
 spawn_id = &"from_left"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Spawn/Area2D" unique_id=186782086]
-position = Vector2(0, -20)
+position = Vector2(0, -32)
 shape = SubResource("RectangleShape2D_n7rko")
 
 [node name="Spawn2" type="Node2D" parent="Markers" unique_id=779015203]

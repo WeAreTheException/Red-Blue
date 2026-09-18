@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://dvgc2kgr315hf" path="res://Level5.tscn" id="19_5tuhn"]
 [ext_resource type="PackedScene" uid="uid://dgrrgjvr2amfp" path="res://Level6.tscn" id="20_2gh4u"]
 [ext_resource type="Script" uid="uid://b2utpm0apq5cx" path="res://Levels/RoomTransition/RoomExit.gd" id="20_devvj"]
+[ext_resource type="PackedScene" uid="uid://cljalnul2cgl0" path="res://Levels/Chapter_1/Level2.tscn" id="21_3b0ty"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5mvff"]
 size = Vector2(8, 11)
@@ -154,6 +155,9 @@ metadata/_edit_lock_ = true
 script = ExtResource("16_sc1dx")
 player = NodePath("../Player2")
 metadata/_edit_lock_ = true
+
+[node name="Level7" parent="RoomContainer" unique_id=923864493 instance=ExtResource("21_3b0ty")]
+position = Vector2(-552, 96)
 
 [node name="Level4" parent="RoomContainer" unique_id=98120481 instance=ExtResource("17_sc1dx")]
 

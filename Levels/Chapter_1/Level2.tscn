@@ -353,6 +353,7 @@ offset_right = 148.0
 offset_bottom = 40.0
 
 [node name="Frame2" type="Polygon2D" parent="." unique_id=1245109519]
+visible = false
 polygon = PackedVector2Array(-152, 96, -160, 96, -160, -96, 400, -96, 400, 96, 176, 96, -152, 96, -152, 84, 392, 84, 392, -84, -152, -84)
 metadata/_edit_lock_ = true
 
