@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="6_vm5lh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nw62s"]
-size = Vector2(16, 64)
+size = Vector2(16, 40)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s8q8g"]
 radius = 8.0
@@ -187,7 +187,7 @@ size = Vector2(304, 180)
 [node name="Markers" type="Node2D" parent="." unique_id=1169051356]
 
 [node name="Spawn" type="Node2D" parent="Markers" unique_id=412885029]
-position = Vector2(112, 64)
+position = Vector2(112, 56)
 
 [node name="Area2D" type="Area2D" parent="Markers/Spawn" unique_id=451743983]
 script = ExtResource("1_rm1bw")
@@ -195,7 +195,7 @@ spawn_id = &"from_right"
 print_debug = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Markers/Spawn/Area2D" unique_id=1330934451]
-position = Vector2(0, -32)
+position = Vector2(0, -20)
 shape = SubResource("RectangleShape2D_nw62s")
 
 [node name="Chunk2" type="Node2D" parent="." unique_id=747349289]
@@ -306,14 +306,14 @@ polygon = PackedVector2Array(24, 64, 24, 112, 96, 112, 96, 96, 56, 96, 56, 64)
 [node name="Polygon2D2" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=195809985]
 position = Vector2(-152, 0)
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
-polygon = PackedVector2Array(0, 88, 120, 88, 120, 56, 56, 56, 56, 24, 48, 24, 48, 8, 72, 8, 72, 24, 88, 24, 88, -8, 40, -8, 40, -40, 0, -40)
+polygon = PackedVector2Array(0, 96, 120, 96, 120, 56, 56, 56, 56, 24, 48, 24, 48, 8, 72, 8, 72, 24, 88, 24, 88, -8, 40, -8, 40, -40, 0, -40)
 
 [node name="Polygon2D" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=2129139139]
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
-polygon = PackedVector2Array(152, 64, 104, 64, 104, 96, 152, 96)
+polygon = PackedVector2Array(152, 56, 104, 56, 104, 96, 152, 96)
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=2047196419]
-polygon = PackedVector2Array(104, 64, 104, 96, 152, 96, 152, 64)
+polygon = PackedVector2Array(104, 56, 104, 96, 152, 96, 152, 56)
 
 [node name="Spawn" type="Node2D" parent="Chunk2" unique_id=2014185313]
 position = Vector2(128, 56)
