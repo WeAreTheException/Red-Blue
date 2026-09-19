@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://cljalnul2cgl0"]
 
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="3_axrbu"]
-[ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="4_swk1o"]
-[ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="5_8y41u"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="6_c4e6e"]
 [ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="7_ohyp5"]
 [ext_resource type="Texture2D" uid="uid://bbmfwdcgt3qkr" path="res://Environment/Platform/RedSpike.png" id="7_wx4rb"]
@@ -10,28 +8,26 @@
 [ext_resource type="Script" uid="uid://don73e2npfp5a" path="res://Player/Respawn/RespawnMarker.gd" id="8_plqfe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2r6i"]
-size = Vector2(32, 48)
+size = Vector2(24, 88)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_axrbu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5s6u2"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8c8xh"]
-radius = 8.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_axrbu"]
 size = Vector2(556, 180)
 
-[node name="Level7" type="Node2D" unique_id=923864493]
+[node name="Level3" type="Node2D" unique_id=923864493]
 
 [node name="Spawn" type="Node2D" parent="." unique_id=2013114001]
-position = Vector2(-144, 72)
+position = Vector2(-136, 72)
 
 [node name="Area2D" type="Area2D" parent="Spawn" unique_id=1989762145]
 script = ExtResource("8_plqfe")
+spawn_id = &"from_left"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn/Area2D" unique_id=830759165]
-position = Vector2(8, -24)
+position = Vector2(-4, -44)
 shape = SubResource("RectangleShape2D_c2r6i")
 
 [node name="Chunk1" type="Node2D" parent="." unique_id=966147485]
@@ -46,21 +42,21 @@ collision_mask = 0
 [node name="Polygon2D" type="Polygon2D" parent="Chunk1/Base" unique_id=2015117066]
 position = Vector2(-232, -136)
 color = Color(0.15294118, 0.2509804, 0.36078432, 1)
-polygon = PackedVector2Array(104, 44, 104, 80, 112, 80, 112, 64, 128, 64, 128, 80, 144, 80, 144, 112, 152, 112, 152, 152, 112, 152, 112, 160, 152, 160, 152, 168, 160, 168, 160, 152, 184, 152, 184, 96, 200, 96, 200, 112, 208, 112, 208, 96, 208, 44)
+polygon = PackedVector2Array(104.000015, 31.999985, 104, 80, 112, 80, 112, 64, 128, 64, 128, 80, 144, 80, 144, 112, 152, 112, 152, 152, 112, 152, 112, 160, 152, 160, 152, 168, 160, 168, 160, 152, 184, 152, 184, 96, 200, 96, 200, 112, 216, 112, 216.00002, 32)
 
 [node name="Polygon2D2" type="Polygon2D" parent="Chunk1/Base" unique_id=1208944692]
 position = Vector2(-212.8, -52.000008)
 color = Color(0.15294118, 0.2509804, 0.36078432, 1)
-polygon = PackedVector2Array(68.79999, 132, 68.8, 28.000008, 76.8, 27.999996, 76.8, 19.999996, 60.800003, 20.000008, 60.800003, 12.000008, 12.800001, 11.999989, 12.800001, 19.99999, 28.800001, 19.999992, 28.799992, 123.99999, -27.200008, 123.999985, -27.200008, 107.999985, -91.2, 107.999985, -91.20001, 131.99998)
+polygon = PackedVector2Array(68.799995, 139.99998, 68.8, 28.000008, 76.8, 27.999996, 76.8, 19.999996, 60.800003, 20.000008, 60.800003, 12.000008, 12.800001, 11.999989, 12.800001, 19.99999, 28.800001, 19.999992, 28.799992, 123.99999, -27.200008, 123.999985, -27.200008, 107.999985, -91.2, 107.999985, -91.200005, 139.99995)
 
 [node name="Polygon2D3" type="Polygon2D" parent="Chunk1/Base" unique_id=801529603]
 position = Vector2(-152, 28)
 color = Color(0.15294118, 0.2509804, 0.36078432, 1)
-polygon = PackedVector2Array(128, 60, 128, 36, 80, 36, 80, 60)
+polygon = PackedVector2Array(135.99998, 59.999996, 135.99998, 35.999996, 80, 36, 80, 60)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk1/Base" unique_id=1924411237]
 position = Vector2(-56, -112)
-polygon = PackedVector2Array(-72, 56, -64, 56, -64, 40, -48, 40, -48, 56, -32, 56, -32, 88, -24, 88, -24, 128, -64, 128, -64, 136, -24, 136, -24, 144, -16, 144, -16, 128, 8, 128, 8, 72, 24, 72, 24, 88, 32, 88, 32.000023, 8, -143.99998, 7.9999847, -143.99998, 15.999985, -71.999985, 15.999992)
+polygon = PackedVector2Array(-72, 56, -64, 56, -64, 40, -48, 40, -48, 56, -32, 56, -32, 88, -24, 88, -24, 128, -64, 128, -64, 136, -24, 136, -24, 144, -16, 144, -16, 128, 8, 128, 8, 72, 24, 72, 24, 88, 40, 88, 40.000015, 8, -143.99998, 7.9999847, -143.99998, 15.999977, -71.999985, 15.999992)
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Chunk1/Base" unique_id=197070483]
 position = Vector2(-60.999985, -112.00001)
@@ -68,20 +64,20 @@ polygon = PackedVector2Array(-83.000015, 200, -83.00001, 87.99999, -75.00001, 88
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Chunk1/Base" unique_id=1082563221]
 position = Vector2(0, -32)
-polygon = PackedVector2Array(-72.00001, 119.99999, -24.000015, 120, -24, 96, -72, 96)
+polygon = PackedVector2Array(-72.00001, 119.99999, -16.000015, 120, -16.000015, 96, -72, 96)
 
 [node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="Chunk1/Base" unique_id=1350044167]
 position = Vector2(-296.00003, -120.00002)
 rotation = -3.1415925
 scale = Vector2(1, -1)
-polygon = PackedVector2Array(-96.00003, 55.999992, -88.00003, 55.999996, -88.00003, 39.999992, -72.00003, 39.999992, -72.00003, 55.999996, -56.00004, 55.999996, -56.00004, 88, -48.00004, 88, -48.00004, 128, -88.00004, 127.99999, -88.00004, 136, -48.00004, 136, -48.00004, 152, -40.00004, 152, -40.00004, 128, -16, 128, -16.000038, 96, -8.000038, 96, -8.000038, 104, -3.8146973e-05, 104, -3.8146973e-05, 128, 8, 128, 8, 72, 24, 72, 24, 88, 32, 88, 32, 24, -96.00003, 23.999992)
+polygon = PackedVector2Array(-96.00003, 55.999992, -88.00003, 55.999996, -88.00003, 39.999992, -72.00003, 39.999992, -72.00003, 55.999996, -56.00004, 55.999996, -56.00004, 88, -48.00004, 88, -48.00004, 128, -88.00004, 127.99999, -88.00004, 136, -48.00004, 136, -48.00004, 152, -40.00004, 152, -40.00004, 128, -16, 128, -16.000038, 96, -8.000038, 96, -8.000038, 104, -3.8146973e-05, 104, -3.8146973e-05, 128, 8, 128, 8, 72, 24, 72, 23.999939, 79.99998, 31.999939, 79.99998, 32, 24, -96.00003, 23.999992)
 
 [node name="Polygon2D4" type="Polygon2D" parent="Chunk1/Base" unique_id=630309298]
 position = Vector2(-95.999985, -144.00002)
 rotation = -3.1415925
 scale = Vector2(1, -1)
-color = Color(0.15294118, 0.2509804, 0.36078432, 1)
-polygon = PackedVector2Array(104, 44, 104, 80, 112, 80, 112, 64, 128, 64, 128, 80, 144, 80, 144, 112, 152, 112, 152, 152, 112, 152, 112, 160, 152, 160, 152, 176, 160, 176, 160, 152, 184, 152, 184, 120.00001, 192, 120.00001, 192, 128, 200, 128, 200, 152, 208, 152, 208, 96.00001, 224, 96.00001, 224, 112.00001, 232, 112.00001, 232, 44)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
+polygon = PackedVector2Array(103.99999, 40, 104, 80, 112, 80, 112, 64, 128, 64, 128, 80, 144, 80, 144, 112, 152, 112, 152, 152, 112, 152, 112, 160, 152, 160, 152, 176, 160, 176, 160, 152, 184, 152, 184, 120.00001, 192, 120.00001, 192, 128, 200, 128, 200, 152, 208, 152, 208, 96.00001, 224, 96.00001, 224, 104, 232, 104, 232, 40)
 
 [node name="Blue" type="StaticBody2D" parent="Chunk1" unique_id=1215857027]
 position = Vector2(72, 92)
@@ -253,24 +249,6 @@ polygon = PackedVector2Array(-112, 0, -128, 0, -128, 32, -112, 32)
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk2/Red2" unique_id=1037393676]
 position = Vector2(-168, -52)
 polygon = PackedVector2Array(-100, 40, -100, 72, -84, 72, -84, 40)
-
-[node name="Turnip" type="Area2D" parent="Chunk2" unique_id=282892031 node_paths=PackedStringArray("sprite")]
-position = Vector2(256, -48)
-collision_layer = 3
-collision_mask = 3
-script = ExtResource("4_swk1o")
-sprite = NodePath("Turnip")
-float_height = 1.0
-
-[node name="Turnip" type="Sprite2D" parent="Chunk2/Turnip" unique_id=67799891]
-position = Vector2(-7.6293945e-06, -3.8146973e-06)
-scale = Vector2(0.100000024, 0.100000024)
-texture = ExtResource("5_8y41u")
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Chunk2/Turnip" unique_id=522208623]
-shape = SubResource("CircleShape2D_8c8xh")
-metadata/_edit_lock_ = true
 
 [node name="Base" type="StaticBody2D" parent="Chunk2" unique_id=732361744]
 position = Vector2(152, 0)

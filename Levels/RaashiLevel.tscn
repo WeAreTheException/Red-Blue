@@ -1,64 +1,16 @@
 [gd_scene format=3 uid="uid://de77cvpubmakx"]
 
-[ext_resource type="Script" path="res://Environment/VanishingPlatform.gd" id="1_fy5rl"]
+[ext_resource type="Script" uid="uid://dxw44lhrykiic" path="res://Environment/VanishingPlatform.gd" id="1_fy5rl"]
 [ext_resource type="Script" uid="uid://cficjfe4qtfyi" path="res://Environment/VanishTrigger.gd" id="2_x53r2"]
 [ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="3_mn2rq"]
 [ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="4_mu8u8"]
-[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="5_1pdbp"]
-[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="6_pawoq"]
-[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="7_ebqfl"]
-[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="8_3r05r"]
-[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="9_nbyok"]
-[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://Color/ColorChange/PlayerColorController.gd" id="10_5q0n3"]
-[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://Color/ColorChange/PlayerColorEjectionBridge.gd" id="11_i51jh"]
-[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="12_3ksnv"]
-[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="13_r7ub7"]
-[ext_resource type="Texture2D" uid="uid://dkphu7hbt7ujh" path="res://Combat/Bullet/Frames/Slash_color1_frame1.png" id="14_ce0km"]
-[ext_resource type="Texture2D" uid="uid://dwbwaoimck1gc" path="res://Combat/Bullet/Frames/Slash_color1_frame2.png" id="15_eiskn"]
-[ext_resource type="Texture2D" uid="uid://2ntjaitlghyy" path="res://Combat/Bullet/Frames/Slash_color1_frame3.png" id="16_v317u"]
-[ext_resource type="Texture2D" uid="uid://btj5sorkcxdyg" path="res://Combat/Bullet/Frames/Slash_color1_frame4.png" id="17_tlos1"]
-[ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="18_nso8a"]
-[ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="19_ei31p"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="20_7pj4m"]
-[ext_resource type="Texture2D" uid="uid://bn74xwu6ajm5g" path="res://Levels/cute-anime-girl-wallpaper-286.webp" id="21_sq68l"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="22_78nol"]
-[ext_resource type="Texture2D" uid="uid://jobxgolm8sfd" path="res://Screenshot 2026-08-26 233305_edited.png" id="23_8avam"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xpudw"]
 radius = 8.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wp70e"]
-size = Vector2(8, 11)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q83mx"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_so7oi"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("14_ce0km")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_eiskn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_v317u")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_tlos1")
-}, {
-"duration": 1.0,
-"texture": null
-}],
-"loop": false,
-"name": &"melee",
-"speed": 12.0
-}]
-
-[node name="Node2D" type="Node2D" unique_id=170852076]
-
-[node name="Spawn" type="Node2D" parent="." unique_id=1445492631]
-position = Vector2(-144, 59)
+[node name="Level7" type="Node2D" unique_id=170852076]
 
 [node name="Vanishin2" type="StaticBody2D" parent="." unique_id=264160431 node_paths=PackedStringArray("visual", "trigger_area")]
 position = Vector2(-8, -32)
@@ -106,172 +58,25 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vanishin2/Area2D/CollisionPolygon2D/Turnip3" unique_id=2088063579]
 shape = SubResource("CircleShape2D_xpudw")
 
-[node name="Player2" type="CharacterBody2D" parent="." unique_id=1430871069 node_paths=PackedStringArray("player_visual", "respawn_point")]
-position = Vector2(-144, 59)
-collision_mask = 2
-script = ExtResource("5_1pdbp")
-player_visual = NodePath("CharacterRect")
-respawn_point = NodePath("../Spawn")
-MaxFall = 140.0
-JumpSpeed = -110.0
-BounceSpeed = -235.0
-SuperBounceSpeed = -250.0
-ClimbInfiniteStamina = false
-ClimbMaxStamina = 80.0
-ClimbTiredThreshold = 10.0
-DashTime = 0.1
-
-[node name="DashPixel" type="Sprite2D" parent="Player2" unique_id=779283853]
-position = Vector2(-128, -56)
-metadata/_edit_lock_ = true
-
-[node name="DashTrail" type="Node2D" parent="Player2" unique_id=1852710909 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
-script = ExtResource("6_pawoq")
-trail_template = NodePath("../Line2D")
-trail_lifetime = 1.0
-max_points = 15
-minimum_point_distance = 12.0
-trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
-pixel_template = NodePath("../DashPixel")
-pixels_per_dash = 4
-afterimage_template = NodePath("../CharacterRect")
-afterimage_lifetime = 0.2
-metadata/_edit_lock_ = true
-
-[node name="Line2D" type="Line2D" parent="Player2" unique_id=3690508]
-z_index = -1
-position = Vector2(0, -6)
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2" unique_id=993191339]
-position = Vector2(0, -5.5)
-shape = SubResource("RectangleShape2D_wp70e")
-metadata/_edit_lock_ = true
-
-[node name="CharacterRect" type="ColorRect" parent="Player2" unique_id=1824902261]
-material = SubResource("ShaderMaterial_q83mx")
-offset_left = -4.0
-offset_top = -11.0
-offset_right = 4.0
-color = Color(0.8687545, 0, 0.22967622, 1)
-metadata/_edit_lock_ = true
-
-[node name="Respawn" type="Node" parent="Player2" unique_id=579128574]
-script = ExtResource("7_ebqfl")
-
-[node name="Death" type="Node" parent="Player2" unique_id=1243485253]
-script = ExtResource("8_3r05r")
-
-[node name="DeathFeedback" type="Node" parent="Player2/Death" unique_id=27633633]
-script = ExtResource("9_nbyok")
-
-[node name="States" type="Node" parent="Player2" unique_id=1992587961]
-
-[node name="Color" type="Node" parent="Player2" unique_id=532240791]
-
-[node name="PlayerColorController" type="Node" parent="Player2/Color" unique_id=105569630 node_paths=PackedStringArray("player_visual")]
-script = ExtResource("10_5q0n3")
-player_visual = NodePath("../../CharacterRect")
-red_color = Color(0.8352941, 0.1254902, 0.1254902, 1)
-blue_color = Color(0.2627451, 0.43137255, 0.69411767, 1)
-
-[node name="PlayerColorEjectionBridge" type="Node" parent="Player2/Color" unique_id=1011379985 node_paths=PackedStringArray("player_collision_shape")]
-script = ExtResource("11_i51jh")
-player_collision_shape = NodePath("../../CollisionShape2D")
-travel_acceleration = 2000.0
-exit_speed = 200.0
-lift_boost_cap = 20.0
-
-[node name="SFX" type="Node" parent="Player2" unique_id=696757054 node_paths=PackedStringArray("dash_sfx")]
-script = ExtResource("12_3ksnv")
-dash_sfx = NodePath("Dash")
-
-[node name="Dash" type="AudioStreamPlayer" parent="Player2/SFX" unique_id=1046974041]
-stream = ExtResource("13_r7ub7")
-volume_db = -4.0
-pitch_scale = 1.1
-
-[node name="melee" type="AnimatedSprite2D" parent="Player2" unique_id=1727225931]
-sprite_frames = SubResource("SpriteFrames_so7oi")
-animation = &"melee"
-script = ExtResource("18_nso8a")
-metadata/_edit_lock_ = true
-
-[node name="PlayerMelee" type="Node2D" parent="Player2" unique_id=1886130226 node_paths=PackedStringArray("melee_visual")]
-script = ExtResource("19_ei31p")
-melee_visual = NodePath("../melee")
-metadata/_custom_type_script = "uid://dhaj2ykn3fx0h"
-metadata/_edit_lock_ = true
-
 [node name="Spikes" type="StaticBody2D" parent="." unique_id=285932525]
-position = Vector2(-135, -16)
+position = Vector2(-136, -12)
 collision_layer = 2
 script = ExtResource("20_7pj4m")
 hostile = true
 hostile_contact_margin = 0.1
 metadata/_custom_type_script = "uid://d3u7t7gbv2n6e"
 
-[node name="CollisionPolygon2D17" type="CollisionPolygon2D" parent="Spikes" unique_id=1014014700]
-position = Vector2(-4, -140)
-polygon = PackedVector2Array(-196, 172, -196, 168, -188, 168, -188, 172)
-
-[node name="CollisionPolygon2D18" type="CollisionPolygon2D" parent="Spikes" unique_id=536375332]
-position = Vector2(29, -108)
-polygon = PackedVector2Array(-196, 172, -196, 168, -181, 168, -181, 172)
-
-[node name="CollisionPolygon2D19" type="CollisionPolygon2D" parent="Spikes" unique_id=481955196]
-position = Vector2(4, -100)
-polygon = PackedVector2Array(-196, 172, -196, 168, -172, 168, -172, 172)
-
-[node name="CollisionPolygon2D20" type="CollisionPolygon2D" parent="Spikes" unique_id=936311666]
-position = Vector2(44, -100)
-polygon = PackedVector2Array(-196, 172, -196, 168, -180, 168, -180, 172)
-
-[node name="CollisionPolygon2D21" type="CollisionPolygon2D" parent="Spikes" unique_id=977649378]
-position = Vector2(60, -92)
-polygon = PackedVector2Array(-196, 172, -196, 168, -172, 168, -172, 172)
-
 [node name="CollisionPolygon2D22" type="CollisionPolygon2D" parent="Spikes" unique_id=2017439311]
 position = Vector2(235, -72)
 polygon = PackedVector2Array(-196, 172, -196, 168, 52, 168, 52, 172)
 
-[node name="CollisionPolygon2D23" type="CollisionPolygon2D" parent="Spikes" unique_id=1466657160]
-position = Vector2(-108, -92)
-polygon = PackedVector2Array(-196, 172, -196, 168, -148, 168, -148, 172)
-
-[node name="CollisionPolygon2D12" type="CollisionPolygon2D" parent="Spikes" unique_id=489467565]
-position = Vector2(-60, -176)
-polygon = PackedVector2Array(-192, 176, -192, 168, -188, 168, -188, 176)
-
-[node name="CollisionPolygon2D15" type="CollisionPolygon2D" parent="Spikes" unique_id=1946789807]
-position = Vector2(-48, -176)
-polygon = PackedVector2Array(-192, 176, -192, 168, -188, 168, -188, 176)
-
-[node name="CollisionPolygon2D16" type="CollisionPolygon2D" parent="Spikes" unique_id=1304441309]
-position = Vector2(-56, -184)
-polygon = PackedVector2Array(-192, 176, -192, 172, -184, 172, -184, 176)
-
-[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="Spikes" unique_id=2124012508]
-position = Vector2(-31, -124)
-polygon = PackedVector2Array(-201, 188, -201, 184, -169, 184, -169, 188)
-
 [node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="Spikes" unique_id=1440041990]
 position = Vector2(193.20001, -181.2)
-polygon = PackedVector2Array(-202.20001, 213.2, -202.20001, 197.2, -194.20001, 197.2, -194.20001, 213.2)
+polygon = PackedVector2Array(-201.20001, 209.2, -201.20001, 193.2, -197.20001, 193.2, -197.20001, 209.2)
 
 [node name="CollisionPolygon2D10" type="CollisionPolygon2D" parent="Spikes" unique_id=800073176]
 position = Vector2(267, -172)
 polygon = PackedVector2Array(-200, 196, -200, 172, -196, 172, -196, 196)
-
-[node name="CuteAnimeGirlWallpaper286" type="Sprite2D" parent="Spikes/CollisionPolygon2D10" unique_id=1097870396]
-position = Vector2(-276.00003, 121.00001)
-scale = Vector2(0.042183667, 0.042183664)
-texture = ExtResource("21_sq68l")
-
-[node name="Sprite2D7" type="Sprite2D" parent="Spikes" unique_id=918994119]
-position = Vector2(-244, -12)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
 
 [node name="Sprite2D12" type="Sprite2D" parent="Spikes" unique_id=295920272]
 position = Vector2(43.99997, 96)
@@ -423,129 +228,43 @@ position = Vector2(275, 96.00001)
 scale = Vector2(0.099999964, 0.099999994)
 texture = ExtResource("22_78nol")
 
-[node name="Sprite2D15" type="Sprite2D" parent="Spikes" unique_id=1228668865]
-position = Vector2(-251.99998, -4.000002)
-rotation = -1.5707964
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D16" type="Sprite2D" parent="Spikes" unique_id=1689455497]
-position = Vector2(-235.99997, -4.000002)
-rotation = 1.5707964
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D8" type="Sprite2D" parent="Spikes" unique_id=122064093]
-position = Vector2(-227.99998, 59.99999)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D25" type="Sprite2D" parent="Spikes" unique_id=1753368769]
-position = Vector2(-220, 60)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D26" type="Sprite2D" parent="Spikes" unique_id=387054833]
-position = Vector2(-212.00002, 60)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D27" type="Sprite2D" parent="Spikes" unique_id=2049125579]
-position = Vector2(-204, 60)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D9" type="Sprite2D" parent="Spikes" unique_id=1477418130]
-position = Vector2(-187.99998, 67.99999)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D28" type="Sprite2D" parent="Spikes" unique_id=771334475]
-position = Vector2(-180, 68.00001)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D29" type="Sprite2D" parent="Spikes" unique_id=1973998680]
-position = Vector2(-172, 68)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D30" type="Sprite2D" parent="Spikes" unique_id=1426430136]
-position = Vector2(-140, 68)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D31" type="Sprite2D" parent="Spikes" unique_id=2031551243]
-position = Vector2(-124, 76)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D32" type="Sprite2D" parent="Spikes" unique_id=1986351050]
-position = Vector2(-116.00001, 76)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D33" type="Sprite2D" parent="Spikes" unique_id=1525028546]
-position = Vector2(-155.99998, 60)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D10" type="Sprite2D" parent="Spikes" unique_id=328049110]
-position = Vector2(-195.99998, 28.999992)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
 [node name="Sprite2D60" type="Sprite2D" parent="Spikes" unique_id=1306097116]
 position = Vector2(283, 95.99999)
 scale = Vector2(0.099999964, 0.099999994)
 texture = ExtResource("22_78nol")
 
-[node name="Sprite2D11" type="Sprite2D" parent="Spikes" unique_id=127147542]
-position = Vector2(-164, 60)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D17" type="Sprite2D" parent="Spikes" unique_id=3855908]
-position = Vector2(-148, 68)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
-[node name="Sprite2D18" type="Sprite2D" parent="Spikes" unique_id=1163858897]
-position = Vector2(-132, 76)
-scale = Vector2(0.099999964, 0.099999994)
-texture = ExtResource("22_78nol")
-
 [node name="Sprite2D20" type="Sprite2D" parent="Spikes" unique_id=848095113]
-position = Vector2(67, 3.9999995)
+position = Vector2(68.00001, 3.9999995)
 rotation = 10.995575
 scale = Vector2(0.099999964, 0.099999994)
 texture = ExtResource("22_78nol")
 
 [node name="Sprite2D21" type="Sprite2D" parent="Spikes" unique_id=497322160]
-position = Vector2(67, 11.999999)
+position = Vector2(68.00001, 12.000001)
 rotation = 10.995575
 scale = Vector2(0.099999964, 0.099999994)
 texture = ExtResource("22_78nol")
 
 [node name="Sprite2D22" type="Sprite2D" parent="Spikes" unique_id=1170491962]
-position = Vector2(67, 20)
+position = Vector2(68.00001, 20)
 rotation = 10.995575
 scale = Vector2(0.099999964, 0.099999994)
 texture = ExtResource("22_78nol")
 
 [node name="Sprite2D23" type="Sprite2D" parent="Spikes" unique_id=1833145703]
-position = Vector2(-5, 20.000002)
+position = Vector2(-4, 16)
 rotation = 7.853982
 scale = Vector2(0.099999964, 0.099999994)
 texture = ExtResource("22_78nol")
 
 [node name="Sprite2D24" type="Sprite2D" parent="Spikes" unique_id=96116050]
-position = Vector2(-5, 27.999998)
+position = Vector2(-4, 24.000002)
 rotation = 7.853982
 scale = Vector2(0.099999964, 0.099999994)
 texture = ExtResource("22_78nol")
 
 [node name="Frame" type="Polygon2D" parent="." unique_id=250791259]
+visible = false
 polygon = PackedVector2Array(-152, 96, -160, 96, -160, -92, 160, -92, 160, 96, 156, 96, -152, 96, -152, 84, 152, 84, 152, -84, -152, -84)
 metadata/_edit_lock_ = true
 
@@ -560,6 +279,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Polygon2D" type="Polygon2D" parent="Base" unique_id=353277762]
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
 polygon = PackedVector2Array(-152, 60, -120, 60, -120, 48, -96, 48, -96, 88, -152, 88)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Base" unique_id=519067355]
@@ -578,11 +298,13 @@ position = Vector2(0, -120)
 polygon = PackedVector2Array(-64, 144, -64, 96, -48, 96, -48, 144)
 
 [node name="Polygon2D2" type="Polygon2D" parent="Base" unique_id=765074548]
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
 polygon = PackedVector2Array(-152, 16, -144, 16, -144, 0, -120, 0, -120, -40, -108, -40, -108, -48, -152, -48)
 
 [node name="Polygon2D3" type="Polygon2D" parent="Base" unique_id=1623593497]
 position = Vector2(-24, 0)
 scale = Vector2(0.5, 1)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
 polygon = PackedVector2Array(-80, 24, -48, 24, -48, -24, -80, -24)
 
 [node name="EnvironmentBody" type="StaticBody2D" parent="." unique_id=1313137902]
@@ -597,8 +319,3 @@ polygon = PackedVector2Array(88, 16, 112, 16, 112, -48, 88, -48)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="EnvironmentBody" unique_id=1716985136]
 polygon = PackedVector2Array(88, -48, 112, -48, 112, 16, 88, 16)
-
-[node name="Screenshot20260826233305Edited" type="Sprite2D" parent="." unique_id=541922746]
-position = Vector2(-132.01947, -65.763756)
-scale = Vector2(0.113747, 0.115349054)
-texture = ExtResource("23_8avam")

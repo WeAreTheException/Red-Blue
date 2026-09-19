@@ -268,7 +268,7 @@ collision_mask = 0
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk1/Environemnt/RightSide2" unique_id=1234849124]
 position = Vector2(104, 110)
 rotation = 1.5707964
-polygon = PackedVector2Array(-190, 40.00001, -117.99999, 40.000008, -117.99999, 32.000008, -109.99999, 32.000008, -109.99999, 24.000008, -45.999996, 24.000008, -45.999996, 16.000008, -190, 16.000008)
+polygon = PackedVector2Array(-206, 40, -117.99999, 40.000008, -117.99999, 32.000008, -109.99999, 32.000008, -109.99999, 24.000008, -14, 24, -14, -24, -206, -24)
 
 [node name="Polygon2D2" type="Polygon2D" parent="Chunk1/Environemnt/RightSide2" unique_id=1192233941]
 position = Vector2(140, 47.999996)

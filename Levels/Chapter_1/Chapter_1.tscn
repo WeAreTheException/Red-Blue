@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="15_500fv"]
 [ext_resource type="PackedScene" uid="uid://du536ufxh6l0f" path="res://Levels/Chapter_1/Level_1.tscn" id="16_ob6w4"]
 [ext_resource type="PackedScene" uid="uid://5iunxq0xbw5l" path="res://Levels/Level_3.tscn" id="16_wbab1"]
-[ext_resource type="PackedScene" uid="uid://clnxavhk3e18s" path="res://Levels/Level_4.tscn" id="17_lgbl1"]
+[ext_resource type="PackedScene" uid="uid://clnxavhk3e18s" path="res://Levels/Level7.tscn" id="17_lgbl1"]
 [ext_resource type="PackedScene" uid="uid://bvdo4ot8px4cc" path="res://Levels/Level_8.tscn" id="22_uxbck"]
 [ext_resource type="PackedScene" uid="uid://b643epkd3tcuo" path="res://Levels/Level_10.tscn" id="23_eq767"]
 [ext_resource type="PackedScene" uid="uid://bphc7a631e84h" path="res://Levels/level_11.tscn" id="24_dsui6"]
@@ -173,6 +173,7 @@ position = Vector2(1912, -1008)
 
 [node name="Node2D2" parent="." unique_id=170852076 instance=ExtResource("27_ufuky")]
 position = Vector2(1904, -736)
+scale = Vector2(-1, 1)
 
 [node name="Node2D3" parent="." unique_id=98120481 instance=ExtResource("28_500fv")]
 position = Vector2(1776, -552)

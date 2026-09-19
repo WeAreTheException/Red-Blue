@@ -560,3 +560,14 @@ position = Vector2(80, 0)
 shape = SubResource("RectangleShape2D_wjnlq")
 disabled = true
 metadata/_edit_lock_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2099678494]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1464628914]
+polygon = PackedVector2Array(-16, 32, -16, 48, 16, 48, 16, 32)
+one_way_collision = true
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D" unique_id=612324353]
+polygon = PackedVector2Array(-16, 32, -16, 48, 16, 48, 16, 32)

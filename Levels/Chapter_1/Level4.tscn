@@ -65,7 +65,7 @@ metadata/_edit_lock_ = true
 [node name="Base3" type="Polygon2D" parent="Environment/Base" unique_id=598251486]
 position = Vector2(-144, -88)
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
-polygon = PackedVector2Array(-16, 184, 136, 184, 168, 184, 168, 176, 136, 176, 136, 168, 120, 168, 120, 152, 104, 152, 104, 168, 80, 168, 80, 152, 64, 152, 64, 160, 48, 160, 48, 168, 24, 168, 24, 152, 0, 152, 0, 144, -16, 144)
+polygon = PackedVector2Array(-16, 208, 136, 208, 168, 208, 168, 176, 136, 176, 136, 168, 120, 168, 120, 152, 104, 152, 104, 168, 80, 168, 80, 152, 64, 152, 64, 160, 48, 160, 48, 168, 24, 168, 24, 152, 0, 152, 0, 144, -16, 144)
 metadata/_edit_lock_ = true
 
 [node name="Base2" type="Polygon2D" parent="Environment/Base" unique_id=1394529942]
@@ -75,7 +75,7 @@ polygon = PackedVector2Array(176, -8, 176, 0, 176, 24, 184, 24, 184, 40, 200, 40
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Base" unique_id=713222441]
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
-polygon = PackedVector2Array(128, -40, 128.00002, -14.256973, 128.00002, -5.1441345, 128, 16, 144, 16, 144, 40, 136, 40, 136, 48, 104, 48, 104, 64, 32, 64, 32, 72, 80, 72, 80, 84, 256, 84, 256, 56, 264, 56, 264, 48, 296, 48, 296, 40, 304, 40, 304, 16, 280, 16, 280, 32, 232, 32, 232, 48, 184, 48, 184, 32, 200, 32, 200, 8, 208, 8, 208, -8, 216, -8, 216, -16, 200, -16, 200, -8, 184, -8, 184, -40)
+polygon = PackedVector2Array(128, -40, 128.00002, -14.256973, 128.00002, -5.1441345, 128, 16, 144, 16, 144, 40, 136, 40, 136, 48, 104, 48, 104, 64, 32, 64, 32, 72, 80, 72, 80, 120, 256, 120, 256, 56, 264, 56, 264, 48, 296, 48, 296, 40, 304, 40, 304, 16, 280, 16, 280, 32, 232, 32, 232, 48, 184, 48, 184, 32, 200, 32, 200, 8, 208, 8, 208, -8, 216, -8, 216, -16, 200, -16, 200, -8, 184, -8, 184, -40)
 
 [node name="Blue" type="StaticBody2D" parent="Environment" unique_id=1301887052]
 collision_layer = 2
@@ -574,6 +574,14 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Turnip" unique_id=896360220]
 shape = SubResource("CircleShape2D_hph6r")
 metadata/_edit_lock_ = true
+
+[node name="OneWayCollisionD" type="StaticBody2D" parent="Environment" unique_id=237672235]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/OneWayCollisionD" unique_id=1016782857]
+polygon = PackedVector2Array(16, -80, 32, -80, 32, -88, 16, -88)
+one_way_collision = true
 
 [node name="Frame" type="Polygon2D" parent="." unique_id=250070519]
 visible = false

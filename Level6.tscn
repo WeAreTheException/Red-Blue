@@ -295,7 +295,7 @@ polygon = PackedVector2Array(-152, -40, -152, 8, -80, 8, -80, -8, -120, -8, -120
 
 [node name="Polygon2D3" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=1467299260]
 position = Vector2(-24, -88)
-color = Color(0.15294118, 0.2509804, 0.36078432, 1)
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
 polygon = PackedVector2Array(120, 64, 120, 80, 136, 80, 136, 64)
 
 [node name="Polygon2D5" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=998353820]
@@ -306,14 +306,14 @@ polygon = PackedVector2Array(24, 64, 24, 112, 96, 112, 96, 96, 56, 96, 56, 64)
 [node name="Polygon2D2" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=195809985]
 position = Vector2(-152, 0)
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
-polygon = PackedVector2Array(0, 96, 120, 96, 120, 56, 56, 56, 56, 24, 48, 24, 48, 8, 72, 8, 72, 24, 88, 24, 88, -8, 40, -8, 40, -40, 0, -40)
+polygon = PackedVector2Array(0, 96, 256, 96, 256, 80, 120, 80, 120, 56, 56, 56, 56, 24, 48, 24, 48, 8, 72, 8, 72, 24, 88, 24, 88, -8, 40, -8, 40, -40, 0, -40)
 
 [node name="Polygon2D" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=2129139139]
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
 polygon = PackedVector2Array(152, 56, 104, 56, 104, 96, 152, 96)
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=2047196419]
-polygon = PackedVector2Array(104, 56, 104, 96, 152, 96, 152, 56)
+polygon = PackedVector2Array(104, 56, 104, 80, -32, 80, -32, 96, 152, 96, 152, 56)
 
 [node name="Spawn" type="Node2D" parent="Chunk2" unique_id=2014185313]
 position = Vector2(128, 56)
@@ -370,7 +370,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_fvr84")
 
 [node name="NeutralSpike15" type="Sprite2D" parent="Chunk2/Spike" unique_id=730351152]
-position = Vector2(-3.9999962, 76.00001)
+position = Vector2(-4, 72)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_fvr84")
 
@@ -381,17 +381,82 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_fvr84")
 
 [node name="NeutralSpike17" type="Sprite2D" parent="Chunk2/Spike" unique_id=637219372]
-position = Vector2(-19.999996, 76.000015)
+position = Vector2(-20, 72)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_fvr84")
 
 [node name="NeutralSpike19" type="Sprite2D" parent="Chunk2/Spike" unique_id=907621219]
-position = Vector2(-28, 76)
+position = Vector2(-28, 72)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_fvr84")
 
 [node name="NeutralSpike18" type="Sprite2D" parent="Chunk2/Spike" unique_id=1395209630]
-position = Vector2(-11.999996, 76.000015)
+position = Vector2(-12, 72)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike21" type="Sprite2D" parent="Chunk2/Spike" unique_id=337726757]
+position = Vector2(27.999998, 72)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike25" type="Sprite2D" parent="Chunk2/Spike" unique_id=1262439251]
+position = Vector2(11.999998, 72)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike29" type="Sprite2D" parent="Chunk2/Spike" unique_id=664862420]
+position = Vector2(3.999998, 72)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike30" type="Sprite2D" parent="Chunk2/Spike" unique_id=4329101]
+position = Vector2(19.999998, 72)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike31" type="Sprite2D" parent="Chunk2/Spike" unique_id=938455691]
+position = Vector2(59.999996, 72)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike32" type="Sprite2D" parent="Chunk2/Spike" unique_id=1320719682]
+position = Vector2(43.999996, 72)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike33" type="Sprite2D" parent="Chunk2/Spike" unique_id=1603407888]
+position = Vector2(35.999996, 72)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike34" type="Sprite2D" parent="Chunk2/Spike" unique_id=2103709077]
+position = Vector2(51.999996, 72)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike35" type="Sprite2D" parent="Chunk2/Spike" unique_id=1860496297]
+position = Vector2(92, 72)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike39" type="Sprite2D" parent="Chunk2/Spike" unique_id=1558522259]
+position = Vector2(100, 72)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike36" type="Sprite2D" parent="Chunk2/Spike" unique_id=1735945897]
+position = Vector2(76, 72)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike37" type="Sprite2D" parent="Chunk2/Spike" unique_id=451451528]
+position = Vector2(68, 72)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_fvr84")
+
+[node name="NeutralSpike38" type="Sprite2D" parent="Chunk2/Spike" unique_id=1267834845]
+position = Vector2(84, 72)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_fvr84")
 
@@ -429,6 +494,10 @@ texture = ExtResource("5_fvr84")
 position = Vector2(-76, -16)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_fvr84")
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Chunk2/Spike" unique_id=1221242811]
+position = Vector2(0, -4)
+polygon = PackedVector2Array(32, -20, 36, -20, 36, 4, 72, 4, 72, 8, 32, 8)
 
 [node name="Level2" type="Sprite2D" parent="Chunk2" unique_id=1084797929]
 visible = false
