@@ -208,8 +208,12 @@ var DashHitstopTime: float = 0.05
 @export var VineAttachTime: float = 0.08
 @export var VineGrabHitstopTime: float = 0.08
 
+@export var VineJumpRegrabLockTime: float = 0.12
+
 @export var VineExitHSpeed: float = 180.0
 @export var VineExitVSpeed: float = -90.0
+
+@export var VineJumpBoostY: float = -20.0
 
 #endregion
 
@@ -218,8 +222,15 @@ var DashHitstopTime: float = 0.05
 
 @export_group("Launch")
 
-@export var LaunchedBoostCheckSpeedSq: float = 100.0 * 100.0
-@export var LaunchedJumpCheckSpeedSq: float = 220.0 * 220.0
+@export var LaunchedBoostCheckSpeedSq: float = (
+	100.0
+	* 100.0
+)
+
+@export var LaunchedJumpCheckSpeedSq: float = (
+	220.0
+	* 220.0
+)
 
 #endregion
 
@@ -240,7 +251,9 @@ var DashHitstopTime: float = 0.05
 
 #region Runtime
 
-var movement: PlayerMovement = PlayerMovement.new()
+var movement: PlayerMovement = (
+	PlayerMovement.new()
+)
 
 #endregion
 

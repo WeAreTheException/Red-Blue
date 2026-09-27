@@ -21,8 +21,13 @@ class_name VineSwing
 
 @export var return_speed: float = 90.0
 
-# After reaching the end of the swing,
-# keep the outward launch direction briefly.
+# How long the vine stays at its maximum angle
+# before beginning to return toward center.
+@export var return_pause_time: float = 0.05
+
+# Once the vine actually begins returning,
+# releasing briefly still launches in the
+# original outward direction.
 @export var exit_direction_grace_time: float = 0.12
 
 
@@ -34,6 +39,8 @@ class_name VineSwing
 var angular_speed: float = 0.0
 
 var _returning: bool = false
+
+var _return_pause_timer: float = 0.0
 
 var _exit_direction: int = 0
 var _exit_direction_grace_timer: float = 0.0
@@ -78,6 +85,20 @@ func _physics_process(
 			- delta
 		)
 
+	# Pause at the end of the swing before
+	# beginning the return.
+	if _return_pause_timer > 0.0:
+		_return_pause_timer = maxf(
+			0.0,
+			_return_pause_timer
+			- delta
+		)
+
+		if _return_pause_timer <= 0.0:
+			_begin_return()
+
+		return
+
 	if _returning:
 		_update_return(
 			delta
@@ -98,38 +119,28 @@ func _physics_process(
 	if rotation_degrees >= max_angle:
 		rotation_degrees = max_angle
 
-		# Remember which direction the PLAYER
-		# was travelling before the vine turned.
 		_exit_direction = -int(
 			sign(
 				angular_speed
 			)
 		)
 
-		_exit_direction_grace_timer = (
-			exit_direction_grace_time
-		)
-
 		angular_speed = 0.0
-		_returning = true
+
+		_start_return_pause()
 
 	elif rotation_degrees <= -max_angle:
 		rotation_degrees = -max_angle
 
-		# Remember which direction the PLAYER
-		# was travelling before the vine turned.
 		_exit_direction = -int(
 			sign(
 				angular_speed
 			)
 		)
 
-		_exit_direction_grace_timer = (
-			exit_direction_grace_time
-		)
-
 		angular_speed = 0.0
-		_returning = true
+
+		_start_return_pause()
 
 
 func begin_swing(
@@ -161,20 +172,15 @@ func begin_swing(
 		max_swing_speed
 	)
 
-	# Horizontal player direction and vine
-	# rotation direction are opposite.
-	#
-	# Player moving RIGHT:
-	# negative vine rotation.
-	#
-	# Player moving LEFT:
-	# positive vine rotation.
+	# Player horizontal travel and vine rotation
+	# have opposite signs.
 	angular_speed = (
 		-speed
 		* float(direction)
 	)
 
 	_returning = false
+	_return_pause_timer = 0.0
 
 	_exit_direction = direction
 	_exit_direction_grace_timer = 0.0
@@ -192,6 +198,7 @@ func apply_dash_impulse(
 	)
 
 	_returning = false
+	_return_pause_timer = 0.0
 
 	_exit_direction = direction
 	_exit_direction_grace_timer = 0.0
@@ -200,6 +207,16 @@ func apply_dash_impulse(
 func is_swinging() -> bool:
 	if not is_zero_approx(
 		angular_speed
+	):
+		return true
+
+	# The pause at maximum angle still counts
+	# as part of the swing.
+	if (
+		_return_pause_timer > 0.0
+		and not is_zero_approx(
+			rotation_degrees
+		)
 	):
 		return true
 
@@ -215,13 +232,16 @@ func is_swinging() -> bool:
 
 
 func get_motion_direction() -> int:
-	# Grace period immediately after hitting
-	# the swing limit.
-	#
-	# Even though the vine has started returning,
-	# releasing during this window still launches
-	# the player in the direction they were
-	# travelling before the turnaround.
+	# While paused at maximum extension,
+	# releasing still sends the player outward.
+	if (
+		_return_pause_timer > 0.0
+		and _exit_direction != 0
+	):
+		return _exit_direction
+
+	# Shortly after the actual return begins,
+	# preserve the outward exit direction.
 	if (
 		_exit_direction_grace_timer
 		> 0.0
@@ -229,9 +249,7 @@ func get_motion_direction() -> int:
 	):
 		return _exit_direction
 
-	# During the normal outward swing,
-	# horizontal player travel is opposite
-	# the vine's rotation sign.
+	# Normal outward swing.
 	if not is_zero_approx(
 		angular_speed
 	):
@@ -241,9 +259,7 @@ func get_motion_direction() -> int:
 			)
 		)
 
-	# Once the grace period ends,
-	# releasing during the return launches
-	# in the actual return direction.
+	# Actual return movement after grace ends.
 	if (
 		_returning
 		and not is_zero_approx(
@@ -257,6 +273,30 @@ func get_motion_direction() -> int:
 		)
 
 	return 0
+
+
+func _start_return_pause() -> void:
+	_returning = false
+
+	_exit_direction_grace_timer = 0.0
+
+	_return_pause_timer = maxf(
+		0.0,
+		return_pause_time
+	)
+
+	if _return_pause_timer <= 0.0:
+		_begin_return()
+
+
+func _begin_return() -> void:
+	_return_pause_timer = 0.0
+
+	_returning = true
+
+	_exit_direction_grace_timer = (
+		exit_direction_grace_time
+	)
 
 
 func _update_return(

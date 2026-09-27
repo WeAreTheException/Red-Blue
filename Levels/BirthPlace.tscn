@@ -470,6 +470,7 @@ player_visual = NodePath("CharacterRect")
 MaxFall = 140.0
 JumpSpeed = -110.0
 DashTime = 0.1
+VineJumpRegrabLockTime = 1.0
 
 [node name="DashPixel" type="Sprite2D" parent="Player2" unique_id=325728935]
 position = Vector2(-128, -56)

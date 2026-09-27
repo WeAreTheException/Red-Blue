@@ -15,6 +15,8 @@ var active_vine: VineSwing = null
 var _candidate_inside: bool = false
 var _grab_grace_timer: float = 0.0
 
+var _regrab_lock_timer: float = 0.0
+
 var _grab_sequence_running: bool = false
 
 
@@ -33,6 +35,12 @@ func setup(
 func update_grace(
 	delta: float
 ) -> void:
+	if _regrab_lock_timer > 0.0:
+		_regrab_lock_timer = maxf(
+			0.0,
+			_regrab_lock_timer - delta
+		)
+
 	if _candidate_inside:
 		return
 
@@ -74,6 +82,9 @@ func exit_vine_area(
 
 
 func CanGrab() -> bool:
+	if _regrab_lock_timer > 0.0:
+		return false
+
 	if active_vine != null:
 		return false
 
@@ -153,21 +164,20 @@ func VineUpdate(
 			false
 		)
 
-	# The special grab sequence owns the player's
-	# position while the hitstop is happening.
+	# Initial vine grab hitstop / lerp.
 	if _grab_sequence_running:
 		state.Speed = Vector2.ZERO
 		state.onGround = false
 
 		return player.StVine
 
-	# JUMP off the vine.
+	# JUMP wins over GRAB.
 	if state.jump_pressed:
 		return _detach_with_exit(
 			true
 		)
 
-	# Release GRAB.
+	# Released GRAB.
 	if not state.grab_check:
 		return _detach_with_exit(
 			false
@@ -177,7 +187,7 @@ func VineUpdate(
 	if dash.CanDash():
 		_vine_dash()
 
-	# Once attached, always follow the endpoint.
+	# Follow vine endpoint.
 	player.global_position = (
 		active_vine.end_point.global_position
 	)
@@ -223,6 +233,18 @@ func _detach_with_exit(
 	from_jump: bool
 ) -> int:
 	_apply_exit_velocity()
+
+	# Jumping gives a small extra upward boost.
+	if from_jump:
+		state.Speed.y += (
+			player.VineJumpBoostY
+		)
+
+		# Prevent instantly grabbing the same
+		# vine again while GRAB is still held.
+		_regrab_lock_timer = (
+			player.VineJumpRegrabLockTime
+		)
 
 	_grab_sequence_running = false
 	active_vine = null
@@ -357,8 +379,8 @@ func _begin_grab_sequence(
 		hitstop_time
 	)
 
-	# If hitstop is disabled, attach immediately
-	# and begin swinging.
+	# No hitstop:
+	# attach immediately and start swinging.
 	if hitstop_time <= 0.0:
 		player.global_position = (
 			target_position
@@ -379,9 +401,8 @@ func _begin_grab_sequence(
 	# Freeze the entire game.
 	Engine.time_scale = 0.0
 
-	# This tween ignores time scale, so the player
-	# still moves toward the vine endpoint while
-	# everything else is frozen.
+	# Player still lerps to the endpoint
+	# because this tween ignores time scale.
 	if attach_time > 0.0:
 		var attach_tween: Tween = (
 			player.create_tween()
@@ -411,8 +432,7 @@ func _begin_grab_sequence(
 			target_position
 		)
 
-	# Real-time timer:
-	# it continues running while time_scale = 0.
+	# Timer ignores time scale.
 	await player.get_tree().create_timer(
 		hitstop_time,
 		true,
@@ -441,18 +461,17 @@ func _begin_grab_sequence(
 		)
 	):
 		_grab_sequence_running = false
+
 		return
 
-	# Guarantee the player finishes exactly at
-	# the endpoint before the swing starts.
+	# Guarantee exact endpoint position.
 	player.global_position = (
 		grabbed_vine.end_point.global_position
 	)
 
 	_grab_sequence_running = false
 
-	# NOW the vine receives the stored entry
-	# momentum and begins moving.
+	# Swing begins after hitstop.
 	grabbed_vine.begin_swing(
 		entry_velocity_x
 	)
