@@ -284,10 +284,10 @@ position = Vector2(-92, 68)
 shape = SubResource("RectangleShape2D_e8g45")
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=13812804]
-polygon = PackedVector2Array(-40, -40, -32, -40, -32, -56, -24, -56, -24, -64, 72, -64, 72, -72, 144, -72, 144, 0, 152, 0, 152, -72, 152, -80, -44, -80, -152, -80, -152, -64, -136, -64, -136, -72, -40, -72)
+polygon = PackedVector2Array(-40, -40, -32, -40, -32, -56, -24, -56, -24, -64, 72, -64, 72, -72, 144, -72, 144, 0, 152, 0, 152, -72, 152, -80, -44, -80, -160, -80, -160, -64, -136, -64, -136, -72, -40, -72)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=878096700]
-polygon = PackedVector2Array(-112, -40, -152, -40, -152, 88, -32, 88, -32, 56, -96, 56, -96, 24, -104, 24, -104, 8, -80, 8, -80, 24, -64, 24, -64, -8, -112, -8)
+polygon = PackedVector2Array(-112, -40, -152, -40, -152, -64, -160, -64, -160, 88, -32, 88, -32, 56, -96, 56, -96, 24, -104, 24, -104, 8, -80, 8, -80, 24, -64, 24, -64, -8, -112, -8)
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Chunk2/StaticBody2D2" unique_id=416511448]
 position = Vector2(152, 16)
@@ -306,7 +306,7 @@ polygon = PackedVector2Array(24, 64, 24, 112, 96, 112, 96, 96, 56, 96, 56, 64)
 [node name="Polygon2D2" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=195809985]
 position = Vector2(-152, 0)
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
-polygon = PackedVector2Array(0, 96, 256, 96, 256, 80, 120, 80, 120, 56, 56, 56, 56, 24, 48, 24, 48, 8, 72, 8, 72, 24, 88, 24, 88, -8, 40, -8, 40, -40, 0, -40)
+polygon = PackedVector2Array(-8, 96, 256, 96, 256, 80, 120, 80, 120, 56, 56, 56, 56, 24, 48, 24, 48, 8, 72, 8, 72, 24, 88, 24, 88, -8, 40, -8, 40, -40, 0, -40, 0, -64, -8, -64)
 
 [node name="Polygon2D" type="Polygon2D" parent="Chunk2/StaticBody2D2" unique_id=2129139139]
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
@@ -522,7 +522,7 @@ polygon = PackedVector2Array(-40, -40, -32, -40, -32, 24, -40, 24)
 position = Vector2(328, 36)
 rotation = 1.5707964
 color = Color(0.25565878, 0.25565878, 0.25565878, 1)
-polygon = PackedVector2Array(-132, 176, -131.99997, 480, -99.99998, 480, -99.99998, 464, -107.99998, 464, -107.999985, 368, -75.999985, 368, -75.999985, 360, -91.999985, 360, -91.999985, 352, -99.999985, 352, -99.999985, 256, -107.999985, 256, -107.99999, 184, -35.999992, 184, -35.999992, 176)
+polygon = PackedVector2Array(-132, 176, -131.99997, 488, -99.99998, 488, -99.99998, 464, -107.99998, 464, -107.999985, 368, -75.999985, 368, -75.999985, 360, -91.999985, 360, -91.999985, 352, -99.999985, 352, -99.999985, 256, -107.999985, 256, -107.99999, 184, -35.999992, 184, -35.999992, 176)
 
 [node name="CameraBounds" type="Area2D" parent="." unique_id=606424736 node_paths=PackedStringArray("bounds_shape")]
 script = ExtResource("6_vm5lh")

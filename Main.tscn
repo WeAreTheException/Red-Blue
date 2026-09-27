@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://dgrrgjvr2amfp" path="res://Level6.tscn" id="20_2gh4u"]
 [ext_resource type="Script" uid="uid://b2utpm0apq5cx" path="res://Levels/RoomTransition/RoomExit.gd" id="20_devvj"]
 [ext_resource type="PackedScene" uid="uid://cljalnul2cgl0" path="res://Levels/Chapter_1/Level2.tscn" id="21_3b0ty"]
+[ext_resource type="PackedScene" uid="uid://bphc7a631e84h" path="res://Levels/level_11.tscn" id="23_hhcpw"]
 [ext_resource type="PackedScene" uid="uid://clnxavhk3e18s" path="res://Levels/Level7.tscn" id="24_hhcpw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5mvff"]
@@ -53,7 +54,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3b0ty"]
-size = Vector2(16, 56)
+size = Vector2(16, 144)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_devvj"]
 size = Vector2(16, 24)
@@ -222,6 +223,21 @@ position = Vector2(-200, -184)
 
 [node name="level7" parent="RoomContainer" unique_id=365869652 instance=ExtResource("24_hhcpw")]
 position = Vector2(304, -360)
+
+[node name="ExitLevel6" type="Node2D" parent="RoomContainer/level7" unique_id=201798602]
+position = Vector2(160, -16)
+
+[node name="Area2D" type="Area2D" parent="RoomContainer/level7/ExitLevel6" unique_id=1318250422]
+script = ExtResource("20_devvj")
+destination_room = ExtResource("23_hhcpw")
+destination_spawn_id = &"from_left"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomContainer/level7/ExitLevel6/Area2D" unique_id=261376433]
+position = Vector2(0, -64)
+shape = SubResource("RectangleShape2D_3b0ty")
+
+[node name="Level8" parent="RoomContainer" unique_id=834353221 instance=ExtResource("23_hhcpw")]
+position = Vector2(616, -424)
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=987115664]
 stream = ExtResource("18_kjvhd")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b643epkd3tcuo"]
 
 [ext_resource type="Texture2D" uid="uid://crddjs6tcwqq1" path="res://Environment/Platform/Screenshot 2026-08-22 233629.png" id="1_c3tiy"]
-[ext_resource type="Script" path="res://Environment/VanishingPlatform.gd" id="2_nt0ah"]
+[ext_resource type="Script" uid="uid://dxw44lhrykiic" path="res://Environment/VanishingPlatform.gd" id="2_nt0ah"]
 [ext_resource type="Script" uid="uid://cficjfe4qtfyi" path="res://Environment/VanishTrigger.gd" id="3_yqrqy"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="4_flbir"]
 [ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="5_8mpvu"]
@@ -59,7 +59,7 @@ scale = Vector2(0.175, 0.175)
 texture = ExtResource("1_c3tiy")
 
 [node name="Vanishin2" type="StaticBody2D" parent="." unique_id=1148776887 node_paths=PackedStringArray("visual", "trigger_area")]
-position = Vector2(104, -8)
+position = Vector2(92, -4)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("2_nt0ah")
@@ -69,13 +69,11 @@ trigger_area = NodePath("Area2D")
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Vanishin2" unique_id=1486932220]
 position = Vector2(152, 8)
 polygon = PackedVector2Array(-176, 16, -176, 32, -160, 32, -160, 16)
-metadata/_edit_lock_ = true
 
 [node name="Polygon2D2" type="Polygon2D" parent="Vanishin2" unique_id=1215213570]
 position = Vector2(128, -8)
 color = Color(0.7708395, 0.77083945, 0.77083945, 1)
 polygon = PackedVector2Array(-152, 32, -152, 48, -136, 48, -136, 32)
-metadata/_edit_lock_ = true
 
 [node name="Area2D" type="Area2D" parent="Vanishin2" unique_id=1329221044]
 position = Vector2(84, 4)
@@ -91,20 +89,23 @@ metadata/_edit_lock_ = true
 collision_layer = 2
 collision_mask = 0
 
-[node name="Polygon2D" type="Polygon2D" parent="Base" unique_id=828629244]
-polygon = PackedVector2Array(-168, 72, -128, 72, -128, 80, -88, 80, -88, 88, -16, 88, -16, 72, 32, 72, 32, 80, 80, 80, 80, 64, 104, 64, 104, 88, 128, 88, 128, 40, 152, 40, 152, -48, 168, -48, 168, 96, -168, 96)
-
-[node name="Polygon2D2" type="Polygon2D" parent="Base" unique_id=2081420154]
-polygon = PackedVector2Array(-168, 32, -152, 32, -152, -56, -144, -56, -144, -64, -136, -64, -136, -80, -88, -80, -88, -64, -80, -64, -80, -32, -72, -32, -72, -8, -64, -8, -64, -72, -56, -72, -56, -80, -24, -80, -24, -96, 32, -96, 32, -40, 48, -40, 48, -8, 56, -8, 56, -32, 64, -32, 64, -56, 72, -56, 72, -64, 88, -64, 88, -56, 112, -56, 112, -40, 120, -40, 120, -80, 152, -80, 152, -72, 168, -72, 168, -104, -168, -104)
-
-[node name="Polygon2D3" type="Polygon2D" parent="Base" unique_id=1231929979]
-polygon = PackedVector2Array(-120, -8, -120, 16, -112, 16, -112, 40, -104, 40, -104, -8)
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Base" unique_id=1414340594]
 polygon = PackedVector2Array(-168, 32, -168, 72, -160, 72, -160, 32, -152, 32, -152, -56, -144, -56, -144, -64, -136, -64, -136, -88, -88, -88, -88, -64, -80, -64, -80, -32, -72, -32, -72, -8, -64, -8, -64, -72, -56, -72, -56, -80, -24, -80, -24, -88, 32, -88, 32, -40, 48, -40, 48, -8, 56, -8, 56, -32, 64, -32, 64, -56, 72, -56, 72, -64, 88, -64, 88, -56, 112, -56, 112, -40, 120, -40, 120, -80, 152, -80, 152, -72, 168, -72, 168, -48, 152, -48, 152, 40, 128, 40, 128, 88, 104, 88, 104, 64, 80, 64, 80, 80, 32, 80, 32, 72, -16, 72, -16, 88, -88, 88, -88, 80, -128, 80, -128, 72, -168, 72, -168, 96, 176, 96, 176, -96, -168, -96)
 metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Base" unique_id=2142029050]
+polygon = PackedVector2Array(-120, -8, -120, 16, -112, 16, -112, 40, -104, 40, -104, -8)
+
+[node name="Polygon2D" type="Polygon2D" parent="Base" unique_id=828629244]
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
+polygon = PackedVector2Array(-168, 72, -128, 72, -128, 80, -88, 80, -88, 88, -16, 88, -16, 72, 32, 72, 32, 80, 80, 80, 80, 64, 104, 64, 104, 88, 128, 88, 128, 40, 152, 40, 152, -48, 168, -48, 168, 96, -168, 96)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Base" unique_id=2081420154]
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
+polygon = PackedVector2Array(-168, 32, -152, 32, -152, -56, -144, -56, -144, -64, -136, -64, -136, -80, -88, -80, -88, -64, -80, -64, -80, -32, -72, -32, -72, -8, -64, -8, -64, -72, -56, -72, -56, -80, -24, -80, -24, -96, 32, -96, 32, -40, 48, -40, 48, -8, 56, -8, 56, -32, 64, -32, 64, -56, 72, -56, 72, -64, 88, -64, 88, -56, 112, -56, 112, -40, 120, -40, 120, -80, 152, -80, 152, -72, 168, -72, 168, -104, -168, -104)
+
+[node name="Polygon2D3" type="Polygon2D" parent="Base" unique_id=1231929979]
+color = Color(0.0627451, 0.05882353, 0.10980392, 1)
 polygon = PackedVector2Array(-120, -8, -120, 16, -112, 16, -112, 40, -104, 40, -104, -8)
 
 [node name="Spawn" type="Node2D" parent="." unique_id=1617290557]
@@ -258,6 +259,66 @@ position = Vector2(-112, 32)
 polygon = PackedVector2Array(-4, -44, -4, -40, 4, -40, 4, -44)
 metadata/_edit_lock_ = true
 
+[node name="Sprite2D48" type="Sprite2D" parent="RedSpikes" unique_id=154320044]
+position = Vector2(-12.000008, -3.000001)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D54" type="Sprite2D" parent="RedSpikes" unique_id=854957912]
+position = Vector2(-12, -11.999999)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D55" type="Sprite2D" parent="RedSpikes" unique_id=2052842058]
+position = Vector2(-12, -20)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D56" type="Sprite2D" parent="RedSpikes" unique_id=847671874]
+position = Vector2(-12, -28)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D57" type="Sprite2D" parent="RedSpikes" unique_id=1464168238]
+position = Vector2(-12, -36)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D49" type="Sprite2D" parent="RedSpikes" unique_id=991823115]
+position = Vector2(-12.000008, 4.9999986)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D50" type="Sprite2D" parent="RedSpikes" unique_id=1294027466]
+position = Vector2(-12.000008, 12.999998)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D51" type="Sprite2D" parent="RedSpikes" unique_id=918473298]
+position = Vector2(-12.000008, 20.999998)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D52" type="Sprite2D" parent="RedSpikes" unique_id=1979636586]
+position = Vector2(-12.000008, 28.999998)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D53" type="Sprite2D" parent="RedSpikes" unique_id=1409091605]
+position = Vector2(-12.000008, 37)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
 [node name="Spikes" type="StaticBody2D" parent="." unique_id=995392696]
 collision_layer = 2
 collision_mask = 0
@@ -269,6 +330,14 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Spikes" unique_id=1722993067]
 polygon = PackedVector2Array(-128, 80, -128, 76, -92, 76, -92, 80)
+
+[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="Spikes" unique_id=1423529407]
+position = Vector2(24, -80)
+polygon = PackedVector2Array(-128, 116, -128, 76, -124, 76, -124, 116)
+
+[node name="CollisionPolygon2D10" type="CollisionPolygon2D" parent="Spikes" unique_id=408939213]
+position = Vector2(116, -80)
+polygon = PackedVector2Array(-128, 116, -128, 44, -124, 44, -124, 116)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Spikes" unique_id=1573918252]
 position = Vector2(44, 8)
@@ -309,7 +378,42 @@ metadata/_edit_lock_ = true
 position = Vector2(-116.00001, -12)
 scale = Vector2(0.099999964, 0.099999994)
 texture = ExtResource("21_h6ht2")
-metadata/_edit_lock_ = true
+
+[node name="Sprite2D42" type="Sprite2D" parent="Spikes" unique_id=996511593]
+position = Vector2(-100, -4)
+rotation = 1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D43" type="Sprite2D" parent="Spikes" unique_id=322634940]
+position = Vector2(-100, 3.9999995)
+rotation = 1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D44" type="Sprite2D" parent="Spikes" unique_id=430080610]
+position = Vector2(-100, 11.999999)
+rotation = 1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D45" type="Sprite2D" parent="Spikes" unique_id=958002564]
+position = Vector2(-100, 20)
+rotation = 1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D46" type="Sprite2D" parent="Spikes" unique_id=241664896]
+position = Vector2(-100, 28)
+rotation = 1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
+
+[node name="Sprite2D47" type="Sprite2D" parent="Spikes" unique_id=228223071]
+position = Vector2(-100, 36)
+rotation = 1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("21_h6ht2")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Spikes" unique_id=1829290376]
 position = Vector2(-107.99999, -12)
@@ -556,6 +660,7 @@ texture = ExtResource("21_h6ht2")
 metadata/_edit_lock_ = true
 
 [node name="Frame" type="Polygon2D" parent="." unique_id=1785674149]
+visible = false
 polygon = PackedVector2Array(-152, 96, -160, 96, -160, -92, 160, -92, 160, 96, 156, 96, -152, 96, -152, 84, 152, 84, 152, -84, -152, -84)
 metadata/_edit_lock_ = true
 

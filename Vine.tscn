@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://casqst1frm8nr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofmoc"]
+size = Vector2(4, 10)
+
+[node name="Vine" type="Node2D" unique_id=1460239558]
+
+[node name="GrabArea" type="Area2D" parent="." unique_id=1563681016]
+collision_layer = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea" unique_id=1045130360]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_ofmoc")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=881658461]
+position = Vector2(0, 8)
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1023510995]
+offset_left = -1.0
+offset_right = 1.0
+offset_bottom = 8.0

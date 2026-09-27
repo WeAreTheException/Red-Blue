@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://bbmfwdcgt3qkr" path="res://Environment/Platform/RedSpike.png" id="12_s0f3a"]
 [ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="13_85j6u"]
 [ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="14_8w5jw"]
-[ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Sound/Music/TimMusic1.wav" id="15_8w5jw"]
 [ext_resource type="Shader" uid="uid://brrnuux81p04o" path="res://Shaders/Halftones.gdshader" id="22_f0t86"]
 [ext_resource type="Texture2D" uid="uid://5ldj0fhhwgdy" path="res://Shaders/8PixelCircle.png" id="23_rocm8"]
 [ext_resource type="Script" uid="uid://don73e2npfp5a" path="res://Player/Respawn/RespawnMarker.gd" id="24_gmwyd"]
@@ -23,7 +22,7 @@ shader_parameter/tile_size = 8.0
 shader_parameter/offset = Vector2(0, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nbdlk"]
-size = Vector2(56, 40)
+size = Vector2(72, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j7vgf"]
 size = Vector2(624, 172)
@@ -48,15 +47,6 @@ position = Vector2(0, -8)
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
 polygon = PackedVector2Array(-144, 32, -152, 32, -152, 16, -168, 16, -168, 0, -80, 0, -80, 24, -120, 24, -120, 8, -128, 8, -128, 16, -144, 16)
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Base" unique_id=156835174]
-position = Vector2(0, -62.4)
-polygon = PackedVector2Array(-152, 30.400002, -112, 30.400002, -112, 22.400002, -144, 22.400002, -144, -21.599998, -152, -21.599998)
-
-[node name="Polygon2D2" type="Polygon2D" parent="Base" unique_id=1335646292]
-position = Vector2(0, -62.4)
-color = Color(0.0627451, 0.05882353, 0.10980392, 1)
-polygon = PackedVector2Array(-152, 30.400002, -152, -33.6, -144, -33.6, -144, 22.400002, -112, 22.400002, -112, 30.400002)
-
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Base" unique_id=1906263655]
 position = Vector2(0, 48)
 polygon = PackedVector2Array(-96, 32, -40, 32, -40, 24, -48, 24, -48, 20, -48, -16, -40, -16, -40, -24, -32, -24, -32, -32, -32, -80, -80, -80, -80, -8, -96, -8)
@@ -64,7 +54,7 @@ polygon = PackedVector2Array(-96, 32, -40, 32, -40, 24, -48, 24, -48, 20, -48, -
 [node name="Polygon2D3" type="Polygon2D" parent="Base" unique_id=1971312601]
 position = Vector2(0, 48)
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
-polygon = PackedVector2Array(-168, 32, -168, 16, -96, 16, -96, -8, -80, -8, -80, -80, -32, -80, -32, -32, -32, -24, -40, -24, -40, -16, -48, -16, -48, 24, -40, 24, -40, 32, -96, 32, -96, 24, -160, 24, -160, 32)
+polygon = PackedVector2Array(-168, 32, -168, 24, -96, 24, -96, -8, -80, -8, -80, -80, -32, -80, -32, -32, -32, -24, -40, -24, -40, -16, -48, -16, -48, 24, -40, 24, -40, 32, -96, 32)
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Base" unique_id=34802089]
 position = Vector2(143.2, 126.00001)
@@ -180,6 +170,38 @@ texture = ExtResource("10_hshm6")
 position = Vector2(-177.79999, -7.6293945e-06)
 polygon = PackedVector2Array(101.79999, -35.999992, 101.79999, -31.999992, 141.79999, -31.999992, 141.79999, -35.999992)
 
+[node name="CollisionPolygon2D10" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1623862731]
+position = Vector2(-264, 22)
+polygon = PackedVector2Array(96, -38, 96, -30, 184, -30, 184, -38)
+
+[node name="Vanishin2" type="StaticBody2D" parent="StaticBody2D/CollisionPolygon2D10" unique_id=1285648541 node_paths=PackedStringArray("visual", "trigger_area")]
+position = Vector2(144, -78)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("25_5tovk")
+visual = NodePath("Polygon2D2")
+trigger_area = NodePath("Area2D")
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D/CollisionPolygon2D10/Vanishin2" unique_id=1448702907]
+position = Vector2(152, 8)
+polygon = PackedVector2Array(-176, 8, -176, 16, -144, 16, -144, 8)
+metadata/_edit_lock_ = true
+
+[node name="Polygon2D2" type="Polygon2D" parent="StaticBody2D/CollisionPolygon2D10/Vanishin2" unique_id=650014580]
+position = Vector2(128, -8)
+color = Color(0.90588236, 1, 0.93333334, 1)
+polygon = PackedVector2Array(-152, 24, -152, 32, -120, 32, -120, 24)
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="StaticBody2D/CollisionPolygon2D10/Vanishin2" unique_id=1774652850]
+position = Vector2(84, 4)
+collision_layer = 0
+script = ExtResource("26_46cki")
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D/CollisionPolygon2D10/Vanishin2/Area2D" unique_id=1528984676]
+polygon = PackedVector2Array(-109, 11, -75, 11, -75, 20, -109, 20)
+
 [node name="NeutralSpike16" type="Sprite2D" parent="StaticBody2D" unique_id=1394866718]
 position = Vector2(-76.00001, -36)
 scale = Vector2(0.1, 0.1)
@@ -207,6 +229,61 @@ texture = ExtResource("10_hshm6")
 
 [node name="NeutralSpike21" type="Sprite2D" parent="StaticBody2D" unique_id=1290564701]
 position = Vector2(-44, -36)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_hshm6")
+
+[node name="NeutralSpike38" type="Sprite2D" parent="StaticBody2D" unique_id=452148672]
+position = Vector2(-164, -12)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_hshm6")
+
+[node name="NeutralSpike39" type="Sprite2D" parent="StaticBody2D" unique_id=234613313]
+position = Vector2(-147.99998, -12)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_hshm6")
+
+[node name="NeutralSpike40" type="Sprite2D" parent="StaticBody2D" unique_id=507429187]
+position = Vector2(-156, -12)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_hshm6")
+
+[node name="NeutralSpike41" type="Sprite2D" parent="StaticBody2D" unique_id=1838764972]
+position = Vector2(-139.99998, -12)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_hshm6")
+
+[node name="NeutralSpike42" type="Sprite2D" parent="StaticBody2D" unique_id=107343430]
+position = Vector2(-123.999985, -12)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_hshm6")
+
+[node name="NeutralSpike43" type="Sprite2D" parent="StaticBody2D" unique_id=248691527]
+position = Vector2(-131.99998, -12)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_hshm6")
+
+[node name="NeutralSpike45" type="Sprite2D" parent="StaticBody2D" unique_id=179323202]
+position = Vector2(-107.999985, -12)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_hshm6")
+
+[node name="NeutralSpike46" type="Sprite2D" parent="StaticBody2D" unique_id=2109188073]
+position = Vector2(-116, -12)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_hshm6")
+
+[node name="NeutralSpike47" type="Sprite2D" parent="StaticBody2D" unique_id=1521127619]
+position = Vector2(-99.999985, -12)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_hshm6")
+
+[node name="NeutralSpike48" type="Sprite2D" parent="StaticBody2D" unique_id=531179802]
+position = Vector2(-83.999985, -12)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_hshm6")
+
+[node name="NeutralSpike49" type="Sprite2D" parent="StaticBody2D" unique_id=1458301439]
+position = Vector2(-91.999985, -12)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("10_hshm6")
 
@@ -341,11 +418,6 @@ position = Vector2(159.2, 94.00001)
 color = Color(0.15294118, 0.2509804, 0.36078432, 1)
 polygon = PackedVector2Array(-143.2, -78.00001, -135.2, -78.00001, -135.2, -46.000008, -143.2, -46.000008)
 
-[node name="Music" type="AudioStreamPlayer" parent="." unique_id=2140437003]
-stream = ExtResource("15_8w5jw")
-volume_db = -12.156
-autoplay = true
-
 [node name="Frame2" type="Polygon2D" parent="." unique_id=31506242]
 visible = false
 material = SubResource("ShaderMaterial_rocm8")
@@ -353,14 +425,14 @@ color = Color(0.7581918, 0.7581918, 0.7581917, 1)
 polygon = PackedVector2Array(-160, 96, -160, -96, -152, -96, -152, 80, 152, 80, 152, -84, -152, -84, -152, -96, -104, -96, 160, -96, 160, 96)
 
 [node name="Spawn" type="Node2D" parent="." unique_id=1106191640]
-position = Vector2(-128, 64)
+position = Vector2(-128, 72)
 
 [node name="Area2D" type="Area2D" parent="Spawn" unique_id=384122877]
 script = ExtResource("24_gmwyd")
 spawn_id = &"from_bottom"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn/Area2D" unique_id=1245793349]
-position = Vector2(4, -20)
+position = Vector2(-4, -20)
 shape = SubResource("RectangleShape2D_nbdlk")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=106283791]
@@ -369,7 +441,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D2" unique_id=893804858]
-polygon = PackedVector2Array(-40, 0, -40, 16, -32, 16, -32, 8, 32, 8, 32, 0)
+polygon = PackedVector2Array(-40, 8, -40, 16, 32, 16, 32, 8)
 one_way_collision = true
 
 [node name="CameraBounds" type="Area2D" parent="." unique_id=1179138082 node_paths=PackedStringArray("bounds_shape")]

@@ -23,7 +23,7 @@ shader_parameter/rotation = Transform2D(1, -1, 1, 1, 0, 0)
 size = Vector2(16, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oprh5"]
-size = Vector2(320, 192)
+size = Vector2(320, 190)
 
 [node name="Level5" type="Node2D" unique_id=2051680900]
 

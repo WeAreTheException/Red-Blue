@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bvdo4ot8px4cc"]
 
 [ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="1_8s26t"]
+[ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="1_y6nxm"]
 [ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="2_q5r26"]
 [ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="3_gky2q"]
 [ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="4_u2484"]
@@ -17,6 +18,9 @@
 [ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="15_2itju"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="16_mdug0"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="17_lgcyr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tx5p"]
+size = Vector2(320, 190)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s6e1r"]
 size = Vector2(8, 11)
@@ -47,6 +51,18 @@ animations = [{
 }]
 
 [node name="Level_8" type="Node2D" unique_id=1497379900]
+
+[node name="CameraBounds" type="Area2D" parent="." unique_id=195153400 node_paths=PackedStringArray("bounds_shape")]
+position = Vector2(-296, 0)
+script = ExtResource("1_y6nxm")
+bounds_shape = NodePath("CollisionShape2D")
+horizontal_trigger_distance_px = 200.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds" unique_id=1408883057]
+position = Vector2(264, 0)
+shape = SubResource("RectangleShape2D_6tx5p")
+disabled = true
+metadata/_edit_lock_ = true
 
 [node name="Spawn" type="Node2D" parent="." unique_id=1651532691]
 position = Vector2(-144, 64)
@@ -149,17 +165,22 @@ collision_mask = 0
 
 [node name="Base" type="Polygon2D" parent="Chunk" unique_id=659687905]
 color = Color(0.25490198, 0.25490198, 0.25490198, 1)
-polygon = PackedVector2Array(0, 0, 0, 184, 120, 184, 120, 176, 120, 152, 104, 152, 104, 176, 40, 176, 40, 160, 32, 160, 32, 152, 8, 152, 8, 88, 16, 88, 16, 48, 40, 48, 40, 40, 56, 40, 56, 24, 72, 24, 72, 0, 104, 0, 104, 40, 120, 40, 120, 32, 128, 32, 128, 8, 136, 8, 136, 16, 152, 16, 152, 24, 160, 24, 160, 16, 176, 16, 176, 8, 232, 8, 232, 16, 248, 16, 248, 40, 264, 40, 264, 72, 272, 72, 272, 80, 280, 80, 280, 96, 288, 96, 288, 8, 308, 8, 308, 136, 272, 136, 272, 160, 248, 160, 248, 168, 224, 168, 224, 160, 184, 160, 184, 128, 192, 128, 192, 120, 152, 120, 152, 144, 168, 144, 168, 176, 168, 184, 320, 184, 320, 0)
+polygon = PackedVector2Array(0, 0, 0, 184, 120, 184, 120, 176, 120, 152, 104, 152, 104, 176, 40, 176, 40, 160, 32, 160, 32, 152, 8, 152, 8, 88, 16, 88, 16, 48, 40, 48, 40, 40, 56, 40, 56, 24, 72, 24, 72, 0, 104, 0, 104, 40, 120, 40, 120, 32, 128, 32, 128, 8, 136, 8, 136, 16, 152, 16, 152, 24, 160, 24, 160, 56, 152, 56, 152, 72, 192, 72, 192, 56, 184, 56, 184, 8, 232, 8, 232, 16, 248, 16, 248, 40, 264, 40, 264, 72, 272, 72, 272, 80, 280, 80, 280, 96, 288, 96, 288, 0)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chunk" unique_id=1872199322]
-polygon = PackedVector2Array(0, 184, 120, 184, 120, 152, 104, 152, 104, 176, 40, 176, 40, 160, 32, 160, 32, 152, 8, 152, 8, 88, 16, 88, 16, 48, 40, 48, 40, 40, 56, 40, 56, 24, 72, 24, 72, 8, 104, 8, 104, 40, 120, 40, 120, 32, 128, 32, 128, 8, 136, 8, 136, 16, 152, 16, 152, 24, 160, 24, 160, 8, 232, 8, 232, 16, 248, 16, 248, 40, 264, 40, 264, 72, 272, 72, 272, 80, 280, 80, 280, 96, 288, 96, 288, 8, 308, 8, 308, 136, 272, 136, 272, 160, 248, 160, 248, 168, 224, 168, 224, 160, 184, 160, 184, 128, 192, 128, 192, 120, 152, 120, 152, 144, 168, 144, 168, 176, 168, 184, 320, 184, 320, 0, 0, 0)
+polygon = PackedVector2Array(0, 184, 120, 184, 120, 152, 104, 152, 104, 176, 40, 176, 40, 160, 32, 160, 32, 152, 8, 152, 8, 88, 16, 88, 16, 48, 40, 48, 40, 40, 56, 40, 56, 24, 72, 24, 72, 8, 104, 8, 104, 40, 120, 40, 120, 32, 128, 32, 128, 8, 136, 8, 136, 16, 152, 16, 152, 24, 160, 24, 160, 8, 232, 8, 232, 16, 248, 16, 248, 40, 264, 40, 264, 72, 272, 72, 272, 80, 280, 80, 280, 96, 288, 96, 288, 0, 0, 0)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Chunk" unique_id=1624970905]
 polygon = PackedVector2Array(152, 72, 152, 56, 160, 56, 160, 8, 184, 8, 184, 56, 192, 56, 192, 72)
 
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Chunk" unique_id=1222951168]
+position = Vector2(-8, 112)
+polygon = PackedVector2Array(176, 72, 176, 32, 160, 32, 160, 8, 200, 8, 200, 16, 192, 16, 192, 48, 232, 48, 232, 56, 256, 56, 256, 48, 280, 48, 280, 32, 296, 32, 296, 72)
+
 [node name="Chunk2" type="Polygon2D" parent="Chunk" unique_id=1230487910]
+position = Vector2(-8, 112)
 color = Color(0.25490198, 0.25490198, 0.25490198, 1)
-polygon = PackedVector2Array(152, 56, 160, 56, 160, 8, 184, 8, 184, 56, 192, 56, 192, 72, 152, 72)
+polygon = PackedVector2Array(176, 56, 160, 56, 160, 8, 200, 8, 200, 16, 192, 16, 192, 48, 232, 48, 232, 56, 256, 56, 256, 48, 280, 48, 280, 32, 296, 32, 296, 72, 176, 72)
 
 [node name="Red" type="StaticBody2D" parent="." unique_id=1444830401]
 position = Vector2(40, 40)
@@ -366,6 +387,7 @@ position = Vector2(21.2, 0)
 polygon = PackedVector2Array(42, 76, 66, 76, 66, 80, 42, 80)
 
 [node name="Frame" type="Polygon2D" parent="." unique_id=133863737]
+visible = false
 polygon = PackedVector2Array(-152, 96, -160, 96, -160, -92, 160, -92, 160, 96, 156, 96, -152, 96, -152, 84, 152, 84, 152, -84, -152, -84)
 metadata/_edit_lock_ = true
 
