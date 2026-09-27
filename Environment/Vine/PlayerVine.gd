@@ -15,12 +15,7 @@ var active_vine: VineSwing = null
 var _candidate_inside: bool = false
 var _grab_grace_timer: float = 0.0
 
-
-var _attach_start_position: Vector2 = (
-	Vector2.ZERO
-)
-
-var _attach_timer: float = 0.0
+var _grab_sequence_running: bool = false
 
 
 func setup(
@@ -126,16 +121,6 @@ func StartGrab() -> int:
 
 	state.onGround = false
 
-	_attach_start_position = (
-		player.global_position
-	)
-
-	_attach_timer = 0.0
-
-	active_vine.begin_swing(
-		entry_velocity_x
-	)
-
 	state.movement_phase = (
 		&"VINE"
 	)
@@ -144,11 +129,15 @@ func StartGrab() -> int:
 		&"VINE"
 	)
 
+	_begin_grab_sequence(
+		entry_velocity_x
+	)
+
 	return player.StVine
 
 
 func VineUpdate(
-	delta: float
+	_delta: float
 ) -> int:
 	if active_vine == null:
 		return ForceDetach(
@@ -163,6 +152,14 @@ func VineUpdate(
 		return ForceDetach(
 			false
 		)
+
+	# The special grab sequence owns the player's
+	# position while the hitstop is happening.
+	if _grab_sequence_running:
+		state.Speed = Vector2.ZERO
+		state.onGround = false
+
+		return player.StVine
 
 	# JUMP off the vine.
 	if state.jump_pressed:
@@ -180,36 +177,10 @@ func VineUpdate(
 	if dash.CanDash():
 		_vine_dash()
 
-	_attach_timer += delta
-
-	var target_position: Vector2 = (
+	# Once attached, always follow the endpoint.
+	player.global_position = (
 		active_vine.end_point.global_position
 	)
-
-	if (
-		player.VineAttachTime
-		> 0.0
-		and _attach_timer
-		< player.VineAttachTime
-	):
-		var amount: float = clampf(
-			_attach_timer
-			/ player.VineAttachTime,
-			0.0,
-			1.0
-		)
-
-		player.global_position = (
-			_attach_start_position.lerp(
-				target_position,
-				amount
-			)
-		)
-
-	else:
-		player.global_position = (
-			target_position
-		)
 
 	state.Speed = (
 		Vector2.ZERO
@@ -223,6 +194,8 @@ func VineUpdate(
 func ForceDetach(
 	use_exit_velocity: bool
 ) -> int:
+	_grab_sequence_running = false
+
 	if (
 		use_exit_velocity
 		and active_vine != null
@@ -251,6 +224,7 @@ func _detach_with_exit(
 ) -> int:
 	_apply_exit_velocity()
 
+	_grab_sequence_running = false
 	active_vine = null
 
 	state.StateMachineState = (
@@ -353,4 +327,132 @@ func _vine_dash() -> void:
 
 	movement.emit_movement_state(
 		&"DASH"
+	)
+
+
+func _begin_grab_sequence(
+	entry_velocity_x: float
+) -> void:
+	if active_vine == null:
+		return
+
+	_grab_sequence_running = true
+
+	var grabbed_vine: VineSwing = (
+		active_vine
+	)
+
+	var target_position: Vector2 = (
+		grabbed_vine.end_point.global_position
+	)
+
+	var hitstop_time: float = maxf(
+		0.0,
+		player.VineGrabHitstopTime
+	)
+
+	var attach_time: float = clampf(
+		player.VineAttachTime,
+		0.0,
+		hitstop_time
+	)
+
+	# If hitstop is disabled, attach immediately
+	# and begin swinging.
+	if hitstop_time <= 0.0:
+		player.global_position = (
+			target_position
+		)
+
+		_grab_sequence_running = false
+
+		grabbed_vine.begin_swing(
+			entry_velocity_x
+		)
+
+		return
+
+	var previous_time_scale: float = (
+		Engine.time_scale
+	)
+
+	# Freeze the entire game.
+	Engine.time_scale = 0.0
+
+	# This tween ignores time scale, so the player
+	# still moves toward the vine endpoint while
+	# everything else is frozen.
+	if attach_time > 0.0:
+		var attach_tween: Tween = (
+			player.create_tween()
+		)
+
+		attach_tween.set_ignore_time_scale(
+			true
+		)
+
+		attach_tween.set_trans(
+			Tween.TRANS_QUAD
+		)
+
+		attach_tween.set_ease(
+			Tween.EASE_OUT
+		)
+
+		attach_tween.tween_property(
+			player,
+			"global_position",
+			target_position,
+			attach_time
+		)
+
+	else:
+		player.global_position = (
+			target_position
+		)
+
+	# Real-time timer:
+	# it continues running while time_scale = 0.
+	await player.get_tree().create_timer(
+		hitstop_time,
+		true,
+		false,
+		true
+	).timeout
+
+	if not is_instance_valid(
+		player
+	):
+		Engine.time_scale = (
+			previous_time_scale
+		)
+
+		return
+
+	Engine.time_scale = (
+		previous_time_scale
+	)
+
+	if (
+		active_vine == null
+		or active_vine != grabbed_vine
+		or not is_instance_valid(
+			grabbed_vine
+		)
+	):
+		_grab_sequence_running = false
+		return
+
+	# Guarantee the player finishes exactly at
+	# the endpoint before the swing starts.
+	player.global_position = (
+		grabbed_vine.end_point.global_position
+	)
+
+	_grab_sequence_running = false
+
+	# NOW the vine receives the stored entry
+	# momentum and begins moving.
+	grabbed_vine.begin_swing(
+		entry_velocity_x
 	)

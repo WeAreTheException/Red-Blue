@@ -28,14 +28,15 @@ enum Direction {
 
 @export_group("Contact")
 
-# Helps stop an UP spring firing when the player
-# merely walks into its lower side.
 @export var contact_tolerance_px: float = 3.0
 
-# Optional for now.
-# BouncePoint represents the desired PlayerRoot
-# origin at the moment the spring fires.
-@export var snap_to_center: bool = false
+# Celeste aligns the player to the spring surface
+# when the bounce happens.
+#
+# We only correct the relevant axis:
+# UP          -> Y
+# LEFT/RIGHT  -> X
+@export var snap_to_center: bool = true
 
 
 @export_group("Programmer Animation")
@@ -65,9 +66,24 @@ var _line_start_points: PackedVector2Array = (
 var _feedback_tween: Tween = null
 
 
+var _player_inside: PlayerRoot = null
+
+var _fired_for_current_overlap: bool = false
+
+
 func _ready() -> void:
+	# Let PlayerMovement finish first.
+	#
+	# This makes the spring response consistent
+	# instead of depending on scene-tree order.
+	process_physics_priority = 100
+
 	body_entered.connect(
 		_on_body_entered
+	)
+
+	body_exited.connect(
+		_on_body_exited
 	)
 
 	if spring_top != null:
@@ -81,20 +97,24 @@ func _ready() -> void:
 		)
 
 
-func _process(
+func _physics_process(
 	_delta: float
 ) -> void:
-	_update_line()
+	if _fired_for_current_overlap:
+		return
 
+	if _player_inside == null:
+		return
 
-func _on_body_entered(
-	body: Node2D
-) -> void:
-	if not body is PlayerRoot:
+	if not is_instance_valid(
+		_player_inside
+	):
+		_player_inside = null
+		_fired_for_current_overlap = false
 		return
 
 	var player: PlayerRoot = (
-		body as PlayerRoot
+		_player_inside
 	)
 
 	if player.movement == null:
@@ -126,6 +146,8 @@ func _on_body_entered(
 		bounce
 	):
 		return
+
+	_fired_for_current_overlap = true
 
 	if snap_to_center:
 		_snap_player_to_bounce_point(
@@ -176,6 +198,35 @@ func _on_body_entered(
 		)
 
 
+func _process(
+	_delta: float
+) -> void:
+	_update_line()
+
+
+func _on_body_entered(
+	body: Node2D
+) -> void:
+	if not body is PlayerRoot:
+		return
+
+	_player_inside = (
+		body as PlayerRoot
+	)
+
+	_fired_for_current_overlap = false
+
+
+func _on_body_exited(
+	body: Node2D
+) -> void:
+	if body != _player_inside:
+		return
+
+	_player_inside = null
+	_fired_for_current_overlap = false
+
+
 func _can_activate(
 	player: PlayerRoot,
 	state: PlayerMovementState,
@@ -183,25 +234,24 @@ func _can_activate(
 ) -> bool:
 	match direction:
 		Direction.UP:
-			# If we have a BouncePoint, reject contacts
-			# clearly below the top face of the spring.
-			#
-			# PlayerRoot uses a bottom-center origin,
-			# so this is comparing the player's feet.
 			if bounce_point != null:
-				if (
+				var distance_from_surface: float = absf(
 					player.global_position.y
-					> bounce_point.global_position.y
-					+ contact_tolerance_px
+					- bounce_point.global_position.y
+				)
+
+				if (
+					distance_from_surface
+					> contact_tolerance_px
 				):
 					return false
 
-			# Already travelling upward should normally
-			# not trigger an UP spring.
+			# Normally an UP spring is entered while
+			# falling/downward.
 			#
-			# Exception: jump is currently held and this
-			# contact is intentionally becoming a
-			# SuperBounce.
+			# We keep our custom SuperBounce rule:
+			# holding JUMP may convert an upward
+			# contact into SuperBounce.
 			if state.Speed.y < 0.0:
 				if not (
 					super_bounce_on_jump
@@ -210,28 +260,34 @@ func _can_activate(
 					return false
 
 		Direction.LEFT:
-			# Already travelling away from the spring.
 			if state.Speed.x < 0.0:
 				return false
 
 			if bounce_point != null:
-				if (
+				var distance_from_surface: float = absf(
 					player.global_position.x
-					> bounce_point.global_position.x
-					+ contact_tolerance_px
+					- bounce_point.global_position.x
+				)
+
+				if (
+					distance_from_surface
+					> contact_tolerance_px
 				):
 					return false
 
 		Direction.RIGHT:
-			# Already travelling away from the spring.
 			if state.Speed.x > 0.0:
 				return false
 
 			if bounce_point != null:
-				if (
+				var distance_from_surface: float = absf(
 					player.global_position.x
-					< bounce_point.global_position.x
-					- contact_tolerance_px
+					- bounce_point.global_position.x
+				)
+
+				if (
+					distance_from_surface
+					> contact_tolerance_px
 				):
 					return false
 
@@ -244,9 +300,21 @@ func _snap_player_to_bounce_point(
 	if bounce_point == null:
 		return
 
-	player.global_position = (
-		bounce_point.global_position
-	)
+	match direction:
+		Direction.UP:
+			player.global_position.y = (
+				bounce_point.global_position.y
+			)
+
+		Direction.LEFT:
+			player.global_position.x = (
+				bounce_point.global_position.x
+			)
+
+		Direction.RIGHT:
+			player.global_position.x = (
+				bounce_point.global_position.x
+			)
 
 
 func _play_feedback() -> void:

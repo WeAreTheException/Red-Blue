@@ -66,17 +66,14 @@ const StVine: int = 3
 
 @export_group("Bounce")
 
-# Your current normal spring launch.
-@export var BounceSpeed: float = -185.0
+@export var BounceSpeed: float = -140.0
 @export var BounceVarJumpTime: float = 0.2
 @export var BounceAutoJumpTime: float = 0.1
 
 
 @export_subgroup("Super Bounce")
 
-# JUMP + UP spring.
-# Separate from the normal spring speed.
-@export var SuperBounceSpeed: float = -235.0
+@export var SuperBounceSpeed: float = -185.0
 @export var SuperBounceVarJumpTime: float = 0.2
 @export var SuperBounceAutoJumpTime: float = 0.0
 
@@ -133,8 +130,6 @@ const StVine: int = 3
 
 @export_group("Climb")
 
-# Leave this ON while testing.
-# Turn it OFF when you want real stamina.
 @export var ClimbInfiniteStamina: bool = true
 
 @export var ClimbMaxStamina: float = 110.0
@@ -209,7 +204,9 @@ var DashHitstopTime: float = 0.05
 @export_group("Vine")
 
 @export var VineGrabGraceTime: float = 0.1
+
 @export var VineAttachTime: float = 0.08
+@export var VineGrabHitstopTime: float = 0.08
 
 @export var VineExitHSpeed: float = 180.0
 @export var VineExitVSpeed: float = -90.0

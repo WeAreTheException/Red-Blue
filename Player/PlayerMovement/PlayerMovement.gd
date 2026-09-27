@@ -327,16 +327,20 @@ func _update_timers(
 			delta
 		)
 
-	# AutoJump may deliberately be created with
-	# a zero timer by SuperBounce / SideBounce.
+	# Match Celeste-style AutoJump behavior.
 	#
-	# In that case it lasts until the next
-	# movement update and is then cleared.
-	if movement_state.AutoJump:
-		if (
-			movement_state.AutoJumpTimer
-			> 0.0
-		):
+	# A zero AutoJumpTimer does NOT immediately
+	# cancel AutoJump.
+	#
+	# This matters for SuperBounce, which uses:
+	#
+	# AutoJump = true
+	# AutoJumpTimer = 0.0
+	if (
+		movement_state.AutoJumpTimer
+		> 0.0
+	):
+		if movement_state.AutoJump:
 			movement_state.AutoJumpTimer -= (
 				delta
 			)
@@ -349,14 +353,7 @@ func _update_timers(
 				movement_state.AutoJump = false
 
 		else:
-			movement_state.AutoJump = false
 			movement_state.AutoJumpTimer = 0.0
-
-	elif (
-		movement_state.AutoJumpTimer
-		> 0.0
-	):
-		movement_state.AutoJumpTimer = 0.0
 
 	if (
 		movement_state.forceMoveXTimer
