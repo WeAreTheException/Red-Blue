@@ -7,6 +7,7 @@ class_name PlayerRoot
 const StNormal: int = 0
 const StClimb: int = 1
 const StDash: int = 2
+const StVine: int = 3
 
 #endregion
 
@@ -192,12 +193,26 @@ const StDash: int = 2
 @export var DashVFloorSnapDist: int = 3
 @export var DashAttackTime: float = 0.3
 @export var DodgeSlideSpeedMult: float = 1.2
+
 @export_range(
 	0.0,
 	0.2,
 	0.005
 )
 var DashHitstopTime: float = 0.05
+
+#endregion
+
+
+#region Vine
+
+@export_group("Vine")
+
+@export var VineGrabGraceTime: float = 0.1
+@export var VineAttachTime: float = 0.08
+
+@export var VineExitHSpeed: float = 180.0
+@export var VineExitVSpeed: float = -90.0
 
 #endregion
 

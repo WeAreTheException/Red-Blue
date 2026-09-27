@@ -17,6 +17,7 @@ var player_wall_jump: PlayerWallJump
 var player_collision: PlayerCollision
 var player_grab: PlayerGrab
 var player_bounce: PlayerBounce
+var player_vine: PlayerVine
 
 
 func setup(
@@ -32,7 +33,9 @@ func setup(
 	)
 
 
-func update(delta: float) -> void:
+func update(
+	delta: float
+) -> void:
 	if not movement_enabled:
 		return
 
@@ -41,12 +44,19 @@ func update(delta: float) -> void:
 
 	player_input.update()
 
-	_update_timers(delta)
+	player_vine.update_grace(
+		delta
+	)
+
+	_update_timers(
+		delta
+	)
 
 	if movement_state.Speed.y >= 0.0:
 		movement_state.onGround = (
 			player_collision.OnGround()
 		)
+
 	else:
 		movement_state.onGround = false
 
@@ -77,7 +87,9 @@ func update(delta: float) -> void:
 
 	else:
 		if movement_state.jumpGraceTimer > 0.0:
-			movement_state.jumpGraceTimer -= delta
+			movement_state.jumpGraceTimer -= (
+				delta
+			)
 
 	player_collision.update_wall_speed_retention(
 		delta
@@ -96,6 +108,11 @@ func update(delta: float) -> void:
 
 		player.StDash:
 			player_dash.DashUpdate(
+				delta
+			)
+
+		player.StVine:
+			player_vine.VineUpdate(
 				delta
 			)
 
@@ -119,6 +136,7 @@ func update(delta: float) -> void:
 		movement_state.onGround = (
 			player_collision.OnGround()
 		)
+
 	else:
 		movement_state.onGround = false
 
@@ -156,6 +174,7 @@ func _build_movement_runtime() -> void:
 	player_collision = PlayerCollision.new()
 	player_grab = PlayerGrab.new()
 	player_bounce = PlayerBounce.new()
+	player_vine = PlayerVine.new()
 
 	movement_state.Dashes = (
 		player.MaxDashes
@@ -238,10 +257,21 @@ func _build_movement_runtime() -> void:
 		player_grab
 	)
 
+	player_vine.setup(
+		player,
+		self,
+		movement_state,
+		player_dash
+	)
+
 
 func _normal_update(
 	delta: float
 ) -> void:
+	if player_vine.CanGrab():
+		player_vine.StartGrab()
+		return
+
 	if player_grab.CanGrab():
 		player_grab.StartGrab()
 		return
@@ -369,6 +399,8 @@ func _update_public_state_events() -> void:
 	if (
 		movement_state.StateMachineState
 		== player.StClimb
+		or movement_state.StateMachineState
+		== player.StVine
 	):
 		return
 

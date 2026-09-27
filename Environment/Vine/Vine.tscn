@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://casqst1frm8nr"]
+
+[ext_resource type="Script" uid="uid://cm3652gohnyn1" path="res://Environment/Vine/VineSwing.gd" id="1_y0v4h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofmoc"]
+size = Vector2(4, 24)
+
+[node name="Vine" type="Node2D" unique_id=1460239558 node_paths=PackedStringArray("grab_area", "end_point")]
+script = ExtResource("1_y0v4h")
+grab_area = NodePath("GrabArea")
+end_point = NodePath("Marker2D")
+max_angle = 90.0
+min_swing_speed = 250.0
+max_swing_speed = 300.0
+return_speed = 300.0
+
+[node name="GrabArea" type="Area2D" parent="." unique_id=1563681016]
+collision_layer = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea" unique_id=1045130360]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_ofmoc")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=881658461]
+position = Vector2(0, 24)
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1023510995]
+offset_left = -1.0
+offset_right = 1.0
+offset_bottom = 24.0
