@@ -38,7 +38,10 @@ func Bounce(
 		refill_stamina
 	)
 
-	# Normal bounce keeps horizontal speed.
+	# Fixed normal bounce.
+	#
+	# Holding JUMP after the spring fires
+	# cannot extend this bounce.
 	state.Speed.y = (
 		player.BounceSpeed
 	)
@@ -47,15 +50,10 @@ func Bounce(
 		state.Speed.y
 	)
 
-	state.varJumpTimer = (
-		player.BounceVarJumpTime
-	)
+	state.varJumpTimer = 0.0
 
-	state.AutoJump = true
-
-	state.AutoJumpTimer = (
-		player.BounceAutoJumpTime
-	)
+	state.AutoJump = false
+	state.AutoJumpTimer = 0.0
 
 	_consume_jump_press()
 
@@ -73,8 +71,7 @@ func SuperBounce(
 		refill_stamina
 	)
 
-	# Super bounce deliberately kills
-	# horizontal speed.
+	# Fixed SuperBounce.
 	state.Speed.x = 0.0
 
 	state.Speed.y = (
@@ -85,15 +82,10 @@ func SuperBounce(
 		state.Speed.y
 	)
 
-	state.varJumpTimer = (
-		player.SuperBounceVarJumpTime
-	)
+	state.varJumpTimer = 0.0
 
-	state.AutoJump = true
-
-	state.AutoJumpTimer = (
-		player.SuperBounceAutoJumpTime
-	)
+	state.AutoJump = false
+	state.AutoJumpTimer = 0.0
 
 	_consume_jump_press()
 
@@ -184,8 +176,6 @@ func _prepare_bounce(
 	state.Ducking = false
 	state.launched = false
 
-	# Normal and super bounce should not inherit
-	# an old forced horizontal movement.
 	state.forceMoveX = 0
 	state.forceMoveXTimer = 0.0
 
@@ -208,20 +198,12 @@ func _consume_jump_press() -> void:
 		)
 	)
 
-	# This is important.
-	#
-	# The spring/bounce has priority over a normal
-	# Jump() on the same physics frame.
 	state.jump_pressed = false
 
-	# But holding jump still participates in the
-	# variable-height bounce.
 	state.jump_check = (
 		jump_down
 	)
 
-	# Prevent PlayerInput from creating another
-	# fresh jump press later in the same frame.
 	state._jump_was_down = (
 		jump_down
 	)

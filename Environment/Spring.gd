@@ -2,6 +2,9 @@ extends Area2D
 class_name Spring
 
 
+const ACTION_JUMP: StringName = &"JUMP"
+
+
 enum Direction {
 	UP,
 	LEFT,
@@ -25,17 +28,18 @@ enum Direction {
 @export var refill_dash: bool = true
 @export var refill_stamina: bool = true
 
+@export_range(
+	0.0,
+	0.2,
+	0.005
+)
+var hitstop_time: float = 0.05
+
 
 @export_group("Contact")
 
 @export var contact_tolerance_px: float = 3.0
 
-# Celeste aligns the player to the spring surface
-# when the bounce happens.
-#
-# We only correct the relevant axis:
-# UP          -> Y
-# LEFT/RIGHT  -> X
 @export var snap_to_center: bool = true
 
 
@@ -71,11 +75,12 @@ var _player_inside: PlayerRoot = null
 var _fired_for_current_overlap: bool = false
 
 
+# During spring hitstop, JUMP input is buffered here.
+var _waiting_for_bounce: bool = false
+var _buffered_super_bounce: bool = false
+
+
 func _ready() -> void:
-	# Let PlayerMovement finish first.
-	#
-	# This makes the spring response consistent
-	# instead of depending on scene-tree order.
 	process_physics_priority = 100
 
 	body_entered.connect(
@@ -97,9 +102,27 @@ func _ready() -> void:
 		)
 
 
+func _input(
+	event: InputEvent
+) -> void:
+	if not _waiting_for_bounce:
+		return
+
+	if not super_bounce_on_jump:
+		return
+
+	if event.is_action_pressed(
+		ACTION_JUMP
+	):
+		_buffered_super_bounce = true
+
+
 func _physics_process(
 	_delta: float
 ) -> void:
+	if _waiting_for_bounce:
+		return
+
 	if _fired_for_current_overlap:
 		return
 
@@ -111,6 +134,7 @@ func _physics_process(
 	):
 		_player_inside = null
 		_fired_for_current_overlap = false
+
 		return
 
 	var player: PlayerRoot = (
@@ -149,6 +173,73 @@ func _physics_process(
 
 	_fired_for_current_overlap = true
 
+	_begin_spring_activation(
+		player,
+		state,
+		bounce
+	)
+
+
+func _process(
+	_delta: float
+) -> void:
+	_update_line()
+
+
+func _begin_spring_activation(
+	player: PlayerRoot,
+	state: PlayerMovementState,
+	bounce: PlayerBounce
+) -> void:
+	_waiting_for_bounce = true
+
+	# If JUMP is already held when contact happens,
+	# the SuperBounce is already buffered.
+	_buffered_super_bounce = (
+		super_bounce_on_jump
+		and bounce.WantsSuperBounce()
+	)
+
+	# Stop movement immediately during hitstop.
+	state.Speed = Vector2.ZERO
+
+	var previous_time_scale: float = (
+		Engine.time_scale
+	)
+
+	if hitstop_time > 0.0:
+		Engine.time_scale = 0.0
+
+		await get_tree().create_timer(
+			hitstop_time,
+			true,
+			false,
+			true
+		).timeout
+
+		Engine.time_scale = (
+			previous_time_scale
+		)
+
+	if not is_instance_valid(
+		player
+	):
+		_waiting_for_bounce = false
+		_buffered_super_bounce = false
+
+		return
+
+	if (
+		_player_inside != player
+		and not is_instance_valid(
+			_player_inside
+		)
+	):
+		_waiting_for_bounce = false
+		_buffered_super_bounce = false
+
+		return
+
 	if snap_to_center:
 		_snap_player_to_bounce_point(
 			player
@@ -158,7 +249,7 @@ func _physics_process(
 		Direction.UP:
 			if (
 				super_bounce_on_jump
-				and bounce.WantsSuperBounce()
+				and _buffered_super_bounce
 			):
 				bounce.SuperBounce(
 					refill_dash,
@@ -185,6 +276,9 @@ func _physics_process(
 				refill_stamina
 			)
 
+	_waiting_for_bounce = false
+	_buffered_super_bounce = false
+
 	_play_feedback()
 
 	if print_debug:
@@ -196,12 +290,6 @@ func _physics_process(
 			" | STATE: ",
 			state.movement_phase
 		)
-
-
-func _process(
-	_delta: float
-) -> void:
-	_update_line()
 
 
 func _on_body_entered(
@@ -224,7 +312,9 @@ func _on_body_exited(
 		return
 
 	_player_inside = null
-	_fired_for_current_overlap = false
+
+	if not _waiting_for_bounce:
+		_fired_for_current_overlap = false
 
 
 func _can_activate(
@@ -246,12 +336,6 @@ func _can_activate(
 				):
 					return false
 
-			# Normally an UP spring is entered while
-			# falling/downward.
-			#
-			# We keep our custom SuperBounce rule:
-			# holding JUMP may convert an upward
-			# contact into SuperBounce.
 			if state.Speed.y < 0.0:
 				if not (
 					super_bounce_on_jump
