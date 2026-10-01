@@ -2,30 +2,11 @@
 
 [ext_resource type="Script" uid="uid://don73e2npfp5a" path="res://Player/Respawn/RespawnMarker.gd" id="7_du2h4"]
 [ext_resource type="Script" uid="uid://ddplk6gctajhe" path="res://Camera/CameraBounds.gd" id="8_8tioy"]
-[ext_resource type="Script" uid="uid://cinnwvetldlig" path="res://Player/PlayerRoot.gd" id="9_t3w1j"]
-[ext_resource type="Script" uid="uid://8qcc6inxgurk" path="res://Player/PlayerTrail.gd" id="10_7tcce"]
-[ext_resource type="Script" uid="uid://bowyg8xpm8a5h" path="res://Player/Respawn/PlayerRespawn.gd" id="11_nxo84"]
-[ext_resource type="Script" uid="uid://bvfn3luehsnsy" path="res://Player/Death/PlayerDeath.gd" id="12_iisr1"]
-[ext_resource type="Script" uid="uid://dnnryo3gsh8pu" path="res://Player/Death/DeathFeedback.gd" id="13_y7agp"]
-[ext_resource type="Script" uid="uid://bla5jhlpbksb4" path="res://Color/ColorChange/PlayerColorController.gd" id="14_5g4pi"]
-[ext_resource type="Script" uid="uid://c0xmcdujgwai2" path="res://Color/ColorChange/PlayerColorEjectionBridge.gd" id="15_f7tdt"]
-[ext_resource type="Script" uid="uid://crongour54um4" path="res://Player/MovementSFX/PlayerMovementSFX.gd" id="16_5l75i"]
 [ext_resource type="Script" uid="uid://d3u7t7gbv2n6e" path="res://Environment/EnvironmentBody.gd" id="17_7fqjt"]
-[ext_resource type="AudioStream" uid="uid://b4ve7k26shd2q" path="res://Sound/Sfx/Dash.mp3" id="17_xre2a"]
-[ext_resource type="Texture2D" uid="uid://dkphu7hbt7ujh" path="res://Combat/Bullet/Frames/Slash_color1_frame1.png" id="18_nnbeb"]
-[ext_resource type="Script" uid="uid://dl2bu554414wd" path="res://Environment/Spring.gd" id="18_xefq0"]
 [ext_resource type="Script" uid="uid://c2iwqxdysqv5v" path="res://Turnip/Turnip.gd" id="18_xy47d"]
 [ext_resource type="Texture2D" uid="uid://dbnb2eppm6bom" path="res://Environment/Platform/NeutralSpike.png" id="19_feiy4"]
-[ext_resource type="Texture2D" uid="uid://dwbwaoimck1gc" path="res://Combat/Bullet/Frames/Slash_color1_frame2.png" id="19_ru1s2"]
 [ext_resource type="Texture2D" uid="uid://01243rfljw18" path="res://Turnip/Turnip.png" id="19_utgr6"]
-[ext_resource type="Texture2D" uid="uid://2ntjaitlghyy" path="res://Combat/Bullet/Frames/Slash_color1_frame3.png" id="20_lhxl8"]
-[ext_resource type="Texture2D" uid="uid://btj5sorkcxdyg" path="res://Combat/Bullet/Frames/Slash_color1_frame4.png" id="21_ljdbv"]
-[ext_resource type="Script" uid="uid://cqhqpt65cnakb" path="res://Combat/Melee/Melee/MeleeVisual.gd" id="22_5okoe"]
 [ext_resource type="AudioStream" uid="uid://m8m7wny643w4" path="res://Sound/Music/TimMusic1.wav" id="22_utgr6"]
-[ext_resource type="Script" uid="uid://dhaj2ykn3fx0h" path="res://Combat/Melee/Melee/PlayerMelee.gd" id="23_3dnww"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_feiy4"]
-size = Vector2(8, 4)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s5hjp"]
 radius = 8.0
@@ -36,91 +17,7 @@ size = Vector2(320, 190)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8tioy"]
 size = Vector2(16, 140)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vqdju"]
-size = Vector2(8, 11)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v3y5o"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_3nhhi"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("18_nnbeb")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_ru1s2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("20_lhxl8")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_ljdbv")
-}, {
-"duration": 1.0,
-"texture": null
-}],
-"loop": false,
-"name": &"melee",
-"speed": 12.0
-}]
-
 [node name="Level11" type="Node2D" unique_id=834353221]
-metadata/_edit_lock_ = true
-
-[node name="Spring" type="Node2D" parent="." unique_id=24313231]
-position = Vector2(-160, -48)
-rotation = -1.5707964
-
-[node name="Spring" type="Area2D" parent="Spring" unique_id=1985694920 node_paths=PackedStringArray("spring_top", "spring_line")]
-position = Vector2(-104, 48)
-rotation = 1.5707964
-collision_layer = 3
-script = ExtResource("18_xefq0")
-spring_top = NodePath("..")
-spring_line = NodePath("Line2D")
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring/Spring" unique_id=1991202631]
-position = Vector2(4, -2)
-shape = SubResource("RectangleShape2D_feiy4")
-metadata/_edit_lock_ = true
-
-[node name="Line2D" type="Line2D" parent="Spring/Spring" unique_id=1542669523]
-width = 1.0
-default_color = Color(0.021434637, 0.021434635, 0.021434633, 1)
-metadata/_edit_lock_ = true
-
-[node name="Polygon2D" type="Polygon2D" parent="Spring/Spring" unique_id=465163027]
-color = Color(0.5394907, 0.24205488, 0.044932455, 1)
-polygon = PackedVector2Array(0, -4, 8, -4, 8, 0, 0, 0)
-metadata/_edit_lock_ = true
-
-[node name="Spring2" type="Node2D" parent="." unique_id=1986516689]
-position = Vector2(-52, -64)
-rotation = -1.5707964
-
-[node name="Spring" type="Area2D" parent="Spring2" unique_id=936624981 node_paths=PackedStringArray("spring_top", "spring_line")]
-position = Vector2(-104, 48)
-rotation = 1.5707964
-collision_layer = 3
-script = ExtResource("18_xefq0")
-spring_top = NodePath("..")
-spring_line = NodePath("Line2D")
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring2/Spring" unique_id=503445645]
-position = Vector2(4, -2)
-shape = SubResource("RectangleShape2D_feiy4")
-metadata/_edit_lock_ = true
-
-[node name="Line2D" type="Line2D" parent="Spring2/Spring" unique_id=802308099]
-width = 1.0
-default_color = Color(0.021434637, 0.021434635, 0.021434633, 1)
-metadata/_edit_lock_ = true
-
-[node name="Polygon2D" type="Polygon2D" parent="Spring2/Spring" unique_id=1962793655]
-color = Color(0.5394907, 0.24205488, 0.044932455, 1)
-polygon = PackedVector2Array(0, -4, 8, -4, 8, 0, 0, 0)
 metadata/_edit_lock_ = true
 
 [node name="Turnip" type="Area2D" parent="." unique_id=927963888 node_paths=PackedStringArray("sprite")]
@@ -164,10 +61,6 @@ polygon = PackedVector2Array(-160, 56, -104, 56, -104, 64, -136, 64, -136, 72, -
 position = Vector2(0, 16)
 polygon = PackedVector2Array(-64, -8, -56, -8, -56, 8, -64, 8)
 
-[node name="Polygon2D7" type="Polygon2D" parent="Base" unique_id=135089293]
-position = Vector2(56, 48)
-polygon = PackedVector2Array(-64, -8, -48, -8, -48, 0, -64, 0)
-
 [node name="Polygon2D3" type="Polygon2D" parent="Base" unique_id=1271511929]
 position = Vector2(-16, -56)
 polygon = PackedVector2Array(8, 24, 40, 24, 40, 32, 8, 32)
@@ -182,10 +75,6 @@ polygon = PackedVector2Array(-56, -120, -16, -120, -16, -72, -40, -72, -40, -80,
 
 [node name="Polygon2D4" type="Polygon2D" parent="Base" unique_id=350332945]
 polygon = PackedVector2Array(64, -64, 88, -64, 88, -56, 104, -56, 104, -48, 128, -48, 128, -64, 136, -64, 136, -88, 152, -88, 152, 88, 144, 88, 144, 72, 136, 72, 136, 56, 128, 56, 128, 48, 104, 48, 104, 32, 88, 32, 88, -24, 72, -24, 72, 8, 64, 8)
-
-[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="Base" unique_id=1421606309]
-position = Vector2(184, -128)
-polygon = PackedVector2Array(-192, 176, -192, 168, -176, 168, -176, 176)
 
 [node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="Base" unique_id=1338959276]
 polygon = PackedVector2Array(-64, 8, -56, 8, -56, 24, -64, 24)
@@ -348,96 +237,5 @@ script = ExtResource("7_du2h4")
 spawn_id = &"from_left"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn/Area2D" unique_id=2018668480]
-position = Vector2(-32, -70)
+position = Vector2(24, -16)
 shape = SubResource("RectangleShape2D_8tioy")
-
-[node name="Player2" type="CharacterBody2D" parent="." unique_id=947263149 node_paths=PackedStringArray("player_visual")]
-position = Vector2(-108, 54)
-collision_mask = 2
-script = ExtResource("9_t3w1j")
-player_visual = NodePath("CharacterRect")
-MaxFall = 140.0
-JumpSpeed = -110.0
-DashTime = 0.1
-
-[node name="DashPixel" type="Sprite2D" parent="Player2" unique_id=161496758]
-metadata/_edit_lock_ = true
-
-[node name="DashTrail" type="Node2D" parent="Player2" unique_id=168527952 node_paths=PackedStringArray("trail_template", "pixel_template", "afterimage_template")]
-script = ExtResource("10_7tcce")
-trail_template = NodePath("../Line2D")
-trail_lifetime = 1.0
-max_points = 15
-minimum_point_distance = 12.0
-trail_color = Color(0.66656864, 0.6665687, 0.6665685, 0.74509805)
-pixel_template = NodePath("../DashPixel")
-pixels_per_dash = 4
-afterimage_template = NodePath("../CharacterRect")
-afterimage_lifetime = 0.2
-metadata/_edit_lock_ = true
-
-[node name="Line2D" type="Line2D" parent="Player2" unique_id=1634060322]
-z_index = -1
-position = Vector2(0, -6)
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2" unique_id=1125681574]
-position = Vector2(0, -5.5)
-shape = SubResource("RectangleShape2D_vqdju")
-metadata/_edit_lock_ = true
-
-[node name="CharacterRect" type="ColorRect" parent="Player2" unique_id=801733302]
-material = SubResource("ShaderMaterial_v3y5o")
-offset_left = -4.0
-offset_top = -11.0
-offset_right = 4.0
-color = Color(0.8687545, 0, 0.22967622, 1)
-metadata/_edit_lock_ = true
-
-[node name="Respawn" type="Node" parent="Player2" unique_id=992168174]
-script = ExtResource("11_nxo84")
-
-[node name="Death" type="Node" parent="Player2" unique_id=1275642425]
-script = ExtResource("12_iisr1")
-
-[node name="DeathFeedback" type="Node" parent="Player2/Death" unique_id=1710084201]
-script = ExtResource("13_y7agp")
-
-[node name="States" type="Node" parent="Player2" unique_id=654935612]
-
-[node name="Color" type="Node" parent="Player2" unique_id=1043797106]
-
-[node name="PlayerColorController" type="Node" parent="Player2/Color" unique_id=1098573044 node_paths=PackedStringArray("player_visual")]
-script = ExtResource("14_5g4pi")
-player_visual = NodePath("../../CharacterRect")
-red_color = Color(0.8352941, 0.1254902, 0.1254902, 1)
-blue_color = Color(0.2627451, 0.43137255, 0.69411767, 1)
-
-[node name="PlayerColorEjectionBridge" type="Node" parent="Player2/Color" unique_id=968126200 node_paths=PackedStringArray("player_collision_shape")]
-script = ExtResource("15_f7tdt")
-player_collision_shape = NodePath("../../CollisionShape2D")
-travel_acceleration = 2000.0
-exit_speed = 200.0
-lift_boost_cap = 20.0
-ejection_hazard_grace_time = 0.1
-
-[node name="SFX" type="Node" parent="Player2" unique_id=286757829 node_paths=PackedStringArray("dash_sfx")]
-script = ExtResource("16_5l75i")
-dash_sfx = NodePath("Dash")
-
-[node name="Dash" type="AudioStreamPlayer" parent="Player2/SFX" unique_id=305856858]
-stream = ExtResource("17_xre2a")
-volume_db = -4.0
-pitch_scale = 1.1
-
-[node name="melee" type="AnimatedSprite2D" parent="Player2" unique_id=1344235413]
-sprite_frames = SubResource("SpriteFrames_3nhhi")
-animation = &"melee"
-script = ExtResource("22_5okoe")
-metadata/_edit_lock_ = true
-
-[node name="PlayerMelee" type="Node2D" parent="Player2" unique_id=1919029227 node_paths=PackedStringArray("melee_visual")]
-script = ExtResource("23_3dnww")
-melee_visual = NodePath("../melee")
-metadata/_custom_type_script = "uid://dhaj2ykn3fx0h"
-metadata/_edit_lock_ = true

@@ -32,7 +32,7 @@ collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Base" unique_id=699592583]
 position = Vector2(-160, -88)
-polygon = PackedVector2Array(0, 88, 8, 88, 24, 88, 24, 80, 32, 80, 32, 72, 56, 72, 56, 64, 40, 64, 40, 56, 48, 56, 48, 48, 32, 48, 32, 40, 24, 40, 24, 24, 32, 24, 32, 16, 72, 16, 72, 8, 128, 8, 128, 16, 136, 16, 136, 32, 144, 32, 144, 40, 160, 40, 160, 48, 168, 48, 168, 88, 184, 88, 184, 80, 176, 80, 176, 64, 176, 40, 176, -8, 0, -8)
+polygon = PackedVector2Array(0, 88, 8, 88, 24, 88, 24, 80, 32, 80, 32, 64, 40, 64, 40, 56, 48, 56, 48, 48, 32, 48, 32, 40, 24, 40, 24, 24, 32, 24, 32, 16, 72, 16, 72, 8, 128, 8, 128, 16, 136, 16, 136, 32, 144, 32, 144, 40, 160, 40, 160, 48, 168, 48, 168, 88, 184, 88, 184, 80, 176, 80, 176, 64, 176, 40, 176, -8, 0, -8)
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Environment/Base" unique_id=31464532]
 position = Vector2(-160, -88)
@@ -59,8 +59,7 @@ metadata/_edit_lock_ = true
 [node name="Base" type="Polygon2D" parent="Environment/Base" unique_id=291774660]
 position = Vector2(-144, -88)
 color = Color(0.0627451, 0.05882353, 0.10980392, 1)
-polygon = PackedVector2Array(-16, -8, -16, 88, -8, 88, 8, 88, 8, 80, 16, 80, 16, 72, 40, 72, 40, 64, 24, 64, 24, 56, 32, 56, 32, 48, 16, 48, 16, 40, 8, 40, 8, 24, 16, 24, 16, 16, 56, 16, 56, 8, 112, 8, 112, 16, 120, 16, 120, 32, 128, 32, 128, 40, 144, 40, 144, 48, 152, 48, 152, 88, 168, 88, 168, 80, 160, 80, 160, 40, 160, -8)
-metadata/_edit_lock_ = true
+polygon = PackedVector2Array(-16, -8, -16, 88, -8, 88, 8, 88, 8, 80, 16, 80, 16, 64, 24, 64, 24, 56, 32, 56, 32, 48, 16, 48, 16, 40, 8, 40, 8, 24, 16, 24, 16, 16, 56, 16, 56, 8, 112, 8, 112, 16, 120, 16, 120, 32, 128, 32, 128, 40, 144, 40, 144, 48, 152, 48, 152, 88, 168, 88, 168, 80, 160, 80, 160, 40, 160, -8)
 
 [node name="Base3" type="Polygon2D" parent="Environment/Base" unique_id=598251486]
 position = Vector2(-144, -88)
@@ -367,6 +366,14 @@ polygon = PackedVector2Array(-204, 172, -204, 168, -180, 168, -180, 172)
 position = Vector2(231, -148)
 polygon = PackedVector2Array(-204, 172, -204, 168, -196, 168, -196, 172)
 
+[node name="CollisionPolygon2D26" type="CollisionPolygon2D" parent="Environment/Spikes2" unique_id=1268406716]
+position = Vector2(247, -144)
+polygon = PackedVector2Array(-208, 172, -208, 168, -204, 168, -204, 172)
+
+[node name="CollisionPolygon2D27" type="CollisionPolygon2D" parent="Environment/Spikes2" unique_id=2036178416]
+position = Vector2(283, -176)
+polygon = PackedVector2Array(-208, 204, -208, 168, -204, 168, -204, 204)
+
 [node name="CollisionPolygon2D25" type="CollisionPolygon2D" parent="Environment/Spikes2" unique_id=446131052]
 position = Vector2(215, -140)
 polygon = PackedVector2Array(-204, 172, -204, 168, -196, 168, -196, 172)
@@ -453,8 +460,43 @@ position = Vector2(83.00001, -12)
 scale = Vector2(0.099999964, 0.099999994)
 texture = ExtResource("19_sjuhf")
 
+[node name="Sprite2D68" type="Sprite2D" parent="Environment/Spikes2" unique_id=110495002]
+position = Vector2(75.00001, -4.0000005)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("19_sjuhf")
+
+[node name="Sprite2D69" type="Sprite2D" parent="Environment/Spikes2" unique_id=1237673705]
+position = Vector2(75.00001, 3.999999)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("19_sjuhf")
+
+[node name="Sprite2D70" type="Sprite2D" parent="Environment/Spikes2" unique_id=91391978]
+position = Vector2(75.00001, 11.999998)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("19_sjuhf")
+
+[node name="Sprite2D71" type="Sprite2D" parent="Environment/Spikes2" unique_id=1035806960]
+position = Vector2(75.00001, 20.000002)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("19_sjuhf")
+
+[node name="Sprite2D72" type="Sprite2D" parent="Environment/Spikes2" unique_id=1231132842]
+position = Vector2(75.00001, 28.000002)
+rotation = -1.5707964
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("19_sjuhf")
+
 [node name="Sprite2D63" type="Sprite2D" parent="Environment/Spikes2" unique_id=1258076335]
 position = Vector2(27.000011, 19.999998)
+scale = Vector2(0.099999964, 0.099999994)
+texture = ExtResource("19_sjuhf")
+
+[node name="Sprite2D67" type="Sprite2D" parent="Environment/Spikes2" unique_id=666727721]
+position = Vector2(34.999996, 20.000002)
 scale = Vector2(0.099999964, 0.099999994)
 texture = ExtResource("19_sjuhf")
 
@@ -469,7 +511,8 @@ scale = Vector2(0.099999964, 0.099999994)
 texture = ExtResource("19_sjuhf")
 
 [node name="Sprite2D64" type="Sprite2D" parent="Environment/Spikes2" unique_id=699260740]
-position = Vector2(35.000004, 20.000002)
+position = Vector2(43.000004, 28.000002)
+rotation = 1.5707964
 scale = Vector2(0.099999964, 0.099999994)
 texture = ExtResource("19_sjuhf")
 
